@@ -131,10 +131,24 @@
                 <i class="fas fa-th-large"></i>
             </a>
         </li>
-        <li class="nav-item">
-            <a href="{{ route() }}" class="btn btn-primary text-white text-bold float-right">
-                Login
-            </a>
-        </li>
+        @if(!\Illuminate\Support\Facades\Auth::check())
+            <li class="nav-item">
+                <a href="{{ route("login") }}" class="btn btn-primary text-white text-bold float-right">
+                    Login
+                </a>
+            </li>
+
+        @else
+            <li class="nav-item">
+                <form action="{{ route("logout") }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-danger text-white text-bold float-right">
+                        Logout
+                    </button>
+                </form>
+
+            </li>
+        @endif
+
     </ul>
 </nav>
