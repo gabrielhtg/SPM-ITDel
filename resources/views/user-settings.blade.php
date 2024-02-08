@@ -20,9 +20,9 @@
 <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
-    </div>
+{{--    <div class="preloader flex-column justify-content-center align-items-center">--}}
+{{--        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">--}}
+{{--    </div>--}}
 
     <!-- Navbar -->
     @include("components.navbar")
@@ -47,19 +47,15 @@
 
         <!-- Main content -->
         <div class="card">
-            <div class="card-header">
-                <h3 class="card-title">DataTable with default features</h3>
-            </div>
-            <!-- /.card-header -->
             <div class="card-body">
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
+                        <th>Email</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Desc</th>
+                        <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -471,15 +467,6 @@
                         <td>U</td>
                     </tr>
                     </tbody>
-                    <tfoot>
-                    <tr>
-                        <th>Rendering engine</th>
-                        <th>Browser</th>
-                        <th>Platform(s)</th>
-                        <th>Engine version</th>
-                        <th>CSS grade</th>
-                    </tr>
-                    </tfoot>
                 </table>
             </div>
             <!-- /.card-body -->
@@ -521,7 +508,8 @@
     $(function () {
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            "pageLength" : 12
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
@@ -531,6 +519,7 @@
             "info": true,
             "autoWidth": false,
             "responsive": true,
+            "pageLength" : 12
         });
     });
 </script>
