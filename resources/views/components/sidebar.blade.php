@@ -27,20 +27,22 @@
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
                     <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            Dashboard
+                            News
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-user"></i>
-                        <p>
-                            Users Settings
-                        </p>
-                    </a>
-                </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <li class="nav-item">
+                        <a href="{{ route('user-settings') }}" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>
+                                Users Settings
+                            </p>
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-copy"></i>

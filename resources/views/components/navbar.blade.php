@@ -146,9 +146,7 @@
                         Logout
                     </button>
                 </form>
-
             </li>
         @endif
-
     </ul>
 </nav>
