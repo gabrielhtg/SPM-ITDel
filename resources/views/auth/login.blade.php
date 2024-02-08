@@ -26,7 +26,7 @@
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
-                <div class="input-group mb-3">
+                <div class="input-group">
                     <input id="email" name="email" type="email" class="form-control" placeholder="Email" required autofocus autocomplete="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
@@ -34,15 +34,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="input-group mb-3">
+                <span class="text-danger">{{ $errors->first('email') }}</span>
+
+                <div class="input-group mt-3">
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
-                        </div>
+                        </div>h
                     </div>
                 </div>
-                <div class="row">
+                <span class="text-danger">{{ $errors->first('password') }}</span>
+
+                <div class="row mt-3">
                     <div class="col-8">
                         <div class="icheck-primary">
                             <input type="checkbox" id="remember">
@@ -68,9 +72,9 @@
                     </a>
                 @endif
             </p>
-            <p class="mb-0">
-                <a href="{{ route("register") }}" class="text-center">Register</a>
-            </p>
+{{--            <p class="mb-0">--}}
+{{--                <a href="{{ route("register") }}" class="text-center">Register</a>--}}
+{{--            </p>--}}
         </div>
         <!-- /.card-body -->
     </div>
