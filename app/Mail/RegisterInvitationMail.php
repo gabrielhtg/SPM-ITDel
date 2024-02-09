@@ -51,7 +51,7 @@ class RegisterInvitationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            from: new Address('mayasianturihebat@gmail.com', 'Gabriel Cesar Hutagalung'),
+            from: new Address('amiadmitdel@gmail.com', 'AMI IT Del Administrator'),
             subject: 'Register Invitation Mail',
         );
     }
