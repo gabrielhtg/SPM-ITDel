@@ -41,7 +41,7 @@
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
-                        </div>h
+                        </div>
                     </div>
                 </div>
                 <span class="text-danger">{{ $errors->first('password') }}</span>

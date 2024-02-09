@@ -15,8 +15,6 @@ Route::middleware('guest')->group(function () {
 //    Route::get('register', [RegisteredUserController::class, 'create'])
 //                ->name('register');
 
-//    Route::post('register', [RegisteredUserController::class, 'store']);
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -56,4 +54,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
+
+    Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+
+    Route::delete('remove-user', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('remove-user');
 });
