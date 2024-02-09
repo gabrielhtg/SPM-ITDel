@@ -3,8 +3,6 @@
 namespace Database\Seeders;
 
 use Faker\Factory;
-use Faker\Guesser\Name;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
