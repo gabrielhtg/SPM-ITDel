@@ -15,7 +15,9 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
-{{--    <link rel="stylesheet" href="{{ asset("plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css") }}">--}}
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <!-- SummerNote -->
+    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -45,11 +47,15 @@
         <div class="card">
             <div class="card-body">
 
-                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add User</span>
+                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success1">
+                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add User Manually</span>
                 </button>
 
-                <div class="modal fade" id="modal-success">
+                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success2">
+                    <i class="fas fa-share-alt"></i> <span style="margin-left: 5px">Add User via Link</span>
+                </button>
+
+                <div class="modal fade" id="modal-success1">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -134,11 +140,68 @@
                     </div>
                     <!-- /.modal-dialog -->
                 </div>
+
+                <div class="modal fade" id="modal-success2">
+                    <div class="modal-dialog modal-dialog-centered modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Add User via Link</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="GET" action="{{ route('register-invitation') }}">
+                                    @csrf
+                                    <div class="input-group">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <span class="fas fa-envelope" style="font-size: 14px"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
+
+                                    <div class="input-group mt-3">
+                                        <select class="form-control" name="role" required>
+                                            <option value="">-- Select Role --</option>
+                                            <option value="1">Rektor</option>
+                                            <option value="2">Wakil Rektor</option>
+                                            <option value="3">Ketua SPPM</option>
+                                            <option value="4">Anggota SPPM</option>
+                                        </select>
+                                        <div class="input-group-append">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user-tag" style="font-size: 12px"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="mt-3"></div>
+                                    <textarea id="summernote" name="pesan">
+                                        Berikut ini kami berikan link yang dapat anda gunakan untuk melakukan pendaftaran.
+                                    </textarea>
+
+                                    <div class="d-flex justify-content-center">
+                                        <button type="submit" class="btn btn-primary mt-4">Send Invitation Link</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Email</th>
                         <th>Name</th>
+                        <th>Email</th>
                         <th>Role</th>
                         <th>Created At</th>
                         <th>Action</th>
@@ -147,26 +210,54 @@
                     <tbody>
                     @foreach($users as $e)
                         <tr>
-                            <td>{{ $e->email }}</td>
-                            <td>{{ $e->name }}</td>
                             <td>
-                                @if($e->role === 1)
-                                    Rektor
-                                @elseif($e->role === 2)
-                                    Wakil Rektor
-                                @elseif($e->role === 3)
-                                    Ketua SPPM
-                                @elseif($e->role === 4)
-                                    Anggota SPPM
-                                @endif
+                                <div class="user-panel d-flex">
+                                    <div class="image">
+                                        <img src="{{ $e->profile_pict }}" class="img-circle custom-border" alt="User Image">
+                                    </div>
+                                    <div class="info">
+                                        <span class="d-block">{{ $e->name }}</span>
+                                    </div>
+                                </div>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span class="d-block"> {{ $e->email }}</span>
+                                    </div>
+                                </div>
                             </td>
-                            <td>{{ $e->created_at }}</td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span class="d-block">
+                                            @if($e->role === 1)
+                                                Rektor
+                                            @elseif($e->role === 2)
+                                                Wakil Rektor
+                                            @elseif($e->role === 3)
+                                                Ketua SPPM
+                                            @elseif($e->role === 4)
+                                                Anggota SPPM
+                                            @endif
+                                        </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span class="d-block">
+                                            {{ $e->created_at }}
+                                        </span>
+                                    </div>
+                                </div>
+                                </td>
                             <td>
                                 <form action="{{ route('remove-user') }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                    <button type="submit" class="btn btn-danger">Hapus</button>
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -206,6 +297,7 @@
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
+<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
@@ -255,6 +347,25 @@
             })
         @endif
     });
+</script>
+<script>
+    $(function () {
+        // Summernote
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+
+        })
+    })
 </script>
 </body>
 </html>

@@ -58,4 +58,7 @@ Route::middleware('auth')->group(function () {
     Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
 
     Route::delete('remove-user', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('remove-user');
+
+    Route::get('/register-invitation', [RegisteredUserController::class, 'sendRegisterInvitationLink'])->name('register-invitation');
+
 });

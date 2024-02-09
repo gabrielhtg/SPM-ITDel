@@ -25,13 +25,14 @@
     <link rel="stylesheet" href="{{ asset("plugins/daterangepicker/daterangepicker.css") }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel    " height="60" width="60">
+        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
     </div>
 
     <!-- Navbar -->

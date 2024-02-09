@@ -16,9 +16,6 @@
     <ul class="navbar-nav ml-auto">
         <!-- Navbar Search -->
         <li class="nav-item">
-            <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-                <i class="fas fa-search"></i>
-            </a>
             <div class="navbar-search-block">
                 <form class="form-inline">
                     <div class="input-group input-group-sm">
@@ -121,31 +118,40 @@
                 <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="fullscreen" href="#" role="button">
-                <i class="fas fa-expand-arrows-alt"></i>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
-                <i class="fas fa-th-large"></i>
-            </a>
-        </li>
         @if(!\Illuminate\Support\Facades\Auth::check())
-            <li class="nav-item">
+            <li class="nav-item ml-3">
                 <a href="{{ route("login") }}" class="btn btn-primary text-white text-bold float-right">
                     Login
                 </a>
             </li>
 
         @else
-            <li class="nav-item">
-                <form action="{{ route("logout") }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-danger text-white text-bold float-right">
-                        Logout
-                    </button>
-                </form>
+            <li class="nav-item dropdown">
+                <a style="text-decoration: none" data-toggle="dropdown">
+                    <div class="user-panel d-flex" style="margin-top: 2px">
+                        <div class="image">
+                            <img src="{{ asset(auth()->user()->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                        </div>
+                        <div type="button" class="info">
+                            <span class="d-block">{{ auth()->user()->name }}</span>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                    <a href="#" class="dropdown-item">
+                        <i class="mr-2 fas fa-user" style="padding-right: 1px"></i> Profile
+                    </a>
+
+                    <div class="dropdown-divider"></div>
+
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit" class="dropdown-item">
+                            <i class="fas fa-sign-out-alt mr-2" ></i> Logout
+                        </button>
+                    </form>
+                </div>
             </li>
         @endif
     </ul>

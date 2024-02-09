@@ -36,7 +36,7 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="nav-item">
                         <a href="{{ route('user-settings') }}" class="nav-link">
-                            <i class="nav-icon fas fa-user"></i>
+                            <i class="fas fa-users nav-icon"></i>
                             <p>
                                 Users Settings
                             </p>
