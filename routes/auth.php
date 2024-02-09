@@ -31,6 +31,14 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+    Route::get('/register/{token}', [RegisteredUserController::class, 'create']);
+
+    Route::get('/register', function () {
+        abort(404);
+    });
+
+    Route::post('/register-invite', [RegisteredUserController::class, 'storeFromInvitationLink']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -60,5 +68,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('remove-user', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('remove-user');
 
     Route::get('/register-invitation', [RegisteredUserController::class, 'sendRegisterInvitationLink'])->name('register-invitation');
-
 });

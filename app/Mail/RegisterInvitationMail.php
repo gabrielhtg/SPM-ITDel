@@ -20,9 +20,9 @@ class RegisterInvitationMail extends Mailable
 
     public $pesan;
     public $role;
-    public $email;
+    public $token;
 
-    public function __construct($reqPesan, $reqRole, $reqEmail)
+    public function __construct($reqPesan, $reqRole, $reqToken)
     {
 
         if ($reqRole == 1) {
@@ -42,7 +42,7 @@ class RegisterInvitationMail extends Mailable
         }
 
         $this->pesan = $reqPesan;
-        $this->email = $reqEmail;
+        $this->token = $reqToken;
     }
 
     /**
@@ -65,8 +65,8 @@ class RegisterInvitationMail extends Mailable
             view: 'Mail.register-invitation-mail',
             with: [
                 'pesan' => $this->pesan,
-                'email' => $this->email,
-                'role' => $this->role
+                'role' => $this->role,
+                'token' => $this->token
             ],
         );
     }

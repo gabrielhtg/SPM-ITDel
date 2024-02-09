@@ -21,6 +21,7 @@ class create_user_admin extends Seeder
             'email' => 'useradmin@gmail.com',
             'password' => Hash::make("user_admin"),
             'role' => 1,
+            'status' => false,
             'created_at' => now(),
             'profile_pict' => 'src/img/useradmin_profile.png'
         ]);
@@ -36,6 +37,7 @@ class create_user_admin extends Seeder
                     'email' => $faker->email(),
                     'profile_pict' => $faker->imageUrl(480,480),
                     'password' => Hash::make('kelompok1hore'),
+                    'status' => false,
                     'role' => rand(1, 4),
                     'created_at' => now()
                 ]);

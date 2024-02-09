@@ -1,3 +1,11 @@
+@php
+    if (\Illuminate\Support\Facades\Auth::check()) {
+        \App\Models\User::where('id', \Illuminate\Support\Facades\Auth::user()->id)->update([
+            'status' => true
+        ]);
+    }
+@endphp
+
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">

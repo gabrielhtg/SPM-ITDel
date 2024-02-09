@@ -153,8 +153,8 @@
                             <div class="modal-body">
                                 <form method="GET" action="{{ route('register-invitation') }}">
                                     @csrf
-                                    <div class="input-group">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
+                                    <div class="input-group mt-3">
+                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope" style="font-size: 14px"></span>
@@ -204,6 +204,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Created At</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -251,7 +252,16 @@
                                         </span>
                                     </div>
                                 </div>
-                                </td>
+                            </td>
+
+                            <td>
+                                @if($e->status)
+                                    <i class="fas fa-circle text-success"></i> Online
+                                @else
+                                    <i class="fas fa-circle text-danger"></i> Offline
+                                @endif
+                            </td>
+
                             <td>
                                 <form action="{{ route('remove-user') }}" method="post">
                                     @csrf
