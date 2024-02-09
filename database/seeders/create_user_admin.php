@@ -33,7 +33,7 @@ class create_user_admin extends Seeder
                 DB::table('users')->insert([
                     'name' => $faker->name(),
                     'email' => $faker->email(),
-                    'password' => 'kelompok1hore',
+                    'password' => Hash::make('kelompok1hore'),
                     'role' => rand(1, 4),
                     'created_at' => now()
                 ]);
