@@ -2,9 +2,11 @@
 
 namespace Database\Seeders;
 
+use Faker\Factory;
 use Faker\Guesser\Name;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
@@ -23,5 +25,23 @@ class create_user_admin extends Seeder
             'role' => 1,
             'created_at' => now()
         ]);
+
+        require_once 'vendor/autoload.php';
+
+        $faker = Factory::create();
+
+        foreach (range(1, 1000) as $index) {
+            try {
+                DB::table('users')->insert([
+                    'name' => $faker->name(),
+                    'email' => $faker->email(),
+                    'password' => $faker->password(8, 10),
+                    'role' => rand(1, 4),
+                    'created_at' => now()
+                ]);
+            } catch (UniqueConstraintViolationException $e) {
+                // do nothin
+            }
+        }
     }
 }

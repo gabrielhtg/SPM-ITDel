@@ -28,7 +28,13 @@ class UserController extends Controller
         if (Auth::check()) {
             $user = User::where('id', $request->user_id)->first();
             $user->delete();
-            return redirect()->route('user-settings')->with('success', true);
+
+            $data = [
+                'success' => isset($user),
+                'text' => "Berhasil menghapus user"
+            ];
+
+            return redirect()->route('user-settings')->with('toastData', $data);
         }
     }
 }

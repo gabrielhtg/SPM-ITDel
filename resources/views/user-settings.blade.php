@@ -15,16 +15,10 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
-    <!-- SweetAlert2 -->
-    <link rel="stylesheet" href="{{ asset("plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css") }}">
+{{--    <link rel="stylesheet" href="{{ asset("plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
-
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
-    </div>
 
     <!-- Navbar -->
     @include("components.navbar")
@@ -85,7 +79,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    <span class="text-danger">{{ $errors->first('email') }}</span>
 
                                     <div class="input-group mt-3">
                                         <input type="password"
@@ -162,6 +156,8 @@
                                     Wakil Rektor
                                 @elseif($e->role === 3)
                                     Ketua SPPM
+                                @elseif($e->role === 4)
+                                    Anggota SPPM
                                 @endif
                             </td>
                             <td>{{ $e->created_at }}</td>
@@ -210,7 +206,7 @@
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-<script src="{{ asset("plugins/sweetalert2/sweetalert2.min.js") }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <!-- Page specific script -->
@@ -235,18 +231,29 @@
 </script>
 <script>
     $(function() {
-        var Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000
-        });
+        @if(session('toastData') !== null)
+            if({!! session('toastData')['success'] !!})
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{!! session('toastData')['text'] !!}',
+                    toast: true,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    timer: 3000
+                })
+        @endif
 
-        @if(session('success'))
-        Toast.fire({
-            icon: 'success',
-            title: 'Berhasil menghapus user!'
-        })
+        @if (!$errors->isEmpty())
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
         @endif
     });
 </script>

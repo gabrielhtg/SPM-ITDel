@@ -36,7 +36,7 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        User::create([
+        $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
@@ -47,6 +47,21 @@ class RegisteredUserController extends Controller
 //
 //        Auth::login($user);
 
-        return redirect()->route('user-settings');
+        $text = null;
+
+        if ($user !== null) {
+            $text = "Successfully added user";
+        }
+
+        else {
+            $text = "Failed to add user";
+        }
+
+        $dataToast = [
+            'success' => isset($user),
+            'text' => $text
+        ];
+
+        return redirect()->route('user-settings')->with('toastData', $dataToast);
     }
 }
