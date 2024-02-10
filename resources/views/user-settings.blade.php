@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Services\CustomConverterService; @endphp
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -6,7 +7,8 @@
     <title>Users Settings</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- DataTables -->
@@ -47,155 +49,9 @@
         <div class="card">
             <div class="card-body">
 
-                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success1">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add User Manually</span>
-                </button>
-
-                <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success2">
-                    <i class="fas fa-share-alt"></i> <span style="margin-left: 5px">Add User via Link</span>
-                </button>
-
-                <div class="modal fade" id="modal-success1">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add User</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form-register" method="POST" action="{{ route('register') }}">
-                                    @csrf
-                                    <div class="input-group">
-                                        <input type="text" name="name" id="name" class="form-control" placeholder="Full name" required autofocus autocomplete="name">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-user"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('name') }}</span>
-
-                                    <div class="input-group mt-3">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-envelope" style="font-size: 14px"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-
-                                    <div class="input-group mt-3">
-                                        <input type="password"
-                                               class="form-control"
-                                               name="password"
-                                               id="password"
-                                               placeholder="Password" required autocomplete="new-password">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-lock"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('password') }}</span>
-
-                                    <div class="input-group mt-3">
-                                        <input type="password"
-                                               id="password_confirmation"
-                                               name="password_confirmation"
-                                               class="form-control"
-                                               placeholder="Retype password" required autocomplete="new-password">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-lock"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-
-                                    <div class="input-group mt-3">
-                                        <select class="form-control" name="role" id="role" required>
-                                            <option value="">-- Select Role --</option>
-                                            <option value="1">Rektor</option>
-                                            <option value="2">Wakil Rektor</option>
-                                            <option value="3">Ketua SPPM</option>
-                                            <option value="4">Anggota SPPM</option>
-                                        </select>
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-user-tag" style="font-size: 12px"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" form="form-register" class="btn btn-primary">Add User</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
-
-                <div class="modal fade" id="modal-success2">
-                    <div class="modal-dialog modal-dialog-centered modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add User via Link</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form method="GET" action="{{ route('register-invitation') }}">
-                                    @csrf
-                                    <div class="input-group mt-3">
-                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <span class="fas fa-envelope" style="font-size: 14px"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <span class="text-danger">{{ $errors->first('email') }}</span>
-
-                                    <div class="input-group mt-3">
-                                        <select class="form-control" name="role" required>
-                                            <option value="">-- Select Role --</option>
-                                            <option value="1">Rektor</option>
-                                            <option value="2">Wakil Rektor</option>
-                                            <option value="3">Ketua SPPM</option>
-                                            <option value="4">Anggota SPPM</option>
-                                        </select>
-                                        <div class="input-group-append">
-                                            <div class="input-group-text">
-                                                <i class="fas fa-user-tag" style="font-size: 12px"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="mt-3"></div>
-                                    <textarea id="summernote" name="pesan">
-                                        Berikut ini kami berikan link yang dapat anda gunakan untuk melakukan pendaftaran.
-                                    </textarea>
-
-                                    <div class="d-flex justify-content-center">
-                                        <button type="submit" class="btn btn-primary mt-4">Send Invitation Link</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer justify-content-between">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
+                @include('components.add-user-manually-modal')
+                @include('components.add-user-via-invite-link')
+                @include('components.list-invited-user')
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -214,7 +70,8 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="image">
-                                        <img src="{{ $e->profile_pict }}" class="img-circle custom-border" alt="User Image">
+                                        <img src="{{ $e->profile_pict }}" class="img-circle custom-border"
+                                             alt="User Image">
                                     </div>
                                     <div class="info">
                                         <span class="d-block">{{ $e->name }}</span>
@@ -231,15 +88,7 @@
                                 <div class="user-panel d-flex">
                                     <div class="info">
                                         <span class="d-block">
-                                            @if($e->role === 1)
-                                                Rektor
-                                            @elseif($e->role === 2)
-                                                Wakil Rektor
-                                            @elseif($e->role === 3)
-                                                Ketua SPPM
-                                            @elseif($e->role === 4)
-                                                Anggota SPPM
-                                            @endif
+                                            {{ app(CustomConverterService::class)->convertRole($e->role) }}
                                         </span>
                                     </div>
                                 </div>
@@ -317,7 +166,7 @@
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength" : 10
+            "pageLength": 10
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         $('#example2').DataTable({
             "paging": true,
@@ -331,41 +180,41 @@
     });
 </script>
 <script>
-    $(function() {
+    $(function () {
         @if(session('toastData') != null)
-            @if(session('toastData')['success'])
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Success',
-                    text: '{!! session('toastData')['text'] !!}',
-                    toast: true,
-                    showConfirmButton: false,
-                    position: 'top-end',
-                    timer: 3000
-                })
-            @else
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
         @endif
 
         @if (!$errors->isEmpty())
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
         @endif
     });
 </script>

@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Services\CustomConverterService; @endphp
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -57,7 +58,8 @@
                 <span class="text-danger">{{ $errors->first('password') }}</span>
 
                 <div class="input-group mt-3">
-                    <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password">
+                    <input type="password" name="password_confirmation" class="form-control"
+                           placeholder="Retype password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -67,26 +69,8 @@
                 <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
 
                 <div class="input-group mt-3">
-                    @php
-                        if(isset($role)){
-                            if ($role == 1) {
-                                $temp = "Rektor";
-                            }
-                            else if ($role == 2) {
-                                $temp = "Wakil Rektor";
-                            }
-                            else if ($role == 3) {
-                                $temp = "Ketua SPPM";
-                            }
-                            else if ($role == 4) {
-                                $temp = "Anggota SPPM";
-                            }
-                            else {
-                                $temp = "Unknown";
-                            }
-                        }
-                    @endphp
-                    <input type="text" class="form-control" placeholder="Role" value="{{ $temp }}" disabled>
+                    <input type="text" class="form-control" placeholder="Role"
+                           value="{{ app(CustomConverterService::class)->convertRole($role) }}" disabled>
                     <input type="hidden" name="role" value="{{ $role }}">
                     <input type="hidden" name="email" value="{{ $email }}">
                     <input type="hidden" name="token" value="{{ $token }}">

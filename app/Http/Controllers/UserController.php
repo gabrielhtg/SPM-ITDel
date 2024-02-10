@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RegisterInvitationModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -11,8 +12,10 @@ class UserController extends Controller
     public function getUserSettings() {
         if (Auth::check()) {
             $users = User::all();
+            $invitationPending = RegisterInvitationModel::all();
             $data = [
-                'users' => $users
+                'users' => $users,
+                'invitation' => $invitationPending
             ];
 
             return view("user-settings", $data);

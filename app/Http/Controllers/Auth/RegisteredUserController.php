@@ -127,7 +127,7 @@ class RegisteredUserController extends Controller
     {
         $data = RegisterInvitationModel::where('token', $request->token)->first();
 
-        if ($data) {
+        if ($data && ($data->email === $request->email) && ($data->role === (int)$request->role)) {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
@@ -150,4 +150,16 @@ class RegisteredUserController extends Controller
         abort(401);
     }
 
+    public function deleteInvitation(Request $request) {
+        $data = RegisterInvitationModel::find($request->id);
+
+        if ($data) {
+            $data->delete();
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted the invitation link.']);
+        }
+
+        else {
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete invitation link. Invitation link not found!']);
+        }
+    }
 }

@@ -68,4 +68,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('remove-user', [\App\Http\Controllers\UserController::class, 'removeUser'])->name('remove-user');
 
     Route::get('/register-invitation', [RegisteredUserController::class, 'sendRegisterInvitationLink'])->name('register-invitation');
+
+    Route::delete('/delete-invitation', [RegisteredUserController::class, 'deleteInvitation'])->name('delete-invitation');
 });
