@@ -1,12 +1,12 @@
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-invited-user">
-    <i class="fas fa-link"></i> <span style="margin-left: 5px">List Invited User</span>
+<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-password-reset">
+    <i class="fas fa-redo"></i> <span style="margin-left: 5px">List Password Reset Request</span>
 </button>
 
-<div class="modal fade" id="modal-list-invited-user">
+<div class="modal fade" id="modal-list-password-reset">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">List Invited User</h4>
+                <h4 class="modal-title">List of password resets requested by the user</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

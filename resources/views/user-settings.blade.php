@@ -52,6 +52,7 @@
                 @include('components.add-user-manually-modal')
                 @include('components.add-user-via-invite-link')
                 @include('components.list-invited-user')
+                @include('components.list-password-reset-request')
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
