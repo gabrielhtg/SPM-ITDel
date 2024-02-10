@@ -72,4 +72,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete-invitation', [RegisteredUserController::class, 'deleteInvitation'])->name('delete-invitation');
 
     Route::delete('/clear-invitation', [RegisteredUserController::class, 'clearInvitation'])->name('clear-invitation');
+
+    Route::post('/accept-reset-request', [RegisteredUserController::class, 'acceptResetRequest'])->name('accept-reset-request');
+    Route::delete('/delete-reset-request', [RegisteredUserController::class, 'deleteResetRequest'])->name('delete-reset-request');
 });

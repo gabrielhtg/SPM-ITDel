@@ -17,13 +17,33 @@ class create_user_admin extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'name' => 'User Admin',
-            'email' => 'useradmin@gmail.com',
-            'password' => Hash::make("user_admin"),
-            'role' => 1,
-            'status' => false,
-            'created_at' => now(),
-            'profile_pict' => 'src/img/useradmin_profile.png'
+            [
+                'name' => 'User Admin',
+                'email' => 'useradmin@gmail.com',
+                'password' => Hash::make("user_admin"),
+                'role' => 1,
+                'status' => false,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Gabriel Cesar Hutagalung',
+                'email' => 'ifs21010@students.del.ac.id',
+                'password' => Hash::make("user_admin"),
+                'status' => false,
+                'role' => 1,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Tesalonika Aprisda Sitopu',
+                'email' => 'ifs21005@students.del.ac.id',
+                'password' => Hash::make("user_admin"),
+                'role' => 1,
+                'status' => false,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
         ]);
 
         require_once 'vendor/autoload.php';

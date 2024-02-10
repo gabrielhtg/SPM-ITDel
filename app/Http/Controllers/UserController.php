@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,9 +14,12 @@ class UserController extends Controller
         if (Auth::check()) {
             $users = User::all();
             $invitationPending = RegisterInvitationModel::all();
+            $passwortResetReq = PasswordResetTokenModel::orderBy('created_at', 'desc')->get();
+
             $data = [
                 'users' => $users,
-                'invitation' => $invitationPending
+                'invitation' => $invitationPending,
+                'pass_reset' => $passwortResetReq
             ];
 
             return view("user-settings", $data);

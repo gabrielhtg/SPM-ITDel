@@ -3,7 +3,7 @@
 </button>
 
 <div class="modal fade" id="modal-list-password-reset">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">List of password resets requested by the user</h4>
@@ -12,34 +12,79 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
+                <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>Email</th>
-                        <th>Role</th>
-                        <th>Invited At</th>
+                        <th>Name</th>
+                        <th>Pass Test</th>
+                        <th>Last Requested At</th>
                         <th>Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                        @forelse($invitation as $e)
+                        @forelse($pass_reset as $e)
                             <tr>
-                                <td>{{ $e->email }}</td>
-                                <td>{{ app(\App\Services\CustomConverterService::class)->convertRole($e->role) }}</td>
-                                <td>{{ $e->updated_at }}</td>
                                 <td>
-                                    <form action="{{ route('delete-invitation') }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block"> {{ $e->email }} </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    @php
+                                        $userTemp = \App\Models\User::where("email", $e->email)->first();
+                                    @endphp
+
+                                    <div class="user-panel d-flex">
+                                        <div class="image">
+                                                <img src="{{ $userTemp->profile_pict }}" class="img-circle custom-border" alt="User Profile Picture">
+                                        </div>
+                                        <div class="info">
+                                            <span class="d-block">{{ $userTemp->name }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block">
+                                            @if($e->pass_test)
+                                                    <i class="nav-icon far fa-circle text-green"></i>
+                                                    <span class="ml-1">Passed</span>
+                                                @else
+                                                    <i class="nav-icon far fa-circle text-danger"></i>
+                                                    <span class="ml-1">Fail</span>
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                </td>
+                                <td>
+                                    {{ $e->updated_at }}
+                                </td>
+                                <td>
+                                    <div class="d-flex">
+                                        <form action="{{ route('accept-reset-request') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{ $e->email }}">
+                                            <button type="submit" class="btn btn-success mr-2"><i class="fas fa-check" style="font-size: 14px"></i></button>
+                                        </form>
+                                        <form action="{{ route('delete-reset-request') }}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                            <input type="hidden" name="email" value="{{ $e->email }}">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
 
                         @empty
                             <tr>
-                                <td colspan="4">There is no active invitation link.</td>
+                                <td colspan="5">There is no password reset request.</td>
                             </tr>
                         @endforelse
                     </tbody>

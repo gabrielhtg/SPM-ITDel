@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
+use App\Mail\ResetPasswordMail;
+use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -167,5 +169,33 @@ class RegisteredUserController extends Controller
         RegisterInvitationModel::truncate();
 
         return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted all data!']);
+    }
+
+    public function acceptResetRequest(Request $request) {
+        $resetObject = PasswordResetTokenModel::where('email', $request->email)->first();
+
+        if ($resetObject) {
+            Mail::to($request->email)->send(new ResetPasswordMail($resetObject->token));
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Success to accept request. A password reset email has been sent to " . $resetObject->email]);
+        }
+        else {
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Failed to accept request. Email not found!"]);
+        }
+
+
+    }
+
+    public function deleteResetRequest(Request $request) {
+        $data = PasswordResetTokenModel::where('email', $request->email);
+
+        if ($data) {
+            $data->delete();
+
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+        }
+
+        else {
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
+        }
     }
 }
