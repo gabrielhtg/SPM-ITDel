@@ -44,10 +44,21 @@
                         @endforelse
                     </tbody>
                 </table>
+                <div class="d-flex justify-content-center">
+                    @if($invitation->count() != 0)
+                        <form action="{{ route('clear-invitation') }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            <button type="submit" class="btn btn-danger mt-4">Clear Invitation Link</button>
+                        </form>
+                    @endif
+
+                </div>
             </div>
-            <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
         </div>
         <!-- /.modal-content -->
     </div>

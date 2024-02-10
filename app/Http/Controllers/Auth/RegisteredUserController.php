@@ -162,4 +162,10 @@ class RegisteredUserController extends Controller
             return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete invitation link. Invitation link not found!']);
         }
     }
+
+    public function clearInvitation () {
+        RegisterInvitationModel::truncate();
+
+        return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted all data!']);
+    }
 }
