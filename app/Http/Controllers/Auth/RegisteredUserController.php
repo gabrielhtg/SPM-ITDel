@@ -8,6 +8,8 @@ use App\Models\RegisterInvitationModel;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Database\QueryException;
+use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,6 +51,8 @@ class RegisteredUserController extends Controller
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
+        $data = RegisterInvitationModel::where('email', $request->email)->first();
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -61,10 +65,9 @@ class RegisteredUserController extends Controller
 //
 //        Auth::login($user);
 
-        $text = null;
-
         if ($user !== null) {
             $text = "Successfully added user";
+            $data->delete();
         }
 
         else {
@@ -86,29 +89,38 @@ class RegisteredUserController extends Controller
         ]);
 
         try {
-            $reqToken = Uuid::uuid1()->toString();
-            RegisterInvitationModel::create([
-                'email' => $request->email,
-                'role' => $request->role,
-                'token' => $reqToken
-            ]);
+            $temp = RegisterInvitationModel::where('email', $request->email)->first();
 
-            Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
+            if ($temp) {
+                $temp->update([
+                    'role' => $request->role
+                ]);
+                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
+                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'The invitation was resent']);
+            }
 
-            $dataToast = [
-                'success' => true,
-                'text' => "Invitation sent!"
-            ];
+            else {
+                $reqToken = Uuid::uuid1()->toString();
 
-            return redirect()->route('user-settings')->with($dataToast);
-        } catch (\Exception $e) {
-            $dataToast = [
-                'success' => false,
-                'text' => "Email sudah pernah diundang!"
-            ];
-            return redirect()->route('user-settings')->with($dataToast);
+                RegisterInvitationModel::create([
+                    'email' => $request->email,
+                    'role' => $request->role,
+                    'token' => $reqToken
+                ]);
+
+                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
+
+            }
+
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Invitation sent!"]);
         }
-
+        catch (QueryException $e) {
+//            if ($e->errorInfo[1] == 1062) { // 1062 adalah kode untuk kesalahan duplikat kunci unik
+//                return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Duplicate Email']);
+//            } else {
+                return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "An error occurred."]);
+//            }
+        }
     }
 
     public function storeFromInvitationLink(Request $request)

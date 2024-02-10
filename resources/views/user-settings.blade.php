@@ -78,7 +78,7 @@
                                     <span class="text-danger">{{ $errors->first('name') }}</span>
 
                                     <div class="input-group mt-3">
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope" style="font-size: 14px"></span>
@@ -154,7 +154,7 @@
                                 <form method="GET" action="{{ route('register-invitation') }}">
                                     @csrf
                                     <div class="input-group mt-3">
-                                        <input type="email" id="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
+                                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
                                         <div class="input-group-append">
                                             <div class="input-group-text">
                                                 <span class="fas fa-envelope" style="font-size: 14px"></span>
@@ -332,8 +332,8 @@
 </script>
 <script>
     $(function() {
-        @if(session('toastData') !== null)
-            if({!! session('toastData')['success'] !!})
+        @if(session('toastData') != null)
+            @if(session('toastData')['success'])
                 Swal.fire({
                     icon: 'success',
                     title: 'Success',
@@ -343,6 +343,17 @@
                     position: 'top-end',
                     timer: 3000
                 })
+            @else
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: '{!! session('toastData')['text'] !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
+            @endif
         @endif
 
         @if (!$errors->isEmpty())
