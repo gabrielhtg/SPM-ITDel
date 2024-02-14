@@ -1,6 +1,10 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-password-reset">
     <i class="fas fa-redo"></i> <span style="margin-left: 5px">List Password Reset Request</span>
+    @if(count($pass_reset) != 0)
+        <span class="badge badge-primary" style="margin-left: 5px">{{ count($pass_reset) }}</span>
+    @endif
 </button>
+
 
 <div class="modal fade" id="modal-list-password-reset">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">

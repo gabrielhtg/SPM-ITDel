@@ -44,6 +44,15 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
+            [
+                'name' => 'Rafael Manurung',
+                'email' => 'ifs21028@students.del.ac.id',
+                'password' => Hash::make("user_admin"),
+                'role' => 1,
+                'status' => false,
+                'created_at' => now(),
+                'profile_pict' => null
+            ],
         ]);
 
         require_once 'vendor/autoload.php';

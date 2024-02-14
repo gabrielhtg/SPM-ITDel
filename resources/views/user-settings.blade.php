@@ -61,7 +61,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Created At</th>
-                        <th>Status</th>
+{{--                        <th>Status</th>--}}
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -70,9 +70,16 @@
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
-                                    <div class="image">
+                                    <div>
                                         <img src="{{ $e->profile_pict }}" class="img-circle custom-border"
                                              alt="User Image">
+                                        <span class="badge">
+                                            @if($e->status)
+                                                <i class="fas fa-circle text-success"></i>
+                                            @else
+                                                <i class="fas fa-circle text-danger"></i>
+                                            @endif
+                                        </span>
                                     </div>
                                     <div class="info">
                                         <span class="d-block">{{ $e->name }}</span>
@@ -104,13 +111,13 @@
                                 </div>
                             </td>
 
-                            <td>
-                                @if($e->status)
-                                    <i class="fas fa-circle text-success"></i> Online
-                                @else
-                                    <i class="fas fa-circle text-danger"></i> Offline
-                                @endif
-                            </td>
+{{--                            <td>--}}
+{{--                                @if($e->status)--}}
+{{--                                    <i class="fas fa-circle text-success"></i> Online--}}
+{{--                                @else--}}
+{{--                                    <i class="fas fa-circle text-danger"></i> Offline--}}
+{{--                                @endif--}}
+{{--                            </td>--}}
 
                             <td>
                                 <form action="{{ route('remove-user') }}" method="post">

@@ -74,7 +74,11 @@
                 <a style="text-decoration: none" data-toggle="dropdown">
                     <div class="user-panel d-flex" style="margin-top: 2px">
                         <div class="image">
-                            <img src="{{ asset(auth()->user()->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                            @if(auth()->user()->profile_pict == null)
+                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
+                            @else
+                                <img src="{{ asset(auth()->user()->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                            @endif
                         </div>
                         <div type="button" class="info">
                             <span class="d-block">{{ auth()->user()->name }}</span>

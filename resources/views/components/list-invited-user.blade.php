@@ -1,5 +1,8 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-invited-user">
     <i class="fas fa-link"></i> <span style="margin-left: 5px">List Invited User</span>
+    @if(count($invitation) != 0)
+        <span class="badge badge-primary" style="margin-left: 5px">{{ count($invitation) }}</span>
+    @endif
 </button>
 
 <div class="modal fade" id="modal-list-invited-user">
