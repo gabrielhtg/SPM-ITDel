@@ -21,7 +21,6 @@
                     <tr>
                         <th>Email</th>
                         <th>Name</th>
-                        <th>Pass Test</th>
                         <th>Last Requested At</th>
                         <th>Action</th>
                     </tr>
@@ -49,22 +48,6 @@
                                             <span class="d-block">{{ $userTemp->name }}</span>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                            <span class="d-block">
-                                            @if($e->pass_test)
-                                                    <i class="nav-icon far fa-circle text-green"></i>
-                                                    <span class="ml-1">Passed</span>
-                                                @else
-                                                    <i class="nav-icon far fa-circle text-danger"></i>
-                                                    <span class="ml-1">Fail</span>
-                                                @endif
-                                            </span>
-                                        </div>
-                                    </div>
-
                                 </td>
                                 <td>
                                     {{ $e->updated_at }}

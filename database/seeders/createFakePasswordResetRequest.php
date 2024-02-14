@@ -27,13 +27,11 @@ class createFakePasswordResetRequest extends Seeder
                    [
                        'email' => 'ifs21010@students.del.ac.id',
                        'token' => Uuid::uuid1()->toString(),
-                       'pass_test' => true,
                        'created_at' => now()
                    ],
                     [
                         'email' => 'ifs21005@students.del.ac.id',
                         'token' => Uuid::uuid1()->toString(),
-                        'pass_test' => false,
                         'created_at' => now()
                     ],
                 ]);
