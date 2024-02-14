@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Recover Password (v2)</title>
+    <title> SPM IT Del - Recover Password</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -18,7 +18,7 @@
 <div class="login-box">
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="{{ route('dashboard') }}" class="h1"><b>AMI</b> IT Del</a>
+            <a href="{{ route('dashboard') }}" class="h1"><b>SPM</b> IT Del</a>
         </div>
         <div class="card-body">
 {{--            @if(session('toastData') == null || session('toastData')['msg'] == null)--}}

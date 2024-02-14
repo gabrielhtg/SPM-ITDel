@@ -31,7 +31,7 @@ class ResetPasswordMail extends Mailable
     {
         return new Envelope(
             from: new Address('amiadmitdel@gmail.com', 'AMI IT Del Administrator'),
-            subject: 'Reset Password AMI IT Del',
+            subject: 'Reset Password SPM IT Del',
         );
     }
 

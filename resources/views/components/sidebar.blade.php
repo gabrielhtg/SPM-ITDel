@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="{{ route("dashboard") }}" class="brand-link">
         <img src="{{ asset("src/img/logo.png") }}" alt="Logo" class="brand-image elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light"><strong>AMI</strong> IT Del</span>
+        <span class="brand-text font-weight-light"><strong>SPM</strong> IT Del</span>
     </a>
 
     <!-- Sidebar -->
