@@ -67,67 +67,72 @@
                     </thead>
                     <tbody>
                     @foreach($users as $e)
-                        <tr>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div>
-                                        <img src="{{ $e->profile_pict }}" class="img-circle custom-border"
-                                             alt="User Image">
-                                        <span class="badge">
+
+                        @if($e->id == auth()->user()->id)
+                            @continue
+                        @else
+                            <tr>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div>
+                                            <img src="{{ $e->profile_pict }}" class="img-circle custom-border"
+                                                 alt="User Image">
+                                            <span class="badge">
                                             @if($e->status)
-                                                <i class="fas fa-circle text-success"></i>
-                                            @else
-                                                <i class="fas fa-circle text-danger"></i>
-                                            @endif
+                                                    <i class="fas fa-circle text-success"></i>
+                                                @else
+                                                    <i class="fas fa-circle text-danger"></i>
+                                                @endif
                                         </span>
+                                        </div>
+                                        <div class="info">
+                                            <span class="d-block">{{ $e->name }}</span>
+                                        </div>
                                     </div>
-                                    <div class="info">
-                                        <span class="d-block">{{ $e->name }}</span>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block"> {{ $e->email }}</span>
+                                        </div>
                                     </div>
-                                </div>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        <span class="d-block"> {{ $e->email }}</span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
                                         <span class="d-block">
                                             {{ app(CustomConverterService::class)->convertRole($e->role) }}
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
                                         <span class="d-block">
                                             {{ $e->created_at }}
                                         </span>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-{{--                            <td>--}}
-{{--                                @if($e->status)--}}
-{{--                                    <i class="fas fa-circle text-success"></i> Online--}}
-{{--                                @else--}}
-{{--                                    <i class="fas fa-circle text-danger"></i> Offline--}}
-{{--                                @endif--}}
-{{--                            </td>--}}
+                                {{--                            <td>--}}
+                                {{--                                @if($e->status)--}}
+                                {{--                                    <i class="fas fa-circle text-success"></i> Online--}}
+                                {{--                                @else--}}
+                                {{--                                    <i class="fas fa-circle text-danger"></i> Offline--}}
+                                {{--                                @endif--}}
+                                {{--                            </td>--}}
 
-                            <td>
-                                <form action="{{ route('remove-user') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
-                            </td>
-                        </tr>
+                                <td>
+                                    <form action="{{ route('remove-user') }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
