@@ -27,12 +27,14 @@ class createFakePasswordResetRequest extends Seeder
                    [
                        'email' => 'ifs21010@students.del.ac.id',
                        'token' => Uuid::uuid1()->toString(),
-                       'created_at' => now()
+                       'created_at' => now(),
+                       'updated_at' => now()
                    ],
                     [
                         'email' => 'ifs21005@students.del.ac.id',
                         'token' => Uuid::uuid1()->toString(),
-                        'created_at' => now()
+                        'created_at' => now(),
+                        'updated_at' => now()
                     ],
                 ]);
             } catch (UniqueConstraintViolationException $e) {
