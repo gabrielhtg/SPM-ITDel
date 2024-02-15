@@ -22,6 +22,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('profile_pict')->nullable();
+            $table->timestamp('last_login_at')->nullable();
         });
     }
 

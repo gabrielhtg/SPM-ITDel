@@ -24,6 +24,7 @@ class create_user_admin extends Seeder
                 'role' => 1,
                 'status' => false,
                 'created_at' => now(),
+                'last_login_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
             [
@@ -33,6 +34,7 @@ class create_user_admin extends Seeder
                 'status' => false,
                 'role' => 1,
                 'created_at' => now(),
+                'last_login_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
             [
@@ -42,6 +44,7 @@ class create_user_admin extends Seeder
                 'role' => 1,
                 'status' => false,
                 'created_at' => now(),
+                'last_login_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
             [
@@ -51,6 +54,7 @@ class create_user_admin extends Seeder
                 'role' => 1,
                 'status' => false,
                 'created_at' => now(),
+                'last_login_at' => now(),
                 'profile_pict' => null
             ],
         ]);
@@ -68,7 +72,8 @@ class create_user_admin extends Seeder
                     'password' => Hash::make('kelompok1hore'),
                     'status' => false,
                     'role' => rand(1, 4),
-                    'created_at' => now()
+                    'created_at' => now(),
+                    'last_login_at' => now()
                 ]);
             } catch (UniqueConstraintViolationException $e) {
                 // do nothin

@@ -10,6 +10,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Carbon\Carbon;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -30,6 +31,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $user = auth()->user();
+
+        $user->update([
+            'last_login_at' => now(),
+        ]);
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -38,11 +45,17 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        User::where('id', Auth::user()->id)->update([
-            'status' => false
+
+        $user = auth()->user();
+        
+        $user->update([
+            'last_login_at' => now(),
         ]);
 
-        Auth::guard('web')->logout();
+        // Update user status to false on logout (if required)
+        User::where('id', Auth::user()->id)->update(['status' => false]);
+
+        Auth::logout();
 
         $request->session()->invalidate();
 

@@ -61,6 +61,7 @@
                         <th>Email</th>
                         <th>Role</th>
                         <th>Created At</th>
+                        <th>Last Login At</th>
 {{--                        <th>Status</th>--}}
                         <th>Action</th>
                     </tr>
@@ -113,6 +114,15 @@
                                         <div class="info">
                                         <span class="d-block">
                                             {{ $e->created_at }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                        <span class="d-block">
+                                            {{ $e->last_login_at }}
                                         </span>
                                         </div>
                                     </div>
