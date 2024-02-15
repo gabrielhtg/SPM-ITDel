@@ -75,8 +75,11 @@
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div>
-                                            <img src="{{ $e->profile_pict }}" class="img-circle custom-border"
-                                                 alt="User Image">
+                                            @if(auth()->user()->profile_pict == null)
+                                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
+                                            @else
+                                                <img src="{{ asset(auth()->user()->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                                            @endif
                                             <span class="badge">
                                             @if($e->status)
                                                     <i class="fas fa-circle text-success"></i>
