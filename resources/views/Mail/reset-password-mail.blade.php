@@ -10,6 +10,6 @@
 <body>
     <h1>SPM Institut Teknologi Del - Reset Password</h1>
     <p>Tekan link di bawah ini untuk reset password.</p>
-    <a href="http://0.0.0.0:8000/reset-password/{{ $token }}" class="btn btn-primary">Reset Password</a>
+    <a href="http://localhost:8000/reset-password/{{ $token }}" class="btn btn-primary">Reset Password</a>
 </body>
 </html>
