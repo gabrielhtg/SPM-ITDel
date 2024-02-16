@@ -59,11 +59,13 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function changeProfilePict() {
+    public function changeProfilePict(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    {
         return \view('profile.change-profile-pict');
     }
 
-    public function uploadProfilePict(Request $request) {
+    public function uploadProfilePict(Request $request): void
+    {
         if ($request->hasFile('croppedImage')) {
             $user = User::where('email', \auth()->user()->email)->first();
 
@@ -75,11 +77,6 @@ class ProfileController extends Controller
             $user->update([
                 'profile_pict' => 'src/img/profile_pict/' . $imageName
             ]);
-
-            return \redirect()->route('user-settings');
-        } else {
-            // Jika tidak ada file yang diunggah dengan nama "croppedImage"
-            abort(400);
         }
     }
 }

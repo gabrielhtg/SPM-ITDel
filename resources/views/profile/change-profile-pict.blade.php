@@ -59,25 +59,26 @@
         <section class="content">
             <div class="container-fluid">
 
-                <div class="card card-primary card-outline" style="height: 80vh">
+                <div class="card card-primary card-outline d-flex flex-column align-items-center justify-content-center" style="height: 80vh">
 
-                    <div class="d-flex justify-content-center mt-4" >
-                        <div style="width: 500px; min-width: 300px; height: 300px;">
-                            <img id="image" src="{{ asset("src/img/default-profile-pict.png") }}" alt="gambar" style="height: 200px">
+                        <div class="d-flex justify-content-center mt-4" >
+                            <div style="width: 500px; min-width: 300px; height: 300px;">
+                                <img id="image" src="{{ asset("src/img/default-profile-pict.png") }}" alt="gambar" style="height: 200px">
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-flex justify-content-center mt-3 flex-column align-items-center">
-                        <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
-                            <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
-                            <span class="docs-tooltip" data-toggle="tooltip" title=""
-                                  data-original-title="Import image with Blob URLs">
+                        <div class="d-flex justify-content-center mt-3 flex-column align-items-center">
+                            <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                                <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                                <span class="docs-tooltip" data-toggle="tooltip" title=""
+                                      data-original-title="Import image with Blob URLs">
                             Upload Image
                         </span>
-                        </label>
+                            </label>
 
-                        <button id="btnSubmit" class="btn btn-success">Set as Profile Picture</button>
-                    </div>
+                            <button id="btnSubmit" class="btn btn-success">Set as Profile Picture</button>
+                        </div>
+
                 </div>
 
 
@@ -106,31 +107,12 @@
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-<!-- ChartJS -->
-<script src="{{ asset("plugins/chart.js/Chart.min.js") }}"></script>
-<!-- Sparkline -->
-<script src="{{ asset("plugins/sparklines/sparkline.js") }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset("plugins/jqvmap/jquery.vmap.min.js") }}"></script>
-<script src="{{ asset("plugins/jqvmap/maps/jquery.vmap.usa.js") }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset("plugins/jquery-knob/jquery.knob.min.js") }}"></script>
-<!-- daterangepicker -->
-<script src="{{ asset("plugins/moment/moment.min.js") }}"></script>
-<script src="{{ asset("plugins/daterangepicker/daterangepicker.js") }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js") }}"></script>
-<!-- Summernote -->
-<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-<!-- overlayScrollbars -->
-<script src="{{ asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
-<!-- AdminLTE for demo purposes -->
-{{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset("cropper/cropper.js") }}"></script>
 <script src="{{ asset("plugins/bs-custom-file-input/bs-custom-file-input.min.js") }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     // import 'cropperjs/dist/cropper.css';
     const image = document.getElementById('image');
@@ -167,7 +149,12 @@
     const btnSubmit = document.getElementById('btnSubmit');
 
     btnSubmit.addEventListener('click', function () {
-        cropper.getCroppedCanvas().toBlob((blob) => {
+        cropper.getCroppedCanvas({
+            minWidth: 256,
+            minHeight: 256,
+            maxWidth: 4096,
+            maxHeight: 4096
+        }).toBlob((blob) => {
             const formData = new FormData();
 
             // Pass the image file name as the third parameter if necessary.
@@ -184,13 +171,64 @@
                 contentType: false,
                 success: function(response) {
                     // Redirect to user-settings page
-                    window.location.href = '{{ route("user-settings") }}';
+                    sessionStorage.setItem('success', "1");
+                    sessionStorage.setItem('text', 'Successfully changed profile photo.');
+                    window.location.href = '{{ route("change-profile-pict") }}';
                 },
-                error: function(error) {
-                    console.log('Upload error:', error);
+                error: function(jqXHR, status, error) {
+                    if (jqXHR.status === 413) {
+                        sessionStorage.setItem('success', "0");
+                        sessionStorage.setItem('text', 'The file you uploaded is too large. Please upload files smaller than 2MB.');
+                        window.location.href = '{{ route("change-profile-pict") }}';
+                    } else {
+                        sessionStorage.setItem('success', "0");
+                        sessionStorage.setItem('text', 'An error occurred: ' + error);
+                        window.location.href = '{{ route("change-profile-pict") }}';
+                    }
                 }
             });
         });
+    });
+</script>
+<script>
+    $(function () {
+        if (sessionStorage.getItem('success') != null) {
+            if (sessionStorage.getItem('success') === "1") {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: sessionStorage.getItem('text'),
+                    toast: true,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    timer: 3000
+                });
+            }
+            else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: sessionStorage.getItem('text'),
+                    toast: true,
+                    showConfirmButton: false,
+                    position: 'top-end',
+                    timer: 5000
+                });
+            }
+            sessionStorage.removeItem('success');
+        }
+
+        @if (!$errors->isEmpty())
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
     });
 </script>
 </body>
