@@ -60,28 +60,30 @@
         <section class="content">
             <div class="container-fluid">
 
-                <div class="card card-primary card-outline">
-                    <div class="card-body box-profile">
+                <div class="card card-primary card-outline" style="height: 80vh">
+                    <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
                             <img class="profile-user-img img-fluid img-circle" src="{{ asset(auth()->user()->profile_pict) }}" alt="User profile picture">
                         </div>
                         <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                         <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
-                            </li>
-                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
+                                <li class="list-group-item">
+                                    <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
+                                </li>
+                            </ul>
+                        </div>
 
-                        <div class="">
-                            <button class="btn btn-primary btn-block" style="max-width: 1000px"><b>Change Profile Image</b></button>
-                            <button class="btn btn-primary btn-block" style="max-width: 1000px"><b>Edit Profile</b></button>
+                        <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
+                            <button class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></button>
+                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>
                         </div>
                     </div>
 
