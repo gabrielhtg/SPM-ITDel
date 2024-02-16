@@ -75,4 +75,6 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/accept-reset-request', [RegisteredUserController::class, 'acceptResetRequest'])->name('accept-reset-request');
     Route::delete('/delete-reset-request', [RegisteredUserController::class, 'deleteResetRequest'])->name('delete-reset-request');
+
+    Route::get('/edit-profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('edit-profile');
 });

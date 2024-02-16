@@ -259,7 +259,6 @@
                 ['view', ['fullscreen', 'codeview', 'help']],
             ],
             disableDragAndDrop: true,
-
         })
     })
 </script>
