@@ -42,7 +42,11 @@
 
                                     <div class="user-panel d-flex">
                                         <div class="image">
-                                                <img src="{{ $userTemp->profile_pict }}" class="img-circle custom-border" alt="User Profile Picture">
+                                            @if($userTemp->profile_pict == null)
+                                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
+                                            @else
+                                                <img src="{{ asset($userTemp->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                                            @endif
                                         </div>
                                         <div class="info">
                                             <span class="d-block">{{ $userTemp->name }}</span>
