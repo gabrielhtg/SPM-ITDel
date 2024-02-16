@@ -151,9 +151,7 @@
     btnSubmit.addEventListener('click', function () {
         cropper.getCroppedCanvas({
             width: 500,
-            height : 500,g
-            minWidth: 256,
-            minHeight: 256,
+            height : 500,
             maxWidth: 4096,
             maxHeight: 4096
         }).toBlob((blob) => {
