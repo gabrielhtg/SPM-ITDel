@@ -3,16 +3,19 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>SPM IT Del</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+    <link rel="stylesheet"
+          href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- JQVMap -->
@@ -26,6 +29,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("cropper/cropper.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -56,33 +60,26 @@
             <div class="container-fluid">
 
                 <div class="card card-primary card-outline" style="height: 80vh">
-                    <div class="card-body box-profile d-flex flex-column justify-content-center">
-                        <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset(auth()->user()->profile_pict) }}" alt="User profile picture">
-                        </div>
-                        <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
-                        <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
-                        <div class="d-flex justify-content-center">
-                            <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
-                                <li class="list-group-item">
-                                    <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
-                                </li>
-                            </ul>
-                        </div>
 
-                        <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
-                            <a href="{{ route('change-profile-pict') }}" class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></a>
-                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>
+                    <div class="d-flex justify-content-center mt-4" >
+                        <div style="width: 500px; min-width: 300px; height: 300px;">
+                            <img id="image" src="{{ asset("src/img/default-profile-pict.png") }}" alt="gambar" style="height: 200px">
                         </div>
                     </div>
 
+                    <div class="d-flex justify-content-center mt-3 flex-column align-items-center">
+                        <label class="btn btn-primary btn-upload" for="inputImage" title="Upload image file">
+                            <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
+                            <span class="docs-tooltip" data-toggle="tooltip" title=""
+                                  data-original-title="Import image with Blob URLs">
+                            Upload Image
+                        </span>
+                        </label>
+
+                        <button id="btnSubmit" class="btn btn-success">Set as Profile Picture</button>
+                    </div>
                 </div>
+
 
             </div>
         </section>
@@ -91,6 +88,11 @@
     <!-- /.content-wrapper -->
     @include('components.footer')
 
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -127,5 +129,69 @@
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset("cropper/cropper.js") }}"></script>
+<script src="{{ asset("plugins/bs-custom-file-input/bs-custom-file-input.min.js") }}"></script>
+<script>
+    // import 'cropperjs/dist/cropper.css';
+    const image = document.getElementById('image');
+    const cropper = new Cropper(image, {
+        aspectRatio: 1,
+        guides: true
+    });
+</script>
+
+<script>
+    const gambar = document.getElementById('image');
+    const uploadImage = document.getElementById('inputImage');
+
+    uploadImage.addEventListener('change', function () {
+        const file = this.files[0]; // Ambil file gambar yang dipilih
+
+        if (file) {
+            const reader = new FileReader(); // Buat objek FileReader
+            reader.readAsDataURL(file); // Baca file sebagai URL Data
+
+            reader.onload = function () {
+                cropper.replace(reader.result);
+            }
+        }
+    });
+</script>
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+
+<script>
+    const btnSubmit = document.getElementById('btnSubmit');
+
+    btnSubmit.addEventListener('click', function () {
+        cropper.getCroppedCanvas().toBlob((blob) => {
+            const formData = new FormData();
+
+            // Pass the image file name as the third parameter if necessary.
+            formData.append('croppedImage', blob/*, 'example.png' */);
+
+            // Use `jQuery.ajax` method for example
+            $.ajax('{{ route('uploadProfilePict') }}', {
+                method: 'POST',
+                headers : {
+                    'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+                },
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function(response) {
+                    // Redirect to user-settings page
+                    window.location.href = '{{ route("user-settings") }}';
+                },
+                error: function(error) {
+                    console.log('Upload error:', error);
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'status',
+        'profile_pict',
         'last_login_at',
     ];
 

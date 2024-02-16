@@ -77,4 +77,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('/delete-reset-request', [RegisteredUserController::class, 'deleteResetRequest'])->name('delete-reset-request');
 
     Route::get('/edit-profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('edit-profile');
+
+    Route::get('/change-profile-pict', [\App\Http\Controllers\ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
+
+    Route::post('/upload-profile-pict', [\App\Http\Controllers\ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,5 +57,29 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function changeProfilePict() {
+        return \view('profile.change-profile-pict');
+    }
+
+    public function uploadProfilePict(Request $request) {
+        if ($request->hasFile('croppedImage')) {
+            $user = User::where('email', \auth()->user()->email)->first();
+
+            // Simpan file yang diunggah ke direktori yang ditentukan
+            $image = $request->file('croppedImage');
+            $imageName = explode("@", $user->email)[0] . '.png';
+            $image->move(public_path('src/img/profile_pict/'), $imageName);
+
+            $user->update([
+                'profile_pict' => 'src/img/profile_pict/' . $imageName
+            ]);
+
+            return \redirect()->route('user-settings');
+        } else {
+            // Jika tidak ada file yang diunggah dengan nama "croppedImage"
+            abort(400);
+        }
     }
 }
