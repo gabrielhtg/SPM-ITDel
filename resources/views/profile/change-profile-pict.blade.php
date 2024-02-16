@@ -150,6 +150,8 @@
 
     btnSubmit.addEventListener('click', function () {
         cropper.getCroppedCanvas({
+            width: 500,
+            height : 500,g
             minWidth: 256,
             minHeight: 256,
             maxWidth: 4096,
