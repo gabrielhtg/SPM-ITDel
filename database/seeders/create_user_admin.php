@@ -57,6 +57,16 @@ class create_user_admin extends Seeder
                 'last_login_at' => now(),
                 'profile_pict' => null
             ],
+            [
+                'name' => 'David Gurning',
+                'email' => 'ifs21001@students.del.ac.id',
+                'password' => Hash::make("user_admin"),
+                'role' => 1,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
         ]);
 
         require_once 'vendor/autoload.php';
@@ -71,7 +81,7 @@ class create_user_admin extends Seeder
                     'profile_pict' => $faker->imageUrl(480,480),
                     'password' => Hash::make('kelompok1hore'),
                     'status' => false,
-                    'role' => rand(1, 4),
+                    'role' => rand(1, 39),
                     'created_at' => now(),
                     'last_login_at' => now()
                 ]);
