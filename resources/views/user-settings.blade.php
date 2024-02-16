@@ -75,19 +75,20 @@
                             <tr>
                                 <td>
                                     <div class="user-panel d-flex">
-                                        <div>
+                                        <div class="d-flex align-items-center">
                                             @if($e->profile_pict == null)
                                                 <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
                                             @else
                                                 <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">
                                             @endif
+
                                             <span class="badge">
-                                            @if($e->status)
+                                                @if($e->status)
                                                     <i class="fas fa-circle text-success"></i>
                                                 @else
                                                     <i class="fas fa-circle text-danger"></i>
                                                 @endif
-                                        </span>
+                                            </span>
                                         </div>
                                         <div class="info">
                                             <span class="d-block">{{ $e->name }}</span>
