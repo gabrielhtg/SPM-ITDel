@@ -58,7 +58,11 @@
                 <div class="card card-primary card-outline" style="height: 80vh">
                     <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset(auth()->user()->profile_pict) }}" alt="User profile picture">
+                            @if(auth()->user()->profile_pict == null)
+                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                            @else
+                                <img src="{{ asset(auth()->user()->profile_pict) }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                            @endif
                         </div>
                         <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                         <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
