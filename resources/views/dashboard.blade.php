@@ -26,6 +26,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -60,7 +61,30 @@
         <section class="content">
             <div class="container-fluid">
 
-{{--                Implementasi disini untuk berita --}}
+                <section id="image-carousel" class="splide" aria-label="Beautiful Images">
+                    <div class="splide__track">
+                        <ul class="splide__list">
+                            <li class="splide__slide">
+                                <img src="https://akcdn.detik.net.id/visual/2024/02/06/jejak-langkah-ganjar-mahfud-md-menuju-pilpres-2024-8_169.jpeg?w=650&q=90" alt="">
+                                <div>
+                                    Ganjar-Mahfud Menang di Satu Provinsi Versi Quick Count Pilpres PRC
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <img src="https://akcdn.detik.net.id/visual/2023/10/31/ilustrasi-tiga-paslon_169.jpeg?w=650&q=90" alt="">
+                                <div>
+                                    Hasil Akhir Quick Count Semua Provinsi Pulau Jawa Berbagai Lembaga
+                                </div>
+                            </li>
+                            <li class="splide__slide">
+                                <img src="https://akcdn.detik.net.id/visual/2024/02/14/perhitungan-surat-suara-pilpres-pemilu-2024_169.jpeg?w=650&q=90/visual/2024/02/06/jejak-langkah-ganjar-mahfud-md-menuju-pilpres-2024-8_169.jpeg?w=650&q=90" alt="">
+                                <div>
+                                    Daftar Parpol Lolos Parlemen Versi Quick Count Pemilu 90 Persen
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
 
             </div>
         </section>
@@ -117,5 +141,21 @@
 {{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset("dist/js/pages/dashboard.js") }}"></script>
+<script src="{{ asset('splide/dist/js/splide.min.js') }}"></script>
+<script>
+    var splide = new Splide( '.splide', {
+        type   : 'loop',
+        perPage: 3,
+        perMove: 1,
+        gap: 20,
+        breakpoints: {
+            640: {
+                perPage: 1,
+            },
+        },
+    } );
+
+    splide.mount();
+</script>
 </body>
 </html>

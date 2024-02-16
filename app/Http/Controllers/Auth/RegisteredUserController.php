@@ -69,7 +69,8 @@ class RegisteredUserController extends Controller
 
         if ($user !== null) {
             $text = "Successfully added user";
-            $data->delete();
+
+            $data?->delete();
         }
 
         else {
