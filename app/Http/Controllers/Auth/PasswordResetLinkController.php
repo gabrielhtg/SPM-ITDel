@@ -67,7 +67,7 @@ class PasswordResetLinkController extends Controller
                 PasswordResetTokenModel::create([
                     'email' => $request->email,
                     'token' => Str::random(200),
-g                    'created_at' => now()
+                    'created_at' => now()
                 ]);
                 return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request sent!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);
             }
