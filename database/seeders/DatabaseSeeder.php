@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call([
             create_user_admin::class,
-            createFakePasswordResetRequest::class
+            createFakePasswordResetRequest::class,
+            createRole::class
         ]);
     }
 }

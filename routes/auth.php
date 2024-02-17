@@ -81,4 +81,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-profile-pict', [\App\Http\Controllers\ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
 
     Route::post('/upload-profile-pict', [\App\Http\Controllers\ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
+
+    Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 });
