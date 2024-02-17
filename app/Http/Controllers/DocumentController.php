@@ -29,8 +29,8 @@ class DocumentController extends Controller
 
         // Simpan file yang diunggah ke dalam direktori penyimpanan yang diinginkan
         $file = $request->file('file');
-        $filename = time() . '_' . $file->getClientOriginalName();
-        $file->move(public_path(''), $filename);
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path('/src/documents'), $filename);
 
         // Simpan informasi dokumen ke dalam database
         $document = new Document();
