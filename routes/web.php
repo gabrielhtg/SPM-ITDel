@@ -21,6 +21,8 @@ Route::get('/', function () {
     return view('dashboard');
 })->name('dashboard');
 
+Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
+
 Route::get('/dashboard', function () {
 
     return view('dashboard');

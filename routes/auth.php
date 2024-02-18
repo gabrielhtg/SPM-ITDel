@@ -39,6 +39,7 @@ Route::middleware('guest')->group(function () {
     });
 
     Route::post('/register-invite', [RegisteredUserController::class, 'storeFromInvitationLink']);
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -81,8 +82,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-profile-pict', [\App\Http\Controllers\ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
 
     Route::post('/upload-profile-pict', [\App\Http\Controllers\ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
-
-    Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 
     Route::post('/upload-file', [\App\Http\Controllers\DocumentController::class, 'uploadFile'])->name('uploadFile');
 

@@ -29,7 +29,7 @@
                             <option value="">-- Select Role --</option>
                             @foreach($roles as $e)
                                 <option value="{{ $e->id }}">{{ $e->role }}</option>
-                            @endforeachg
+                            @endforeach
                         </select>
                         <div class="input-group-append">
                             <div class="input-group-text">

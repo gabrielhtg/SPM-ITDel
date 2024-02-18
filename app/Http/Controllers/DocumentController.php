@@ -5,13 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\DocumentModel;
 use App\Models\RoleModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
 
 class DocumentController extends Controller
 {
     public function getDocumentManagementView () {
-        $documents = DocumentModel::all();
+        if (Auth::check()) {
+            $documents = DocumentModel::all();
+        }
+
+        else {
+            $documents = DocumentModel::where('give_access_to', 0)->get();
+        }
         $roles = RoleModel::all();
 
         $data = [

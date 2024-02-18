@@ -51,17 +51,22 @@
         <div class="card">
             <div class="card-body">
 
-                @include('components.upload-file-modal')
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @include('components.upload-file-modal')
+                @endif
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>Doc Number</th>
                         <th>Doc Name</th>
-                        <th>Can be seen by</th>
+                        @if(\Illuminate\Support\Facades\Auth::check())
+                            <th>Can be seen by</th>
+                        @endif
                         <th>Uploaded By</th>
                         <th>Created At</th>
                         <th>Action</th>
+
                     </tr>
                     </thead>
                     <tbody>
@@ -71,26 +76,13 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{--                                        @if($e->profile_pict == null)--}}
-                                        {{--                                            <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">--}}
-                                        {{--                                        @else--}}
-                                        {{--                                            <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">--}}
-                                        {{--                                        @endif--}}
-
-                                        {{--                                        <span class="badge">--}}
-                                        {{--                                            @if($e->status)--}}
-                                        {{--                                                <i class="fas fa-circle text-success"></i>--}}
-                                        {{--                                            @else--}}
-                                        {{--                                                <i class="fas fa-circle text-danger"></i>--}}
-                                        {{--                                            @endif--}}
-                                        {{--                                        </span>--}}
-
                                         {{ $e->name }}
                                     </div>
 
                                 </div>
                             </td>
-                            <td>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                <td>
                                 <span class="d-block">
                                     @php
                                         $accessor = explode(";", $e->give_access_to);
@@ -106,11 +98,12 @@
                                         </span>
                                     @endforeach
                                 </span>
-                            </td>
+                                </td>
+                            @endif
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span> {{ User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ User::find($e->created_by)->role }}</span></span>
+                                        <span> {{ User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ CustomConverterService::convertRole(User::find($e->created_by)->role) }}</span></span>
                                     </div>
                                 </div>
                             </td>
@@ -125,6 +118,7 @@
                                 <div class="d-flex" style="gap: 5px">
                                     <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
                                             class="fas fa-eye"></i></a>
+                                    @if(\Illuminate\Support\Facades\Auth::check())
                                     <form action="{{ route('remove-document') }}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -132,6 +126,8 @@
                                         <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
                                         </button>
                                     </form>
+                                    @endif
+
                                 </div>
                             </td>
                         </tr>
