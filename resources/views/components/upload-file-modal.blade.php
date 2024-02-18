@@ -14,11 +14,17 @@
             <div class="modal-body">
                 <form id="form-register" enctype="multipart/form-data" method="POST" action="{{ route('uploadFile') }}">
                     @csrf
+
+                    <div class="input-group">
+                        <input type="text" name="nomor_dokumen" placeholder="Document Number" class="form-control" required>
+                    </div>
+
                     <div class="input-group mt-3">
                         <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
                             @foreach($roles as $e)
                                 <option value="{{ $e->id }}">{{ $e->role }}</option>
                             @endforeach
+                                <option value="{{ 0 }}">All</option>
                         </select>
                     </div>
 

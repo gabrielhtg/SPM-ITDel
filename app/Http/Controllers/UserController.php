@@ -7,6 +7,7 @@ use App\Models\RegisterInvitationModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
@@ -34,6 +35,9 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = User::where('id', $request->user_id)->first();
+            if ($user->profile_pict != null) {
+                File::delete(public_path($user->profile_pict));
+            }
             $user->delete();
 
             $data = [

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\DocumentModel;
 use App\Models\RoleModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use MongoDB\BSON\Document;
 use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
 
@@ -42,6 +44,7 @@ class DocumentController extends Controller
 
         DocumentModel::create([
             'name' => $filename,
+            'nomor_dokumen' => $request->nomor_dokumen,
             'directory' => '/src/documents/' . $filename,
             'created_by' => auth()->user()->id,
             'created_at' => now(),
@@ -52,7 +55,9 @@ class DocumentController extends Controller
     }
 
     public function removeDocument(Request $request) {
-        DocumentModel::find($request->id)->delete();
+        $document = DocumentModel::find($request->id);
+        File::delete(public_path($document->directory));
+        $document->delete();
 
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Document deleted successfully!']);
     }

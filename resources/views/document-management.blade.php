@@ -56,9 +56,10 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
+                        <th>Doc Number</th>
+                        <th>Doc Name</th>
                         <th>Can be seen by</th>
-                        <th>Created By</th>
+                        <th>Uploaded By</th>
                         <th>Created At</th>
                         <th>Action</th>
                     </tr>
@@ -66,6 +67,7 @@
                     <tbody>
                     @foreach($documents as $e)
                         <tr>
+                            <td>{{ $e->nomor_dokumen }}</td>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
@@ -95,14 +97,20 @@
                                     @endphp
 
                                     @foreach($accessor as $acc)
-                                        <span class="badge badge-primary">{{ \App\Models\RoleModel::find($acc)->role }}</span>
+                                        <span class="badge badge-primary">
+                                            @if($acc == 0)
+                                                All
+                                            @else
+                                                {{ \App\Models\RoleModel::find($acc)->role }}
+                                            @endif
+                                        </span>
                                     @endforeach
                                 </span>
                             </td>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span class="d-block"> {{ \App\Models\User::find($e->created_by)->name }}</span>
+                                        <span> {{ \App\Models\User::find($e->created_by)->name }}</span>
                                     </div>
                                 </div>
                             </td>
@@ -114,12 +122,15 @@
                                 </div>
                             </td>
                             <td>
-                                <form action="{{ route('remove-document') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="id" value="{{ $e->id }}">
-                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                </form>
+                                <div class="d-flex" style="gap: 5px">
+                                    <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    <form action="{{ route('remove-document') }}" method="post">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value="{{ $e->id }}">
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </div>
                             </td>
                         </tr>
                     @endforeach
@@ -170,17 +181,9 @@
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10
+            "pageLength": 10,
+            "order": [[4, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
     });
 </script>
 <script>

@@ -13,6 +13,7 @@ class DocumentModel extends Model
 
     protected $fillable = [
         'name',
+        'nomor_dokumen',
         'directory',
         'give_access_to',
         'created_by',
