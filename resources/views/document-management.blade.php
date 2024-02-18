@@ -1,4 +1,4 @@
-@php use App\Services\CustomConverterService; @endphp
+@php use App\Models\User;use App\Services\CustomConverterService; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,7 +21,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-{{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
+    {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -71,19 +71,19 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-{{--                                        @if($e->profile_pict == null)--}}
-{{--                                            <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">--}}
-{{--                                        @else--}}
-{{--                                            <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">--}}
-{{--                                        @endif--}}
+                                        {{--                                        @if($e->profile_pict == null)--}}
+                                        {{--                                            <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">--}}
+                                        {{--                                        @else--}}
+                                        {{--                                            <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">--}}
+                                        {{--                                        @endif--}}
 
-{{--                                        <span class="badge">--}}
-{{--                                            @if($e->status)--}}
-{{--                                                <i class="fas fa-circle text-success"></i>--}}
-{{--                                            @else--}}
-{{--                                                <i class="fas fa-circle text-danger"></i>--}}
-{{--                                            @endif--}}
-{{--                                        </span>--}}
+                                        {{--                                        <span class="badge">--}}
+                                        {{--                                            @if($e->status)--}}
+                                        {{--                                                <i class="fas fa-circle text-success"></i>--}}
+                                        {{--                                            @else--}}
+                                        {{--                                                <i class="fas fa-circle text-danger"></i>--}}
+                                        {{--                                            @endif--}}
+                                        {{--                                        </span>--}}
 
                                         {{ $e->name }}
                                     </div>
@@ -110,7 +110,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span> {{ \App\Models\User::find($e->created_by)->name }}</span>
+                                        <span> {{ User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ User::find($e->created_by)->role }}</span></span>
                                     </div>
                                 </div>
                             </td>
@@ -123,12 +123,14 @@
                             </td>
                             <td>
                                 <div class="d-flex" style="gap: 5px">
-                                    <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
+                                            class="fas fa-eye"></i></a>
                                     <form action="{{ route('remove-document') }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                         <input type="hidden" name="id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </td>
