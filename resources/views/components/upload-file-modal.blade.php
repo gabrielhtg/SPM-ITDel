@@ -12,12 +12,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-register" enctype="multipart/form-data" method="POST" action="{{ route('register') }}">
+                <form id="form-register" enctype="multipart/form-data" method="POST" action="{{ route('uploadFile') }}">
                     @csrf
                     <div class="input-group mt-3">
-                        <select class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                        <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
                             @foreach($roles as $e)
-                                <option>{{ $e->role }}</option>
+                                <option value="{{ $e->id }}">{{ $e->role }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary">Add User</button>
+                <button type="submit" form="form-register" class="btn btn-primary">Upload Document</button>
             </div>
         </div>
         <!-- /.modal-content -->

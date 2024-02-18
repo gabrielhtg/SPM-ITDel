@@ -83,4 +83,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-profile-pict', [\App\Http\Controllers\ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
 
     Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
+
+    Route::post('/upload-file', [\App\Http\Controllers\DocumentController::class, 'uploadFile'])->name('uploadFile');
+
+    Route::delete('/remove-document', [\App\Http\Controllers\DocumentController::class, 'removeDocument'])->name('remove-document');
 });

@@ -85,14 +85,24 @@
 
                                         {{ $e->name }}
                                     </div>
-                                    <div class="info">
-                                        <span class="d-block">{{ $e->give_access_to }}</span>
-                                    </div>
+
                                 </div>
+                            </td>
+                            <td>
+                                <span class="d-block">
+                                    @php
+                                        $accessor = explode(";", $e->give_access_to);
+                                    @endphp
+
+                                    @foreach($accessor as $acc)
+                                        <span class="badge badge-primary">{{ \App\Models\RoleModel::find($acc)->role }}</span>
+                                    @endforeach
+                                </span>
+                            </td>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span class="d-block"> {{ $e->created_by }}</span>
+                                        <span class="d-block"> {{ \App\Models\User::find($e->created_by)->name }}</span>
                                     </div>
                                 </div>
                             </td>
@@ -104,10 +114,10 @@
                                 </div>
                             </td>
                             <td>
-                                <form action="{{ route('remove-user') }}" method="post">
+                                <form action="{{ route('remove-document') }}" method="post">
                                     @csrf
                                     @method('DELETE')
-                                    <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
                                     <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                 </form>
                             </td>
