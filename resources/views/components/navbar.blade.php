@@ -16,33 +16,18 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
-            <a class="nav-link" data-toggle="dropdown" href="#">
-                <i class="far fa-bell"></i>
-                <span class="badge badge-warning navbar-badge">15</span>
+        <!-- Notifications Bell -->
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" href="#notificationsModal">
+                @if(count($newAnnouncement) > 0)
+                    <i class="far fa-bell"></i>
+                    <span id="announcementCounter" class="badge badge-warning navbar-badge">
+                        {{ count($newAnnouncement) }}
+                    </span>
+                @endif
             </a>
-            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">15 Notifications</span>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-users mr-2"></i> 8 friend requests
-                    <span class="float-right text-muted text-sm">12 hours</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-file mr-2"></i> 3 new reports
-                    <span class="float-right text-muted text-sm">2 days</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-            </div>
         </li>
+
         @if(!\Illuminate\Support\Facades\Auth::check())
             <li class="nav-item ml-3">
                 <a href="{{ route("login") }}" class="btn btn-primary text-white text-bold float-right">
@@ -85,3 +70,41 @@
         @endif
     </ul>
 </nav>
+
+<!-- Modal -->
+<div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="notificationsModalLabel">Announcement</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <ul class="list-group list-group-flush">
+                    @forelse ($newAnnouncement as $item)
+                    <li class="list-group-item">
+                        <a href="{{ route('announcement.detail', ['id' => $item->id]) }}" class="text-dark font-weight-bold">{{ $item->title }}</a>
+                    </li>
+                    @empty
+                    <li class="list-group-item">
+                        <a href="" class="text-dark font-weight-bold">Belum ada data pengumuman</a>
+                    </li>
+                    @endforelse
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var navLinks = document.querySelectorAll('.nav-link');
+        navLinks.forEach(function(navLink) {
+            navLink.addEventListener('click', function() {
+                document.getElementById('announcementCounter').style.display = 'none';
+            });
+        });
+    });
+</script>
