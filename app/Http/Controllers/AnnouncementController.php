@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Announcement;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -47,6 +48,7 @@ class AnnouncementController extends Controller
     public function getDetail($id)
     {
         $announcementDetail = Announcement::find($id);
+        // $users = auth()->user()->name;
 
         // Periksa apakah pengumuman ditemukan
         if (!$announcementDetail) {
@@ -64,11 +66,14 @@ class AnnouncementController extends Controller
         $fileSizeInKB = number_format($fileSizeInKB, 2);
         $fileSizeInMB = number_format($fileSizeInMB, 2);
 
+        $loggedInUserName = auth()->user()->name;
+
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
         return view('announcement-detail', [
             'announcementDetail' => $announcementDetail,
             'fileSizeInKB' => $fileSizeInKB,
             'fileSizeInMB' => $fileSizeInMB,
+            'loggedInUserName' => $loggedInUserName,
         ]);
     }
 

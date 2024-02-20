@@ -79,6 +79,7 @@
                                                             <a href="{{ asset('src/fileanc/'.$announcementDetail->file) }}" target="_blank">
                                                                 {{ $announcementDetail->file }}
                                                             </a>
+
                                                         </td>
                                                         <td>
                                                             @if($fileSizeInMB < 1)
@@ -90,6 +91,17 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
+                                               
+                                            <div style="border-top: 3px solid red; padding-top: 10px; margin-top:200px;">
+                                                <div style="">  
+                                                    {{ $announcementDetail->created_at->format('Y-m-d H:i:s') }}
+                                                </div>
+
+                                                <div style="margin-top:30px">
+                                                    <p>ttd,</p>
+                                                    {{ $loggedInUserName }}
+                                                </div> 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
