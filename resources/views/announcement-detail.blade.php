@@ -59,7 +59,7 @@
                                 <div id="grid-system1" class="col-sm-10 mt-2">
                                     <div class="box box-solid">
                                         <div id="grid-system1-body" class="box-body">
-                                            {{ $announcementDetail->content }}
+                                            {!! $announcementDetail->content !!}
                                         </div>
                                     </div>
                                 </div>

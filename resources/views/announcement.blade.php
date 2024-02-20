@@ -200,5 +200,25 @@
     });
 </script>
 
+<script>
+    $(function () {
+        // Summernote
+        $('#summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+</script>
+
 </body>
 </html>

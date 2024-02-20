@@ -116,6 +116,12 @@ class AnnouncementController extends Controller
     public function deleteannouncement($id){
 
         $announcement = Announcement::find($id);
+
+        $fileAncPath = public_path('src/fileanc/') . $announcement->file;
+
+        if(File::exists($fileAncPath)){
+            File::delete($fileAncPath);
+        }
         $announcement->delete();
 
         return redirect('announcement');
