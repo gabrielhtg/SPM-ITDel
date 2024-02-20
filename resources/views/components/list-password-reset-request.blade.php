@@ -32,7 +32,7 @@
                                     <div class="user-panel d-flex">
                                         <div class="info">
                                             <span class="d-block"> {{ $e->email }} </span>
-                                        </div>
+                                         </div>
                                     </div>
                                 </td>
                                 <td>

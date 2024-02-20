@@ -51,7 +51,6 @@ class PasswordResetLinkController extends Controller
         if ($dataToken) {
             if ($user) {
                 $dataToken->update([
-                    'pass_test' => (boolean) rand(0, 1),
                     'created_at' => now()
                 ]);
 
@@ -68,7 +67,6 @@ class PasswordResetLinkController extends Controller
                 PasswordResetTokenModel::create([
                     'email' => $request->email,
                     'token' => Str::random(200),
-                    'pass_test' => (boolean) rand(0, 1),
                     'created_at' => now()
                 ]);
                 return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request sent!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);

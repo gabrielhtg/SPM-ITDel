@@ -4,19 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
+use App\Models\RoleModel;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
     public function getUserSettings() {
         if (Auth::check()) {
             $users = User::all();
+            $roles = RoleModel::all();
             $invitationPending = RegisterInvitationModel::all();
             $passwortResetReq = PasswordResetTokenModel::orderBy('created_at', 'desc')->get();
 
             $data = [
+                'roles' => $roles,
                 'users' => $users,
                 'invitation' => $invitationPending,
                 'pass_reset' => $passwortResetReq
@@ -34,6 +38,9 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = User::where('id', $request->user_id)->first();
+            if ($user->profile_pict != null) {
+                File::delete(public_path($user->profile_pict));
+            }
             $user->delete();
 
             $data = [

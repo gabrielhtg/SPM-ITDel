@@ -42,7 +42,25 @@
                             </p>
                         </a>
                     </li>
+
                 @endif
+                <li class="nav-item">
+                    <a href="{{ route('documentManagement') }}" class="nav-link">
+                        <i class="fas fa-file nav-icon"></i>
+                        <p>
+                            Document Management
+                        </p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('announcement') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bell"></i>
+                        <p>
+                            Announcement
+                        </p>
+                    </a>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

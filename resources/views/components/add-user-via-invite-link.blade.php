@@ -27,10 +27,9 @@
                     <div class="input-group mt-3">
                         <select class="form-control" name="role" required>
                             <option value="">-- Select Role --</option>
-                            <option value="1">Rektor</option>
-                            <option value="2">Wakil Rektor</option>
-                            <option value="3">Ketua SPPM</option>
-                            <option value="4">Anggota SPPM</option>
+                            @foreach($roles as $e)
+                                <option value="{{ $e->id }}">{{ $e->role }}</option>
+                            @endforeach
                         </select>
                         <div class="input-group-append">
                             <div class="input-group-text">

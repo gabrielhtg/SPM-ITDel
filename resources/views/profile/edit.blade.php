@@ -30,11 +30,6 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
-    </div>
-
     <!-- Navbar -->
     @include("components.navbar")
     <!-- /.navbar -->
@@ -60,28 +55,34 @@
         <section class="content">
             <div class="container-fluid">
 
-                <div class="card card-primary card-outline">
-                    <div class="card-body box-profile">
+                <div class="card card-primary card-outline" style="height: 80vh">
+                    <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{ asset(auth()->user()->profile_pict) }}" alt="User profile picture">
+                            @if(auth()->user()->profile_pict == null)
+                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                            @else
+                                <img src="{{ asset(auth()->user()->profile_pict) }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                            @endif
                         </div>
                         <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
                         <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
-                        <ul class="list-group list-group-unbordered mb-3">
-                            <li class="list-group-item">
-                                <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
-                            </li>
-                            <li class="list-group-item">
-                                <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
-                            </li>
-                        </ul>
+                        <div class="d-flex justify-content-center">
+                            <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
+                                <li class="list-group-item">
+                                    <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
+                                </li>
+                            </ul>
+                        </div>
 
-                        <div class="">
-                            <button class="btn btn-primary btn-block" style="max-width: 1000px"><b>Change Profile Image</b></button>
-                            <button class="btn btn-primary btn-block" style="max-width: 1000px"><b>Edit Profile</b></button>
+                        <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
+                            <a href="{{ route('change-profile-pict') }}" class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></a>
+                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>
                         </div>
                     </div>
 
@@ -92,19 +93,8 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.2.0
-        </div>
-    </footer>
+    @include('components.footer')
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -141,6 +131,5 @@
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ asset("dist/js/pages/dashboard.js") }}"></script>
 </body>
 </html>
