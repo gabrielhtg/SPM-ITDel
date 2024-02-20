@@ -49,7 +49,7 @@ class createRole extends Seeder
            ['role' => 'Member of KHDTK'],
            ['role' => 'Ketua SPM'],
            ['role' => 'Staf SPM'],
-           ['role' => 'Ketua SPI']
+           ['role' => 'Ketua SPI'],
            ['role' => 'Staf SPI'],
            ['role' => 'Ketua LPPM'],
            ['role' => 'Staf LPPM'],
