@@ -85,5 +85,7 @@ Route::middleware('auth')->group(function () {
 
     Route::post('/upload-file', [\App\Http\Controllers\DocumentController::class, 'uploadFile'])->name('uploadFile');
 
+    Route::post("/user-detail", [\App\Http\Controllers\UserController::class, 'getUserDetail'])->name('getUserDetail');
+
     Route::delete('/remove-document', [\App\Http\Controllers\DocumentController::class, 'removeDocument'])->name('remove-document');
 });

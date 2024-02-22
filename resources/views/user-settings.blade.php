@@ -138,12 +138,20 @@
                                 {{--                            </td>--}}
 
                                 <td>
-                                    <form action="{{ route('remove-user') }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                    <div class="d-flex" style="gap: 10px">
+                                        <form action="{{ route('remove-user') }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                        </form>
+
+                                        <form action="{{ route('getUserDetail') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                            <button type="submit" class="btn btn-success"><i class="far fa-eye" style="font-size: 14px"></i></button>
+                                        </form>
+                                    </div>
                                 </td>
                             </tr>
                         @endif

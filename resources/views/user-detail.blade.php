@@ -45,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">About</h1>
+                        <h1 class="m-0">About {{ $user->name }}</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -59,34 +59,32 @@
                 <div class="card card-primary card-outline" style="height: 80vh">
                     <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
-                            @if(auth()->user()->profile_pict == null)
+                                @if($user->profile_pict == null)
                                 <img src="{{ asset('src/img/default-profile-pict.png') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
                             @else
-                                <img src="{{ asset(auth()->user()->profile_pict) }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                                <img src="{{ asset($user->profile_pict) }}" class="profile-user-img img-fluid img-circle" alt="User Image">
                             @endif
                         </div>
-                        <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
-                        <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
+                        <h3 class="profile-username text-center">{{ $user->name }}</h3>
+                        <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</p>
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
-                                <li class="list-group-item">
-                                    <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Email</b> <span class="float-right">{{ $user->email }}</span>
                                 </li>
-                                <li class="list-group-item">
-                                    <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Name</b> <span class="float-right">{{ $user->name }}</span>
                                 </li>
-                                <li class="list-group-item">
-                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Registered Since</b> <span class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Last Login</b> <span class="float-right">{{ \App\Services\CustomConverterService::getLastLogin($user->last_login_at) }}</span>
                                 </li>
                             </ul>
-                        </div>
-
-                        <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
-                            <a href="{{ route('change-profile-pict') }}" class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></a>
-                            {{--                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>--}}
-                            @include('components.edit-profile-modal')
-                            @include('components.change-password-modal')
-                            {{--                            <button class="btn btn-warning" style="width: 180px"><b>Change Password</b></button>--}}
                         </div>
                     </div>
 

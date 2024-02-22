@@ -50,5 +50,16 @@ class UserController extends Controller
 
             return redirect()->route('user-settings')->with('toastData', $data);
         }
+
+        return redirect()->route('login');
+    }
+
+    public function getUserDetail (Request $request) {
+        $user = User::find($request->user_id);
+        $data = [
+            'user' => $user,
+        ];
+
+        return view('user-detail', $data);
     }
 }
