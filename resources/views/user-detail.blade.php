@@ -45,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Profile</h1>
+                        <h1 class="m-0">About</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -83,10 +83,10 @@
 
                         <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
                             <a href="{{ route('change-profile-pict') }}" class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></a>
-{{--                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>--}}
+                            {{--                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>--}}
                             @include('components.edit-profile-modal')
                             @include('components.change-password-modal')
-{{--                            <button class="btn btn-warning" style="width: 180px"><b>Change Password</b></button>--}}
+                            {{--                            <button class="btn btn-warning" style="width: 180px"><b>Change Password</b></button>--}}
                         </div>
                     </div>
 
