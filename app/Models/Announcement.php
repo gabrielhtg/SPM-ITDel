@@ -15,4 +15,5 @@ class Announcement extends Model
         'content',
         'file',
     ];
+
 }
