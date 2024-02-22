@@ -14,7 +14,7 @@ class CustomConverterService
     static public function convertTime ($time) {
         $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
 
-        return $carbonObject->format('l, d M Y H:i:s');
+        return $carbonObject->format('D, d M Y');
     }
 
     static public function getLastLogin ($time) : string {
@@ -25,11 +25,13 @@ class CustomConverterService
         $diffInDays = $carbonObject->diffInDays(Carbon::now());
 
         if ($diffInMinutes < 60) {
-            return "$diffInMinutes minutes ago";
+            return "$diffInMinutes mnts ago";
         } elseif ($diffInHours < 24) {
-            return "$diffInHours hours ago";
+            $diffInMinutes = $diffInMinutes % 60;
+            return "$diffInHours hrs, $diffInMinutes mnts ago";
         } else {
-            return "$diffInDays days ago";
+            $diffInHours = $diffInHours % 24;
+            return "$diffInDays days, $diffInHours mnts ago";
         }
     }
 }

@@ -79,7 +79,7 @@
                                     <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Registered Since</b> <span class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
+                                    <b>Registered</b> <span class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Last Login</b> <span class="float-right">{{ \App\Services\CustomConverterService::getLastLogin($user->last_login_at) }}</span>
