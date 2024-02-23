@@ -35,63 +35,26 @@
     <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
     </div>
-
+    
     <!-- Navbar -->
-    @include("components.navbar")
+    {{-- @include("components.guessnavbar") --}}
+
     <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
-    @include("components.sidebar")
 
-    <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Berita</h1>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-
-                <section id="image-carousel" class="splide" aria-label="Beautiful Images">
-                    <div class="splide__track">
-                        <ul class="splide__list">
-                            <li class="splide__slide">
-                                <img src="https://akcdn.detik.net.id/visual/2024/02/06/jejak-langkah-ganjar-mahfud-md-menuju-pilpres-2024-8_169.jpeg?w=650&q=90" alt="">
-                                <div>
-                                    Ganjar-Mahfud Menang di Satu Provinsi Versi Quick Count Pilpres PRC
-                                </div>
-                            </li>
-                            <li class="splide__slide">
-                                <img src="https://akcdn.detik.net.id/visual/2023/10/31/ilustrasi-tiga-paslon_169.jpeg?w=650&q=90" alt="">
-                                <div>
-                                    Hasil Akhir Quick Count Semua Provinsi Pulau Jawa Berbagai Lembaga
-                                </div>
-                            </li>
-                            <li class="splide__slide">
-                                <img src="https://akcdn.detik.net.id/visual/2024/02/14/perhitungan-surat-suara-pilpres-pemilu-2024_169.jpeg?w=650&q=90/visual/2024/02/06/jejak-langkah-ganjar-mahfud-md-menuju-pilpres-2024-8_169.jpeg?w=650&q=90" alt="">
-                                <div>
-                                    Daftar Parpol Lolos Parlemen Versi Quick Count Pemilu 90 Persen
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </section>
-
-            </div>
-        </section>
-        <!-- /.content -->
-    </div>
+    
+    @if(!\Illuminate\Support\Facades\Auth::check())
+        @include("components.guesslayout");
+    @else
+        @include("components.navbar")
+        @include("components.sidebar")
+        @include('components.footer')
+    @endif
+    
+    
+   
     <!-- /.content-wrapper -->
-    @include('components.footer')
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

@@ -1,5 +1,5 @@
 .custom-border {
-    border-color: #007BFF;
+    border-color: #007bff;
     border-style: solid;
     border-width: 2px;
 }
@@ -9,10 +9,26 @@
     height: auto;
 }
 
+.gambarberita img {
+    width: 60%;
+    height: auto;
+    /* align-items: center; */
+}
+
 /* Make sure the size of the image fits perfectly into the container */
 img {
     display: block;
 
     /* This rule is very important, please don't ignore this */
     max-width: 100%;
+}
+
+.background-under-navbar {
+    background-image: url("../img/IMG_6704.jpg"); /* Ganti dengan jalur gambar yang sesuai */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    height: 100vh;
+    /* Gaya CSS tambahan jika diperlukan */
 }

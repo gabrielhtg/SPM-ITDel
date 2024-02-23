@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-announcement">
-    <i class="fas fa-share-alt"></i> <span style="margin-left: 5px">Add User via Link</span>
+    <i class="fas fa-plus"></i><span style="margin-left: 5px">Add Announcement</span>
 </button>
 
 <div class="modal fade" id="modal-announcement">

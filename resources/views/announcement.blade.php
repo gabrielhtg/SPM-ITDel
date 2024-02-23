@@ -77,8 +77,6 @@
                                         <a href="{{ route('announcement.detail', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $item->title }}</a>
                                     </td>
 
-                                  
-                                
                             <td style="width: 190px;">
                             <div style="flex-shrink: 4;">
                                 <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-announcement-{{$item->id}}" >
