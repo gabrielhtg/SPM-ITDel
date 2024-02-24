@@ -6,13 +6,15 @@
     <title>SPM IT Del</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+    <link rel="stylesheet"
+          href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- JQVMap -->
@@ -59,10 +61,12 @@
                 <div class="card card-primary card-outline" style="height: 80vh">
                     <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
-                                @if($user->profile_pict == null)
-                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                            @if($user->profile_pict == null)
+                                <img src="{{ asset('src/img/default-profile-pict.png') }}"
+                                     class="profile-user-img img-fluid img-circle" alt="User Image">
                             @else
-                                <img src="{{ asset($user->profile_pict) }}" class="profile-user-img img-fluid img-circle" alt="User Image">
+                                <img src="{{ asset($user->profile_pict) }}"
+                                     class="profile-user-img img-fluid img-circle" alt="User Image">
                             @endif
                         </div>
                         <h3 class="profile-username text-center">{{ $user->name }}</h3>
@@ -76,13 +80,21 @@
                                     <b>Name</b> <span class="float-right">{{ $user->name }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Role</b> <span class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
+                                    <b>Role</b> <span
+                                        class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Registered</b> <span class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
+                                    <b>Registered</b> <span
+                                        class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Last Login</b> <span class="float-right">{{ \App\Services\CustomConverterService::getLastLogin($user->last_login_at) }}</span>
+                                    <b>Last Login</b> <span class="float-right">
+                                        @if($user->last_login_at !== null)
+                                            {{ \App\Services\CustomConverterService::getLastLogin($user->last_login_at) }}
+                                        @else
+                                            -
+                                        @endif
+                                    </span>
                                 </li>
                             </ul>
                         </div>

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('allowed_user', function (Blueprint $table) {
             $table->id();
-            $table->string('email', 100);
+            $table->string('email', 100)->unique();
             $table->string('created_by', 20);
             $table->timestamps();
         });
