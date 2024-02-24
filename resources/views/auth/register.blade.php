@@ -38,13 +38,14 @@
                 <span class="text-danger">{{ $errors->first('name') }}</span>
 
                 <div class="input-group mt-3">
-                    <input type="email" class="form-control" placeholder="Email" value="{{ $email }}" disabled>
+                    <input type="email" class="form-control" placeholder="Email" value="{{ isset($email) ? $email : '' }}" >
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>
                 </div>
+
                 <span class="text-danger">{{ $errors->first('email') }}</span>
 
                 <div class="input-group mt-3">
@@ -70,10 +71,7 @@
 
                 <div class="input-group mt-3">
                     <input type="text" class="form-control" placeholder="Role"
-                           value="{{ app(CustomConverterService::class)->convertRole($role) }}" disabled>
-                    <input type="hidden" name="role" value="{{ $role }}">
-                    <input type="hidden" name="email" value="{{ $email }}">
-                    <input type="hidden" name="token" value="{{ $token }}">
+
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>

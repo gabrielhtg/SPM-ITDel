@@ -27,17 +27,9 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create($token): View
+    public function create(): View
     {
-        $data = RegisterInvitationModel::where('token', $token)->first();
-
-        if ($data) {
-            return view('auth.register', $data);
-        }
-        else {
-            abort(404);
-        }
-
+        return view('auth.register');
     }
 
     /**

@@ -32,11 +32,8 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('/register/{token}', [RegisteredUserController::class, 'create']);
+    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
-    Route::get('/register', function () {
-        abort(404);
-    });
 
     Route::post('/register-invite', [RegisteredUserController::class, 'storeFromInvitationLink']);
 
