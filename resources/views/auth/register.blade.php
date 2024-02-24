@@ -70,8 +70,7 @@
                 <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
 
                 <div class="input-group mt-3">
-                    <input type="text" class="form-control" placeholder="Role"
-
+                    <input type="text" class="form-control" placeholder="Role">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
