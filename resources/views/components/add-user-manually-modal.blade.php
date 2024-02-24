@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success1">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success1">
     <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add User Manually</span>
 </button>
 

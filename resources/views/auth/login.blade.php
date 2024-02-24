@@ -27,7 +27,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group">
-                    <input id="email" name="email" type="email" class="form-control" placeholder="Email" required autofocus autocomplete="username">
+                    <input id="email" name="email" type="email" class="form-control" placeholder="Username" required autofocus autocomplete="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -72,9 +72,6 @@
                     </a>
                 @endif
             </p>
-{{--            <p class="mb-0">--}}
-{{--                <a href="{{ route("register") }}" class="text-center">Register</a>--}}
-{{--            </p>--}}
         </div>
         <!-- /.card-body -->
     </div>
