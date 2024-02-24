@@ -29,21 +29,28 @@ class AnnouncementController extends Controller
             'file' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:5120',
         ]);
 
-        // Mendapatkan nama file asli
-        $fileAnc = $request->file('file')->getClientOriginalName();
+        // Inisialisasi nama file dengan string kosong
+        $fileAnc = '';
 
-        // Pindahkan file ke folder tujuan dengan nama file asli
-        $request->file('file')->move(public_path('src/fileanc'), $fileAnc);
+        // Periksa apakah file diunggah
+        if ($request->hasFile('file')) {
+            // Jika file diunggah, atur nama file dengan nama file asli
+            $fileAnc = $request->file('file')->getClientOriginalName();
+
+            // Pindahkan file ke folder tujuan dengan nama file asli
+            $request->file('file')->move(public_path('src/fileanc'), $fileAnc);
+        }
 
         // Simpan data pengumuman ke dalam database
         Announcement::create([
             'title' => $request->title,
             'content' => $request->content,
-            'file' => $fileAnc,
+            'file' => $fileAnc, // Masukkan nama file ke dalam basis data
         ]);
 
-        return redirect('announcement');
+        return redirect('announcement')->with('toastData', ['success' => true, 'text' => 'Announcement uploaded successfully!']);
     }
+
 
     public function getDetail($id)
     {
@@ -115,21 +122,21 @@ class AnnouncementController extends Controller
         $data->content = $request->content;
         $data->save();
 
-        return redirect()->route('announcement')->with('success', 'Pengumuman berhasil diperbarui.');
+        return redirect()->route('announcement')->with('toastData', ['success' => true, 'text' => 'Document updated successfully!']);
     }
 
-    public function deleteannouncement($id){
+    public function deleteannouncement($id)
+    {
 
         $announcement = Announcement::find($id);
 
         $fileAncPath = public_path('src/fileanc/') . $announcement->file;
 
-        if(File::exists($fileAncPath)){
+        if (File::exists($fileAncPath)) {
             File::delete($fileAncPath);
         }
         $announcement->delete();
 
-        return redirect('announcement');
-
+        return redirect('announcement')->with('toastData', ['success' => true, 'text' => 'Document deleted successfully!']);
     }
 }

@@ -44,14 +44,13 @@ Route::middleware('auth')->group(function () {
     Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
     Route::post('/announcement', [AnnouncementController::class, 'store'])->name('announcement.add');
     Route::get('/announcement/detail/{id}', [AnnouncementController::class, 'getDetail'])->name('announcement.detail');
-    Route::post('/updateannouncement/{id}', [AnnouncementController::class, 'updateannouncement'])->name('updateannouncement');
-    Route::get('/deleteannouncement/detail/{id}', [AnnouncementController::class, 'deleteannouncement'])->name('deleteannouncement');
+    Route::post('/updateannouncement/{id}', [AnnouncementController::class, 'updateannouncement'])->name('announcement.edit');
+    Route::get('/deleteannouncement/detail/{id}', [AnnouncementController::class, 'deleteannouncement'])->name('announcement.delete');
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
-    Route::post('updatenews/{id}',[NewsController::class, 'updatenews'])->name('updatenews');
+    Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
     Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deleteannews');
-    
 });
 
 require __DIR__ . '/auth.php';

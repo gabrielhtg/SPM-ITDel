@@ -19,12 +19,12 @@
         <!-- Notifications Bell -->
         <li class="nav-item">
             <a class="nav-link" data-toggle="modal" href="#notificationsModal">
-                @if(count($newAnnouncement) > 0)
-                    <i class="far fa-bell"></i>
+                <i class="far fa-bell"></i>
+                {{-- @if(count($newAnnouncement) > 0)
                     <span id="announcementCounter" class="badge badge-warning navbar-badge">
                         {{ count($newAnnouncement) }}
                     </span>
-                @endif
+                @endif --}}
             </a>
         </li>
 
@@ -73,7 +73,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="notificationsModal" tabindex="-1" aria-labelledby="notificationsModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="notificationsModalLabel">Announcement</h5>
@@ -84,8 +84,9 @@
             <div class="modal-body">
                 <ul class="list-group list-group-flush">
                     @forelse ($newAnnouncement as $item)
-                    <li class="list-group-item">
+                    <li class="list-group-item d-flex justify-content-between">
                         <a href="{{ route('announcement.detail', ['id' => $item->id]) }}" class="text-dark font-weight-bold">{{ $item->title }}</a>
+                        <span>{{ $item->created_at->format('Y-m-d') }}</span>
                     </li>
                     @empty
                     <li class="list-group-item">

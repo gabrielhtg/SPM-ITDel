@@ -1,4 +1,4 @@
-<footer class="">
+<footer class="border-top p-3">
     <strong>Copyright &copy; 2024 <a href="https://adminlte.io">Informatika 2021</a> Kelompok 1.</strong>
     All rights reserved.
     <div class="float-right d-none d-sm-inline-block">

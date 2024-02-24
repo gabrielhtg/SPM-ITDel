@@ -3,7 +3,7 @@
 </button>
 
 <div class="modal fade" id="modal-announcement">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add New Announcement</h4>
@@ -22,7 +22,7 @@
 
                     {{-- input konten --}}
                     <label for="summernote">Keterangan Pengumuman</label>
-                    <textarea id="summernote" name="content"></textarea>
+                    <textarea class="summernote" name="content"></textarea>
 
                     {{-- input file --}}
                     <div class="form-group">
