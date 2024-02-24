@@ -51,8 +51,8 @@ class ListAllowedUserController extends Controller
                         'created_by' => auth()->user()->username
                     ]);
                 } catch (\Exception $e) {
-
-                }g
+                    // do nothing
+                }
             }
         }
 
