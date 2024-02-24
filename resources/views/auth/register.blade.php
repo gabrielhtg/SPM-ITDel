@@ -16,7 +16,8 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <!-- Roles -->
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" >
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -88,10 +89,9 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                
+                            <div class="input-group-append">
                             </div>
-                            <select name="role" id="role" class="form-control" data-placeholder="Pilih roles">
+                            <select name="role" id="role" class="form-control" placeholder="Choose roles">
                                 <option></option>
                                 <option value="Alabama">Alabama</option>
                                 <option value="California">California</option>
