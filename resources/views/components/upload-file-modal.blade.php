@@ -24,8 +24,8 @@
                             @foreach($roles as $e)
                                 <option value="{{ $e->id }}">{{ $e->role }}</option>
                             @endforeach
-                                <option value="{{ 0 }}">All</option>
-                        </select>
+                                    <option value="{{ 0 }}">All</option>
+                            </select>
                     </div>
 
                     <div class="input-group mt-3">

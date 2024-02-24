@@ -1,5 +1,5 @@
 @php use App\Services\CustomConverterService; @endphp
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -7,17 +7,11 @@
     <title>AdminLTE 3 | Registration Page (v2)</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
-    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
-    <!-- Roles -->
-    <link rel="stylesheet" 
-          href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" >
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -26,6 +20,7 @@
             <a href="{{ route("dashboard") }}" class="h1"><b>AMI</b> IT Del</a>
         </div>
         <div class="card-body">
+
             <p class="login-box-msg">Register a new membership</p>
 
             <form method="POST" action="/register-invite">
@@ -47,7 +42,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Email" value="{{ isset($email) ? $email : '' }}">
+                            <input type="email" class="form-control" placeholder="Email">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -75,7 +70,8 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password">
+                            <input type="password" name="password_confirmation" class="form-control"
+                                   placeholder="Retype password">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -89,21 +85,16 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <div class="input-group-append">
-                            </div>
-                            <select name="role" id="role" class="form-control" placeholder="Choose roles">
+                            <select class="select2">
                                 <option></option>
-                                <option value="Alabama">Alabama</option>
-                                <option value="California">California</option>
-                                <option value="Delaware">Delaware</option>
-                                <option value="Tennessee">Tennessee</option>
-                                <option value="Tovas">Tovas</option>
+                                @foreach($roles as $e)
+                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @endforeach
+                                <option value="{{ 0 }}">All</option>
                             </select>
-                            <span class="input-group-text"><i class="fas fa-user"></i></span>
                         </div>
                     </div>
                 </div>
-
 
                 <div class="row mt-3">
                     <div class="col">
@@ -112,27 +103,23 @@
                 </div>
             </form>
         </div>
-        <!-- /.form-box -->
-    </div><!-- /.card -->
+    </div>
 </div>
-<!-- /.register-box -->
 
 <!-- jQuery -->
-<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
-<!-- Bootstrap 4 -->
+<script src="{{ asset("plugins/jquery/jquery.min.js")  }}"></script>
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-<!-- AdminLTE App -->
+<!-- Select2 -->
+<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-
 <script>
-    $(document).ready(function() {
-        $('#role').select2({
-            placeholder: 'Choose roles',
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            placeholder: "Select role",
             allowClear: true
         });
-    });
+    })
 </script>
 </body>
 </html>

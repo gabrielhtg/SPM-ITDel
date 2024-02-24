@@ -7,6 +7,7 @@ use App\Mail\RegisterInvitationMail;
 use App\Mail\ResetPasswordMail;
 use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
+use App\Models\RoleModel;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -29,7 +30,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        $data = [
+            'roles' => RoleModel::all()
+        ];
+
+        return view('auth.register', $data);
     }
 
     /**
