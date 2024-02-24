@@ -129,7 +129,7 @@
 <script>
     $(document).ready(function() {
         $('#role').select2({
-            placeholder: 'Pilih roles',
+            placeholder: 'Choose roles',
             allowClear: true
         });
     });
