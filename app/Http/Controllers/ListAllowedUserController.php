@@ -52,8 +52,7 @@ class ListAllowedUserController extends Controller
                     ]);
                 } catch (\Exception $e) {
 
-                }
-;g
+                }g
             }
         }
 
