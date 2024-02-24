@@ -58,7 +58,7 @@
         <section class="content">
             <div class="container-fluid">
 
-                <div class="card card-primary card-outline" style="height: 80vh">
+                <div class="card card-primary card-outline" style="min-height: 80vh">
                     <div class="card-body box-profile d-flex flex-column justify-content-center">
                         <div class="text-center">
                             @if($user->profile_pict == null)
@@ -84,8 +84,17 @@
                                         class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Registered</b> <span
+                                    <b>Starts On</b> <span
                                         class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    @if($user->ends_on !== null)
+                                        <b>Ends On</b> <span
+                                            class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->ends_on) }}</span>
+                                    @else
+                                        <b>Ends On</b> <span
+                                            class="float-right">-</span>
+                                    @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Last Login</b> <span class="float-right">
@@ -96,10 +105,22 @@
                                         @endif
                                     </span>
                                 </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>IP Address</b> <span class="float-right">
+                                        @if($user->ip_address !== null)
+                                            {{ $user->ip_address }}
+                                        @else
+                                            -
+                                        @endif
+                                    </span>
+                                </li>
                             </ul>
                         </div>
                     </div>
 
+                    <div class="d-flex justify-content-center">
+                        <a class="btn btn-primary mb-3" href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check IP Address</a>
+                    </div>
                 </div>
 
             </div>

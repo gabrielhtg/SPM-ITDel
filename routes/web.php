@@ -33,7 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/user-settings', [UserController::class, 'getUserSettings'])->name('user-settings');
+    Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
+    Route::get('/user-settings-inactive', [UserController::class, 'getUserSettings'])->name('user-settings-inactive');
     Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
     Route::post('/announcement', [AnnouncementController::class, 'store'])->name('announcement.add');
     Route::get('/announcement/detail/{id}', [AnnouncementController::class, 'getDetail'])->name('announcement.detail');
