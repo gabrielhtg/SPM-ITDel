@@ -1,8 +1,5 @@
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-invited-user">
-    <i class="fas fa-link"></i> <span style="margin-left: 5px">List Invited User</span>
-    @if(count($invitation) != 0)
-        <span class="badge badge-primary" style="margin-left: 5px">{{ count($invitation) }}</span>
-    @endif
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-invited-user">
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add From Excel File</span>
 </button>
 
 <div class="modal fade" id="modal-list-invited-user">
@@ -15,53 +12,28 @@
                 </button>
             </div>
             <div class="modal-body">
-                <table class="table table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Invited At</th>
-                        <th>Action</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                        @forelse($invitation as $e)
-                            <tr>
-                                <td>{{ $e->email }}</td>
-                                <td>{{ app(\App\Services\CustomConverterService::class)->convertRole($e->role) }}</td>
-                                <td>{{ $e->updated_at }}</td>
-                                <td>
-                                    <form action="{{ route('delete-invitation') }}" method="post">
-                                        @method('DELETE')
-                                        @csrf
-                                        <input type="hidden" name="id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
 
-                        @empty
-                            <tr>
-                                <td colspan="4">There is no active invitation link.</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                <div class="d-flex justify-content-center">
-                    @if($invitation->count() != 0)
-                        <form action="{{ route('clear-invitation') }}" method="POST">
+                <span> If you still don't have the template, download it <a
+                        href="{{ asset('src/template/allowed_user_template.xlsx') }}">here</a>.</span>
+
+                <p class="mt-3">Upload the email list below</p>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <form id="form-upload" action="{{ route('uploadListAllowedUser') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger mt-4">Clear Invitation Link</button>
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file-excel">
+                            <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </form>
-                    @endif
+                    </div>
+                    <div class="input-group-append">
+                        <button type="submit" form="form-upload" class="input-group-text">Upload</button>
+                    </div>
 
                 </div>
             </div>
-                <div class="modal-footer justify-content-between">
-                    <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
+            <div class="modal-footer justify-content-between">
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
         </div>
         <!-- /.modal-content -->
     </div>

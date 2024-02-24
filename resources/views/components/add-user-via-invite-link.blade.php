@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success2">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success2">
     <i class="fas fa-share-alt"></i> <span style="margin-left: 5px">Add User via Link</span>
 </button>
 

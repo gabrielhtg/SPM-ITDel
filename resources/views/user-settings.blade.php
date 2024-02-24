@@ -49,18 +49,24 @@
         <div class="card">
             <div class="card-body">
 
-                @include('components.add-user-manually-modal')
-                @include('components.add-user-via-invite-link')
-                @include('components.list-invited-user')
-                @include('components.list-password-reset-request')
+                <div class="mb-3">
+                    @include('components.add-user-manually-modal')
+                    @include('components.add-user-via-invite-link')
+                    {{--                @include('components.list-invited-user')--}}
+                    <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
+                        List Allowed User
+                    </a>
+                    @include('components.list-password-reset-request')
 
+                </div>
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>Created At</th>
+{{--                        <th>Created At</th>--}}
                         <th>Last Login At</th>
 {{--                        <th>Status</th>--}}
                         <th>Action</th>
@@ -94,6 +100,15 @@
                                             <span class="d-block">{{ $e->name }}</span>
                                         </div>
                                     </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block">{{ $e->username }}</span>
+                                        </div>
+                                    </div>
+
+                                </td>
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="info">
@@ -114,28 +129,15 @@
                                     <div class="user-panel d-flex">
                                         <div class="info">
                                         <span class="d-block">
-                                            {{ $e->created_at }}
+                                            @if($e->last_login_at !== null)
+                                                {{ CustomConverterService::getLastLogin($e->last_login_at) }}
+                                            @else
+                                                -
+                                            @endif
                                         </span>
                                         </div>
                                     </div>
                                 </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                        <span class="d-block">
-                                            {{ $e->last_login_at }}
-                                        </span>
-                                        </div>
-                                    </div>
-                                </td>
-
-                                {{--                            <td>--}}
-                                {{--                                @if($e->status)--}}
-                                {{--                                    <i class="fas fa-circle text-success"></i> Online--}}
-                                {{--                                @else--}}
-                                {{--                                    <i class="fas fa-circle text-danger"></i> Offline--}}
-                                {{--                                @endif--}}
-                                {{--                            </td>--}}
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
