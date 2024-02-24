@@ -1,5 +1,5 @@
 @php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -15,6 +15,8 @@
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <!-- Roles -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -27,65 +29,85 @@
 
             <form method="POST" action="/register-invite">
                 @csrf
-                <div class="input-group">
-                    <input type="text" name="name" class="form-control" placeholder="Full name">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-user"></span>
+                <div class="row">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" name="name" class="form-control" placeholder="Full name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <span class="text-danger">{{ $errors->first('name') }}</span>
-
-                <div class="input-group mt-3">
-                    <input type="email" class="form-control" placeholder="Email" value="{{ isset($email) ? $email : '' }}" >
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
-                        </div>
+                        <span class="text-danger">{{ $errors->first('name') }}</span>
                     </div>
                 </div>
 
-                <span class="text-danger">{{ $errors->first('email') }}</span>
-
-                <div class="input-group mt-3">
-                    <input type="password" name="password" class="form-control" placeholder="Password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
-                <span class="text-danger">{{ $errors->first('password') }}</span>
-
-                <div class="input-group mt-3">
-                    <input type="password" name="password_confirmation" class="form-control"
-                           placeholder="Retype password">
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-lock"></span>
-                        </div>
-                    </div>
-                </div>
-                <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-
-                <div class="input-group mt-3">
-                    <input type="text" class="form-control" placeholder="Role"
-
-                    <div class="input-group-append">
-                        <div class="input-group-text">
-                            <span class="fas fa-user"></span>
-                        </div>
-                    </div>
-                </div>
                 <div class="row mt-3">
-                    <div class="col-8">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="email" class="form-control" placeholder="Email" value="{{ isset($email) ? $email : '' }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-danger">{{ $errors->first('email') }}</span>
                     </div>
-                    <!-- /.col -->
-                    <div class="col-4">
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-danger">{{ $errors->first('password') }}</span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="password" name="password_confirmation" class="form-control" placeholder="Retype password">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                            </div>
+                            <select name="role" id="role" class="form-control" data-placeholder="Pilih roles">
+                                <option></option>
+                                <option value="Alabama">Alabama</option>
+                                <option value="California">California</option>
+                                <option value="Delaware">Delaware</option>
+                                <option value="Tennessee">Tennessee</option>
+                                <option value="Tovas">Tovas</option>
+                            </select>
+                            <span class="input-group-text"><i class="fas fa-user"></i></span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="row mt-3">
+                    <div class="col">
                         <button type="submit" class="btn btn-primary btn-block">Register</button>
                     </div>
-                    <!-- /.col -->
                 </div>
             </form>
         </div>
@@ -100,6 +122,16 @@
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#role').select2({
+            placeholder: 'Pilih roles',
+            allowClear: true
+        });
+    });
+</script>
 </body>
 </html>
-

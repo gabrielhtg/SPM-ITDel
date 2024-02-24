@@ -72,12 +72,9 @@
                     </a>
                 @endif
             </p>
-<<<<<<< HEAD
             <p class="mb-0">
                 <a href="{{ route("register") }}" class="text-center">Register</a>
             </p>
-=======
->>>>>>> 2bead167d5a154a9bef134dd54a142d9283f2440
         </div>
         <!-- /.card-body -->
     </div>
