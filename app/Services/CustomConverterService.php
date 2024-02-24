@@ -34,4 +34,18 @@ class CustomConverterService
             return "$diffInDays days, $diffInHours mnts ago";
         }
     }
+
+    static public function convertStatus($status) {
+        if ($status !== null) {
+            if ($status == true) {
+                return "Active";
+            }
+
+            else {
+                return "Inactive";
+            }
+        }
+
+        return "Inactive";
+    }
 }

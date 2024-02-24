@@ -23,9 +23,11 @@ class create_user_admin extends Seeder
                 'password' => Hash::make("admin"),
                 'role' => 1,
                 'status' => true,
+                'online' => false,
                 'username' => 'admin',
                 'phone' => '082165646255',
                 'created_at' => now(),
+                'verified' => true,
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
             [
@@ -33,8 +35,10 @@ class create_user_admin extends Seeder
                 'email' => 'ifs21010@students.del.ac.id',
                 'username' => 'gabrielhtg',
                 'phone' => '082165646255',
+                'online' => false,
                 'password' => Hash::make("admin"),
                 'status' => true,
+                'verified' => true,
                 'role' => 1,
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'

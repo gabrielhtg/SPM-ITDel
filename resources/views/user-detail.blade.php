@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+@php use App\Services\CustomConverterService; @endphp
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -70,7 +71,7 @@
                             @endif
                         </div>
                         <h3 class="profile-username text-center">{{ $user->name }}</h3>
-                        <p class="text-muted text-center">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</p>
+                        <p class="text-muted text-center">{{ app(CustomConverterService::class)->convertRole($user->role) }}</p>
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
@@ -81,16 +82,16 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Role</b> <span
-                                        class="float-right">{{ app(\App\Services\CustomConverterService::class)->convertRole($user->role) }}</span>
+                                        class="float-right">{{ app(CustomConverterService::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Starts On</b> <span
-                                        class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->created_at) }}</span>
+                                        class="float-right">{{ CustomConverterService::convertTime($user->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->ends_on !== null)
                                         <b>Ends On</b> <span
-                                            class="float-right">{{ \App\Services\CustomConverterService::convertTime($user->ends_on) }}</span>
+                                            class="float-right">{{ CustomConverterService::convertTime($user->ends_on) }}</span>
                                     @else
                                         <b>Ends On</b> <span
                                             class="float-right">-</span>
@@ -99,7 +100,7 @@
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Last Login</b> <span class="float-right">
                                         @if($user->last_login_at !== null)
-                                            {{ \App\Services\CustomConverterService::getLastLogin($user->last_login_at) }}
+                                            {{ CustomConverterService::getLastLogin($user->last_login_at) }}
                                         @else
                                             -
                                         @endif
@@ -114,12 +115,23 @@
                                         @endif
                                     </span>
                                 </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    @if($user->status)
+                                        <b>Status</b> <span
+                                            class="float-right text-success text-bold">{{ CustomConverterService::convertStatus($user->status) }}</span>
+                                    @else
+                                        <b>Status</b> <span
+                                            class="float-right text-danger text-bold">{{ CustomConverterService::convertStatus($user->status) }}</span>
+                                    @endif
+
+                                </li>
                             </ul>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-primary mb-3" href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check IP Address</a>
+                        <a class="btn btn-primary mb-3" href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
+                            IP Address</a>
                     </div>
                 </div>
 

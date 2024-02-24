@@ -39,7 +39,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
 
-    Route::post('/register-invite', [RegisteredUserController::class, 'storeFromInvitationLink']);
+    Route::post('/self-register', [RegisteredUserController::class, 'registerUser'])->name('self-register');
 
 });
 
@@ -75,8 +75,8 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('/clear-invitation', [RegisteredUserController::class, 'clearInvitation'])->name('clear-invitation');
 
-    Route::post('/accept-reset-request', [RegisteredUserController::class, 'acceptResetRequest'])->name('accept-reset-request');
-    Route::delete('/delete-reset-request', [RegisteredUserController::class, 'deleteResetRequest'])->name('delete-reset-request');
+    Route::post('/accept-register-request', [RegisteredUserController::class, 'acceptRegisterRequest'])->name('accept-register-request');
+    Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
 
     Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('edit-profile');
 
@@ -93,4 +93,5 @@ Route::middleware('auth')->group(function () {
     Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
     Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
     Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
+    Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
 });

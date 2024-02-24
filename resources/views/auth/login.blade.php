@@ -22,19 +22,26 @@
             <a href="{{ route('dashboard') }}" class="h1"><b>SPM</b> IT Del</a>
         </div>
         <div class="card-body">
+
+            @if(isset(session('data')['failed']) && session('data')['failed'])
+                <div class="alert alert-danger d-flex justify-content-center" role="alert">
+                    Credential Not Found!
+                </div>
+            @endif
+
             <p class="login-box-msg">Sign in to start your session</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group">
-                    <input id="email" name="email" type="email" class="form-control" placeholder="Username" required autofocus autocomplete="username">
+                    <input name="username" type="text" class="form-control" placeholder="Username" required autofocus autocomplete="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
                         </div>
                     </div>
                 </div>
-                <span class="text-danger">{{ $errors->first('email') }}</span>
+                <span class="text-danger">{{ $errors->first('username') }}</span>
 
                 <div class="input-group mt-3">
                     <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
@@ -83,7 +90,7 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="{{ asset("plugins/jquery/jquery.min.jsplugins/jquery/jquery.min.js") }}"></script>
+<script src="{{ asset("/plugins/jquery/jquery.min.js") }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <!-- AdminLTE App -->

@@ -21,7 +21,6 @@ class ListAllowedUserController extends Controller
 
     public function uploadListAllowedUser(Request $request)
     {
-        // Mendapatkan file yang diunggah
         $file = $request->file('file-excel');
 
         $spreadsheet = IOFactory::load($file);
@@ -38,9 +37,6 @@ class ListAllowedUserController extends Controller
             }
         }
 
-        // Lakukan sesuatu dengan kolom pertama
-//        dump($firstColumn);
-//        sleep(10);
         array_shift($firstColumn);
         foreach ($firstColumn as $e) {
             if ($e !== null) {
@@ -56,12 +52,23 @@ class ListAllowedUserController extends Controller
             }
         }
 
-        return redirect()->route("list-allowed-user");
+        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added allowed user from excel file!']);
     }
 
     public function removeFromList (Request $request) {
         AllowedUserModel::find($request->id)->delete();
 
-        return redirect()->route("list-allowed-user");
+        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully removed data!']);
+    }
+
+    public function addAllowedUser (Request $request) {
+        AllowedUserModel::create([
+            'email' => $request->email,
+            'created_at' => now(),
+            'created_by' => auth()->user()->username
+        ]);
+
+        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added new allowed user!']);
+
     }
 }

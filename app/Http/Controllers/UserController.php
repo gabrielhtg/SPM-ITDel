@@ -14,19 +14,35 @@ class UserController extends Controller
 {
     public function getUserSettings() {
         if (Auth::check()) {
-            $users = User::all();
+            $users = User::where('status', true)->get();
             $roles = RoleModel::all();
             $invitationPending = RegisterInvitationModel::all();
-            $passwortResetReq = PasswordResetTokenModel::orderBy('created_at', 'desc')->get();
+            $passwordResetReq = User::where('verified', false)->orderBy('created_at', 'desc')->get();
 
             $data = [
                 'roles' => $roles,
                 'users' => $users,
                 'invitation' => $invitationPending,
-                'pass_reset' => $passwortResetReq
+                'pass_reset' => $passwordResetReq
             ];
 
             return view("user-settings", $data);
+        }
+
+        else {
+            return redirect()->route('dashboard');
+        }
+    }
+
+    public function getUserSettingsInactive() {
+        if (Auth::check()) {
+            $users = User::where('status', false)->get();
+
+            $data = [
+                'users' => $users,
+            ];
+
+            return view("user-settings-inactive", $data);
         }
 
         else {
@@ -38,17 +54,18 @@ class UserController extends Controller
     {
         if (Auth::check()) {
             $user = User::where('id', $request->user_id)->first();
-            if ($user->profile_pict != null) {
-                File::delete(public_path($user->profile_pict));
-            }
-            $user->delete();
+
+            $user->update([
+                'status' => false,
+                'ends_on' => now()
+            ]);
 
             $data = [
                 'success' => isset($user),
                 'text' => "Berhasil menghapus user"
             ];
 
-            return redirect()->route('user-settings')->with('toastData', $data);
+            return redirect()->route('user-settings-active')->with('toastData', $data);
         }
 
         return redirect()->route('login');

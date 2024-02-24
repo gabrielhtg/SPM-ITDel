@@ -23,12 +23,12 @@
 
             <p class="login-box-msg">Register a new membership</p>
 
-            <form method="POST" action="/register-invite">
+            <form method="POST" action="{{ route('self-register') }}">
                 @csrf
                 <div class="row">
                     <div class="col">
                         <div class="input-group">
-                            <input type="text" name="name" class="form-control" placeholder="Full name">
+                            <input type="text" name="name" class="form-control" placeholder="Full name" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-user"></span>
@@ -42,7 +42,21 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <input type="email" class="form-control" placeholder="Email">
+                            <input type="text" name="username" class="form-control" placeholder="Username" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <span class="text-danger">{{ $errors->first('username') }}</span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="email" name="email" class="form-control" placeholder="Email" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-envelope"></span>
@@ -50,6 +64,19 @@
                             </div>
                         </div>
                         <span class="text-danger">{{ $errors->first('email') }}</span>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col">
+                        <div class="input-group">
+                            <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -85,12 +112,11 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <select class="select2">
+                            <select name="role" class="select2">
                                 <option></option>
                                 @foreach($roles as $e)
                                     <option value="{{ $e->id }}">{{ $e->role }}</option>
                                 @endforeach
-                                <option value="{{ 0 }}">All</option>
                             </select>
                         </div>
                     </div>

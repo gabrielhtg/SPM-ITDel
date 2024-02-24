@@ -64,8 +64,19 @@
             <div class="container-fluid">
                 <div class="card card-primary card-outline" style="min-height: 80vh">
                     <div class="card-body">
-                        <div class="mb-3">
+                        <div class="mb-4">
                             @include('components.list-invited-user')
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="mb-2">Add allowed user</span>
+                            <form action="{{ route("addAllowedUser") }}" method="post" class="w-100">
+                                @csrf
+                                <div class="d-flex">
+                                    <input type="email" name="email" class="form-control" required>
+                                    <button class="btn btn-primary ml-2" type="submit">Add</button>
+                                </div>
+                            </form>
                         </div>
 
                         <table id="example1" class="table table-bordered table-striped">
