@@ -34,6 +34,7 @@ class AuthenticatedSessionController extends Controller
         $user = auth()->user();
 
         $user->update([
+            'ip_address' => $request->ip(),
             'last_login_at' => now(),
         ]);
 
@@ -47,7 +48,7 @@ class AuthenticatedSessionController extends Controller
     {
 
         $user = auth()->user();
-        
+
         $user->update([
             'last_login_at' => now(),
         ]);

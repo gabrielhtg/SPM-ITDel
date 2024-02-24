@@ -49,7 +49,7 @@
         <div class="card">
             <div class="card-body">
 
-                <div class="mb-3">
+                <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
                     @include('components.add-user-manually-modal')
                     @include('components.add-user-via-invite-link')
                     {{--                @include('components.list-invited-user')--}}
@@ -57,8 +57,8 @@
                         List Allowed User
                     </a>
                     @include('components.list-password-reset-request')
-
                 </div>
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>

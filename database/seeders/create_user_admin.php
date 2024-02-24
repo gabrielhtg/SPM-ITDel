@@ -22,7 +22,7 @@ class create_user_admin extends Seeder
                 'email' => 'useradmin@gmail.com',
                 'password' => Hash::make("admin"),
                 'role' => 1,
-                'status' => false,
+                'status' => true,
                 'username' => 'admin',
                 'phone' => '082165646255',
                 'created_at' => now(),
@@ -34,7 +34,7 @@ class create_user_admin extends Seeder
                 'username' => 'gabrielhtg',
                 'phone' => '082165646255',
                 'password' => Hash::make("admin"),
-                'status' => false,
+                'status' => true,
                 'role' => 1,
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'

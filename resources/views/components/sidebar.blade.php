@@ -1,3 +1,4 @@
+@php use Illuminate\Support\Facades\Auth; @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route("dashboard") }}" class="brand-link">
@@ -33,14 +34,29 @@
                         </p>
                     </a>
                 </li>
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    <li class="nav-item">
-                        <a href="{{ route('user-settings') }}" class="nav-link">
+                @if(Auth::check())
+                    <li class="nav-item menu-open">
+                        <a href="#" class="nav-link">
                             <i class="fas fa-users nav-icon"></i>
                             <p>
                                 Users Settings
+                                <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('user-settings-active') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Active User</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../forms/advanced.html" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Inactive User</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                 @endif

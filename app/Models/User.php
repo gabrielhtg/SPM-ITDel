@@ -25,6 +25,9 @@ class User extends Authenticatable
         'status',
         'profile_pict',
         'last_login_at',
+        'ends_on',
+        'ip_address',
+        'online'
     ];
 
     /**
