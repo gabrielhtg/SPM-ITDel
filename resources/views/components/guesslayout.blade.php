@@ -176,6 +176,7 @@
             <div class="row g-4">
                 <div class="col-lg-5 col-xl-7 mt-0">
                     <div class="position-relative overflow-hidden rounded">
+                      
                         <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" alt="">
                         {{-- <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
                             <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> 06 minute read</a>

@@ -54,6 +54,7 @@ class NewsController extends Controller
 
     public function getDetail($id)
     {
+        
         $newsdetail = News::find($id);
         // $users = auth()->user()->name;
 
@@ -64,7 +65,7 @@ class NewsController extends Controller
         }
 
         // Mendapatkan ukuran file
-        $filePath = public_path('src/gambarnews') .  $newsdetail->file;
+        $filePath = public_path('src/gambarnews') .$newsdetail->gambar;
         $fileSize = filesize($filePath); // Ukuran file dalam byte
         $fileSizeInKB = $fileSize / 1024; // Konversi ke kilobyte
         $fileSizeInMB = $fileSizeInKB / 1024; // Konversi ke megabyte
