@@ -42,8 +42,8 @@
           <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
           
           <nav id="navbar" class="navbar order-last order-lg-0">
-            <>
-                <li>
+            <ul>
+                <li style="">
                     <h1 class="logo me-auto me-lg-0">
                         <a href="{{ route("dashboard") }}">
                             <img src="{{ asset("src/img/logo.png") }}" alt="Logo" class="mr-2 brand-image elevation-3" style="opacity: .8">
