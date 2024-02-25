@@ -126,32 +126,38 @@ class RegisteredUserController extends Controller
 
     public function registerUser(Request $request)
     {
-
-
         $data = AllowedUserModel::where('email', $request->email)->first();
+        $user = User::where('username',$request->username)->first();
 
         if ($data !== null) {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'username' => ['required', 'string', 'max:20'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            ]);
+            if ($user) {
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'username' => ['required', 'string', 'max:20'],
+                    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
 
-            User::create([
-                'name' => $request->name,
-                'username' => $request->username,
-                'email' => $request->email,
-                'phone' => $request->phone,
-                'verified' => false,
-                'password' => Hash::make($request->password),
-                'role' => $request->role
-            ]);
+                User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'verified' => false,
+                    'password' => Hash::make($request->password),
+                    'role' => $request->role
+                ]);
+                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+            }
 
-            return redirect()->route('login');
+            else {
+                return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request has been sent previously!']);
+            }
+
+
         }
 
-        abort(401);
+        return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
     }
 
     public function deleteInvitation(Request $request) {

@@ -24,12 +24,19 @@
         <div class="card-body">
 
             @if(isset(session('data')['failed']) && session('data')['failed'])
-                <div class="alert alert-danger d-flex justify-content-center" role="alert">
-                    Credential Not Found!
+                @if(session('data')['failed'])
+                    <div class="alert alert-danger d-flex justify-content-center" role="alert">
+                        {{ session('data')['text'] }}
+
+                    </div>
+                @endif
+            @else
+                <div class="alert alert-success d-flex justify-content-center" role="alert">
+                    {{ session('data')['text'] }}
                 </div>
             @endif
 
-            <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Sign in to start your session</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
