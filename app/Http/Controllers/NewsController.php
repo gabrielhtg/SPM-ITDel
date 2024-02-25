@@ -21,7 +21,15 @@ class NewsController extends Controller
         return view('news', $data);
     }
 
-    public function store(Request $request){
+    public function guestNews()
+    {
+        $news = News::all()->sortByDesc('id'); // Mengambil semua berita dari model News
+
+        return view('dashboard', compact('news'));
+    }
+
+    public function store(Request $request)
+    {
         $request->validate([
             'judul' => 'required',
             'isinews' => 'required',
@@ -50,7 +58,7 @@ class NewsController extends Controller
         // $users = auth()->user()->name;
 
         // Periksa apakah pengumuman ditemukan
-        if (! $newsdetail) {
+        if (!$newsdetail) {
             // Jika tidak ditemukan, kembalikan respons dengan pesan kesalahan atau redirect ke halaman lain
             return redirect()->route('news')->with('error', 'Pengumuman tidak ditemukan.');
         }
@@ -117,17 +125,17 @@ class NewsController extends Controller
         return redirect()->route('news')->with('success', 'Pengumuman berhasil diperbarui.');
     }
 
-    public function deletenews($id){
+    public function deletenews($id)
+    {
         $news = News::find($id);
 
         $fileAncPath = public_path('src/gambarnews/') . $news->file;
 
-        if(File::exists($fileAncPath)){
+        if (File::exists($fileAncPath)) {
             File::delete($fileAncPath);
         }
         $news->delete();
 
         return redirect('news');
     }
-
 }

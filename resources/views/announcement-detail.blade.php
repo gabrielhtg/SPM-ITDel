@@ -79,13 +79,16 @@
                                                             <a href="{{ asset('src/fileanc/'.$announcementDetail->file) }}" target="_blank">
                                                                 {{ $announcementDetail->file }}
                                                             </a>
-
                                                         </td>
                                                         <td>
-                                                            @if($fileSizeInMB < 1)
-                                                                {{ $fileSizeInKB }} KB
+                                                            @if(!$announcementDetail->file == "")
+                                                                @if($fileSizeInMB < 1)
+                                                                    {{ $fileSizeInKB }} KB
+                                                                @else
+                                                                    {{ $fileSizeInMB }} MB
+                                                                @endif
                                                             @else
-                                                                {{ $fileSizeInMB }} MB
+                                                                0.0 KB
                                                             @endif
                                                         </td>
                                                     </tr>

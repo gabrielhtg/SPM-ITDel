@@ -53,7 +53,8 @@
 
                 <div class="list-group">
 
-                    <table class="table table-hover">
+                    {{-- <table class="table table-hover"> --}}
+                    <table class="table">
                         {{-- <thead>
                           <tr>
                             <th scope="col">#</th>
@@ -84,7 +85,7 @@
                                 </button>
 
                                 <div class="modal fade" id="modal-update-announcement-{{$item->id}}">
-                                    <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Edit Announcement</h4>
@@ -93,40 +94,39 @@
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="form-updateAnnouncement" method="POST" action="/updateannouncement/{{$item->id}}" enctype="multipart/form-data">
+                                                <form id="form-editAnnouncement" method="POST" action="{{ route('announcement.edit', ['id' => $item->id]) }}" enctype="multipart/form-data">
                                                     @csrf
-                                                    <div class="input-group">
-                                                        <input type="text" name="title" id="title" class="form-control" placeholder="Judul" required autofocus autocomplete="title" value="{{$item->title}}">
-                                                        <div class="input-group-append">
-                                                            <div class="input-group-text">
-                                                                <span class="fas fa-heading"></span>
+                                                    {{-- input title --}}
+                                                    <div class="form-group mt-1">
+                                                        <label for="title">Judul Pengumuman</label>
+                                                        <input type="text" name="title" id="title" class="form-control" value="{{ $item->title }}" required>
+                                                    </div>
+                                
+                                                    {{-- input konten --}}
+                                                    <label for="summernote">Keterangan Pengumuman</label>
+                                                    <textarea class="summernote" name="content">{!! $item->content !!}</textarea>
+                                
+                                                    {{-- input file --}}
+                                                    <div class="form-group">
+                                                        <label for="file">File input</label>
+                                                        <div class="input-group">
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="inputFile" name="file" value="{{ asset('src/fileanc/'.$item->file) }}">
+                                                                {{-- <label id="inputLabel" class="custom-file-label" for="file">Choose file</label> --}}
+                                                                @if (!$item->file == "")
+                                                                <label id="inputLabel" class="custom-file-label" for="file">{{ $item->file }}</label>
+                                                                @else
+                                                                <label id="inputLabel" class="custom-file-label" for="file">Select File</label>
+                                                                @endif
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
-                                                    <div class="input-group mt-3">
-                                                        <textarea name="content" id="content" cols="10" rows="4" class="form-control" placeholder="Konten" required autofocus autocomplete="content"> {{$item->content}}</textarea>
-                                                        <div class="input-group-append">
-                                                            <div class="input-group-text"> 
-                                                                <span class="fas fa-newspaper"></span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                
-                                                    <div class="input-group mt-3">
-                                                        <div class="custom-file">
-                                                            <input name="file" id="file" type="file" class="custom-file-input" >
-                                                            <label class="custom-file-label" for="file"></label>  
-                                                        </div>
-                                                        <div class="input-group-append">
-                                                            <span class="input-group-text">Unggah</span>
-                                                        </div>
-                                                    </div>
-                                                </form>                
+                                                </form>
                                             </div>
                                             <div class="modal-footer justify-content-between">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" form="form-updateAnnouncement" class="btn btn-primary">Update</button>
+                                                <button type="submit" form="form-editAnnouncement" class="btn btn-primary">Add Announcement</button>
+                                
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -135,7 +135,7 @@
                                 </div>
                             
                                 <button type="button" class="btn btn-danger" style="padding: 5px 15px" data-toggle="modal">
-                                    <a href="/deleteannouncement/detail/{{$item->id}}" style="color: black">Delete</a>
+                                    <a href="{{ route('announcement.delete', ['id' => $item->id]) }}" style="color: black">Delete</a>
                                 </button>
                             </td>
                         </tr>
@@ -200,8 +200,48 @@
 
 <script>
     $(function () {
+        @if(session('toastData') != null)
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+        @endif
+
+        @if (!$errors->isEmpty())
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+    });
+</script>
+
+<script>
+    $(function () {
         // Summernote
-        $('#summernote').summernote({
+        $('.summernote').summernote({
             minHeight: 230,
             toolbar: [
                 ['style', ['style']],

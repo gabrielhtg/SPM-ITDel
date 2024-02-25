@@ -52,7 +52,7 @@
             </div>
           </div>
     
-          <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+          {{-- <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
             <div class="col-xl-2 col-md-4">
               <div class="icon-box">
                 <i class="ri-store-line"></i>
@@ -83,7 +83,7 @@
                 <h3><a href="">Nemos Enimade</a></h3>
               </div>
             </div>
-          </div>
+          </div> --}}
     
         </div>
       </section><!-- End Hero -->
@@ -110,62 +110,133 @@
         </div>
     </div>
 
-    <section id="about" class="about">
+    <section class="p-5">
+      <div class="container p-4">
+        <h1 class="mb-3">Tentang AMI IT Del</h1>
+        <div class="p-3 rounded border">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+
+          <div class="row mt-5 justify-content-center">
+            <div class="col-md-3">
+              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                <div class="fa-3x fas fa-chalkboard-teacher mb-2"></div>
+                <div class="text-center ">
+                  <div class="text-bold">18</div>
+                  <div>Teachers</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                <div class="fa-3x fas fas fa-user mb-2"></div>
+                <div class="text-center ">
+                  <div class="text-bold">18</div>
+                  <div>Members</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                <div class="fa-3x fas fas fa-building mb-2"></div>
+                <div class="text-center ">
+                  <div class="text-bold">18</div>
+                  <div>Faculties</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                <div class="fa-3x fas fas fa-graduation-cap mb-2"></div>
+                <div class="text-center ">
+                  <div class="text-bold">18</div>
+                  <div>Departements</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="news-view" class="">
       <div class="container" data-aos="fade-up">
         <div class="col-sm-6">
-          <h1 class="m-0">Berita AMI ITDel</h1>
-          <a href="#">selengkapnya</a>
+          <h1 class="ml-1">Berita AMI IT Del</h1>
+          {{-- <a href="#">selengkapnya</a> --}}
       </div>
-        <section class="content">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-md-6">
-                      {{-- Left Column --}}
-                      <li class="splide__slide">
-                          <img src="https://akcdn.detik.net.id/visual/2024/02/06/jejak-langkah-ganjar-mahfud-md-menuju-pilpres-2024-8_169.jpeg?w=650&q=90" alt="">
-                          <div>
-                              Ganjar-Mahfud Menang di Satu Provinsi Versi Quick Count Pilpres PRC
-                          </div>
-                      </li>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <img src="https://akcdn.detik.net.id/visual/2023/10/31/ilustrasi-tiga-paslon_169.jpeg?w=200&q=90" alt="" class="img-fluid">
+      <div class="container-fluid py-2">
+        <div class="container py-5 border rounded">
+            <div class="row g-4">
+                <div class="col-lg-5 col-xl-7 mt-0">
+                    <div class="position-relative overflow-hidden rounded">
+                        <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" alt="">
+                        {{-- <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
+                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> 06 minute read</a>
+                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> 3.5k Views</a>
+                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> 05 Comment</a>
+                            <a href="#" class="text-white link-hover"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
+                        </div> --}}
+                    </div>
+                    <div class="px-3">
+                        <p class="mt-3 fst-italic">
+                          {{ $guestBigNews->created_at->format('Y-m-d') }}
+                        </p>
+                        <a href="#" class="text-dark mb-0 link-hover">
+                          <h2>{{ $guestBigNews->judul }}</h2>
+                        </a>
+                        <p class="text-justify">
+                          @if (str_word_count($guestBigNews->isinews) > 60)
+                              {!! substr($guestBigNews->isinews, 0, 500) !!} ...
+                          @else
+                              {{ $guestBigNews->isinews }}
+                          @endif
+                          {{-- {!! $guestBigNews->isinews !!} --}}
+                        </p>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-xl-5">
+                   <div class="bg-light rounded p-4 pt-0">
+                        <div class="row g-4">
+                          @forelse($guestNews as $e)
+                            @if ($loop->index != 0)
+                              <div class="col-12">
+                                  <div class="row g-4 align-items-center">
+                                      <div class="col-5">
+                                          <div class="overflow-hidden rounded">
+                                              <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" alt="">
+                                          </div>
+                                      </div>
+                                      <div class="col-7">
+                                          <div class="features-content d-flex flex-column">
+                                              <a href="#" class="h6 font-weight-bold">{{ $e->judul }}</a>
+                                              <small><i class="">{{ $e->created_at->format('Y-m-d') }}</i> </small>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                            @endif
+                          @empty
+                            {{-- tidak ada data --}}
+                          @endforelse
                         </div>
-                        <div class="col-md-8" style="padding: 20px;">
-                            <h6>hari, tanggal</h6>
-                            <p>Hasil Akhir Quick Count Semua Provinsi Pulau Jawa Berbagai Lembaga</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                          <img src="https://akcdn.detik.net.id/visual/2023/10/31/ilustrasi-tiga-paslon_169.jpeg?w=200&q=90" alt="" class="img-fluid">
-                      </div>
-                      <div class="col-md-8" style="padding: 20px;">
-                          <h6>hari, tanggal</h6>
-                          <p>Hasil Akhir Quick Count Semua Provinsi Pulau Jawa Berbagai Lembaga</p>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-4">
-                          <img src="https://akcdn.detik.net.id/visual/2023/10/31/ilustrasi-tiga-paslon_169.jpeg?w=200&q=90" alt="" class="img-fluid">
-                      </div>
-                      <div class="col-md-8" style="padding: 20px;">
-                          <h6>hari, tanggal</h6>
-                          <p>Hasil Akhir Quick Count Semua Provinsi Pulau Jawa Berbagai Lembaga</p>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                                  
-              </div>
-          </div>
-      </section>
+                   </div>
+                </div>
+            </div>
+        </div>
+      </div>
       </div>
     </section><!-- End About Section -->
     <!-- /.content-wrapper -->
-    @include('components.footer')
+    
+    @include('components.guessfooter')
+    {{-- Copyright © 2024 Informatika 2021 Kelompok 1. All rights reserved. --}}
 
     <!-- Control Sidebar -->
     <aside class="control-sidebar control-sidebar-dark">

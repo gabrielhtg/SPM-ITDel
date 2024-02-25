@@ -38,75 +38,67 @@
 <body>
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center justify-content-lg-between">
-    
-            <h1 class="logo me-auto me-lg-0">
-                <a href="{{ route("dashboard") }}" class="brand-link">
-                    <img src="{{ asset("src/img/logo.png") }}" alt="Logo" class="brand-image elevation-3" style="opacity: .8">
-                    <span class="brand-text font-weight-light"><strong>SPM</strong> IT Del</span>
-                </a>
-            </h1>
           <!-- Uncomment below if you prefer to use an image logo -->
           <!-- <a href="index.html" class="logo me-auto me-lg-0"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
-    
+          
           <nav id="navbar" class="navbar order-last order-lg-0">
             <ul>
-                <li>
-                    <a href="{{ route('news') }}" class="nav-link active">
+                <li style="">
+                    <h1 class="logo me-auto me-lg-0">
+                        <a href="{{ route("dashboard") }}">
+                            <img src="{{ asset("src/img/logo.png") }}" alt="Logo" class="mr-2 brand-image elevation-3" style="opacity: .8">
+                            <span class="brand-text font-weight-bold display-7"><strong>SPM</strong> IT Del</span>
+                        </a>
+                    </h1>
+                </li>
+                <li class="col">
+                    <a href="{{ route('news') }}" class="nav-link ">
                         {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
                             {{-- <p> --}}
                                 News
                             {{-- </p> --}}
                     </a>
                 </li>
-              <li class="dropdown"><a href="#"><span>Dashbord</span> <i class="bi bi-chevron-down"></i></a>
-                <ul>
-                    <li>
-                        <a href="{{ route('news') }}" class="nav-link active">
-                            {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
-                                {{-- <p> --}}
-                                    News
-                                {{-- </p> --}}
-                        </a>
-                    </li>
-                    @if(\Illuminate\Support\Facades\Auth::check())
-                    <li class="nav-item">
-                        <a href="{{ route('user-settings') }}" class="nav-link">
-                            <i class="fas fa-users nav-icon"></i>
-                            {{-- <p> --}}
-                                Users Settings
-                            {{-- </p> --}}
-                        </a>
-                    </li>
+                <li class="dropdown col">
+                    <a href="#"><span>Dashbord</span>
+                        <i class="bi bi-chevron-down"></i>
+                    </a>
+                </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                <li class="nav-item">
+                    <a href="{{ route('user-settings') }}" class="nav-link">
+                        <i class="fas fa-users nav-icon"></i>
+                        {{-- <p> --}}
+                            Users Settings
+                        {{-- </p> --}}
+                    </a>
+                </li>
 
-                    <li class="nav-item">
-                        <a href="{{ route('announcement') }}" class="nav-link">
-                            <i class="nav-icon fas fa-bell"></i>
-                            {{-- <p> --}}
-                                Announcement
-                            {{-- </p> --}}
-                        </a>
-                    </li>
+                <li class="nav-item">
+                    <a href="{{ route('announcement') }}" class="nav-link">
+                        <i class="nav-icon fas fa-bell"></i>
+                        {{-- <p> --}}
+                            Announcement
+                        {{-- </p> --}}
+                    </a>
+                </li>
 
-                    @endif
-                    <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link">
-                            {{-- <i class="fas fa-file nav-icon"></i> --}}
-                            {{-- <p> --}}
-                                Document Management
-                            {{-- </p> --}}
-                        </a>
-                    </li>
-
-                </ul>
-              </li>
-              <li><a class="nav-link scrollto" href="{{ route('news') }}">news</a></li>
+                @endif
+                <li class="nav-item">
+                    <a href="{{ route('documentManagement') }}" class="nav-link">
+                        {{-- <i class="fas fa-file nav-icon"></i> --}}
+                        {{-- <p> --}}
+                            Document Management
+                        {{-- </p> --}}
+                    </a>
+                </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
 
             @if(!\Illuminate\Support\Facades\Auth::check())
             {{-- <li class="nav-item ml-3"> --}}
-                <a href="{{ route("login") }}" class="btn get-started-btn scrollto">
+                <a href="{{ route("login") }}" class="btn m-4 get-started-btn scrollto">
                     Login
                 </a>
             {{-- </li> --}}
