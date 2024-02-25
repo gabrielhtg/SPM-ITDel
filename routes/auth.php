@@ -87,6 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
 
     Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
+    Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
 
     Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
 

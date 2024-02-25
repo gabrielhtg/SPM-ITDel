@@ -79,4 +79,15 @@ class UserController extends Controller
 
         return view('user-detail', $data);
     }
+
+    public function restoreAccount (Request $request) {
+        $user = User::find($request->id);
+
+        $user->update([
+            'status' => true,
+            'ends_on' => null
+        ]);
+
+        return redirect()->route('user-settings-inactive')->with('toastData', ['success' => true, 'text' => 'Successfully activated User ' . $user->name]);
+    }
 }
