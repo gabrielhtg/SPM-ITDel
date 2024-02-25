@@ -1,4 +1,4 @@
-@php use App\Models\User;use App\Services\CustomConverterService; @endphp
+@php use App\Services\CustomConverterService; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-    {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -40,7 +38,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Inactive Users</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -51,89 +49,102 @@
         <div class="card">
             <div class="card-body">
 
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @include('components.upload-file-modal')
-                @endif
+                <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
+{{--                    @include('components.add-user-manually-modal')--}}
+{{--                    @include('components.add-user-via-invite-link')--}}
+{{--                    --}}{{--                @include('components.list-invited-user')--}}
+{{--                    <a href='{{ route('list-allowed-user') }}' class="btn btn-success">--}}
+{{--                        List Allowed User--}}
+{{--                    </a>--}}
+{{--                    @include('components.list-password-reset-request')--}}
+                </div>
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Doc Number</th>
-                        <th>Doc Name</th>
-                        @if(\Illuminate\Support\Facades\Auth::check())
-                            <th>Can be seen by</th>
-                        @endif
-                        <th>Uploaded By</th>
-                        <th>Created At</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Role</th>
+{{--                        <th>Created At</th>--}}
+                        <th>Last Login At</th>
+{{--                        <th>Status</th>--}}
                         <th>Action</th>
-
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($documents as $e)
-                        <tr>
-                            <td>{{ $e->nomor_dokumen }}</td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->name }}
+                    @foreach($users as $e)
+
+                        @if($e->id == auth()->user()->id)
+                            @continue
+                        @else
+                            <tr>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="d-flex align-items-center">
+                                            @if($e->profile_pict == null)
+                                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
+                                            @else
+                                                <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                                            @endif
+                                        </div>
+                                        <div class="info">
+                                            <span class="d-block">{{ $e->name }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block">{{ $e->username }}</span>
+                                        </div>
                                     </div>
 
-                                </div>
-                            </td>
-                            @if(\Illuminate\Support\Facades\Auth::check())
+                                </td>
                                 <td>
-                                <span class="d-block">
-                                    @php
-                                        $accessor = explode(";", $e->give_access_to);
-                                    @endphp
-
-                                    @foreach($accessor as $acc)
-                                        <span class="badge badge-primary">
-                                            @if($acc == 0)
-                                                All
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            <span class="d-block"> {{ $e->email }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                        <span class="d-block">
+                                            {{ app(CustomConverterService::class)->convertRole($e->role) }}
+                                        </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                        <span class="d-block">
+                                            @if($e->last_login_at !== null)
+                                                {{ CustomConverterService::getLastLogin($e->last_login_at) }}
                                             @else
-                                                {{ \App\Models\RoleModel::find($acc)->role }}
+                                                -
                                             @endif
                                         </span>
-                                    @endforeach
-                                </span>
+                                        </div>
+                                    </div>
                                 </td>
-                            @endif
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        <span> {{ User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ CustomConverterService::convertRole(User::find($e->created_by)->role) }}</span></span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        {{ $e->created_at }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex" style="gap: 5px">
-                                    <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
-                                            class="fas fa-eye"></i></a>
-                                    @if(\Illuminate\Support\Facades\Auth::check())
-                                    <form action="{{ route('remove-document') }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
-                                    @endif
 
-                                </div>
-                            </td>
-                        </tr>
+                                <td>
+                                    <div class="d-flex" style="gap: 10px">
+                                        <form action="{{ route('getUserDetail') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                            <button type="submit" class="btn btn-success"><i class="far fa-eye" style="font-size: 14px"></i></button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
-
             </div>
             <!-- /.card-body -->
         </div>
@@ -168,7 +179,6 @@
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
@@ -178,9 +188,17 @@
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10,
-            "order": [[4, "desc"]]
+            "pageLength": 10
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+        $('#example2').DataTable({
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true,
+        });
     });
 </script>
 <script>
@@ -238,12 +256,6 @@
             ],
             disableDragAndDrop: true,
         })
-    })
-</script>
-<script>
-    $(function () {
-        //Initialize Select2 Elements
-        $('.select2').select2()
     })
 </script>
 </body>

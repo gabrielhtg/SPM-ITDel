@@ -24,18 +24,18 @@ class createFakePasswordResetRequest extends Seeder
         foreach (range(1, 10) as $index) {
             try {
                 DB::table('password_reset_tokens')->insert([
-                   [
-                       'email' => 'ifs21010@students.del.ac.id',
-                       'token' => Uuid::uuid1()->toString(),
-                       'created_at' => now(),
-                       'updated_at' => now()
-                   ],
-                    [
-                        'email' => 'ifs21028@students.del.ac.id',
-                        'token' => Uuid::uuid1()->toString(),
-                        'created_at' => now(),
-                        'updated_at' => now()
-                    ],
+//                   [
+//                       'email' => 'ifs21010@students.del.ac.id',
+//                       'token' => Uuid::uuid1()->toString(),
+//                       'created_at' => now(),
+//                       'updated_at' => now()
+//                   ],
+//                    [
+//                        'email' => 'ifs21028@students.del.ac.id',
+//                        'token' => Uuid::uuid1()->toString(),
+//                        'created_at' => now(),
+//                        'updated_at' => now()
+//                    ],
                 ]);
             } catch (UniqueConstraintViolationException $e) {
                 // do nothin

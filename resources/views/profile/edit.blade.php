@@ -26,6 +26,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -82,7 +83,10 @@
 
                         <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
                             <a href="{{ route('change-profile-pict') }}" class="btn btn-primary" style="width: 180px"><b>Change Profile Image</b></a>
-                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>
+{{--                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>--}}
+                            @include('components.edit-profile-modal')
+                            @include('components.change-password-modal')
+{{--                            <button class="btn btn-warning" style="width: 180px"><b>Change Password</b></button>--}}
                         </div>
                     </div>
 
@@ -128,8 +132,12 @@
 <script src="{{ asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
-<!-- AdminLTE for demo purposes -->
-{{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2()
+    })
+</script>
 </body>
 </html>

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
 use App\Mail\ResetPasswordMail;
+use App\Models\AllowedUserModel;
 use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
+use App\Models\RoleModel;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -27,17 +29,13 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create($token): View
+    public function create(): View
     {
-        $data = RegisterInvitationModel::where('token', $token)->first();
+        $data = [
+            'roles' => RoleModel::all()
+        ];
 
-        if ($data) {
-            return view('auth.register', $data);
-        }
-        else {
-            abort(404);
-        }
-
+        return view('auth.register', $data);
     }
 
     /**
@@ -126,26 +124,29 @@ class RegisteredUserController extends Controller
         }
     }
 
-    public function storeFromInvitationLink(Request $request)
+    public function registerUser(Request $request)
     {
-        $data = RegisterInvitationModel::where('token', $request->token)->first();
 
-        if ($data && ($data->email === $request->email) && ($data->role === (int)$request->role)) {
+
+        $data = AllowedUserModel::where('email', $request->email)->first();
+
+        if ($data !== null) {
             $request->validate([
                 'name' => ['required', 'string', 'max:255'],
+                'username' => ['required', 'string', 'max:20'],
                 'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
                 'password' => ['required', 'confirmed', Rules\Password::defaults()],
             ]);
 
             User::create([
                 'name' => $request->name,
+                'username' => $request->username,
                 'email' => $request->email,
-                'status' => false,
+                'phone' => $request->phone,
+                'verified' => false,
                 'password' => Hash::make($request->password),
-                'role' => (int) $request->role
+                'role' => $request->role
             ]);
-
-            $data->delete();
 
             return redirect()->route('login');
         }
@@ -172,31 +173,35 @@ class RegisteredUserController extends Controller
         return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted all data!']);
     }
 
-    public function acceptResetRequest(Request $request) {
-        $resetObject = PasswordResetTokenModel::where('email', $request->email)->first();
+    public function acceptRegisterRequest(Request $request) {
+        $resetObject = User::find($request->id);
 
         if ($resetObject) {
-            Mail::to($request->email)->send(new ResetPasswordMail($resetObject->token));
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Success to accept request. A password reset email has been sent to " . $resetObject->email]);
+            $resetObject->update([
+                'verified' => true,
+                'status' => true,
+                'created_at' => now()
+            ]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Success to accept request!"]);
         }
         else {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Failed to accept request. Email not found!"]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to accept request! Email not found!"]);
         }
 
 
     }
 
-    public function deleteResetRequest(Request $request) {
-        $data = PasswordResetTokenModel::where('email', $request->email);
+    public function deleteRegisterRequest(Request $request) {
+        $data = User::find($request->id);
 
         if ($data) {
             $data->delete();
 
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
         }
 
         else {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
         }
     }
 }
