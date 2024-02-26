@@ -56,6 +56,11 @@
                     <div class="pengumuman-view">
                         <div class="container-fluid">
                             <div class="row">
+                                <div class="col-sm-10 mt-4">
+                                    <div class="box box-solid">
+                                        <img src="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
+                                    </div>
+                                </div>
                                 <div id="grid-system1" class="col-sm-10 mt-2">
                                     <div class="box box-solid">
                                         <div id="grid-system1-body" class="box-body">

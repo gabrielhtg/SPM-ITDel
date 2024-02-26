@@ -173,6 +173,7 @@
       </div>
       <div class="container-fluid py-2">
         <div class="container py-5 border rounded">
+          @if(!empty($guestBigNews->gambar))
             <div class="row g-4">
                 <div class="col-lg-5 col-xl-7 mt-0">
                     <div class="position-relative overflow-hidden rounded">
@@ -196,7 +197,7 @@
                           @if (str_word_count($guestBigNews->isinews) > 60)
                               {!! substr($guestBigNews->isinews, 0, 500) !!} ...
                           @else
-                              {{ $guestBigNews->isinews }}
+                              {!! $guestBigNews->isinews !!}
                           @endif
                           {{-- {!! $guestBigNews->isinews !!} --}}
                         </p>
@@ -231,6 +232,11 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="text-center">
+          <h1>Berita Tidak Tersedia</h1>
+        </div>
+        @endif
       </div>
       </div>
     </section><!-- End About Section -->

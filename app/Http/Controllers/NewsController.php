@@ -65,7 +65,8 @@ class NewsController extends Controller
         }
 
         // Mendapatkan ukuran file
-        $filePath = public_path('src/gambarnews') .$newsdetail->gambar;
+        $filePath = public_path('src/gambarnews') . '/' . $newsdetail->gambar;
+
         $fileSize = filesize($filePath); // Ukuran file dalam byte
         $fileSizeInKB = $fileSize / 1024; // Konversi ke kilobyte
         $fileSizeInMB = $fileSizeInKB / 1024; // Konversi ke megabyte
@@ -85,7 +86,7 @@ class NewsController extends Controller
         ]);
     }
 
-    public function updateanews(Request $request, $id)
+    public function updatenews(Request $request, $id)
     {
         // Validasi input
         $request->validate([
@@ -103,7 +104,7 @@ class NewsController extends Controller
 
         // Jika ada file baru yang diunggah, lakukan proses penghapusan dan pembaruan file
         if ($request->hasFile('gambar')) {
-            $fileAncPath = public_path('src/gambarnews/') . $data->file;
+            $fileAncPath = public_path('src/gambarnews/') . $data->gambar;
 
             // Hapus file lama jika ada
             if (File::exists($fileAncPath)) {
@@ -115,7 +116,7 @@ class NewsController extends Controller
             $request->file('gambar')->move(public_path('src/gambarnews'), $gambarnews);
 
             // Update data dengan file yang baru
-            $data->file = $gambarnews;
+            $data->gambar = $gambarnews;
         }
 
         // Update data pengumuman dengan informasi yang baru
