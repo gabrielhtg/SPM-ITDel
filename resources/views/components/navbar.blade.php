@@ -45,7 +45,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="{{ route('edit-profile') }}" class="dropdown-item">
+                    <a href="{{ route('profile') }}" class="dropdown-item">
                         <i class="mr-2 fas fa-user" style="padding-right: 1px"></i> Profile
                     </a>
 

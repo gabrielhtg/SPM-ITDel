@@ -78,7 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/accept-register-request', [RegisteredUserController::class, 'acceptRegisterRequest'])->name('accept-register-request');
     Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
 
-    Route::get('/edit-profile', [ProfileController::class, 'edit'])->name('edit-profile');
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+    Route::post('/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
 
     Route::get('/change-profile-pict', [ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
 

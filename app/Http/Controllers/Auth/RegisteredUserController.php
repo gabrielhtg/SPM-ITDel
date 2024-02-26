@@ -127,10 +127,10 @@ class RegisteredUserController extends Controller
     public function registerUser(Request $request)
     {
         $data = AllowedUserModel::where('email', $request->email)->first();
-        $user = User::where('username',$request->username)->first();
+        $user = User::where('username', $request->username)->first();
 
         if ($data !== null) {
-            if ($user) {
+            if (!$user) {
                 $request->validate([
                     'name' => ['required', 'string', 'max:255'],
                     'username' => ['required', 'string', 'max:20'],
