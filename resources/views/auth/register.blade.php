@@ -83,7 +83,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -98,7 +98,7 @@
                     <div class="col">
                         <div class="input-group">
                             <input type="password" name="password_confirmation" class="form-control"
-                                   placeholder="Retype password">
+                                   placeholder="Retype password" required>
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                     <span class="fas fa-lock"></span>
@@ -112,7 +112,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <select name="role" class="select2">
+                            <select name="role" class="select2" required>
                                 <option></option>
                                 @foreach($roles as $e)
                                     <option value="{{ $e->id }}">{{ $e->role }}</option>

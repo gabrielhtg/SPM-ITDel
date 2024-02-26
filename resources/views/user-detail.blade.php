@@ -70,10 +70,27 @@
                                      class="profile-user-img img-fluid img-circle" alt="User Image">
                             @endif
                         </div>
-                        <h3 class="profile-username text-center">{{ $user->name }}</h3>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <h3 class="profile-username text-center">
+                                {{ $user->name }}
+                            </h3>
+                            <div class="pt-2" style="margin-left: 5px">
+                                @if($user->online)
+                                    <i class="fas fa-circle text-success" style="font-size: 8px; padding-bottom: 20px"></i>
+                                @else
+                                    <i class="fas fa-circle text-danger" style="font-size: 8px; padding-bottom: 20px"></i>
+                                @endif
+                            </div>
+                        </div>
                         <p class="text-muted text-center">{{ app(CustomConverterService::class)->convertRole($user->role) }}</p>
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Username</b> <span class="float-right">{{ $user->username }}</span>
+                                </li>
+                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                    <b>Phone Number</b> <span class="float-right">{{ $user->phone }}</span>
+                                </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Email</b> <span class="float-right">{{ $user->email }}</span>
                                 </li>
@@ -117,7 +134,7 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->status)
-                                        <b>Status</b> <span
+                                        <b>Account Status</b> <span
                                             class="float-right text-success text-bold">{{ CustomConverterService::convertStatus($user->status) }}</span>
                                     @else
                                         <b>Status</b> <span

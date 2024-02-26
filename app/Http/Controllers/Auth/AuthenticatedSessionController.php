@@ -46,7 +46,7 @@ class AuthenticatedSessionController extends Controller
         }
 
         else {
-            return redirect()->route('login')->with('data', ['failed' => true]);
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Credential Not Found!']);
         }
     }
 

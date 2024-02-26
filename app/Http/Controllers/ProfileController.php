@@ -20,10 +20,25 @@ class ProfileController extends Controller
     {
 
         $data = [
-//            'user' => $request->user(),
             'roles' => RoleModel::all()
         ];
         return view('profile.edit', $data);
+    }
+
+    public function editProfile(Request $request)
+    {
+        $user = User::find($request->id);
+        $roles = implode(';', $request->roles);
+
+        $user->update([
+            'username' => $request->username,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'role' => $roles
+        ]);
+
+        return \redirect()->route('profile');
     }
 
     /**

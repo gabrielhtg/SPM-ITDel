@@ -18,12 +18,13 @@ return new class extends Migration
             $table->string('phone', 15);
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('reset_password_token')->nullable();
             $table->string('ip_address', 50)->nullable();
             $table->timestamp('ends_on')->nullable();
             $table->boolean('online')->nullable();
             $table->boolean('status')->nullable();
             $table->boolean('verified');
-            $table->integer('role')->nullable();
+            $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->string('profile_pict')->nullable();

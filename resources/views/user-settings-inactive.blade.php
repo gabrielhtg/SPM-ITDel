@@ -138,6 +138,11 @@
                                             <input type="hidden" name="user_id" value="{{ $e->id }}">
                                             <button type="submit" class="btn btn-success"><i class="far fa-eye" style="font-size: 14px"></i></button>
                                         </form>
+                                        <form action="{{ route('restoreAccount') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $e->id }}">
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-redo" style="font-size: 14px"></i></button>
+                                        </form>
                                     </div>
                                 </td>
                             </tr>

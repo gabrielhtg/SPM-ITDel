@@ -51,7 +51,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Request Reset Password</button>
+                        <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
                     </div>
                     <!-- /.col -->
                 </div>
