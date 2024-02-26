@@ -173,6 +173,7 @@
       </div>
       <div class="container-fluid py-2">
         <div class="container py-5 border rounded">
+          @if(!empty($guestBigNews->gambar))
             <div class="row g-4">
                 <div class="col-lg-5 col-xl-7 mt-0">
                     <div class="position-relative overflow-hidden rounded">
@@ -230,6 +231,11 @@
                 </div>
             </div>
         </div>
+        @else
+        <div class="text-center">
+          <p>Berita Tidak Tersedia</p>
+        </div>
+        @endif
       </div>
       </div>
     </section><!-- End About Section -->
