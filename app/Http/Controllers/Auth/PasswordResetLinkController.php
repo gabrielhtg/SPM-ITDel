@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\RegisterInvitationMail;
+use App\Mail\ResetPasswordMail;
 use App\Models\PasswordResetTokenModel;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -47,16 +50,16 @@ class PasswordResetLinkController extends Controller
 //        $dataToken = PasswordResetTokenModel::find($request->email);
         $user = User::where('email', $request->email)->first();
 
-
         if ($user) {
-            $dataToken->update([
-                'created_at' => now()
+            $resetToken = Str::random(200);
+            $user->update([
+                'reset_password_token' => $resetToken
             ]);
 
-            return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request updated!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);
-        }
+            Mail::to($request->email)->send(new ResetPasswordMail($resetToken));
 
-        else {
+            return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request updated!', 'msg' => 'Check your email for password reset token!']);
+        } else {
             return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
         }
     }

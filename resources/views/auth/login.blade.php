@@ -23,11 +23,10 @@
         </div>
         <div class="card-body">
 
-            @if(isset(session('data')['failed']) && session('data')['failed'])
+            @if(isset(session('data')['failed']))
                 @if(session('data')['failed'])
                     <div class="alert alert-danger d-flex justify-content-center" role="alert">
                         {{ session('data')['text'] }}
-
                     </div>
                 @else
                     <div class="alert alert-success d-flex justify-content-center" role="alert">

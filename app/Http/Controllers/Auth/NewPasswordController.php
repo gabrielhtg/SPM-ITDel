@@ -21,10 +21,10 @@ class NewPasswordController extends Controller
      */
     public function create($token): View
     {
-        $realToken = PasswordResetTokenModel::where('token', $token)->first();
+        $user = User::where('reset_password_token', $token)->first();
 
-        if ($realToken) {
-            return view('auth.reset-password')->with('data', $realToken);
+        if ($user) {
+            return view('auth.reset-password')->with('data', $user);
         }
 
         abort(401);
@@ -47,22 +47,14 @@ class NewPasswordController extends Controller
         // will update the password on an actual user model and persist it to the
         // database. Otherwise we will parse the error and return the response.
 
-        $tokenModel = PasswordResetTokenModel::where('email', $request->email)->first();
         $user = User::where('email', $request->email)->first();
 
-        if ($tokenModel && $tokenModel->token === $request->token) {
-            $user->update([
-                'password' => Hash::make($request->password)
-            ]);
+        $user->update([
+            'password' => Hash::make($request->password),
+            'reset_password_token' => null
+        ]);
 
-            $tokenModel->delete();
-
-            return redirect()->route('login');
-        } else {
-            abort(401);
-        }
-
-
+        return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Password changed successfully']);
 
 //        $status = Password::reset(
 //            $request->only('email', 'password', 'password_confirmation'),

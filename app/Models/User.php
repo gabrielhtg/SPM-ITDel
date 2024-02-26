@@ -29,6 +29,7 @@ class User extends Authenticatable
         'profile_pict',
         'last_login_at',
         'ends_on',
+        'reset_password_token',
         'ip_address',
         'online'
     ];
