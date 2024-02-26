@@ -29,11 +29,11 @@
                         {{ session('data')['text'] }}
 
                     </div>
+                @else
+                    <div class="alert alert-success d-flex justify-content-center" role="alert">
+                        {{ session('data')['text'] }}
+                    </div>
                 @endif
-            @else
-                <div class="alert alert-success d-flex justify-content-center" role="alert">
-                    {{ session('data')['text'] }}
-                </div>
             @endif
 
                 <p class="login-box-msg">Sign in to start your session</p>

@@ -44,37 +44,20 @@ class PasswordResetLinkController extends Controller
 //                    : back()->withInput($request->only('email'))
 //                            ->withErrors(['email' => __($status)]);
 
-        $dataToken = PasswordResetTokenModel::find($request->email);
+//        $dataToken = PasswordResetTokenModel::find($request->email);
         $user = User::where('email', $request->email)->first();
 
 
-        if ($dataToken) {
-            if ($user) {
-                $dataToken->update([
-                    'created_at' => now()
-                ]);
+        if ($user) {
+            $dataToken->update([
+                'created_at' => now()
+            ]);
 
-                return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request updated!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);
-            }
-
-            else {
-                return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
-            }
+            return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request updated!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);
         }
 
         else {
-            if ($user) {
-                PasswordResetTokenModel::create([
-                    'email' => $request->email,
-                    'token' => Str::random(200),
-                    'created_at' => now()
-                ]);
-                return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request sent!', 'msg' => 'Tunggu sampai admin mengirimkan reset token ke email anda.']);
-            }
-
-            else {
-                return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
-            }
+            return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
         }
     }
 }
