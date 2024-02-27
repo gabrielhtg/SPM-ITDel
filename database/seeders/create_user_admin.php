@@ -101,7 +101,7 @@ class create_user_admin extends Seeder
                 'name' => 'Mariana Simanjuntak, S.S, M.Sc, M.ISD',
                 'email' => 'anna@del.ac.id',
                 'password' => Hash::make("admin"),
-                'role' => 15,
+                'role' => 10,
                 'status' => false,
                 'created_at' => now(),
                 'last_login_at' => now(),
@@ -127,7 +127,28 @@ class create_user_admin extends Seeder
                 'last_login_at' => now(),
                 'profile_pict' => null
             ],
+            [
+                'name' => 'Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si',
+                'email' => 'fitri.silalahi@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 3,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Arie Satia Dharma, S.T, M.Kom',
+                'email' => 'ariesatia@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 7,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
         ]);
+
 
 
         require_once 'vendor/autoload.php';
