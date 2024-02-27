@@ -11,7 +11,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">List Pending Register</h4>
+                <h4 class="modal-title">List Pending Action</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,17 +93,6 @@
                     @endforelse
                     </tbody>
                 </table>
-                <div class="d-flex justify-content-center">
-                    @if($invitation->count() != 0)
-                        <form action="{{ route('clear-invitation') }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger mt-4">Clear Invitation Link</button>
-                        </form>
-                    @endif
-
-                </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
