@@ -88,7 +88,7 @@
                     <a href="{{ route('documentManagement') }}" class="nav-link">
                         {{-- <i class="fas fa-file nav-icon"></i> --}}
                         {{-- <p> --}}
-                            Document Management
+                            Document Management dsasds
                         {{-- </p> --}}
                     </a>
                 </li>

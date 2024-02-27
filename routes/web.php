@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\NewsController;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,9 @@ Route::get('/dashboard', function () {
 
 //     return view('admindashboard');
 // })->middleware(['auth', 'verified'])->name('admindashboard');
+Route::get('/document-management', [DocumentController::class, 'getDocument'])->name('documentManagement');
+
+Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('viewdocumentdetail');
 
 Route::middleware('auth')->group(function () {
 

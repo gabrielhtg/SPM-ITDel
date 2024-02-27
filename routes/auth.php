@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
@@ -85,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-profile-pict', [ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
 
     Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
+    Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
 
     Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
     Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
