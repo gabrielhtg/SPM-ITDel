@@ -31,60 +31,11 @@
                         </div>
                     </div>
                     <span class="text-danger">{{ $errors->first('edit') }}</span>
-
-{{--                    <div class="input-group mt-3">--}}
-{{--                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">--}}
-{{--                        <div class="input-group-append">--}}
-{{--                            <div class="input-group-text">--}}
-{{--                                <span class="fas fa-envelope" style="font-size: 14px"></span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-
-{{--                    <span class="text-danger">{{ $errors->first('email') }}</span>--}}
-
-{{--                    <div class="input-group mt-3">--}}
-{{--                        <input type="password"--}}
-{{--                               class="form-control"--}}
-{{--                               name="password"--}}
-{{--                               id="password"--}}
-{{--                               placeholder="Password" required autocomplete="new-password">--}}
-{{--                        <div class="input-group-append">--}}
-{{--                            <div class="input-group-text">--}}
-{{--                                <span class="fas fa-lock"></span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <span class="text-danger">{{ $errors->first('password') }}</span>--}}
-
-{{--                    <div class="input-group mt-3">--}}
-{{--                        <input type="password"--}}
-{{--                               id="password_confirmation"--}}
-{{--                               name="password_confirmation"--}}
-{{--                               class="form-control"--}}
-{{--                               placeholder="Retype password" required autocomplete="new-password">--}}
-{{--                        <div class="input-group-append">--}}
-{{--                            <div class="input-group-text">--}}
-{{--                                <span class="fas fa-lock"></span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>--}}
-
-
-                    <div class="input-group mt-3">
-                        <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;">
-                            @foreach($roles as $e)
-                                <option value="{{ $e->id }}">{{ $e->role }}</option>
-                            @endforeach
-                            <option value="{{ 0 }}">All</option>
-                        </select>
-                    </div>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary">Add User</button>
+                <button type="submit" form="form-register" class="btn btn-primary"><i class="far fa-save mr-1"></i> Save</button>
             </div>
         </div>
         <!-- /.modal-content -->
