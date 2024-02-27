@@ -95,6 +95,22 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
+            [
+                'name' => 'Humasak Tommy Argo Simanjuntak, ST, M.ISD',
+                'email' => 'humasak@del.ac.id',
+                'username' => 'humasak',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 29,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            
+
+
         ]);
 
         require_once 'vendor/autoload.php';
