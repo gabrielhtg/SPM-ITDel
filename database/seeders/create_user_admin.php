@@ -57,6 +57,26 @@ class create_user_admin extends Seeder
                 'last_login_at' => now(),
                 'profile_pict' => null
             ],
+            [
+                'name' => 'Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech',
+                'email' => 'aldo@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 1,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Dr. Johannes Harungguan Sianipar, S.T., M.T.',
+                'email' => 'johannes@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 2,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
         ]);
 
         require_once 'vendor/autoload.php';

@@ -53,6 +53,16 @@ class createRole extends Seeder
            ['role' => 'Staf SPI'],
            ['role' => 'Ketua LPPM'],
            ['role' => 'Staf LPPM'],
+           ['role' => 'Dosen S1TB'],
+           ['role' => 'Dosen S1MR'],
+           ['role' => 'Dosen S1TM'],
+           ['role' => 'Dosen D3TI'],
+           ['role' => 'Dosen D3TK'],
+           ['role' => 'Dosen STTRPL'],
+           ['role' => 'Dosen S1TE'],
+           ['role' => 'Dosen S1IF'],
+           ['role' => 'Dosen S1SI'],
+
         ]);
     }
 }
