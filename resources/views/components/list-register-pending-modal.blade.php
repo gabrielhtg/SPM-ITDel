@@ -1,6 +1,6 @@
 @php use App\Models\User; @endphp
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-register-pending">
-    <span style="margin-left: 5px">List Pending Register</span>
+    <span style="margin-left: 5px">List Pending Action</span>
     @if(count($pass_reset) != 0)
         <span class="badge badge-primary" style="margin-left: 5px">{{ count($pass_reset) }}</span>
     @endif

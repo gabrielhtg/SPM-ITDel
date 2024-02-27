@@ -1,5 +1,5 @@
 @php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -112,7 +112,7 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <select name="role" class="select2" required>
+                            <select name="role" class="form-control select2" required>
                                 <option></option>
                                 @foreach($roles as $e)
                                     <option value="{{ $e->id }}">{{ $e->role }}</option>
@@ -133,10 +133,9 @@
 </div>
 
 <!-- jQuery -->
-<script src="{{ asset("plugins/jquery/jquery.min.js")  }}"></script>
+<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <!-- Select2 -->
-<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <script>
     $(function () {

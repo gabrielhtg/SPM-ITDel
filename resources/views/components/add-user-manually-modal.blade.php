@@ -14,64 +14,99 @@
             <div class="modal-body">
                 <form id="form-register" method="POST" action="{{ route('register') }}">
                     @csrf
-                    <div class="input-group">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Full name" required autofocus autocomplete="name">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-user"></span>
+                    <div class="row">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="text" name="name" class="form-control" placeholder="Full name" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-user"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ $errors->first('username') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-envelope"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-phone"></i>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger">{{ $errors->first('name') }}</span>
 
-                    <div class="input-group mt-3">
-                        <input type="email" name="email" class="form-control" placeholder="Email" required autocomplete="username">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope" style="font-size: 14px"></span>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
                             </div>
+                            <span class="text-danger">{{ $errors->first('password') }}</span>
                         </div>
                     </div>
-                    <span class="text-danger">{{ $errors->first('email') }}</span>
 
-                    <div class="input-group mt-3">
-                        <input type="password"
-                               class="form-control"
-                               name="password"
-                               id="password"
-                               placeholder="Password" required autocomplete="new-password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group">
+                                <input type="password" name="password_confirmation" class="form-control"
+                                       placeholder="Retype password" required>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-lock"></span>
+                                    </div>
+                                </div>
                             </div>
+                            <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                         </div>
                     </div>
-                    <span class="text-danger">{{ $errors->first('password') }}</span>
 
-                    <div class="input-group mt-3">
-                        <input type="password"
-                               id="password_confirmation"
-                               name="password_confirmation"
-                               class="form-control"
-                               placeholder="Retype password" required autocomplete="new-password">
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-
-                    <div class="input-group mt-3">
-                        <select class="form-control" name="role" id="role" required>
-                            <option value="">-- Select Role --</option>
-                            @foreach($roles as $e)
-                                <option value="{{ $e->id }}">{{ $e->role }}</option>
-                            @endforeach
-                        </select>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <i class="fas fa-user-tag" style="font-size: 12px"></i>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <div class="input-group w-100">
+                                <select name="role" class="form-control select2" required>
+                                    <option></option>
+                                    @foreach($roles as $e)
+                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </div>

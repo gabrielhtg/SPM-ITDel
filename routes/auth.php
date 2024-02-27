@@ -38,8 +38,7 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
-
-    Route::post('/self-register', [RegisteredUserController::class, 'registerUser'])->name('self-register');
+    Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
 
 });
 

@@ -66,9 +66,8 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-{{--                        <th>Created At</th>--}}
-                        <th>Last Login At</th>
-{{--                        <th>Status</th>--}}
+                        <th>IP Address</th>
+                        <th>Phone</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -119,15 +118,16 @@
                                 </td>
                                 <td>
                                     <div class="user-panel d-flex">
-                                        <div class="info">
-                                        <span class="d-block">
-                                            @if($e->last_login_at !== null)
-                                                {{ CustomConverterService::getLastLogin($e->last_login_at) }}
-                                            @else
-                                                -
-                                            @endif
-                                        </span>
-                                        </div>
+                                        @if($e->ip_address !== null)
+                                            {{ $e->ip_address }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        {{ $e->phone }}
                                     </div>
                                 </td>
 
@@ -189,22 +189,57 @@
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <!-- Page specific script -->
 <script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
+    let table = new DataTable('#example1', {
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": [
+            {
+                extend: 'pdf',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+                orientation: "landscape"
+            },
+            {
+                extend: 'excel',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+            },
+            {
+                extend: 'print',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+            },
+            {
+                extend: 'colvis',
+                columns: [
+                    0, 1, 2, 3, 4, 5
+                ]
+            },
+        ],
+        "pageLength": 10,
+        "select": true
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
 </script>
 <script>
     $(function () {
