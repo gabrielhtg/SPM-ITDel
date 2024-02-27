@@ -85,13 +85,14 @@
 
                 @endif
                 <li class="nav-item">
-                    <a href="{{ route('documentManagement') }}" class="nav-link">
+                    <a href="{{ route('getdocument') }}" class="nav-link">
                         {{-- <i class="fas fa-file nav-icon"></i> --}}
                         {{-- <p> --}}
                             Document Management
                         {{-- </p> --}}
                     </a>
                 </li>
+                
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->
