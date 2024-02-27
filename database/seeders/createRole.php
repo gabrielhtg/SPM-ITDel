@@ -62,6 +62,8 @@ class createRole extends Seeder
            ['role' => 'Dosen S1TE'],
            ['role' => 'Dosen S1IF'],
            ['role' => 'Dosen S1SI'],
+           ['role' => 'Admin'],
+           ['role' => 'Guest'],
         ]);
     }
 }

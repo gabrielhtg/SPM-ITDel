@@ -8,7 +8,24 @@ use Illuminate\Support\Carbon;
 class CustomConverterService
 {
     static public function convertRole ($role) {
-        return RoleModel::find($role)->role;
+        $roles = explode(";", $role);
+
+        $output = '';
+
+        $len = count($roles);
+        $i = 0;
+
+        foreach ($roles as $e) {
+            $output = $output . trim(RoleModel::find($e)->role);
+
+            if ($i != $len - 1) {
+                $output = $output . ', ';
+            }
+
+            $i++;
+        }
+
+        return $output;
     }
 
     static public function convertTime ($time) {
