@@ -162,7 +162,7 @@
                                                     @foreach($similarDocuments as $similarDocument)
                                                     @if($similarDocument->status == 'Berlaku')
                                                         <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
-                                                            <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #087cfc; font-weight: 500;" href="{{ route('viewdocumentdetail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
+                                                            <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #087cfc; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
                                                         </li>
                                                     @endif
                                                 @endforeach
