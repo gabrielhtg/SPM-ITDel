@@ -447,19 +447,6 @@ class create_user_admin extends Seeder
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
             [
-                'name' => 'Arie Satia Dharma, S.T, M.Kom',
-                'email' => 'ariesatia@del.ac.id',
-                'username' => 'arie',
-                'phone' => '082123222425',
-                'online' => false,
-                'password' => Hash::make("admin"),
-                'status' => true,
-                'verified' => true,
-                'role' => 7,
-                'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
-            ],
-            [
                 'name' => 'Junita Amalia, S.Pd, M.Si',
                 'email' => 'junita.amalia@del.ac.id',
                 'username' => 'junita',
@@ -472,7 +459,7 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
-           
+
 
 
 
