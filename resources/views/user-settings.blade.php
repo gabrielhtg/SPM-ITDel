@@ -7,7 +7,8 @@
     <title>Users Settings</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
@@ -54,7 +55,7 @@
                     <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
                         List Allowed User
                     </a>
-                    @include('components.list-register-pending-modal')
+                    @include('components.list-action-pending-modal')
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -64,7 +65,7 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-                        <th>IP Address</th>
+                        <th>IP Addr</th>
                         <th>Phone</th>
                         <th>Action</th>
                     </tr>

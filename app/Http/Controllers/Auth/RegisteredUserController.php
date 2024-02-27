@@ -135,7 +135,7 @@ class RegisteredUserController extends Controller
                     'phone' => $request->phone,
                     'verified' => false,
                     'password' => Hash::make($request->password),
-                    'role' => $request->role
+                    'pending_roles' => $request->role
                 ]);
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
             }
@@ -176,6 +176,8 @@ class RegisteredUserController extends Controller
             $resetObject->update([
                 'verified' => true,
                 'status' => true,
+                'role' => $resetObject->pending_roles,
+                'pending_roles' => null,
                 'created_at' => now()
             ]);
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Success to accept request!"]);

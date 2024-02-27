@@ -48,7 +48,7 @@
                     </div>
 
                     <div class="input-group mt-3">
-                        <select name="roles[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;">
+                        <select name="roles[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;" required>
                             @php
                                 $array = explode(";", auth()->user()->role);
                                 $i = 0;

@@ -39,10 +39,11 @@ class ProfileController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'role' => $roles
+            'pending_roles' => $roles,
+            'verified' => false
         ]);
 
-        return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Successfully edited profile!']);
+        return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Wait for the admin to approve your changes!']);
     }
 
     /**

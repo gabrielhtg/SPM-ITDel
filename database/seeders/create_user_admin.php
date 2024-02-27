@@ -21,7 +21,7 @@ class create_user_admin extends Seeder
                 'name' => 'User Admin',
                 'email' => 'useradmin@gmail.com',
                 'password' => Hash::make("admin"),
-                'role' => 1,
+                'role' => 49,
                 'status' => true,
                 'online' => false,
                 'username' => 'admin',
@@ -39,7 +39,7 @@ class create_user_admin extends Seeder
                 'password' => Hash::make("admin"),
                 'status' => true,
                 'verified' => true,
-                'role' => 1,
+                'role' => 49,
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
@@ -108,7 +108,7 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
-            
+
 
 
         ]);
