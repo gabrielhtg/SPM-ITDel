@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
     <html lang="en">
     <head>
         <meta charset="UTF-8">
@@ -8,7 +8,7 @@
         <style>
             .card-title {
                 overflow-wrap: break-word;
-                color: #087cfc; /* Ubah warna judul kartu */
+                color: #106cfc; /* Ubah warna judul kartu */
             }
             .footer {
                 position: fixed;
@@ -30,7 +30,7 @@
                     <div class="w-35px flex-shrink-0 d-none d-sm-block">
                         <i class="bi bi-list-task fs-2 text-primary"></i>
                     </div>
-                    <div class="flex-grow-1 d-flex justify-content-between" style="background-color: #087cfc; padding: 20px;">
+                    <div class="flex-grow-1 d-flex justify-content-between" style="background-color: #106cfc; padding: 20px;">
                         <h4 class="text-primary" style="color: white !important;"> Detail <span class="opacity-50">Document</span></h4>
                     </div>
                 </div>
@@ -41,7 +41,7 @@
                         <div class="col-lg-8">
                             <div class="card">
                                 
-                                <div class="card-header" style="background-color: #087cfc; padding: 20px;">
+                                <div class="card-header" style="background-color: #106cfc; padding: 20px;">
                                     <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Detail Document</h3>
                                 </div>
                                 <div class="card-body">
@@ -91,14 +91,14 @@
                                 <!-- Card Preview Document -->
                                 <div class="col-lg-12 mb-4">
                                     <div class="card" style="width: 650px;">
-                                        <div class="card-header" style="background-color: #087cfc; padding: 20px;">
+                                        <div class="card-header" style="background-color: #106cfc; padding: 20px;">
                                             <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Preview Document</h3>
                                         </div>
                                         <div class="card-body flex-grow-1 text-center">
                                             <!-- Isi preview document -->
                                             <div class="row mb-4">
                                                 <div class="col fw-semibold">
-                                                <div x-on:click="$store.page.preview(153567, 'database')" class="preview-pdf" data-file-id="153567" style="font-size: 18px; color: #087cfc; font-weight: 500; cursor: pointer;">
+                                                <div x-on:click="$store.page.preview(153567, 'database')" class="preview-pdf" data-file-id="153567" style="font-size: 18px; color: #106cfc; font-weight: 500; cursor: pointer;">
                                                         {{ $document->name }}
                                                 </div>
 
@@ -106,13 +106,13 @@
                                             </div>
                                             <div class="row justify-content-center">
                                                 <div class="col-auto">
-                                                <a x-on:click="$store.page.preview(153567, 'dedi')" data-file-id="153567" class="download-file btn btn-primary me-1" style="width: 200px; height: 60px; font-size: 1.5rem; background-color: #087cfc; border-radius: 20px;">
+                                                <a x-on:click="$store.page.preview(153567, 'dedi')" data-file-id="153567" class="download-file btn btn-primary me-1" style="width: 200px; height: 60px; font-size: 1.5rem; background-color: #106cfc; border-radius: 20px;">
                                                     <i class="fas fa-eye"></i> <!-- Menggunakan kelas fas untuk Font Awesome -->
                                                     Preview
                                                 </a>
                                                 </div>
                                                 <div class="col-auto">
-                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="#" style="width: 200px; height: 60px; font-size: 1.5rem; background-color: #087cfc; border-radius: 20px;">
+                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="#" style="width: 200px; height: 60px; font-size: 1.5rem; background-color: #106cfc; border-radius: 20px;">
                                                         <i class="fas fa-file-download"></i> <!-- Menggunakan kelas fas untuk Font Awesome -->
                                                         Download
                                                     </a>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="col-lg-12">
         <div class="card">
-            <div class="card-header" style="background-color: #087cfc; padding: 20px;">
+            <div class="card-header" style="background-color: #106cfc; padding: 20px;">
                 <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Similar Document</h3>
             </div>
             <div class="card-body flex-grow-1">
@@ -135,7 +135,7 @@
                             @foreach($similarDocuments as $similarDocument)
                             @if($similarDocument->status == 'Berlaku')
                                 <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
-                                    <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #087cfc; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
+                                    <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #106cfc; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
                                 </li>
                             @endif
                         @endforeach
@@ -150,7 +150,7 @@
 
                                 <div class="col-lg-12">
                                     <div class="card" style="width: 650px;">
-                                        <div class="card-header" style="background-color: #087cfc; padding: 20px;">
+                                        <div class="card-header" style="background-color: #106cfc; padding: 20px;">
                                             <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Update Status</h3>
                                         </div>
                                         <div class="card-body flex-grow-1">
@@ -162,7 +162,7 @@
                                                     @foreach($similarDocuments as $similarDocument)
                                                     @if($similarDocument->status == 'Berlaku')
                                                         <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
-                                                            <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #087cfc; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
+                                                            <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #106cfc; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
                                                         </li>
                                                     @endif
                                                 @endforeach

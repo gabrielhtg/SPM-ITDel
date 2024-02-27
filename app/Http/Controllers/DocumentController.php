@@ -186,14 +186,19 @@ class DocumentController extends Controller
         // Ambil status dokumen yang sedang ditampilkan
         $requestedStatus = $document->status;
     
-        // Ambil dokumen-dokumen lain yang memiliki tipe dokumen dan status yang sama dengan dokumen yang sedang ditampilkan
+        // Ambil dokumen-dokumen lain yang memiliki tipe dokumen yang sama dengan dokumen yang sedang ditampilkan
         $similarDocuments = DocumentModel::where('tipe_dokumen', $requestedType)
-                                          ->where('status', $requestedStatus)
                                           ->where('id', '!=', $id) // Exclude the current document from the similar documents
                                           ->get();
     
-        // Cek nilai $similarDocuments sebelum dilewatkan ke view
-        
+        // Ambil juga dokumen dengan status 'Tidak Berlaku' yang memiliki tipe dokumen yang sama
+        $similarDocumentsNotActive = DocumentModel::where('tipe_dokumen', $requestedType)
+                                                  ->where('status', 'Tidak Berlaku')
+                                                  ->where('id', '!=', $id) // Exclude the current document from the similar documents
+                                                  ->get();
+    
+        // Gabungkan dokumen serupa dengan status 'Tidak Berlaku' ke dalam daftar dokumen serupa
+        $similarDocuments = $similarDocuments->merge($similarDocumentsNotActive);
     
         // Ambil data pengguna yang mengunggah
         $uploadedUser = User::find($document->created_by);
@@ -201,6 +206,7 @@ class DocumentController extends Controller
         // Kirim data dokumen, dokumen serupa, dan pengguna yang mengunggah ke view document-detail
         return view('document-detail', ['document' => $document, 'uploadedUser' => $uploadedUser, 'similarDocuments' => $similarDocuments]);
     }
+    
     
     
     
