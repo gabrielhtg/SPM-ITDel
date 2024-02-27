@@ -420,32 +420,7 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
-            [
-                'name' => 'Arie Satia Dharma, S.T, M.Kom',
-                'email' => 'ariesatia@del.ac.id',
-                'username' => 'arie',
-                'phone' => '082123222425',
-                'online' => false,
-                'password' => Hash::make("admin"),
-                'status' => true,
-                'verified' => true,
-                'role' => 47,
-                'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
-            ],
-            [
-                'name' => 'Dr. Johannes Harungguan Sianipar, S.T., M.T.',
-                'email' => 'johannes@del.ac.id',
-                'username' => 'johannes',
-                'phone' => '082123222425',
-                'online' => false,
-                'password' => Hash::make("admin"),
-                'status' => true,
-                'verified' => true,
-                'role' => 47,
-                'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
-            ],
+
             [
                 'name' => 'Junita Amalia, S.Pd, M.Si',
                 'email' => 'junita.amalia@del.ac.id',
