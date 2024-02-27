@@ -16,13 +16,11 @@ class UserController extends Controller
         if (Auth::check()) {
             $users = User::where('status', true)->get();
             $roles = RoleModel::all();
-            $invitationPending = RegisterInvitationModel::all();
             $passwordResetReq = User::where('verified', false)->orderBy('created_at', 'desc')->get();
 
             $data = [
                 'roles' => $roles,
                 'users' => $users,
-                'invitation' => $invitationPending,
                 'pass_reset' => $passwordResetReq
             ];
 
