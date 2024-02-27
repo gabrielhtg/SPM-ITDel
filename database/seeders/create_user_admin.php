@@ -108,7 +108,111 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
-            
+            [
+                'name' => 'Mariana Simanjuntak, S.S, M.Sc',
+                'email' => 'anna@del.ac.id',
+                'username' => 'anna',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 10,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Indra Hartarto Tambunan, ST., M.S.,Ph.D',
+                'email' => 'indra.tambunan@del.ac.id',
+                'username' => 'indra',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 3,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Riyanthi Angrainy Sianturi, S.Sos, M.Ds',
+                'email' => 'riyanthi@del.ac.id',
+                'username' => 'riyanthi',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 3,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si',
+                'email' => 'fitri.silalahi@del.ac.id',
+                'username' => 'fitri',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 3,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Dr. Merry Meryam Martgrita, S.Si., M.Si',
+                'email' => 'merry.martgrita@del.ac.id',
+                'username' => 'merry',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 3,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Parmonangan Rotua Togatorop, S.Kom., M.T.I',
+                'email' => 'mona.togatorop@del.ac.id',
+                'username' => 'mona',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 34,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Arie Satia Dharma, S.T, M.Kom',
+                'email' => 'ariesatia@del.ac.id',
+                'username' => 'arie',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 7,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Samuel Indra Gunawan Situmeang, S.Ti., M.Sc.',
+                'email' => 'samuel.situmeang@del.ac.id',
+                'username' => 'samuelstmg',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 7,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+
 
 
         ]);
