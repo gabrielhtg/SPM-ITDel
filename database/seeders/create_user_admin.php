@@ -61,7 +61,7 @@ class create_user_admin extends Seeder
                 'email' => 'aldo@del.ac.id',
                 'username' => 'aldo',
                 'phone' => '082122232425',
-                'online' => true,
+                'online' => false,
                 'password' => Hash::make("admin"),
                 'status' => true,
                 'verified' => true,
