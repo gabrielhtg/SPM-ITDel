@@ -77,7 +77,58 @@ class create_user_admin extends Seeder
                 'last_login_at' => now(),
                 'profile_pict' => null
             ],
+            [
+                'name' => 'Rosni Lumbantoruan, ST, M.ISD,Ph.D',
+                'email' => 'rosni@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 22,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Humasak Tommy Argo Simanjuntak, ST, M.ISD',
+                'email' => 'humasak@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 29,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Mariana Simanjuntak, S.S, M.Sc, M.ISD',
+                'email' => 'anna@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 15,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Indra Hartarto Tambunan, ST., M.S.,Ph.D',
+                'email' => 'indra.tambunan@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 3,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
+            [
+                'name' => 'Riyanthi Angrainy Sianturi, S.Sos, M.Ds',
+                'email' => 'riyanthi@del.ac.id',
+                'password' => Hash::make("admin"),
+                'role' => 3,
+                'status' => false,
+                'created_at' => now(),
+                'last_login_at' => now(),
+                'profile_pict' => null
+            ],
         ]);
+
 
         require_once 'vendor/autoload.php';
 
