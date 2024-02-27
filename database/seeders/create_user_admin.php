@@ -420,7 +420,6 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
-
             [
                 'name' => 'Junita Amalia, S.Pd, M.Si',
                 'email' => 'junita.amalia@del.ac.id',
@@ -430,10 +429,91 @@ class create_user_admin extends Seeder
                 'password' => Hash::make("admin"),
                 'status' => true,
                 'verified' => true,
-                'role' => 7,
+                'role' => 4,
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
+            [
+                'name' => 'Mario Elyezer Subekti Simaremare, S.Kom., M.Sc',
+                'email' => 'mario@del.ac.id',
+                'username' => 'mario',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 48,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Tennov Simanjuntak, S.T, M.Sc.',
+                'email' => 'tennov@del.ac.id',
+                'username' => 'tennov',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 48,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Albert Sagala, S.T, M.T',
+                'email' => 'albert@del.ac.id',
+                'username' => 'albert',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 46,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Deni P. Lumbantoruan, S.T, M.Eng., Ph.D.',
+                'email' => 'toruan@del.ac.id',
+                'username' => 'deni',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 46,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Good Fried Panggabean, ST, MT, Ph.D',
+                'email' => 'good@del.ac.id',
+                'username' => 'goodfried',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 46,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Philippians Manurung, S.T., M.T.',
+                'email' => 'philippians.manurung@del.ac.id',
+                'username' => 'good@del.ac.id',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 46,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+
+
+
 
 
 
