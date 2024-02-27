@@ -56,6 +56,45 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => 'src/img/useradmin_profile.png'
             ],
+            [
+                'name' => 'Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech',
+                'email' => 'aldo@del.ac.id',
+                'username' => 'aldo',
+                'phone' => '082122232425',
+                'online' => true,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 1,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Dr. Johannes Harungguan Sianipar, S.T., M.T.',
+                'email' => 'johannes@del.ac.id',
+                'username' => 'johannes',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 2,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
+            [
+                'name' => 'Rosni Lumbantoruan, ST, M.ISD,Ph.D',
+                'email' => 'rosni@del.ac.id',
+                'username' => 'rosni',
+                'phone' => '082123222425',
+                'online' => false,
+                'password' => Hash::make("admin"),
+                'status' => true,
+                'verified' => true,
+                'role' => 22,
+                'created_at' => now(),
+                'profile_pict' => 'src/img/useradmin_profile.png'
+            ],
         ]);
 
         require_once 'vendor/autoload.php';
