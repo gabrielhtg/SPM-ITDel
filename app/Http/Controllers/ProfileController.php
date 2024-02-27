@@ -5,9 +5,13 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\RoleModel;
 use App\Models\User;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -38,7 +42,7 @@ class ProfileController extends Controller
             'role' => $roles
         ]);
 
-        return \redirect()->route('profile');
+        return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Successfully edited profile!']);
     }
 
     /**
@@ -78,7 +82,7 @@ class ProfileController extends Controller
         return Redirect::to('/');
     }
 
-    public function changeProfilePict(): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
+    public function changeProfilePict(): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         return \view('profile.change-profile-pict');
     }
@@ -97,5 +101,23 @@ class ProfileController extends Controller
                 'profile_pict' => 'src/img/profile_pict/' . $imageName
             ]);
         }
+    }
+
+    public function changePassword(Request $request) {
+        $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        if (Hash::check($request->current_password, \auth()->user()->password)) {
+            \auth()->user()->update([
+                'password' => Hash::make($request->password),
+            ]);
+            return \redirect()->route('profile')->with('toastData', ['success' => true, 'text' => "Successfully changed password!"]);
+        }
+
+        else {
+            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Failed to change password!"]);
+        }
+
     }
 }

@@ -12,9 +12,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-register" method="POST" action="{{ route('register') }}">
+                <form id="form-change-password" method="POST" action="{{ route('change-password') }}">
                     @csrf
                     <div class="input-group">
+                        <input type="password" name="current_password" class="form-control" placeholder="Current Password" required autofocus>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <i class="fas fa-lock"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="text-danger">{{ $errors->first('current_password') }}</span>
+
+                    <div class="input-group mt-3">
                         <input type="password" name="password" class="form-control" placeholder="Password" required autofocus>
                         <div class="input-group-append">
                             <div class="input-group-text">
@@ -22,20 +32,22 @@
                             </div>
                         </div>
                     </div>
+                    <span class="text-danger">{{ $errors->first('password') }}</span>
+
                     <div class="input-group mt-3">
-                        <input type="password" name="reenter-password" class="form-control" placeholder="Re-Enter Password" required>
+                        <input type="password" name="password_confirmation" class="form-control" placeholder="Re-Enter Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <i class="fas fa-lock"></i>
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger">{{ $errors->first('edit') }}</span>
+                    <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary"><i class="far fa-save mr-1"></i> Save</button>
+                <button type="submit" form="form-change-password" class="btn btn-primary"><i class="far fa-save mr-1"></i> Save</button>
             </div>
         </div>
         <!-- /.modal-content -->

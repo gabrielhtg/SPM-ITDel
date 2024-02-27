@@ -16,9 +16,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-//    Route::get('register', [RegisteredUserController::class, 'create'])
-//                ->name('register');
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -95,4 +92,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
     Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
     Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
+
+    Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
 });
