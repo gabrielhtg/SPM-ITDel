@@ -92,7 +92,7 @@
                                     <h2 class="card-title">${documentTitle}</h2>
                                 </div>
                                 <div class="card-body">
-                                    <p class="card-text">Tipe: ${e.tipe_dokumen} | User Upload: ${e.created_by.name}</p>
+                                    <p class="card-text">Tipe: ${e.tipe_dokumen} | Status: ${e.status}</p>
                                     <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
                                 </div>
                             </div>

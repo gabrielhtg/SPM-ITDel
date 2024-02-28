@@ -6,22 +6,24 @@
     <title>Document Management</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
     <style>
-        .card-title {
-            overflow-wrap: break-word;
-            color: #106cfc; /* Ubah warna judul kartu */
-        }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #f8f9fa; /* Ubah warna latar belakang footer sesuai kebutuhan */
-            text-align: center;
-        }
+        
     </style>
 </head>
 <body>
+    @include("components.guessnavbar")
 
+<section id="hero" class="d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+            <div class="col-xl-6 col-lg-8">
+                <h1>Document Detail<span></span></h1>
+                <h2>disini anda dapat melihat Informasi Mengenai Dokumen</h2>
+            </div>
+        </div>
+    </div>
+</section><!-- End Hero -->
 
 <section>
     <div class="content-wrapper">
@@ -96,29 +98,29 @@
                                         <div class="row mb-4">
                                             <div class="col fw-semibold">
                                                 <div x-on:click="$store.page.preview(153567, 'database')" class="preview-pdf" data-file-id="153567" style="font-size: 18px; color: #8699ab; font-weight: 500; cursor: pointer;">
-                                                    {{ $document->name }}
+                                                    {{ $document->nama_dokumen }}
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
-                                                <a x-on:click="$store.page.preview(153567, 'dedi')" data-file-id="153567" class="download-file btn btn-primary me-1" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0;">
-                                                    <i class="fas fa-eye"></i> <!-- Menggunakan kelas fas untuk Font Awesome -->
-                                                    Preview
+                                                <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                    <i class="fas fa-eye"></i> Preview
                                                 </a>
                                             </div>
+                                            
                                             <div class="col-auto">
-                                                <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="#" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0;">
-                                                    <i class="fas fa-file-download"></i> <!-- Menggunakan kelas fas untuk Font Awesome -->
-                                                    Download
+                                                <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                    <i class="fas fa-file-download"></i> Download
                                                 </a>
-                                            </div>
+                                            </div>                                            
                                         </div>
+                                        
 
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12">
+                            <div class="col-lg-12 mb-4">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #8699ab; padding: 20px;">
                                         <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Similar Document</h3>
@@ -154,7 +156,7 @@
                                                 <h4>Dokumen yang digantikan:</h4>
                                                 <ol type="a">
                                                     @foreach($similarDocuments as $similarDocument)
-                                                        @if($similarDocument->status == 'Berlaku')
+                                                        @if($similarDocument->status == 'Tidak Berlaku')
                                                             <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
                                                                 <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #8699ab; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
                                                             </li>
@@ -181,4 +183,5 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+@include('components.footer')
 </html>
