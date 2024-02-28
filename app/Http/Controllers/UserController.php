@@ -14,16 +14,14 @@ class UserController extends Controller
 {
     public function getUserSettings() {
         if (Auth::check()) {
-            $users = User::all();
+            $users = User::where('status', true)->get();
             $roles = RoleModel::all();
-            $invitationPending = RegisterInvitationModel::all();
-            $passwortResetReq = PasswordResetTokenModel::orderBy('created_at', 'desc')->get();
+            $passwordResetReq = User::where('verified', false)->orderBy('created_at', 'desc')->get();
 
             $data = [
                 'roles' => $roles,
                 'users' => $users,
-                'invitation' => $invitationPending,
-                'pass_reset' => $passwortResetReq
+                'pass_reset' => $passwordResetReq
             ];
 
             return view("user-settings", $data);
@@ -34,21 +32,60 @@ class UserController extends Controller
         }
     }
 
+    public function getUserSettingsInactive() {
+        if (Auth::check()) {
+            $users = User::where('status', false)->get();
+
+            $data = [
+                'users' => $users,
+            ];
+
+            return view("user-settings-inactive", $data);
+        }
+
+        else {
+            return redirect()->route('dashboard');
+        }
+    }
+
     public function removeUser(Request $request)
     {
         if (Auth::check()) {
-            $user = User::where('id', $request->user_id)->first();
-            if ($user->profile_pict != null) {
-                File::delete(public_path($user->profile_pict));
+            $user = User::find($request->id);
+
+            if ($user) {
+                $user->update([
+                    'status' => false,
+                    'ends_on' => now(),
+                ]);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "The account in " . $user->name . " name was successfully deactivated!"]);
             }
-            $user->delete();
 
-            $data = [
-                'success' => isset($user),
-                'text' => "Berhasil menghapus user"
-            ];
-
-            return redirect()->route('user-settings')->with('toastData', $data);
+            else {
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to deleted user!"]);
+            }
         }
+
+        return redirect()->route('login');
+    }
+
+    public function getUserDetail (Request $request) {
+        $user = User::find($request->user_id);
+        $data = [
+            'user' => $user,
+        ];
+
+        return view('user-detail', $data);
+    }
+
+    public function restoreAccount (Request $request) {
+        $user = User::find($request->id);
+
+        $user->update([
+            'status' => true,
+            'ends_on' => null
+        ]);
+
+        return redirect()->route('user-settings-inactive')->with('toastData', ['success' => true, 'text' => 'Successfully activated User ' . $user->name]);
     }
 }

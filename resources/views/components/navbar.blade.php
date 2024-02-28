@@ -1,11 +1,3 @@
-@php
-    if (\Illuminate\Support\Facades\Auth::check()) {
-        \App\Models\User::where('id', \Illuminate\Support\Facades\Auth::user()->id)->update([
-            'status' => true
-        ]);
-    }
-@endphp
-
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
@@ -53,7 +45,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                    <a href="{{ route('edit-profile') }}" class="dropdown-item">
+                    <a href="{{ route('profile') }}" class="dropdown-item">
                         <i class="mr-2 fas fa-user" style="padding-right: 1px"></i> Profile
                     </a>
 

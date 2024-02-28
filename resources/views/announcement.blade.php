@@ -191,8 +191,8 @@
 <!-- Page specific script -->
 
 <script>
-    document.getElementById('file').addEventListener('change', function(e) {
-        var fileName = document.getElementById('file').files[0].name;
+    document.getElementById('inputFile').addEventListener('change', function(e) {
+        var fileName = document.getElementById('inputFile').files[0].name;
         var nextSibling = e.target.nextElementSibling;
         nextSibling.innerText = fileName;
     });

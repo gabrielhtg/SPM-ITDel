@@ -52,18 +52,22 @@
                     </h1>
                 </li>
                 <li class="col">
-                    <a href="{{ route('news') }}" class="nav-link ">
+                    <a href="{{ route('dashboard') }}" class="nav-link ">
+                        {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
+                            {{-- <p> --}}
+                                Dashboard
+                            {{-- </p> --}}
+                    </a>
+                </li>
+                <li class="col">
+                    <a href="#news-view" class="nav-link ">
                         {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
                             {{-- <p> --}}
                                 News
                             {{-- </p> --}}
                     </a>
                 </li>
-                <li class="dropdown col">
-                    <a href="#"><span>Dashbord</span>
-                        <i class="bi bi-chevron-down"></i>
-                    </a>
-                </li>
+                
                 @if(\Illuminate\Support\Facades\Auth::check())
                 <li class="nav-item">
                     <a href="{{ route('user-settings') }}" class="nav-link">
@@ -85,13 +89,14 @@
 
                 @endif
                 <li class="nav-item">
-                    <a href="{{ route('documentManagement') }}" class="nav-link">
+                    <a href="{{ route('getdocument') }}" class="nav-link">
                         {{-- <i class="fas fa-file nav-icon"></i> --}}
                         {{-- <p> --}}
                             Document Management
                         {{-- </p> --}}
                     </a>
                 </li>
+                
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
           </nav><!-- .navbar -->

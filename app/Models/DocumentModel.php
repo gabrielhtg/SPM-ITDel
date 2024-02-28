@@ -11,12 +11,19 @@ class DocumentModel extends Model
 
     protected $table = 'documents';
 
-    protected $fillable = [
-        'name',
-        'nomor_dokumen',
-        'directory',
-        'give_access_to',
-        'created_by',
-        'created_at'
-    ];
+   
+        protected $fillable = [
+            'name',
+            'nama_dokumen',
+            'nomor_dokumen',
+            'directory',
+            'give_access_to',
+            'created_by',
+            'status', 
+            'year',
+            'tipe_dokumen', 
+            'expried_date', 
+            'created_at'
+        ];
 }
+    

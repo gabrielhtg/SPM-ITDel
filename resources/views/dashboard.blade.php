@@ -35,13 +35,6 @@
     <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
     </div>
-    
-    <!-- Navbar -->
-    {{-- @include("components.guessnavbar") --}}
-
-    <!-- /.navbar -->
-
-    <!-- Main Sidebar Container -->
 
     
     @if(!\Illuminate\Support\Facades\Auth::check())

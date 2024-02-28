@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\AllowedUserModel;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\RedirectResponse;
@@ -27,17 +28,26 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $userAllowed = User::where('username', $request->username)->first();
 
-        $request->session()->regenerate();
+        if ($userAllowed !== null && $userAllowed->status) {
+            $request->authenticate();
 
-        $user = auth()->user();
+            $request->session()->regenerate();
+            $user = auth()->user();
 
-        $user->update([
-            'last_login_at' => now(),
-        ]);
+            $user->update([
+                'ip_address' => $request->ip(),
+                'last_login_at' => now(),
+                'online' => true
+            ]);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+
+        else {
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Credential Not Found!']);
+        }
     }
 
     /**
@@ -47,13 +57,11 @@ class AuthenticatedSessionController extends Controller
     {
 
         $user = auth()->user();
-        
+
         $user->update([
             'last_login_at' => now(),
+            'online' => false
         ]);
-
-        // Update user status to false on logout (if required)
-        User::where('id', Auth::user()->id)->update(['status' => false]);
 
         Auth::logout();
 

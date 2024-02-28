@@ -177,7 +177,8 @@
             <div class="row g-4">
                 <div class="col-lg-5 col-xl-7 mt-0">
                     <div class="position-relative overflow-hidden rounded">
-                        <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" alt="">
+                      
+                        <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" style="width: 200px; height: 500px;" alt="">
                         {{-- <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
                             <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> 06 minute read</a>
                             <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> 3.5k Views</a>
@@ -196,7 +197,7 @@
                           @if (str_word_count($guestBigNews->isinews) > 60)
                               {!! substr($guestBigNews->isinews, 0, 500) !!} ...
                           @else
-                              {{ $guestBigNews->isinews }}
+                              {!! $guestBigNews->isinews !!}
                           @endif
                           {{-- {!! $guestBigNews->isinews !!} --}}
                         </p>
@@ -210,9 +211,12 @@
                               <div class="col-12">
                                   <div class="row g-4 align-items-center">
                                       <div class="col-5">
-                                          <div class="overflow-hidden rounded">
+                                        <div class="overflow-hidden rounded m-1" style="height: 100px; /* Sesuaikan dengan tinggi yang diinginkan */">
+                                          <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
+                                        </div>
+                                          {{-- <div class="overflow-hidden rounded">
                                               <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" alt="">
-                                          </div>
+                                          </div> --}}
                                       </div>
                                       <div class="col-7">
                                           <div class="features-content d-flex flex-column">
@@ -227,13 +231,19 @@
                             {{-- tidak ada data --}}
                           @endforelse
                         </div>
-                   </div>
+                        
+                      </div>
+                      <div class="text-end" style="margin:20px;">
+                        <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">See more...</a>
+                      </div>
+                      
                 </div>
             </div>
         </div>
         @else
         <div class="text-center">
           <p>Berita Tidak Tersedia</p>
+
         </div>
         @endif
       </div>

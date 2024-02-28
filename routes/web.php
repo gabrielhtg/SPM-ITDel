@@ -30,17 +30,15 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
-// Route::get('/admindashboard', function () {
-
-//     return view('admindashboard');
-// })->middleware(['auth', 'verified'])->name('admindashboard');
-
+Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
+Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/user-settings', [UserController::class, 'getUserSettings'])->name('user-settings');
+    Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
+    Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
     Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
     Route::post('/announcement', [AnnouncementController::class, 'store'])->name('announcement.add');
     Route::get('/announcement/detail/{id}', [AnnouncementController::class, 'getDetail'])->name('announcement.detail');
@@ -50,7 +48,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
-    Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deleteannews');
+    
+    Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
+    
 });
 
 require __DIR__ . '/auth.php';

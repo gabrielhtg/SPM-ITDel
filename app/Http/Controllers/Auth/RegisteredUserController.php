@@ -4,18 +4,13 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
-use App\Mail\ResetPasswordMail;
-use App\Models\PasswordResetTokenModel;
+use App\Models\AllowedUserModel;
 use App\Models\RegisterInvitationModel;
+use App\Models\RoleModel;
 use App\Models\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Database\QueryException;
-use Illuminate\Database\UniqueConstraintViolationException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules;
@@ -27,17 +22,13 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create($token): View
+    public function create(): View
     {
-        $data = RegisterInvitationModel::where('token', $token)->first();
+        $data = [
+            'roles' => RoleModel::all()
+        ];
 
-        if ($data) {
-            return view('auth.register', $data);
-        }
-        else {
-            abort(404);
-        }
-
+        return view('auth.register', $data);
     }
 
     /**
@@ -49,40 +40,35 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $data = RegisterInvitationModel::where('email', $request->email)->first();
+        $data = AllowedUserModel::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'status' => false,
-            'password' => Hash::make($request->password),
-            'role' => (int) $request->role
-        ]);
+        if ($data !== null) {
+            if (!$user) {
+                User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'status' => true,
+                    'verified' => true,
+                    'password' => Hash::make($request->password),
+                    'role' => $request->role
+                ]);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully created user!']);
+            }
 
-//        event(new Registered($user));
-//
-//        Auth::login($user);
-
-        if ($user !== null) {
-            $text = "Successfully added user";
-
-            $data?->delete();
+            else {
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Failed. User exist!']);
+            }
         }
 
-        else {
-            $text = "Failed to add user";
-        }
-
-        $dataToast = [
-            'success' => isset($user),
-            'text' => $text
-        ];
-
-        return redirect()->route('user-settings')->with('toastData', $dataToast);
+        return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Creating user ' . $request->name . ' is not permitted']);
     }
 
     public function sendRegisterInvitationLink(Request $request)
@@ -118,39 +104,50 @@ class RegisteredUserController extends Controller
             return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Invitation sent!"]);
         }
         catch (QueryException $e) {
-//            if ($e->errorInfo[1] == 1062) { // 1062 adalah kode untuk kesalahan duplikat kunci unik
-//                return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Duplicate Email']);
-//            } else {
-                return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "An error occurred."]);
-//            }
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "An error occurred."]);
         }
     }
 
-    public function storeFromInvitationLink(Request $request)
+    public function registerSelfUser(Request $request)
     {
-        $data = RegisterInvitationModel::where('token', $request->token)->first();
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
 
-        if ($data && ($data->email === $request->email) && ($data->role === (int)$request->role)) {
-            $request->validate([
-                'name' => ['required', 'string', 'max:255'],
-                'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-                'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            ]);
+        $data = AllowedUserModel::where('email', $request->email)->first();
+        $user = User::where('username', $request->username)->first();
 
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'status' => false,
-                'password' => Hash::make($request->password),
-                'role' => (int) $request->role
-            ]);
+        if ($data !== null) {
+            if (!$user) {
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'username' => ['required', 'string', 'max:20'],
+                    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
 
-            $data->delete();
+                User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'verified' => false,
+                    'password' => Hash::make($request->password),
+                    'pending_roles' => $request->role
+                ]);
+                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+            }
 
-            return redirect()->route('login');
+            else {
+                return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request has been sent previously!']);
+            }
+
+
         }
 
-        abort(401);
+        return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
     }
 
     public function deleteInvitation(Request $request) {
@@ -172,31 +169,37 @@ class RegisteredUserController extends Controller
         return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted all data!']);
     }
 
-    public function acceptResetRequest(Request $request) {
-        $resetObject = PasswordResetTokenModel::where('email', $request->email)->first();
+    public function acceptRegisterRequest(Request $request) {
+        $resetObject = User::find($request->id);
 
         if ($resetObject) {
-            Mail::to($request->email)->send(new ResetPasswordMail($resetObject->token));
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Success to accept request. A password reset email has been sent to " . $resetObject->email]);
+            $resetObject->update([
+                'verified' => true,
+                'status' => true,
+                'role' => $resetObject->pending_roles,
+                'pending_roles' => null,
+                'created_at' => now()
+            ]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Success to accept request!"]);
         }
         else {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Failed to accept request. Email not found!"]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to accept request! Email not found!"]);
         }
 
 
     }
 
-    public function deleteResetRequest(Request $request) {
-        $data = PasswordResetTokenModel::where('email', $request->email);
+    public function deleteRegisterRequest(Request $request) {
+        $data = User::find($request->id);
 
         if ($data) {
             $data->delete();
 
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
         }
 
         else {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
         }
     }
 }
