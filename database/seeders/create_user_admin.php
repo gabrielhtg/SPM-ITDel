@@ -54,7 +54,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 1,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => 'src/img/vincent.jpg'
             ],
         ]);
 

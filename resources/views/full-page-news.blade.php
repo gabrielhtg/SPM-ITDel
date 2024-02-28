@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
+  <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SPM IT Del</title>
 
@@ -26,38 +26,76 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
-<div class="wrapper">
+<body>
+  @include('components.guessnavbar')
+  <div class="mt-5">
 
-    <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
-    </div>
+  </div>
+  {{-- <div class="wrapper mt-3" > --}}
 
-    
-    @if(!\Illuminate\Support\Facades\Auth::check())
-        @include("components.guesslayout");
-    @else
-        @include("components.navbar")
-        @include("components.sidebar")
-        @include('components.footer')
-    @endif
-    
-    
-   
-    <!-- /.content-wrapper -->
+    <section id="news-view" >
+      
+      <div class="container-fluid py-2">
+        <div class="container py-5 border rounded">
+          <div class="container" data-aos="fade-up">
+            <form action="/news/page/cari" method="GET">
+              @csrf
+              <div class="input-group">
+                <input type="search" name="carinews" class="form-control form-control-lg" placeholder="Cari berita yang ingin anda temukan disini">
+                <div class="input-group-append">
+                  <button type="submit" class="btn btn-lg btn-default">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
 
-<!-- jQuery -->
+            <div class="col-sm-6">
+              <h1 class="ml-1 mt-5">Berita AMI IT Del</h1>
+            </div>
+            {{-- @if(!empty($guestBigNews->gambar)) --}}
+            <table>
+              <tr>
+                <th>
+                  {{-- nama --}}
+                </th>
+                <th>
+                  {{-- jabatan --}}
+                </th>
+              </tr>
+
+              @foreach ($news as $e)
+              <tr>
+                <th style="vertical-align: center;">
+                    <div class="col-5">
+                        <div class="overflow-hidden rounded m-3" style="height: 150px; width: 200px; /* Sesuaikan dengan lebar yang diinginkan */">
+                            <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
+                        </div>
+                    </div>
+                </th>
+                <th style="vertical-align: center; padding-left: 10px;">
+                    <div class="col-7">
+                        <div class="features-content d-flex flex-column">
+                            <a href="#" class="h3 font-weight-bold">{{ $e->judul }}</a>
+                            <small><i class="">{{ $e->created_at }}</i></small>
+                        </div>
+                    </div>
+                </th>
+            </tr>
+              @endforeach
+
+            </table>
+          </div>
+      </div>
+      </div>
+    </section>
+  
+
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
@@ -108,4 +146,5 @@
     splide.mount();
 </script>
 </body>
+
 </html>
