@@ -41,6 +41,7 @@ class DocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:30720', // Maksimum 30 MB
             'nomor_dokumen' => 'required|unique:documents,nomor_dokumen', // Nomor dokumen harus unik di tabel documents
+
         ], [
             'nomor_dokumen.unique' => 'The document number is already in use.',
         ]);
@@ -168,6 +169,7 @@ class DocumentController extends Controller
     
         // Kirim data dokumen dan pengguna yang mengunggah ke view document-view
         return view('document-view', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers]);
+
     }
     
     public function getDocumentDetail($id) {
@@ -199,6 +201,7 @@ class DocumentController extends Controller
     
         // Gabungkan dokumen serupa dengan status 'Tidak Berlaku' ke dalam daftar dokumen serupa
         $similarDocuments = $similarDocuments->merge($similarDocumentsNotActive);
+        //  
     
         // Ambil data pengguna yang mengunggah
         $uploadedUser = User::find($document->created_by);
@@ -206,6 +209,8 @@ class DocumentController extends Controller
         // Kirim data dokumen, dokumen serupa, dan pengguna yang mengunggah ke view document-detail
         return view('document-detail', ['document' => $document, 'uploadedUser' => $uploadedUser, 'similarDocuments' => $similarDocuments]);
     }
+    
+    
     
     
     
