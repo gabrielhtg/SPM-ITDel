@@ -159,7 +159,7 @@ class NewsController extends Controller
         $data = News::find($id);
 
         if (!$data) {
-            return redirect()->route('news')->with('error', 'Pengumuman tidak ditemukan.');
+            return redirect()->route('news')->with('error', 'Berita tidak ditemukan.');
         }
 
         // Jika ada file baru yang diunggah, lakukan proses penghapusan dan pembaruan file
@@ -184,7 +184,7 @@ class NewsController extends Controller
         $data->isinews = $request->isinews;
         $data->save();
 
-        return redirect()->route('news')->with('success', 'Pengumuman berhasil diperbarui.');
+        return redirect()->route('news')->with('toastData', ['success' => true, 'text' => 'Berita Berhasil Ditambahkan']);
     }
 
     public function deletenews($id)

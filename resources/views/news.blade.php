@@ -75,7 +75,7 @@
                                     {{-- <th scope="row">1</th> --}}
                                     
                                     <td class="align-items-center">
-                                        <a href="{{ route('updatenews', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $item->judul }}</a>
+                                        <a href="{{ route('news.detail', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $item->judul }}</a>
                                     </td>
 
                             <td style="width: 190px;">
@@ -104,7 +104,7 @@
                                 
                                                     {{-- input konten --}}
                                                     <label for="summernote">Keterangan News</label>
-                                                    <textarea class="summernote" name="content">{!! $item->isinews !!}</textarea>
+                                                    <textarea class="summernote" name="isinews">{!! $item->isinews !!}</textarea>
                                 
                                                     {{-- input file --}}
                                                     <div class="form-group">
@@ -228,7 +228,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',

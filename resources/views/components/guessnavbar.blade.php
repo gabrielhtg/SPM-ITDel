@@ -60,7 +60,7 @@
                     </a>
                 </li>
                 <li class="col">
-                    <a href="{{ route('dashboard') }}" class="nav-link ">
+                    <a href="#news-view" class="nav-link ">
                         {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
                             {{-- <p> --}}
                                 News

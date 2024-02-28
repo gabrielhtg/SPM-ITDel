@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+    
     Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
     
 });
