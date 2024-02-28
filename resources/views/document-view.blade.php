@@ -22,50 +22,15 @@
 @include("components.guessnavbar")
 
 <section id="hero" class="d-flex align-items-center justify-content-center">
-        <div class="container" data-aos="fade-up">
-    
-          <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+    <div class="container" data-aos="fade-up">
+        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
             <div class="col-xl-6 col-lg-8">
-              <h1>Document Management<span></span></h1>
-              <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+                <h1>Document Management<span></span></h1>
+                <h2>disini anda dapat melihat setiap document yang tersedia</h2>
             </div>
-          </div>
-    
-          {{-- <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-store-line"></i>
-                <h3><a href="">Lorem Ipsum</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-bar-chart-box-line"></i>
-                <h3><a href="">Dolor Sitema</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-calendar-todo-line"></i>
-                <h3><a href="">Sedare Perspiciatis</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-paint-brush-line"></i>
-                <h3><a href="">Magni Dolores</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-database-2-line"></i>
-                <h3><a href="">Nemos Enimade</a></h3>
-              </div>
-            </div>
-          </div> --}}
-    
         </div>
-      </section><!-- End Hero -->
+    </div>
+</section><!-- End Hero -->
 
 <body style="margin: -10px 0;">
 
@@ -111,44 +76,45 @@
         const documents = {!! json_encode($documents) !!};
         const numPerPage = 8;
         let currentPage = 1;
+        let filteredDocuments = []; // Variabel untuk menyimpan hasil pencarian
 
         // Fungsi untuk menampilkan kartu dokumen sesuai halaman yang dipilih
         function displayDocuments(page) {
             const startIndex = (page - 1) * numPerPage;
             const endIndex = startIndex + numPerPage;
-            const paginatedDocuments = documents.slice(startIndex, endIndex);
+            const paginatedDocuments = filteredDocuments.length > 0 ? filteredDocuments.slice(startIndex, endIndex) : documents.slice(startIndex, endIndex);
 
             const documentCardsContainer = document.getElementById('documentCards');
             documentCardsContainer.innerHTML = '';
 
             paginatedDocuments.forEach(function(e) {
-    const accessor = e.give_access_to.split(";");
-    let documentTitle = e.name;
-    if (documentTitle.length > 10) {
-        documentTitle = documentTitle.substring(0, 29) + "...";
-    }
-    if (accessor.includes('0')) {
-        const cardHTML = `
-            <div class="col-lg-6 mb-4">
-                <div class="card h-100">
-                    <div class="card-header">
-                        <h2 class="card-title">${documentTitle}</h2>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Tipe: ${e.tipe_dokumen} | User Upload: ${e.created_by.name}</p>
-                        <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
-                    </div>
-                </div>
-            </div>`;
-        documentCardsContainer.innerHTML += cardHTML;
-    }
-});
-
+                const accessor = e.give_access_to.split(";");
+                let documentTitle = e.name;
+                if (documentTitle.length > 10) {
+                    documentTitle = documentTitle.substring(0, 29) + "...";
+                }
+                if (accessor.includes('0')) {
+                    const cardHTML = `
+                        <div class="col-lg-6 mb-4">
+                            <div class="card h-100">
+                                <div class="card-header">
+                                    <h2 class="card-title">${documentTitle}</h2>
+                                </div>
+                                <div class="card-body">
+                                    <p class="card-text">Tipe: ${e.tipe_dokumen} | User Upload: ${e.created_by.name}</p>
+                                    <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
+                                </div>
+                            </div>
+                        </div>`;
+                    documentCardsContainer.innerHTML += cardHTML;
+                }
+            });
         }
 
         // Fungsi untuk menampilkan tombol-tombol penomoran halaman
         function displayPagination() {
-            const totalPages = Math.ceil(documents.length / numPerPage);
+            const totalItems = filteredDocuments.length > 0 ? filteredDocuments.length : documents.length;
+            const totalPages = Math.ceil(totalItems / numPerPage);
             const paginationContainer = document.getElementById('pagination');
             paginationContainer.innerHTML = '';
 
@@ -209,7 +175,7 @@
         const searchInput = document.getElementById("searchInput");
         searchInput.addEventListener("input", function() {
             const searchQuery = searchInput.value.toLowerCase();
-            const filteredDocuments = documents.filter(function(e) {
+            filteredDocuments = documents.filter(function(e) {
                 const documentTitle = e.name.toLowerCase();
                 return documentTitle.includes(searchQuery);
             });
@@ -220,34 +186,43 @@
     });
 </script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Ambil elemen input pencarian
-        const searchInput = document.getElementById("searchInput");
+   document.addEventListener("DOMContentLoaded", function() {
+    // Ambil elemen input pencarian
+    const searchInput = document.getElementById("searchInput");
 
-        // Tambahkan event listener untuk mengawasi perubahan input
-        searchInput.addEventListener("input", function() {
-            // Ambil nilai pencarian
-            const searchQuery = searchInput.value.toLowerCase();
+    // Tambahkan event listener untuk mengawasi perubahan input
+    searchInput.addEventListener("input", function() {
+        // Ambil nilai pencarian
+        const searchQuery = searchInput.value.toLowerCase();
 
-            // Ambil semua kartu dokumen
-            const documentCards = document.querySelectorAll(".card");
+        // Ambil semua kartu dokumen
+        const documentCards = document.querySelectorAll(".card");
 
-            // Iterasi melalui setiap kartu dokumen
-            documentCards.forEach(function(card) {
-                // Ambil judul dokumen dari kartu
-                const documentTitle = card.querySelector(".card-title").innerHTML.toLowerCase();
+        // Iterasi melalui setiap kartu dokumen
+        documentCards.forEach(function(card) {
+            // Ambil judul dokumen dari kartu
+            const documentTitle = card.querySelector(".card-title").innerHTML.toLowerCase();
 
-                // Periksa apakah judul dokumen cocok dengan kueri pencarian
-                if (documentTitle.includes(searchQuery)) {
-                    // Tampilkan kartu dokumen jika cocok
-                    card.style.display = "block";
-                } else {
-                    // Sembunyikan kartu dokumen jika tidak cocok
-                    card.style.display = "none";
-                }
-            });
+            // Periksa apakah judul dokumen cocok dengan kueri pencarian
+            if (searchQuery === "") {
+                // Kembalikan struktur HTML ke aslinya jika pencarian kosong
+                card.parentNode.classList.remove("col-lg-15");
+                card.parentNode.classList.add("col-lg-6");
+                card.parentNode.style.display = "block";
+            } else if (documentTitle.includes(searchQuery)) {
+                // Tampilkan kartu dokumen jika cocok
+                card.parentNode.classList.add("col-lg-15");
+                card.parentNode.classList.remove("col-lg-6");
+                card.parentNode.style.display = "block";
+            } else {
+                // Sembunyikan kartu dokumen jika tidak cocok
+                card.parentNode.style.display = "none";
+            }
         });
     });
+});
+
+
 </script>
 
 </body>
