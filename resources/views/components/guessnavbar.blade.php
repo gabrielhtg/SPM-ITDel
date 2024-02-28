@@ -60,10 +60,10 @@
                     </a>
                 </li>
                 <li class="col">
-                    <a href="#news-view" class="nav-link ">
+                    <a href="{{ route('newspage') }}" class="nav-link" onclick="redirectToNewsView()">
                         {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
-                            {{-- <p> --}}
-                                News
+                        {{-- <p> --}}
+                            News
                             {{-- </p> --}}
                     </a>
                 </li>
@@ -172,4 +172,18 @@
             });
         });
     });
+</script>
+<script>
+    function redirectToNewsView() {
+        // Redirect to dashboard
+        window.location.href = "{{ route('dashboard') }}";
+
+        // Wait for the dashboard page to load, then scroll to the section with ID 'news-view'
+        window.onload = function() {
+            var newsViewSection = document.getElementById('news-view');
+            if (newsViewSection) {
+                newsViewSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        };
+    }
 </script>
