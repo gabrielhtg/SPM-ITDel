@@ -10,13 +10,7 @@
             overflow-wrap: break-word;
             color: #106cfc; /* Ubah warna judul kartu */
         }
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #f8f9fa; /* Ubah warna latar belakang footer sesuai kebutuhan */
-            text-align: center;
-        }
+        
     </style>
 </head>
 @include("components.guessnavbar")
@@ -61,10 +55,6 @@
     </nav>
 </div>
 
-<footer class="footer py-3">
-    <!-- @include('components.footer') -->
-    <!-- Footer konten akan ditampilkan di sini -->
-</footer>
 
 <!-- jQuery and Bootstrap JS libraries -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
