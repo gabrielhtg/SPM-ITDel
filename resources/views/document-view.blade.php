@@ -8,7 +8,7 @@
     <style>
         .card-title {
             overflow-wrap: break-word;
-            color: #087cfc; /* Ubah warna judul kartu */
+            color: #106cfc; /* Ubah warna judul kartu */
         }
         .footer {
             position: fixed;
@@ -19,14 +19,55 @@
         }
     </style>
 </head>
-<body style="margin: -10px 0;">
+@include("components.guessnavbar")
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
-    <div class="container">
-        <!-- @include("components.guessnavbar") -->
-        <!-- Tambahkan navigasi navbar di sini -->
-    </div>
-</nav>
+<section id="hero" class="d-flex align-items-center justify-content-center">
+        <div class="container" data-aos="fade-up">
+    
+          <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+            <div class="col-xl-6 col-lg-8">
+              <h1>Document Management<span></span></h1>
+              <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+            </div>
+          </div>
+    
+          {{-- <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
+            <div class="col-xl-2 col-md-4">
+              <div class="icon-box">
+                <i class="ri-store-line"></i>
+                <h3><a href="">Lorem Ipsum</a></h3>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+              <div class="icon-box">
+                <i class="ri-bar-chart-box-line"></i>
+                <h3><a href="">Dolor Sitema</a></h3>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+              <div class="icon-box">
+                <i class="ri-calendar-todo-line"></i>
+                <h3><a href="">Sedare Perspiciatis</a></h3>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+              <div class="icon-box">
+                <i class="ri-paint-brush-line"></i>
+                <h3><a href="">Magni Dolores</a></h3>
+              </div>
+            </div>
+            <div class="col-xl-2 col-md-4">
+              <div class="icon-box">
+                <i class="ri-database-2-line"></i>
+                <h3><a href="">Nemos Enimade</a></h3>
+              </div>
+            </div>
+          </div> --}}
+    
+        </div>
+      </section><!-- End Hero -->
+
+<body style="margin: -10px 0;">
 
 <section>
     <div class="container mt-5">
@@ -81,25 +122,28 @@
             documentCardsContainer.innerHTML = '';
 
             paginatedDocuments.forEach(function(e) {
-                const accessor = e.give_access_to.split(";");
-                const documentTitle = e.name.length > 75 ? e.name.substring(0, 75) + "..." : e.name;
-                if (accessor.includes('0')) {
-                        const cardHTML = `
-                            <div class="col-lg-6 mb-4">
-                                <div class="card h-100">
-                                    <div class="card-header">
-                                        <h2 class="card-title">${documentTitle}</h2>
-                                    </div>
-                                    <div class="card-body">
-                                        <p class="card-text">Tipe: ${e.tipe_dokumen} | User Upload: ${e.created_by.name}</p>
-                                        <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
-                                    </div>
-                                </div>
-                            </div>`;
-                        documentCardsContainer.innerHTML += cardHTML;
-                    }
+    const accessor = e.give_access_to.split(";");
+    let documentTitle = e.name;
+    if (documentTitle.length > 10) {
+        documentTitle = documentTitle.substring(0, 29) + "...";
+    }
+    if (accessor.includes('0')) {
+        const cardHTML = `
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header">
+                        <h2 class="card-title">${documentTitle}</h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">Tipe: ${e.tipe_dokumen} | User Upload: ${e.created_by.name}</p>
+                        <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
+                    </div>
+                </div>
+            </div>`;
+        documentCardsContainer.innerHTML += cardHTML;
+    }
+});
 
-            });
         }
 
         // Fungsi untuk menampilkan tombol-tombol penomoran halaman
