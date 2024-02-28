@@ -43,6 +43,7 @@ class DocumentController extends Controller
             'nomor_dokumen' => 'required|unique:documents,nomor_dokumen', // Nomor dokumen harus unik di tabel documents
 
         ], [
+            'file.max' => 'The file size exceeds the maximum upload limit of 30 MB.',
             'nomor_dokumen.unique' => 'The document number is already in use.',
         ]);
         
@@ -98,9 +99,9 @@ class DocumentController extends Controller
                 'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:30720', // Maksimum 30 MB
             ]);
     
-            // Jika validasi gagal, kembalikan pesan kesalahan
+            // Jika validasi gagal, kembalikan pesan kesalahan dalam bahasa Inggris
             if ($validator->fails()) {
-                return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+                return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'File size exceeds the maximum limit of 30 MB.']);
             }
         }
     
@@ -114,13 +115,13 @@ class DocumentController extends Controller
             'nomor_dokumen.unique' => 'The document number is already in use.',
         ]);
     
-        // Jika validasi gagal, kembalikan pesan kesalahan
+        // Jika validasi gagal, kembalikan pesan kesalahan dalam bahasa Inggris
         if ($validator->fails()) {
-            return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+            return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'The document number is already in use.']);
         }
     
         $document = DocumentModel::find($request->id);
-        
+    
         // Periksa apakah dokumen ditemukan sebelum melanjutkan pembaruan
         if ($document) {
             // Periksa apakah ada file yang diunggah
@@ -129,11 +130,17 @@ class DocumentController extends Controller
                 if ($document->directory) {
                     File::delete(public_path($document->directory));
                 }
-                
+    
                 // Proses upload file baru
                 $file = $request->file('file');
                 $filename = $file->getClientOriginalName();
-                
+    
+                // Validasi ukuran file sebelum menyimpan
+                if ($file->getSize() > 30720) {
+                    // Jika ukuran file lebih besar dari yang ditentukan, kembalikan pesan error dalam bahasa Inggris
+                    return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'File size exceeds the maximum limit of 30 MB.']);
+                }
+    
                 try {
                     $file->move(public_path('/src/documents'), $filename);
                     $document->directory = '/src/documents/' . $filename;
@@ -142,7 +149,7 @@ class DocumentController extends Controller
                     return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'File too big. The maximum file upload limit is 30 MB!']);
                 }
             }
-            
+    
             // Update data dokumen hanya untuk field yang diubah
             $document->name = $request->name;
             $document->nomor_dokumen = $request->nomor_dokumen;
@@ -155,10 +162,11 @@ class DocumentController extends Controller
     
             return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Document updated successfully!']);
         } else {
-            // Dokumen tidak ditemukan, kembalikan ke halaman manajemen dokumen dengan pesan kesalahan
+            // Dokumen tidak ditemukan, kembalikan ke halaman manajemen dokumen dengan pesan kesalahan dalam bahasa Inggris
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'Document not found!']);
         }
     }
+    
         
     public function getDocument() {
         // Mendapatkan semua dokumen

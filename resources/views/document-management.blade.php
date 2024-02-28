@@ -134,13 +134,8 @@
                                     @if(\Illuminate\Support\Facades\Auth::check())
                                         @include('components.detail-file-modal', ['documentId' => $e->id])
                                         @include('components.edit-file-modal', ['documentId' => $e->id])
-                                    <form action="{{ route('remove-document') }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="id" value="{{ $e->id }}">
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                        </button>
-                                    </form>
+                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
+
                                     @endif
 
                                 </div>
