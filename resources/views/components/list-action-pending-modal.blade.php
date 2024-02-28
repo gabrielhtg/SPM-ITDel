@@ -89,13 +89,7 @@
                                                                                              style="font-size: 14px"></i>
                                             </button>
                                         </form>
-                                        <form action="{{ route('delete-register-request') }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'delete-register-request'])
                                     </div>
                                 </td>
                             </tr>

@@ -62,7 +62,7 @@ class create_user_admin extends Seeder
                 'username' => 'aldo',
                 'phone' => '082122232425',
                 'online' => false,
-                'password' => Hash::make("admin"),
+                'password' => Hash::make("a dmin"),
                 'status' => true,
                 'verified' => true,
                 'role' => 1,

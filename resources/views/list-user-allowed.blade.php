@@ -95,13 +95,14 @@
                                     <td>{{ CustomConverterService::convertTime($e->created_at) }}</td>
                                     <td>{{ $e->created_by }}</td>
                                     <td>
-                                        <form action="{{ route('removeFromList') }}" method="post">
-                                            @method('DELETE')
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+{{--                                        <form action="{{ route('removeFromList') }}" method="post">--}}
+{{--                                            @method('DELETE')--}}
+{{--                                            @csrf--}}
+{{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
+{{--                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>--}}
+{{--                                            </button>--}}
+{{--                                        </form>--}}
+                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->email, 'route' => 'removeFromList'])
                                     </td>
                                 </tr>
 

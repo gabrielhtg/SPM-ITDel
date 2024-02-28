@@ -143,13 +143,7 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        <form action="{{ route('remove-user') }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-user'])
 
                                         <form action="{{ route('getUserDetail') }}" method="POST">
                                             @csrf
@@ -202,6 +196,7 @@
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Page specific script -->
 <script>
     let table = new DataTable('#example1', {
