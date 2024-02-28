@@ -11,12 +11,13 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
@@ -51,11 +52,10 @@
 
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
                     @include('components.add-user-manually-modal')
-                    @include('components.add-user-via-invite-link')
                     <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
                         List Allowed User
                     </a>
-                    @include('components.list-register-pending-modal')
+                    @include('components.list-action-pending-modal')
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -65,9 +65,8 @@
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
-                        {{--                        <th>Created At</th>--}}
-                        <th>Last Login At</th>
-                        {{--                        <th>Status</th>--}}
+                        <th>IP Addr</th>
+                        <th>Phone</th>
                         <th>Action</th>
                     </tr>
                     </thead>
@@ -128,27 +127,23 @@
                                 </td>
                                 <td>
                                     <div class="user-panel d-flex">
-                                        <div class="info">
-                                        <span class="d-block">
-                                            @if($e->last_login_at !== null)
-                                                {{ CustomConverterService::getLastLogin($e->last_login_at) }}
-                                            @else
-                                                -
-                                            @endif
-                                        </span>
-                                        </div>
+                                        @if($e->ip_address !== null)
+                                            {{ $e->ip_address }}
+                                        @else
+                                            -
+                                        @endif
+                                    </div>
+                                </td>
+
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        {{ $e->phone }}
                                     </div>
                                 </td>
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        <form action="{{ route('remove-user') }}" method="post">
-                                            @csrf
-                                            @method('DELETE')
-                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>
-                                            </button>
-                                        </form>
+                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-user'])
 
                                         <form action="{{ route('getUserDetail') }}" method="POST">
                                             @csrf
@@ -181,7 +176,7 @@
 <!-- ./wrapper -->
 
 <!-- jQuery -->
-<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+<script src="{{ asset("plugins/jquery/jquery.min.js")  }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <!-- DataTables  & Plugins -->
@@ -194,31 +189,67 @@
 <script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
 <script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
 <script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
+<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Page specific script -->
 <script>
-    $(function () {
-        $("#example1").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
-    });
+    let table = new DataTable('#example1', {
+        "responsive": true, "lengthChange": false, "autoWidth": false,
+        "buttons": [
+            {
+                extend: 'pdf',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+                orientation: "landscape"
+            },
+            {
+                extend: 'excel',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+            },
+            {
+                extend: 'print',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
+                    },
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
+                },
+            },
+            {
+                extend: 'colvis',
+                columns: [
+                    0, 1, 2, 3, 4, 5
+                ]
+            },
+        ],
+        "pageLength": 10,
+        "select": true
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+
 </script>
 <script>
     $(function () {
@@ -275,6 +306,15 @@
             ],
             disableDragAndDrop: true,
         })
+    })
+</script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2({
+            placeholder: "Select role",
+            allowClear: true
+        });
     })
 </script>
 </body>

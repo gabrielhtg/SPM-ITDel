@@ -54,16 +54,19 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @include('components.upload-file-modal')
                 @endif
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
+                        
                         <th>Doc Number</th>
                         <th>Doc Name</th>
+                        <th>Doc Type</th>
                         @if(\Illuminate\Support\Facades\Auth::check())
                             <th>Can be seen by</th>
                         @endif
                         <th>Uploaded By</th>
-                        <th>Created At</th>
+                        <th>Status</th>
                         <th>Action</th>
 
                     </tr>
@@ -71,6 +74,7 @@
                     <tbody>
                     @foreach($documents as $e)
                         <tr>
+                            
                             <td>{{ $e->nomor_dokumen }}</td>
                             <td>
                                 <div class="user-panel d-flex">
@@ -80,25 +84,33 @@
 
                                 </div>
                             </td>
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <td>
-                                <span class="d-block">
-                                    @php
-                                        $accessor = explode(";", $e->give_access_to);
-                                    @endphp
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{ $e->tipe_dokumen }}
+                                    </div>
 
-                                    @foreach($accessor as $acc)
-                                        <span class="badge badge-primary">
-                                            @if($acc == 0)
-                                                All
-                                            @else
-                                                {{ \App\Models\RoleModel::find($acc)->role }}
-                                            @endif
-                                        </span>
-                                    @endforeach
-                                </span>
-                                </td>
-                            @endif
+                                </div>
+                            </td>
+                                @if(\Illuminate\Support\Facades\Auth::check())
+                                    <td>
+                                    <span class="d-block">
+                                        @php
+                                            $accessor = explode(";", $e->give_access_to);
+                                        @endphp
+
+                                        @foreach($accessor as $acc)
+                                            <span class="badge badge-primary">
+                                                @if($acc == 0)
+                                                    All
+                                                @else
+                                                    {{ \App\Models\RoleModel::find($acc)->role }}
+                                                @endif
+                                            </span>
+                                        @endforeach
+                                    </span>
+                                    </td>
+                                @endif
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
@@ -106,18 +118,22 @@
                                     </div>
                                 </div>
                             </td>
+                            
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        {{ $e->created_at }}
+                                        {{ $e->status }}
                                     </div>
                                 </div>
                             </td>
+
                             <td>
                                 <div class="d-flex" style="gap: 5px">
                                     <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
                                             class="fas fa-eye"></i></a>
                                     @if(\Illuminate\Support\Facades\Auth::check())
+                                        @include('components.detail-file-modal', ['documentId' => $e->id])
+                                        @include('components.edit-file-modal', ['documentId' => $e->id])
                                     <form action="{{ route('remove-document') }}" method="post">
                                         @csrf
                                         @method('DELETE')
@@ -128,6 +144,7 @@
                                     @endif
 
                                 </div>
+
                             </td>
                         </tr>
                     @endforeach

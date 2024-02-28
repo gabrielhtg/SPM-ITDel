@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('register_invitation', function (Blueprint $table) {
+        Schema::create('log', function (Blueprint $table) {
             $table->id();
-            $table->string("email")->unique()->nullable(false);
-            $table->integer('role')->nullable(false);
-            $table->string("token")->unique()->nullable(false);
             $table->timestamps();
         });
     }
@@ -25,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('register_invitation');
+        Schema::dropIfExists('log');
     }
 };

@@ -16,9 +16,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-//    Route::get('register', [RegisteredUserController::class, 'create'])
-//                ->name('register');
-
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
 
@@ -38,8 +35,11 @@ Route::middleware('guest')->group(function () {
 
     Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
 
+    Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
+    Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
+    Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
-    Route::post('/self-register', [RegisteredUserController::class, 'registerUser'])->name('self-register');
+
 
 });
 
@@ -86,6 +86,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-profile-pict', [ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
 
     Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
+    Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
 
     Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
     Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
@@ -96,4 +97,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
     Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
     Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
+
+    Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
 });

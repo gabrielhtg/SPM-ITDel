@@ -48,9 +48,18 @@
                     </div>
 
                     <div class="input-group mt-3">
-                        <select name="roles[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;">
+                        <select name="roles[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;" required>
+                            @php
+                                $array = explode(";", auth()->user()->role);
+                                $i = 0;
+                            @endphp
+
                             @foreach($roles as $e)
-                                <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @if(in_array($e->id, $array))
+                                    <option value="{{ $e->id }}" selected>{{ $e->role }}</option>
+                                @else
+                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @endif
                             @endforeach
                             <option value="{{ 0 }}">All</option>
                         </select>
@@ -60,7 +69,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary">Add User</button>
+                <button type="submit" form="form-register" class="btn btn-primary"><i class="far fa-save mr-1"></i> Save</button>
             </div>
         </div>
         <!-- /.modal-content -->

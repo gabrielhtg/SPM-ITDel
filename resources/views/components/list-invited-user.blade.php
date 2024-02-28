@@ -21,7 +21,7 @@
                     <div class="custom-file">
                         <form id="form-upload" action="{{ route('uploadListAllowedUser') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file-excel">
+                            <input type="file" class="custom-file-input" id="exampleInputFile" name="file-excel" required>
                             <label class="custom-file-label" for="exampleInputFile">Choose file</label>
                         </form>
                     </div>

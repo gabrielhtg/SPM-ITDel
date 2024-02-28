@@ -16,13 +16,11 @@ class UserController extends Controller
         if (Auth::check()) {
             $users = User::where('status', true)->get();
             $roles = RoleModel::all();
-            $invitationPending = RegisterInvitationModel::all();
             $passwordResetReq = User::where('verified', false)->orderBy('created_at', 'desc')->get();
 
             $data = [
                 'roles' => $roles,
                 'users' => $users,
-                'invitation' => $invitationPending,
                 'pass_reset' => $passwordResetReq
             ];
 
@@ -53,19 +51,19 @@ class UserController extends Controller
     public function removeUser(Request $request)
     {
         if (Auth::check()) {
-            $user = User::where('id', $request->user_id)->first();
+            $user = User::find($request->id);
 
-            $user->update([
-                'status' => false,
-                'ends_on' => now()
-            ]);
+            if ($user) {
+                $user->update([
+                    'status' => false,
+                    'ends_on' => now(),
+                ]);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "The account in " . $user->name . " name was successfully deactivated!"]);
+            }
 
-            $data = [
-                'success' => isset($user),
-                'text' => "Berhasil menghapus user"
-            ];
-
-            return redirect()->route('user-settings-active')->with('toastData', $data);
+            else {
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to deleted user!"]);
+            }
         }
 
         return redirect()->route('login');
