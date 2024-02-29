@@ -26,7 +26,7 @@
                         <select name="status" class="form-control" required>
                             <option value="" disabled selected>Select Status</option>
                             <option value="Berlaku">Berlaku</option>
-                            <option value="Berlaku">Tidak Berlaku</option>
+                            <option value="Tidak Berlaku">Tidak Berlaku</option>
                         </select>
                     </div>
 
