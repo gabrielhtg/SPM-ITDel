@@ -41,10 +41,11 @@ class DocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'file' => 'required|file|mimes:pdf,doc,docx,xls,xlsx|max:30720', // Maksimum 30 MB
             'nomor_dokumen' => 'required|unique:documents,nomor_dokumen', // Nomor dokumen harus unik di tabel documents
-
+            'status' => 'required|in:Berlaku,Tidak Berlaku', // Status harus salah satu dari "Berlaku" atau "Tidak Berlaku"
         ], [
             'file.max' => 'The file size exceeds the maximum upload limit of 30 MB.',
             'nomor_dokumen.unique' => 'The document number is already in use.',
+            'status.in' => 'Invalid status value.',
         ]);
         
         // Jika validasi gagal, kembalikan pesan kesalahan
@@ -64,7 +65,8 @@ class DocumentController extends Controller
         $accessor = implode(';', $request->give_access_to);
     
         $expried_date = $request->expried_date;
-        $status = now()->isBefore($expried_date) ? 'Berlaku' : 'Tidak Berlaku';
+    
+        $status = $request->status; // Mengambil nilai status dari input
     
         DocumentModel::create([
             'name' => $request->name,
@@ -81,6 +83,7 @@ class DocumentController extends Controller
     
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'File uploaded successfully!']);
     }
+    
     
     
     

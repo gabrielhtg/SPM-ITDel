@@ -25,8 +25,8 @@
                     <div class="input-group mt-3">
                         <select name="status" class="form-control" required>
                             <option value="" disabled selected>Select Status</option>
-                            <option value="berlaku">Berlaku</option>
-                            <option value="tidak berlaku">Tidak Berlaku</option>
+                            <option value="Berlaku">Berlaku</option>
+                            <option value="Berlaku">Tidak Berlaku</option>
                         </select>
                     </div>
 
