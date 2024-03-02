@@ -36,7 +36,6 @@
             <div class="border-bottom border-gray-300 mb-8"></div>
             <div class="container-fluid">
                 <div class="row justify-content-center">
-                    <!-- Card Detail Document (3/4 width) -->
                     <div class="col-lg-8">
                         <div class="card">
 

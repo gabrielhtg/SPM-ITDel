@@ -47,7 +47,7 @@
     
           <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
             <div class="col-xl-6 col-lg-8">
-              <h1>Selamat Datang Di Website AMI<span></span></h1>
+              <h1>Selamat Datang Di Website SPM<span></span></h1>
               <h2>disini anda dapat melihat setiap aktivitas kami</h2>
             </div>
           </div>
@@ -112,7 +112,7 @@
 
     <section class="p-5">
       <div class="container p-4">
-        <h1 class="mb-3">Tentang AMI IT Del</h1>
+        <h1 class="mb-3">Tentang SPM IT Del</h1>
         <div class="p-3 rounded border">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
@@ -165,10 +165,10 @@
       </div>
     </section>
 
-    <section id="news-view" class="">
+    <section id="news-view1" class="">
       <div class="container" data-aos="fade-up">
         <div class="col-sm-6">
-          <h1 class="ml-1">Berita AMI IT Del</h1>
+          <h1 class="ml-1">Berita SPM IT Del</h1>
           {{-- <a href="#">selengkapnya</a> --}}
       </div>
       <div class="container-fluid py-2">

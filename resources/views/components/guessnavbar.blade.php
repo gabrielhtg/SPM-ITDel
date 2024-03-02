@@ -60,13 +60,11 @@
                     </a>
                 </li>
                 <li class="col">
-                    <a href="{{ route('newspage') }}" class="nav-link" onclick="redirectToNewsView()">
-                        {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
-                        {{-- <p> --}}
-                            News
-                            {{-- </p> --}}
+                    <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
+                        News
                     </a>
                 </li>
+                
                 
                 @if(\Illuminate\Support\Facades\Auth::check())
                 <li class="nav-item">
@@ -90,8 +88,6 @@
                 @endif
                 <li class="nav-item">
                     <a href="{{ route('getdocument') }}" class="nav-link">
-                        {{-- <i class="fas fa-file nav-icon"></i> --}}
-                        {{-- <p> --}}
                             Document Management
                         {{-- </p> --}}
                     </a>
@@ -173,17 +169,24 @@
         });
     });
 </script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
     function redirectToNewsView() {
-        // Redirect to dashboard
-        window.location.href = "{{ route('dashboard') }}";
+        // Redirect to dashboard with hash fragment
+        window.location.href = "{{ route('dashboard') }}#news-view1";
 
-        // Wait for the dashboard page to load, then scroll to the section with ID 'news-view'
-        window.onload = function() {
-            var newsViewSection = document.getElementById('news-view');
-            if (newsViewSection) {
-                newsViewSection.scrollIntoView({ behavior: 'smooth' });
+        // Wait for the dashboard to load, then scroll to the news-view section
+        $(document).ready(function () {
+            // Check if the hash exists in the URL
+            if (window.location.hash === '#news-view1') {
+                // Scroll to the news-view section
+                $('html, body').animate({
+                    scrollTop: $("#news-view").offset().top
+                }, 1000); // You can adjust the duration of the scroll animation
             }
-        };
+        });
     }
 </script>
+
+
