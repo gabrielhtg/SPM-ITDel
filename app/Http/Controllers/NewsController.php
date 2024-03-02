@@ -81,36 +81,32 @@ class NewsController extends Controller
         $request->validate([
             'judul' => 'required',
             'isinews' => 'required',
-            'gambar' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:5120',
+            'gambar' => 'required|file|mimes:jpeg,png,jpg|max:5120',
         ]);
-
-        // Mendapatkan nama file asli
-
+    
+        // Periksa apakah ada file gambar yang diunggah
         if ($request->hasFile('gambar')) {
             // Mendapatkan nama file asli
             $gambarnews = $request->file('gambar')->getClientOriginalName();
-    
-            // Pindahkan file ke folder tujuan dengan nama file asli
+            
+            // Pindahkan file gambar ke direktori yang ditentukan
             $request->file('gambar')->move(public_path('src/gambarnews'), $gambarnews);
-
-            // Pindahkan file ke folder tujuan dengan nama file asli
-            // $request->file('gambar')->move(public_path('src/gambarnews'), $gambarnews);  
-
+    
             // Simpan data pengumuman ke dalam database
             News::create([
                 'judul' => $request->judul,
                 'isinews' => $request->isinews,
                 'gambar' => $gambarnews,
             ]);
-
-            return redirect('news');
+    
+            return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to add news']);
+        } else {
+            // Handle kasus ketika gambar kosong
+            // Sesuaikan pesan error sesuai kebutuhan Anda
+            return redirect('news')->with('error', 'news input must be jpeg, png, and jpg ');
         }
-        else{
-            return redirect('news')->with('error', 'Gagal menambahkan, Gambar harus diisi.');
-        }
-
-        
     }
+    
 
     public function getDetail($id)
     {
@@ -152,7 +148,7 @@ class NewsController extends Controller
         $request->validate([
             'judul' => 'required',
             'isinews' => 'required',
-            'gambar' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:5120',
+            'gambar' => 'nullable|file|mimes:jpeg,png,jpg|max:5120',
         ]);
 
         // Cari data pengumuman yang akan diupdate
@@ -178,13 +174,13 @@ class NewsController extends Controller
             // Update data dengan file yang baru
             $data->gambar = $gambarnews;
         }
-
         // Update data pengumuman dengan informasi yang baru
         $data->judul = $request->judul;
         $data->isinews = $request->isinews;
         $data->save();
 
-        return redirect()->route('news')->with('toastData', ['success' => true, 'text' => 'Berita Berhasil Ditambahkan']);
+        return redirect()->route('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to update news']);
+
     }
 
     public function deletenews($id)
@@ -198,6 +194,6 @@ class NewsController extends Controller
         }
         $news->delete();
 
-        return redirect('news');
+        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
     }
 }

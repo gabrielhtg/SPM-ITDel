@@ -38,7 +38,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-addAnnouncement" class="btn btn-primary">Add Announcement</button>
+                <button type="submit" form="form-addAnnouncement" class="btn btn-primary">Save Changes</button>
 
             </div>
         </div>

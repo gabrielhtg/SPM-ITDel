@@ -48,7 +48,7 @@ class AnnouncementController extends Controller
             'file' => $fileAnc, // Masukkan nama file ke dalam basis data
         ]);
 
-        return redirect('announcement')->with('toastData', ['success' => true, 'text' => 'Announcement uploaded successfully!']);
+        return redirect('announcement')->with('toastData', ['success' => true, 'text' => 'Succesfully to add announcement']);
     }
 
 
@@ -122,7 +122,7 @@ class AnnouncementController extends Controller
         $data->content = $request->content;
         $data->save();
 
-        return redirect()->route('announcement')->with('toastData', ['success' => true, 'text' => 'Document updated successfully!']);
+        return redirect()->route('announcement')->with('toastData', ['success' => true, 'text' => 'Succesfully to update announcement']);
     }
 
     public function deleteannouncement($id)
@@ -137,6 +137,6 @@ class AnnouncementController extends Controller
         }
         $announcement->delete();
 
-        return redirect('announcement')->with('toastData', ['success' => true, 'text' => 'Document deleted successfully!']);
+        return redirect('announcement')->with('toastData', ['success' => true, 'text' => ' Succesfully to delete announcement']);
     }
 }

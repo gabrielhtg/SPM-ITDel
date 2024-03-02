@@ -228,7 +228,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Failed to add Announcement! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
