@@ -258,5 +258,20 @@
         $('.select2').select2()
     })
 </script>
+<script>
+    $(function () {
+        //Initialize Select2 Elements
+        $('.select2').select2();
+        
+        // Mendapatkan opsi yang dipilih dari modal dan menetapkannya kembali saat modal dibuka
+        $('.modal').on('show.bs.modal', function () {
+            var modalId = $(this).attr('id');
+            var selectedOptions = $('#' + modalId + ' .selected-roles').val();
+            $('#' + modalId + ' .select2').val(selectedOptions).trigger('change');
+        });
+    });
+</script>
+
+
 </body>
 </html>
