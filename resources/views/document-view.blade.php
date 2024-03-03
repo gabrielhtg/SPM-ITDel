@@ -32,8 +32,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <form class="form-inline">
-                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 1130px; height: 80px; border: 2px solid #00000a;">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 150px; height: 80px">Search</button>
+                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 1310px; height: 80px; border: 2px solid #00000a;">
                 </form>
             </div>
         </div>
