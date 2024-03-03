@@ -172,16 +172,20 @@ class DocumentController extends Controller
     
         
     public function getDocument() {
-        // Mendapatkan semua dokumen
-        $documents = DocumentModel::all();
-    
+        // Mendapatkan semua dokumen dengan pengurutan berdasarkan tanggal pembuatan (created_at) secara descending
+        $documents = DocumentModel::whereIn('give_access_to', ['0', '50'])
+                                  ->orWhere('give_access_to', 'LIKE', '%1%')
+                                  ->orderBy('created_at', 'desc')
+                                  ->get();
+        
         // Ambil data pengguna yang mengunggah
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
-    
+            // dd($documents);
         // Kirim data dokumen dan pengguna yang mengunggah ke view document-view
         return view('document-view', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers]);
-
     }
+    
+    
     
     public function getDocumentDetail($id) {
         // Temukan dokumen berdasarkan ID
@@ -201,18 +205,19 @@ class DocumentController extends Controller
     
         // Ambil dokumen-dokumen lain yang memiliki tipe dokumen yang sama dengan dokumen yang sedang ditampilkan
         $similarDocuments = DocumentModel::where('tipe_dokumen', $requestedType)
+                                          ->where('give_access_to', 'LIKE', ['0', '50'])
                                           ->where('id', '!=', $id) // Exclude the current document from the similar documents
                                           ->get();
     
         // Ambil juga dokumen dengan status 'Tidak Berlaku' yang memiliki tipe dokumen yang sama
         $similarDocumentsNotActive = DocumentModel::where('tipe_dokumen', $requestedType)
                                                   ->where('status', 'Tidak Berlaku')
+                                                  ->where('give_access_to', 'LIKE', ['0', '50'])
                                                   ->where('id', '!=', $id) // Exclude the current document from the similar documents
                                                   ->get();
     
         // Gabungkan dokumen serupa dengan status 'Tidak Berlaku' ke dalam daftar dokumen serupa
         $similarDocuments = $similarDocuments->merge($similarDocumentsNotActive);
-        //  
     
         // Ambil data pengguna yang mengunggah
         $uploadedUser = User::find($document->created_by);
@@ -220,6 +225,7 @@ class DocumentController extends Controller
         // Kirim data dokumen, dokumen serupa, dan pengguna yang mengunggah ke view document-detail
         return view('document-detail', ['document' => $document, 'uploadedUser' => $uploadedUser, 'similarDocuments' => $similarDocuments]);
     }
+    
     
     
     
