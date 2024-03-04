@@ -6,7 +6,7 @@
     <title>Document Management</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
+   
     
 </head>
 <body>
@@ -28,9 +28,9 @@
         <!-- Main content -->
         <div class="card-body">
             <div class="d-flex mb-4">
-                <div class="w-35px flex-shrink-0 d-none d-sm-block">
+                {{-- <div class="w-35px flex-shrink-0 d-none d-sm-block">
                     <i class="bi bi-list-task fs-2 text-primary"></i>
-            </div>
+            </div> --}}
             <div class="border-bottom border-gray-300 mb-8"></div>
             <div class="container-fluid">
                 <div class="row justify-content-center">
