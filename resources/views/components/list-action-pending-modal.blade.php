@@ -68,7 +68,7 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {{ $e->updated_at }}
+                                    {{ app(CustomConverterService::class)->convertTime($e->updated_at) }}
                                 </td>
                                 <td>
                                     {{ app(CustomConverterService::class)->convertRole($e->pending_roles) }}
