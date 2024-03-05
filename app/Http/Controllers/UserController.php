@@ -6,12 +6,19 @@ use App\Models\PasswordResetTokenModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
+     *
+     * Mendapatkan halaman user settings yang active usernya
+     */
     public function getUserSettings() {
         if (Auth::check()) {
             $users = User::where('status', true)->get();
@@ -21,7 +28,7 @@ class UserController extends Controller
             $data = [
                 'roles' => $roles,
                 'users' => $users,
-                'pass_reset' => $passwordResetReq
+                'pending_action' => $passwordResetReq
             ];
 
             return view("user-settings", $data);
@@ -69,6 +76,12 @@ class UserController extends Controller
         return redirect()->route('login');
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     *
+     * Fungsi ini digunakan untuk mendapatkan detail user melalui page user-detail
+     */
     public function getUserDetail (Request $request) {
         $user = User::find($request->user_id);
         $data = [
@@ -78,7 +91,13 @@ class UserController extends Controller
         return view('user-detail', $data);
     }
 
-    public function restoreAccount (Request $request) {
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     *
+     * Fungsi ini digunakan untuk mengembalikan akun user yang sudah tidak aktif lagi
+     */
+    public function restoreAccount (Request $request) : RedirectResponse {
         $user = User::find($request->id);
 
         $user->update([

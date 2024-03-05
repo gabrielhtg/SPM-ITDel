@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Users Settings</title>
 
+    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
@@ -143,7 +143,10 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-user'])
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}">
+{{--                                            <i class="fas fa-trash"></i>--}}
+                                            Deactivate Account
+                                        </button>
 
                                         <form action="{{ route('getUserDetail') }}" method="POST">
                                             @csrf
@@ -164,6 +167,38 @@
         </div>
         <!-- /.content -->
     </div>
+
+    @foreach($users as $e)
+        <div class="modal fade" id="modal-delete-{{ $e->id }}">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Delete Confirmation Dialog</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="form-delete-{{ $e->id }}" method="POST" action="{{ route('remove-user') }}">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="id" value="{{ $e->id }}">
+                        </form>
+
+                        <p>
+                            Are you sure to deactivate account {{ $e->name }}?
+                        </p>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">Deactivate</button>
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
+        </div>
+    @endforeach
     <!-- /.content-wrapper -->
     @include('components.footer')
 
@@ -189,12 +224,12 @@
 <script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
 <script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
 <script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <!-- AdminLTE App -->
+<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Page specific script -->
