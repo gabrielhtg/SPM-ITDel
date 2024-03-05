@@ -1,12 +1,12 @@
 @php
     use App\Models\User;use App\Services\CustomConverterService;
 
-    if($pass_reset->contains('id', auth()->user()->id)) {
-        $banyakData = count($pass_reset) - 1;
+    if($pending_action->contains('id', auth()->user()->id)) {
+        $banyakData = count($pending_action) - 1;
     }
 
     else {
-        $banyakData = count($pass_reset);
+        $banyakData = count($pending_action);
     }
 @endphp
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-register-pending">
@@ -38,7 +38,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @forelse($pass_reset as $e)
+                    @forelse($pending_action as $e)
                         @if($e->id !== auth()->user()->id)
                             <tr>
                                 <td>
@@ -89,23 +89,62 @@
                                                                                              style="font-size: 14px"></i>
                                             </button>
                                         </form>
-                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'delete-register-request'])
+                                        {{--                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'delete-register-request'])--}}
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $e->id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
                         @endif
                         @if($banyakData == 0)
                             <tr>
-                                <td colspan="5">There is no password reset request.</td>
+                                <td colspan="5">There is no pending action request.</td>
                             </tr>
                         @endif
                     @empty
                         <tr>
-                            <td colspan="5">There is no password reset request.</td>
+                            <td colspan="5">There is no pending action request.</td>
                         </tr>
                     @endforelse
                     </tbody>
                 </table>
+
+                @foreach($pending_action as $e)
+                    <div class="modal fade" id="modal-delete-{{ $e->id }}">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Delete Confirmation Dialog</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="form-delete-{{ $e->id }}" method="POST"
+                                          action="{{ route('delete-register-request') }}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="id" value="{{ $e->id }}">
+                                    </form>
+
+                                    <p>
+                                        Are you sure delete this pending action?
+                                    </p>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">
+                                        Delete
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                @endforeach
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -108,46 +108,46 @@ class RegisteredUserController extends Controller
         }
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     *
+     * Method ini berfungsi sebagai method yang digunakan untuk menyimpan data saat user register dari halaman register
+     */
     public function registerSelfUser(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
-
         $data = AllowedUserModel::where('email', $request->email)->first();
-        $user = User::where('username', $request->username)->first();
 
         if ($data !== null) {
-            if (!$user) {
-                $request->validate([
-                    'name' => ['required', 'string', 'max:255'],
-                    'username' => ['required', 'string', 'max:20'],
-                    'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                ]);
+            $user = User::where('email', $request->email)->where('status', true)->first();
+            if ($user == null) {
+                if (User::where('email', $request->email)->where('status', null)->first() == null) {
+                    $request->validate([
+                        'name' => ['required', 'string', 'max:255'],
+                        'username' => ['required', 'string', 'max:20'],
+                        'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                    ]);
 
-                User::create([
-                    'name' => $request->name,
-                    'username' => $request->username,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'verified' => false,
-                    'password' => Hash::make($request->password),
-                    'pending_roles' => $request->role
-                ]);
-                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+                    User::create([
+                        'name' => $request->name,
+                        'username' => $request->username,
+                        'email' => $request->email,
+                        'phone' => $request->phone,
+                        'verified' => false,
+                        'password' => Hash::make($request->password),
+                        'pending_roles' => $request->role
+                    ]);
+
+                    return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+                }
             }
 
-            else {
-                return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request has been sent previously!']);
-            }
-
-
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'You are already registered!']);
         }
 
-        return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
+        else {
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
+        }
     }
 
     public function deleteInvitation(Request $request) {

@@ -98,7 +98,7 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
+                    <div class="row mt-3 bg-white">
                         <div class="col">
                             <div class="input-group w-100">
                                 <select name="role" class="form-control select2" required>

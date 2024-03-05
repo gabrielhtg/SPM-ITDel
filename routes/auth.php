@@ -38,9 +38,6 @@ Route::middleware('guest')->group(function () {
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
-
-
-
 });
 
 Route::middleware('auth')->group(function () {

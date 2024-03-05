@@ -229,9 +229,9 @@
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <!-- AdminLTE App -->
+<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <!-- Page specific script -->
 <script>
     let table = new DataTable('#example1', {

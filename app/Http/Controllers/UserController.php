@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\File;
 
 class UserController extends Controller
 {
+
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
+     *
+     * Mendapatkan halaman user settings yang active usernya
+     */
     public function getUserSettings() {
         if (Auth::check()) {
             $users = User::where('status', true)->get();
@@ -22,7 +28,7 @@ class UserController extends Controller
             $data = [
                 'roles' => $roles,
                 'users' => $users,
-                'pass_reset' => $passwordResetReq
+                'pending_action' => $passwordResetReq
             ];
 
             return view("user-settings", $data);
