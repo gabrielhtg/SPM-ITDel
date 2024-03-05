@@ -1,4 +1,5 @@
-@php use App\Models\User;use App\Services\CustomConverterService; @endphp
+{{-- @php use App\Models\User;use App\Services\CustomConverterService; @endphp --}}
+@php use App\Services\CustomConverterService; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,7 +55,11 @@
                 @if(\Illuminate\Support\Facades\Auth::check())
                     @include('components.upload-file-modal')
                 @endif
+                @if(app(CustomConverterService::class)->isAdmin())
+                    @include('components.upload-document-type')
+                @endif
 
+                
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -384,6 +389,15 @@
             disableDragAndDrop: true,
         })
     })
+
+    $(document).ready(function() {
+    $('.select2').select2({
+        placeholder: "Search Document Type",
+        allowClear: true,
+        minimumInputLength: 1 // Minimum characters to start searching
+    });
+});
+
 </script>
 <script>
     $(function () {

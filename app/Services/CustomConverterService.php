@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\RoleModel;
 use Illuminate\Support\Carbon;
+use App\Models\User;
+
 
 class CustomConverterService
 {
@@ -65,4 +67,21 @@ class CustomConverterService
 
         return "Inactive";
     }
+
+    /**
+     * Ini adalah fungsi yang tidak memiliki parameter yang berfungsi sebagai alat untuk
+     * mengecek apakah user yang sedang login adalah seorang admin atau tidak.
+     */
+    static public function isAdmin () {
+        if (RoleModel::find(auth()->user()->role)->role == "Admin") {
+            return true;
+        }
+
+        return false;
+
+        // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
+        // sleep(10);
+    }
+    
+    
 }
