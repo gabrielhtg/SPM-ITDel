@@ -192,8 +192,17 @@ class RegisteredUserController extends Controller
     public function deleteRegisterRequest(Request $request) {
         $data = User::find($request->id);
 
-        if ($data) {
+        if ($data && $data->status == null) {
             $data->delete();
+
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+        }
+
+        else if ($data && $data->status != null) {
+            $data->update([
+                'verified' => true,
+                'pending_roles' => null
+            ]);
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
         }

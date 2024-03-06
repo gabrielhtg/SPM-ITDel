@@ -39,7 +39,7 @@ class ListAllowedUserController extends Controller
 
         array_shift($firstColumn);
         foreach ($firstColumn as $e) {
-            if ($e !== null) {
+            if ($e !== null && str_contains($e, '@')) {
                 try {
                     AllowedUserModel::create([
                         'email' => $e,
