@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -89,6 +90,8 @@ Route::middleware('auth')->group(function () {
     Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
 
     Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
+    Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');
+
 
     Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
     Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');

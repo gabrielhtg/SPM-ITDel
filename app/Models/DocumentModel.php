@@ -10,20 +10,21 @@ class DocumentModel extends Model
     use HasFactory;
 
     protected $table = 'documents';
-
-   
-        protected $fillable = [
-            'name',
-            'nama_dokumen',
-            'nomor_dokumen',
-            'directory',
-            'give_access_to',
-            'created_by',
-            'status', 
-            'year',
-            'tipe_dokumen', 
-            'expried_date', 
-            'created_at'
-        ];
+    protected $fillable = [
+        'name',
+        'nama_dokumen',
+        'nomor_dokumen',
+        'deskripsi',
+        'directory',
+        'give_access_to',
+        'created_by',
+        'status',
+        'menggantikan_dokumen',
+        'year',
+        'tipe_dokumen',
+        'start_date',
+        'end_date',
+        'keterangan_status',
+        'can_see_by',
+    ];
 }
-    
