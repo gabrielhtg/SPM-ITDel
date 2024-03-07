@@ -36,25 +36,25 @@
 
             <div class="content-wrapper">
                 <!-- Content Header (Page header) -->
-                <div class="card p-4">
-                    <div class="card-header font-weight-bold fs-5">
-                    Introduction
-                    </div>
+                <div class="card" style="border: 2px solid rgb(62, 152, 208);margin:40px; padding:40px;">
+                    <h4 class="card-header font-weight-bold fs-5">
+                        Introduction
+                    </h4>
                     <div class="card-body">
-
+                        
                         @include('components.add-dashboard-about')
                         
                         <div class="list-group">
                             <table class="table">
                                 <tbody>
-
+                                    
                                 @forelse ($dashboard as $item)
 
                                 <div class="container-ann1">
                                     <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
                                         <tr>                                    
                                             <td class="align-items-center">
-                                                <a href="{{ route('dashboard-introduction-detail', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $item->juduldashboard }}</a>
+                                                <a href="{{ route('dashboard-introduction-detail', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{!! $item->juduldashboard !!}</a>
                                             </td>
                                             <td style="width: 190px;">
                                                 <div style="flex-shrink: 4;">
@@ -77,7 +77,7 @@
                                                                         {{-- input title --}}
                                                                         <div class="form-group mt-1">
                                                                             <label for="judul">Judul Berita</label>
-                                                                            <input type="text" name="juduldashboard" id="title" class="form-control" value="{{ $item->juduldashboard}}" required>
+                                                                            <input type="text" name="juduldashboard" id="title" class="form-control" value="{!! $item->juduldashboard !!}" required>
                                                                         </div>
                                                 
                                                                         {{-- input konten --}}
@@ -114,6 +114,12 @@
                     </div>
                 </div>
             </div>
+
+            {{-- <div class="content-wrapper"> --}}
+                {{-- <div class="card"> --}}
+
+                {{-- </div> --}}
+            {{-- </div> --}}
             <!-- /.content-wrapper -->
             @include('components.footer')
 
@@ -150,13 +156,13 @@
         <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
         <!-- Page specific script -->
 
-        <script>
+        {{-- <script>
             document.getElementById('inputGambar').addEventListener('change', function(e) {
                 var fileName = document.getElementById('inputGambar').files[0].name;
                 var nextSibling = e.target.nextElementSibling;
                 nextSibling.innerText = fileName;
             });
-        </script>
+        </script> --}}
 
         <script>
             $(function () {

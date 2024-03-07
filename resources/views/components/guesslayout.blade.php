@@ -115,8 +115,8 @@
       <div class="container p-4">
           @forelse ($guestIntroduction as $item)
             <h1 class="mb-3">{{ $item ->juduldashboard }}</h1>
-            <div class="p-3 rounded border">
-              {{ $item->keterangandashboard }}
+            <div class="p-3 rounded border custom-font-size">
+                {!! $item->keterangandashboard !!}
               <div class="row mt-5 justify-content-center">
                 <div class="col-md-3">
                   <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
