@@ -16,17 +16,18 @@ return new class extends Migration
             $table->string('name');
             $table->string('nama_dokumen');
             $table->string('nomor_dokumen');
-            $table->string('deskripsi');
+            $table->string('deskripsi')->nullable();
             $table->string('directory');
             $table->string('give_access_to');
             $table->string('created_by');
             $table->string('status');
-            $table->string('menggantikan_dokumen');
+            $table->string('menggantikan_dokumen')->nullable();
             $table->integer('year');;
             $table->string('tipe_dokumen');
             $table->date('start_date');
-            $table->date('end_date');
+            $table->date('end_date')->nullable();
             $table->string('keterangan_status');
+            $table->string('can_see_by');
             $table->timestamps();
         });
     }

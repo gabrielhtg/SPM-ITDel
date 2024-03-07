@@ -120,7 +120,8 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span> {{ User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ CustomConverterService::convertRole(User::find($e->created_by)->role) }}</span></span>
+                                        <span> {{ \App\Models\User::find($e->created_by)->name }} <span class="badge badge-success" style="margin-left: 5px">{{ \App\Services\CustomConverterService::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
+
                                     </div>
                                 </div>
                             </td>
@@ -140,9 +141,12 @@
                                     @if(\Illuminate\Support\Facades\Auth::check())
                                         @include('components.detail-file-modal', ['documentId' => $e->id])
                                         @include('components.edit-file-modal', ['documentId' => $e->id])
-                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
+                                        
 
                                     @endif
+                                    @if(app(CustomConverterService::class)->isAdmin())
+                                    @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
+                                     @endif
 
                                 </div>
 
@@ -417,6 +421,25 @@
             $('#' + modalId + ' .select2').val(selectedOptions).trigger('change');
         });
     });
+</script>
+<script>
+    $(function () {
+        // Summernote
+        $('.summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
 </script>
 
 
