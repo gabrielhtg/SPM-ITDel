@@ -37,7 +37,7 @@
                 @if(Auth::check())
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-users nav-icon"></i>
+                            <i class="fas fa-users-cog"></i>
                             <p>
                                 Users Settings
                                 <i class="fas fa-angle-left right"></i>

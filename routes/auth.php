@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
@@ -99,4 +100,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
 
     Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+
+    Route::post('/add-role', [RoleController::class, 'addRole'])->name('addRole');
+    Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
 });

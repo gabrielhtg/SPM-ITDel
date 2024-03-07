@@ -52,6 +52,7 @@
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
                     @if(CustomConverterService::isAdmin())
                         @include('components.add-user-manually-modal')
+                        @include('components.manage-role-modal')
                         <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
                             List Allowed User
                         </a>
