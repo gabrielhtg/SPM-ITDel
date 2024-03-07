@@ -79,7 +79,7 @@
                             </form>
                         </div>
 
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-hover table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Email</th>
@@ -231,7 +231,8 @@
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
+<script src="{{ asset("dist/js/sweetalert2.js") }}"></script>
 <script>
     $(function () {
         @if(session('toastData') != null)
@@ -243,7 +244,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 3000
+            timer: 1000
         })
         @else
         Swal.fire({
@@ -253,7 +254,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 5000
+            timer: 2000
         })
         @endif
         @endif
@@ -266,7 +267,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 5000
+            timer: 2000
         })
         @endif
     });
