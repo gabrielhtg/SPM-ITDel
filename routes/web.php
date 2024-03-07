@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\DashboardController;
+use App\Models\Dashboard;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -48,8 +50,16 @@ Route::middleware('auth')->group(function () {
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+    Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
     
-    Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
+    Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
+    Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout');
+    Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
+    // Route::get('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
+    Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');
+    Route::post('/updatedashboard/{id}', [DashboardController::class, 'updatedashboard'])->name('dashboard-introduction-udpate');
+    Route::get('/deletedashboard/detail/{id}', [DashboardController::class, 'deletedashboard'])->name('dashboard-introduction-delete');
+
     
 });
 

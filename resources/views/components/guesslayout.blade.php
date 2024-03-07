@@ -110,61 +110,62 @@
         </div>
     </div>
 
+    {{-- @isset($dashboard) --}}
     <section class="p-5">
       <div class="container p-4">
-        <h1 class="mb-3">Tentang SPM IT Del</h1>
-        <div class="p-3 rounded border">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima consectetur quis dolorum ipsum accusantium laboriosam reiciendis fugiat est, veniam quod, temporibus consequatur?
+          @forelse ($guestIntroduction as $item)
+            <h1 class="mb-3">{{ $item ->juduldashboard }}</h1>
+            <div class="p-3 rounded border">
+              {{ $item->keterangandashboard }}
+              <div class="row mt-5 justify-content-center">
+                <div class="col-md-3">
+                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                    <div class="fa-3x fas fa-chalkboard-teacher mb-2"></div>
+                    <div class="text-center ">
+                      <div class="text-bold">18</div>
+                      <div>Teachers</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                    <div class="fa-3x fas fas fa-user mb-2"></div>
+                    <div class="text-center ">
+                      <div class="text-bold">18</div>
+                      <div>Members</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                    <div class="fa-3x fas fas fa-building mb-2"></div>
+                    <div class="text-center ">
+                      <div class="text-bold">18</div>
+                      <div>Faculties</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
+                    <div class="fa-3x fas fas fa-graduation-cap mb-2"></div>
+                    <div class="text-center ">
+                      <div class="text-bold">18</div>
+                      <div>Departements</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-          <div class="row mt-5 justify-content-center">
-            <div class="col-md-3">
-              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                <div class="fa-3x fas fa-chalkboard-teacher mb-2"></div>
-                <div class="text-center ">
-                  <div class="text-bold">18</div>
-                  <div>Teachers</div>
-                </div>
-              </div>
             </div>
-            <div class="col-md-3">
-              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                <div class="fa-3x fas fas fa-user mb-2"></div>
-                <div class="text-center ">
-                  <div class="text-bold">18</div>
-                  <div>Members</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                <div class="fa-3x fas fas fa-building mb-2"></div>
-                <div class="text-center ">
-                  <div class="text-bold">18</div>
-                  <div>Faculties</div>
-                </div>
-              </div>
-            </div>
-            <div class="col-md-3">
-              <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                <div class="fa-3x fas fas fa-graduation-cap mb-2"></div>
-                <div class="text-center ">
-                  <div class="text-bold">18</div>
-                  <div>Departements</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
+            @empty
+            <p>No data available.</p>
+          @endforelse
+                      
+          
         </div>
-      </div>
-    </section>
-
+      </section>
+    {{-- @endisset --}}
+      
     <section id="news-view1" class="">
       <div class="container" data-aos="fade-up">
         <div class="col-sm-6">
@@ -179,12 +180,7 @@
                     <div class="position-relative overflow-hidden rounded">
                       
                         <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" style="width: 200px; height: 500px;" alt="">
-                        {{-- <div class="d-flex justify-content-center px-4 position-absolute flex-wrap" style="bottom: 10px; left: 0;">
-                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-clock"></i> 06 minute read</a>
-                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-eye"></i> 3.5k Views</a>
-                            <a href="#" class="text-white me-3 link-hover"><i class="fa fa-comment-dots"></i> 05 Comment</a>
-                            <a href="#" class="text-white link-hover"><i class="fa fa-arrow-up"></i> 1.5k Share</a>
-                        </div> --}}
+
                     </div>
                     <div class="px-3">
                         <p class="mt-3 fst-italic">

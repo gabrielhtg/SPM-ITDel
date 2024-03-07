@@ -519,22 +519,5 @@ class create_user_admin extends Seeder
         require_once 'vendor/autoload.php';
 
         $faker = Factory::create();
-
-//        foreach (range(1, 20) as $index) {
-//            try {
-//                DB::table('users')->insert([
-//                    'name' => $faker->name(),
-//                    'email' => $faker->email(),
-//                    'profile_pict' => $faker->imageUrl(480,480),
-//                    'password' => Hash::make('kelompok1hore'),
-//                    'status' => false,
-//                    'role' => rand(1, 39),
-//                    'created_at' => now(),
-//                    'last_login_at' => now()
-//                ]);
-//            } catch (UniqueConstraintViolationException $e) {
-//                // do nothin
-//            }
-//        }
     }
 }

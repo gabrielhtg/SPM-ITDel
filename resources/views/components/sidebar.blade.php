@@ -34,6 +34,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('dashboard-admin') }}" class="nav-link">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
                 @if(Auth::check())
                     <li class="nav-item menu-open">
                         <a href="#" class="nav-link">
