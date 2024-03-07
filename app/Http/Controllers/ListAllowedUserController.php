@@ -3,11 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\AllowedUserModel;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
+use PHPUnit\Exception;
 
 class ListAllowedUserController extends Controller
 {
+    /**
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     *
+     * Method ini berfungsi untuk mendapatkan halaman allowed user
+     */
     public function getListAllowedUser()
     {
         $allowedUser = AllowedUserModel::all();
@@ -23,7 +30,11 @@ class ListAllowedUserController extends Controller
     {
         $file = $request->file('file-excel');
 
-        $spreadsheet = IOFactory::load($file);
+        try {
+            $spreadsheet = IOFactory::load($file);
+        } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Unsupported file!']);
+        }
         $worksheet = $spreadsheet->getActiveSheet();
 
         $firstColumn = [];
@@ -61,14 +72,24 @@ class ListAllowedUserController extends Controller
         return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully removed data!']);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     *
+     * Fungsi ini berfungsi untuk menambahkan email allowed user satu persatu
+     */
     public function addAllowedUser (Request $request) {
-        AllowedUserModel::create([
-            'email' => $request->email,
-            'created_at' => now(),
-            'created_by' => auth()->user()->username
-        ]);
+        try {
+            AllowedUserModel::create([
+                'email' => $request->email,
+                'created_at' => now(),
+                'created_by' => auth()->user()->username
+            ]);
 
-        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added new allowed user!']);
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added new allowed user!']);
+        } catch (QueryException $e) {
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Failed to add new allowed user. Email already added!']);
 
+        }
     }
 }
