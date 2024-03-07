@@ -79,8 +79,12 @@ class CustomConverterService
      * mengecek apakah user yang sedang login adalah seorang admin atau tidak.
      */
     static public function isAdmin () {
-        if (RoleModel::find(auth()->user()->role)->role == "Admin") {
-            return true;
+        $roles = explode(";", auth()->user()->role);
+
+        foreach ($roles as $e) {
+            if (RoleModel::find($e)->role == "Admin") {
+                return true;
+            }
         }
 
         return false;
@@ -88,6 +92,6 @@ class CustomConverterService
         // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
         // sleep(10);
     }
-    
-    
+
+
 }

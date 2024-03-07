@@ -49,13 +49,14 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-                    @include('components.add-user-manually-modal')
-                    <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
-                        List Allowed User
-                    </a>
-                    @include('components.list-action-pending-modal')
+                    @if(CustomConverterService::isAdmin())
+                        @include('components.add-user-manually-modal')
+                        <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
+                            List Allowed User
+                        </a>
+                        @include('components.list-action-pending-modal')
+                    @endif
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -143,11 +144,12 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}">
-{{--                                            <i class="fas fa-trash"></i>--}}
-                                            Deactivate Account
-                                        </button>
-
+                                        @if(CustomConverterService::isAdmin())
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}">
+                                                {{--                                            <i class="fas fa-trash"></i>--}}
+                                                Deactivate Account
+                                            </button>
+                                        @endif
                                         <form action="{{ route('getUserDetail') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{ $e->id }}">

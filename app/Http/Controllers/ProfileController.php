@@ -40,7 +40,6 @@ class ProfileController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'verified' => false
             ]);
 
             return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Profile changed!']);
