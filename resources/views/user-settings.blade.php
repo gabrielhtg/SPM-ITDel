@@ -1,4 +1,4 @@
-@php use App\Services\CustomConverterService; @endphp
+@php use App\Services\AllServices; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-                    @if(CustomConverterService::isAdmin())
+                    @if(AllServices::isRole("Admin"))
                         @include('components.add-user-manually-modal')
                         @include('components.manage-role-modal')
                         <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
@@ -122,7 +122,7 @@
                                     <div class="user-panel d-flex">
                                         <div class="info">
                                         <span class="d-block">
-                                            {{ app(CustomConverterService::class)->convertRole($e->role) }}
+                                            {{ app(AllServices::class)->convertRole($e->role) }}
                                         </span>
                                         </div>
                                     </div>
@@ -145,8 +145,9 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        @if(CustomConverterService::isAdmin())
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}">
+                                        @if(AllServices::isRole("Admin"))
+                                            <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                    data-target="#modal-delete-{{ $e->id }}">
                                                 {{--                                            <i class="fas fa-trash"></i>--}}
                                                 Deactivate Account
                                             </button>

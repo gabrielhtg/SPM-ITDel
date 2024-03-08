@@ -7,9 +7,18 @@ use Illuminate\Support\Carbon;
 use App\Models\User;
 
 
-class CustomConverterService
+class AllServices
 {
-    static public function convertRole ($role) {
+    /**
+     * @param $role
+     * @return string
+     *
+     * Method ini berfungsi untuk mengonversikan role ke dalam string berdasarkan id role tersebut.
+     * Method ini juga dapat digunakan untuk mengonversikan role ke dalam string apabila id role
+     * tersebut berada dalam format id;id
+     */
+    static public function convertRole ($role): string
+    {
         if ($role) {
             $roles = explode(";", $role);
 
@@ -36,12 +45,27 @@ class CustomConverterService
         }
     }
 
-    static public function convertTime ($time) {
+    /**
+     * @param $time
+     * @return string
+     *
+     * Method ini berfungsi untuk mengonversikan waktu ke format
+     * seperti berikut ini Fri, 08 Mar 2024
+     */
+    static public function convertTime ($time): string
+    {
         $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
 
         return $carbonObject->format('D, d M Y');
     }
 
+    /**
+     * @param $time
+     * @return string
+     *
+     * Method ini berfungsi untuk menampilkan sudah berapa lama si user ini login.
+     * Cara kerjanya adalah dengan megurangkan waktu sekarang dengan last login at
+     */
     static public function getLastLogin ($time) : string {
         $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
 
@@ -60,6 +84,13 @@ class CustomConverterService
         }
     }
 
+    /**
+     * @param $status
+     * @return string
+     *
+     * Method ini berfungsi untuk mengonversikan status user apakah dia masih aktif
+     * atau tidak aktif lagi dan akan mengembalikan string.
+     */
     static public function convertStatus($status) {
         if ($status !== null) {
             if ($status == true) {
@@ -75,23 +106,22 @@ class CustomConverterService
     }
 
     /**
-     * Ini adalah fungsi yang tidak memiliki parameter yang berfungsi sebagai alat untuk
-     * mengecek apakah user yang sedang login adalah seorang admin atau tidak.
+     * @return bool
+     *
+     *  Ini adalah fungsi yang tidak memiliki parameter yang berfungsi sebagai alat untuk
+     *  mengecek apakah user yang sedang login adalah seorang admin atau tidak.
      */
-    static public function isAdmin () {
+    static public function isRole ($role): bool
+    {
         $roles = explode(";", auth()->user()->role);
 
         foreach ($roles as $e) {
-            if (RoleModel::find($e)->role == "Admin") {
+            if (RoleModel::find($e)->role == $role) {
                 return true;
             }
         }
 
         return false;
-
-        // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
-        // sleep(10);
     }
-
 
 }

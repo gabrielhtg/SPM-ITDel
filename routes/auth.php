@@ -87,8 +87,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
     Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
 
+    /**
+     * Route ini digunakan untuk mendapatkan halaman user detail
+     */
     Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
+
+    /**
+     * --------------DEPRECATED-----------------
+     *
+     * Method ini digunakan untuk mengembalikan akun yang sudah dinonaktifkan.
+     */
     Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
+
 
     Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
     Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');

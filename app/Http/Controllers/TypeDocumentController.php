@@ -5,7 +5,7 @@ use App\Models\DocumentTypeModel;
 use App\Models\RoleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use App\Services\CustomConverterService;
+use App\Services\AllServices;
 use Illuminate\Support\Facades\Validator;
 
 class TypeDocumentController extends Controller
@@ -36,7 +36,7 @@ class TypeDocumentController extends Controller
         'unique' => "The Document Type is already in use."
     ]);
 
-    if (!CustomConverterService::isAdmin()) {
+    if (!AllServices::isAdmin()) {
         return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
     }
 

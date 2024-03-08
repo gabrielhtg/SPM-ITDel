@@ -1,5 +1,5 @@
-@php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+@php use App\Services\AllServices; @endphp
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -52,13 +52,14 @@
                     <div class="page-header">
                         <h2>{{ $newsDetail->judul }}</h2>
                     </div>
-                
+
                     <div class="pengumuman-view">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-sm-10 mt-4">
                                     <div class="box box-solid">
-                                        <img src="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
+                                        <img src="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}"
+                                             alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
                                     </div>
                                 </div>
                                 <div id="grid-system1" class="col-sm-10 mt-2">
@@ -74,38 +75,40 @@
                                         <div id="grid-system2-body" class="box-body">
                                             <table class="table">
                                                 <thead>
-                                                    <tr><th>Nama File:</th>
+                                                <tr>
+                                                    <th>Nama File:</th>
                                                     <th>Size:</th>
-                                                    </tr>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}" target="_blank">
-                                                                {{ $newsDetail->gambar }}
-                                                            </a>
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}"
+                                                           target="_blank">
+                                                            {{ $newsDetail->gambar }}
+                                                        </a>
 
-                                                        </td>
-                                                        <td>
-                                                            @if($fileSizeInMB < 1)
-                                                                {{ $fileSizeInKB }} KB
-                                                            @else
-                                                                {{ $fileSizeInMB }} MB
-                                                            @endif
-                                                        </td>
-                                                    </tr>
+                                                    </td>
+                                                    <td>
+                                                        @if($fileSizeInMB < 1)
+                                                            {{ $fileSizeInKB }} KB
+                                                        @else
+                                                            {{ $fileSizeInMB }} MB
+                                                        @endif
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
-                                               
+
                                             <div style="border-top: 3px solid red; padding-top: 10px; margin-top:200px;">
-                                                <div style="">  
+                                                <div style="">
                                                     {{ $newsDetail->created_at->format('Y-m-d H:i:s') }}
                                                 </div>
 
                                                 <div style="margin-top:30px">
                                                     <p>ttd,</p>
                                                     {{ $loggedInUserName }}
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

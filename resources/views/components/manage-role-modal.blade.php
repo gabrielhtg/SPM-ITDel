@@ -16,9 +16,7 @@
                 <div class="mb-3">
                     <form class="d-flex" action="{{ route("addRole") }}" method="post" style="gap: 10px">
                         @csrf
-                        <label>
-                            <input placeholder="Insert new role here" name="role" type="text" class="form-control" required>
-                        </label>
+                        <input placeholder="Insert new role here" name="role" type="text" class="form-control" required>
 
                         <button class="btn btn-primary" type="submit" style="min-width: 100px">Add Role</button>
                     </form>

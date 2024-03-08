@@ -1,5 +1,5 @@
 @php
-    use App\Models\User;use App\Services\CustomConverterService;
+    use App\Models\User;use App\Services\AllServices;
 
     if($pending_action->contains('id', auth()->user()->id)) {
         $banyakData = count($pending_action) - 1;
@@ -68,10 +68,10 @@
                                     </div>
                                 </td>
                                 <td>
-                                    {{ app(CustomConverterService::class)->convertTime($e->updated_at) }}
+                                    {{ app(AllServices::class)->convertTime($e->updated_at) }}
                                 </td>
                                 <td>
-                                    {{ app(CustomConverterService::class)->convertRole($e->pending_roles) }}
+                                    {{ app(AllServices::class)->convertRole($e->pending_roles) }}
                                 </td>
                                 <td>
                                     <div class="d-flex" style="gap: 5px">

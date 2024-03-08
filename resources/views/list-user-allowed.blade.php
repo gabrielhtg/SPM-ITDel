@@ -1,4 +1,4 @@
-@php use App\Services\CustomConverterService; @endphp
+@php use App\Services\AllServices; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,7 +92,7 @@
                             @forelse($allowedUser as $e)
                                 <tr>
                                     <td>{{ $e->email }}</td>
-                                    <td>{{ CustomConverterService::convertTime($e->created_at) }}</td>
+                                    <td>{{ AllServices::convertTime($e->created_at) }}</td>
                                     <td>{{ $e->created_by }}</td>
                                     <td>
                                         {{--                                        <form action="{{ route('removeFromList') }}" method="post">--}}
