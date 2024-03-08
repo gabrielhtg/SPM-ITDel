@@ -109,17 +109,23 @@ class AllServices
     /**
      * @return bool
      *
-     *  Ini adalah fungsi yang tidak memiliki parameter yang berfungsi sebagai alat untuk
-     *  mengecek apakah user yang sekarang login adalah seorang admin atau tidak.
+     * Ini adalah fungsi yang memiliki parameter role untuk
+     * memeriksa apakah role user yang saat ini login adalah user
+     * yang memiliki role sesuai dengan apa yang dimasukkan pada
+     * parameter.
      */
     static public function isCurrentRole ($role): bool
     {
         $roles = explode(";", auth()->user()->role);
 
         foreach ($roles as $e) {
-            if (strtolower(RoleModel::find($e)->role) == strtolower($role)) {
-                return true;
-            }
+           try {
+               if (strtolower(RoleModel::find($e)->role) == strtolower($role)) {
+                   return true;
+               }
+           } catch (\ErrorException $e) {
+               return false;
+           }
         }
 
         return false;
@@ -135,19 +141,19 @@ class AllServices
         return false;
     }
 
-    static public function isUserRole ($user, $expectedRole) {
+    static public function isUserRole ($user, $expectedRole): bool
+    {
         $roles = explode(";", $user->role);
 
-        foreach ($roles as $e) {
-            if (strtolower(RoleModel::find($e)->role) == strtolower($expectedRole)) {
-                return true;
-            }
+        if (in_array($expectedRole, $roles)) {
+            return true;
         }
 
         return false;
     }
 
-    static public function isAdmin () {
+    static public function isAdmin (): bool
+    {
         if (RoleModel::find(auth()->user()->role)->role == "Admin") {
             return true;
         }

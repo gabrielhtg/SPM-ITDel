@@ -39,14 +39,30 @@ class RoleController extends Controller
     {
         $localRole = RoleModel::find($request->id);
         $users = User::all();
+        $newRole = "";
 
         foreach ($users as $e) {
             if (AllServices::isUserRole($e, $request->id)) {
+                $roles = explode(";", $e->role);
+                foreach ($roles as $role) {
+                    if ($role == $request->id) {
+                        continue;
+                    }
 
+                    else {
+                        $newRole = $newRole . $role . ';';
+                    }
+                }
+
+                $e->update([
+                    'role' => substr($newRole, 0, -1)
+                ]);
+
+                $newRole = '';
             }
         }
 
-
+        $localRole->delete();
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus role!']);
     }
 }
