@@ -124,4 +124,15 @@ class AllServices
         return false;
     }
 
+    static public function isAdmin () {
+        if (RoleModel::find(auth()->user()->role)->role == "Admin") {
+            return true;
+        }
+
+        return false;
+
+        // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
+        // sleep(10);
+    }
+
 }

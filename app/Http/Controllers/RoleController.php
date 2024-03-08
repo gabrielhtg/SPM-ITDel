@@ -33,7 +33,7 @@ class RoleController extends Controller
     {
         RoleModel::find($request->id)->delete();
 
-        USer
+        
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus role!']);
     }
