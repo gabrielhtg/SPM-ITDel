@@ -49,7 +49,9 @@
         <div class="card">
             <div class="card-body">
 
-                @include('components.add-news')
+                @if(AllServices::isCurrentRole("Admin"))
+                    @include('components.add-news')
+                @endif
 
                 <div class="list-group">
 
