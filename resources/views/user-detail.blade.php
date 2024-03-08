@@ -1,5 +1,5 @@
 @php use App\Services\AllServices; @endphp
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -99,19 +99,19 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Role</b> <span
-                                            class="float-right">{{ app(AllServices::class)->convertRole($user->role) }}</span>
+                                        class="float-right">{{ app(AllServices::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Starts On</b> <span
-                                            class="float-right">{{ AllServices::convertTime($user->created_at) }}</span>
+                                        class="float-right">{{ AllServices::convertTime($user->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->ends_on !== null)
                                         <b>Ends On</b> <span
-                                                class="float-right">{{ AllServices::convertTime($user->ends_on) }}</span>
+                                            class="float-right">{{ AllServices::convertTime($user->ends_on) }}</span>
                                     @else
                                         <b>Ends On</b> <span
-                                                class="float-right">-</span>
+                                            class="float-right">-</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
@@ -123,7 +123,7 @@
                                         @endif
                                     </span>
                                 </li>
-                                @if(AllServices::isRole("Admin"))
+                                @if(AllServices::isCurrentRole("Admin"))
                                     <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                         <b>IP Address</b> <span class="float-right">
                                         @if($user->ip_address !== null)
@@ -137,10 +137,10 @@
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->status)
                                         <b>Account Status</b> <span
-                                                class="float-right text-success text-bold">{{ AllServices::convertStatus($user->status) }}</span>
+                                            class="float-right text-success text-bold">{{ AllServices::convertStatus($user->status) }}</span>
                                     @else
                                         <b>Status</b> <span
-                                                class="float-right text-danger text-bold">{{ AllServices::convertStatus($user->status) }}</span>
+                                            class="float-right text-danger text-bold">{{ AllServices::convertStatus($user->status) }}</span>
                                     @endif
 
                                 </li>
@@ -148,9 +148,10 @@
                         </div>
                     </div>
 
-                    @if(AllServices::isRole("Admin"))
+                    @if(AllServices::isCurrentRole("Admin"))
                         <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary mb-3" href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
+                            <a class="btn btn-primary mb-3"
+                               href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
                                 IP Address</a>
                         </div>
                     @endif

@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-                    @if(AllServices::isRole("Admin"))
+                    @if(AllServices::isCurrentRole("Admin"))
                         @include('components.add-user-manually-modal')
                         @include('components.manage-role-modal')
                         <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
@@ -145,7 +145,7 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 10px">
-                                        @if(AllServices::isRole("Admin"))
+                                        @if(AllServices::isCurrentRole("Admin"))
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                                     data-target="#modal-delete-{{ $e->id }}">
                                                 {{--                                            <i class="fas fa-trash"></i>--}}

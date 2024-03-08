@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\RoleModel;
+use App\Models\User;
+use App\Services\AllServices;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -15,11 +17,15 @@ class RoleController extends Controller
      */
     public function addRole(Request $request)
     {
-        RoleModel::create([
-            'role' => $request->role
-        ]);
+        if (!AllServices::isRoleExist($request->role)) {
+            RoleModel::create([
+                'role' => $request->role
+            ]);
 
-        return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->role . ' berhasil ditambahkan!']);
+            return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->role . ' added successfully!']);
+        }
+
+        return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->role . ' failed to add. Already exist!']);
     }
 
     /**
@@ -31,9 +37,15 @@ class RoleController extends Controller
      */
     public function removeRole(Request $request)
     {
-        RoleModel::find($request->id)->delete();
+        $localRole = RoleModel::find($request->id);
+        $users = User::all();
 
-        USer
+        foreach ($users as $e) {
+            if (AllServices::isUserRole($e, $request->id)) {
+
+            }
+        }
+
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus role!']);
     }

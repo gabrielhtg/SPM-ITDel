@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\RoleController;
 use App\Models\RoleModel;
 use Illuminate\Support\Carbon;
 use App\Models\User;
@@ -109,14 +110,36 @@ class AllServices
      * @return bool
      *
      *  Ini adalah fungsi yang tidak memiliki parameter yang berfungsi sebagai alat untuk
-     *  mengecek apakah user yang sedang login adalah seorang admin atau tidak.
+     *  mengecek apakah user yang sekarang login adalah seorang admin atau tidak.
      */
-    static public function isRole ($role): bool
+    static public function isCurrentRole ($role): bool
     {
         $roles = explode(";", auth()->user()->role);
 
         foreach ($roles as $e) {
-            if (RoleModel::find($e)->role == $role) {
+            if (strtolower(RoleModel::find($e)->role) == strtolower($role)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    static public function isRoleExist($role) : bool {
+        $rolemodel = RoleModel::whereRaw('LOWER(role) = ?', strtolower($role))->first();
+
+        if ($rolemodel != null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    static public function isUserRole ($user, $expectedRole) {
+        $roles = explode(";", $user->role);
+
+        foreach ($roles as $e) {
+            if (strtolower(RoleModel::find($e)->role) == strtolower($expectedRole)) {
                 return true;
             }
         }
