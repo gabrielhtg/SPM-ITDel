@@ -26,7 +26,7 @@ return new class extends Migration
             $table->string('tipe_dokumen');
             $table->timestamp('start_date');
             $table->timestamp('end_date')->nullable();
-            $table->string('keterangan_status');
+            $table->boolean('keterangan_status')->default(true);
             $table->boolean('can_see_by')->default(true);
             $table->string('link')->nullable();
             $table->timestamps();
