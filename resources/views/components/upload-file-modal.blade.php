@@ -82,8 +82,8 @@
                                     <label>Can See By:</label>
                                     <select name="can_see_by" class="form-control" required>
                                         <option value="" disabled selected>Select Visibility</option>
-                                        <option value="Public">Public</option>
-                                        <option value="Private">Private</option>
+                                        <option value="1">Public</option>
+                                        <option value="0">Private</option>
                                     </select>
                                 </div>
 
@@ -98,18 +98,6 @@
                                 </div>
                                 
                                 
-                                
-                                
-                                
-
-                                <div class="form-group">
-                                    <label>Status:</label>
-                                    <select name="keterangan_status" class="form-control" required>
-                                        <option value="" disabled selected>Select Status</option>
-                                        <option value="Active">Active</option>
-                                        <option value="Inactive">Inactive</option>
-                                    </select>
-                                </div>
                                 
 
                                 <div class="form-group">

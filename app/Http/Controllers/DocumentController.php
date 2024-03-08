@@ -50,7 +50,7 @@ class DocumentController extends Controller
             'deskripsi' => 'nullable',
             'link' => 'nullable|url',
             'tipe_dokumen' => 'required',
-            'can_see_by' => 'required|in:Public,Private',
+            'can_see_by' => 'required',
             'give_access_to.*' => 'required|exists:users,id',
         ], [
             'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
@@ -63,7 +63,7 @@ class DocumentController extends Controller
             'end_date.date_format' => 'Format tanggal akhir tidak valid.',
             'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
             'can_see_by.required' => 'Pilihan untuk dapat dilihat atau tidak harus dipilih.',
-            'can_see_by.in' => 'Nilai pilihan dapat dilihat harus salah satu dari "Public" atau "Private".',
+            
             'give_access_to.*.exists' => 'Pengguna yang diberikan akses tidak valid.',
         ]);
 

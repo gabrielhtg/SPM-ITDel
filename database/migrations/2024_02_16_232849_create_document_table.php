@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamp('start_date');
             $table->timestamp('end_date')->nullable();
             $table->string('keterangan_status');
-            $table->string('can_see_by');
+            $table->boolean('can_see_by')->default(true);
             $table->string('link')->nullable();
             $table->timestamps();
         });

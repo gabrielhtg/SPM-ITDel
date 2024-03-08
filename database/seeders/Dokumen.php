@@ -29,7 +29,7 @@ class Dokumen extends Seeder
                 'start_date' => Carbon::now()->subDays(5)->format('Y-m-d H:i:s'), // 5 hari sebelumnya
                 'end_date' => Carbon::now()->subDays(2)->format('Y-m-d H:i:s'), // 2 hari sebelumnya
                 'keterangan_status' => 'Active',
-                'can_see_by' => 'Public',
+                'can_see_by' => true,
                 'link' => null,
             ],
             [
@@ -47,7 +47,7 @@ class Dokumen extends Seeder
                 'start_date' => Carbon::now()->format('Y-m-d H:i:s'),
                 'end_date' => Carbon::now()->addDays(5)->format('Y-m-d H:i:s'), // 5 hari ke depan
                 'keterangan_status' => 'Active',
-                'can_see_by' => 'Public',
+                'can_see_by' => true,
                 'link' => null,
             ],
            
