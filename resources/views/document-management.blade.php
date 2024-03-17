@@ -82,7 +82,7 @@
                     <tbody>
 
                     @foreach($documents as $e)
-                        @if (app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to)|| (auth()->user()->id== $e->created_by) || app(AllServices::class)->isAdmin()| app(AllServices::class)->isAllView($e->id) )
+                        @if (app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to)|| (auth()->user()->id== $e->created_by) || app(AllServices::class)->isAdmin()| app(AllServices::class)->isAllView($e->id)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) )
                         <tr>
 
                             <td>{{ $e->nomor_dokumen }}</td>
@@ -97,11 +97,16 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{ $e->tipe_dokumen }}
+                                        @php
+                                            $document = $jenis_dokumen->where('id', $e->tipe_dokumen)->first();
+                                            
+                                        @endphp
+                                        {{ $document ? $document->jenis_dokumen : '' }}
                                     </div>
-
                                 </div>
                             </td>
+                            
+                            
                             
                                 {{-- <td>
                                     <span class="d-block">
@@ -172,7 +177,7 @@
 
                                     {{-- // jika user sekarang == user yang upload di data Dokumen
                                     // if userSekarang -> id == document->created_by --}}
-                                    @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by))
+                                    @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
                                         <a href="{{ route('document.edit', ['id' => $e->id]) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                     @endif
                                 

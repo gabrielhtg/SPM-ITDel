@@ -21,11 +21,12 @@ class Dokumen extends Seeder
                 'deskripsi' => 'Deskripsi dokumen terlewat',
                 'directory' => '/src/documents/dokumen_terlewat.pdf',
                 'give_access_to' => '1;2;3',
+                'give_edit_access_to' => '1;2;3',
                 'created_by' => '1',
                 'status' => true,
                 'menggantikan_dokumen' => null,
                 'year' => 2024,
-                'tipe_dokumen' => 'Rencana Induk Pengembangan IT Del',
+                'tipe_dokumen' => 1,
                 'start_date' => Carbon::now()->subDays(5)->format('Y-m-d H:i:s'), // 5 hari sebelumnya
                 'end_date' => Carbon::now()->subDays(2)->format('Y-m-d H:i:s'), // 2 hari sebelumnya
                 'keterangan_status' => true,
@@ -39,11 +40,12 @@ class Dokumen extends Seeder
                 'deskripsi' => 'Deskripsi dokumen mendatang',
                 'directory' => '/src/documents/dokumen_mendatang.pdf',
                 'give_access_to' => '1;2;3',
+                'give_edit_access_to' => '1;2;3',
                 'created_by' => '1',
                 'status' => false,
                 'menggantikan_dokumen' => null,
                 'year' => 2024,
-                'tipe_dokumen' => 'Rencana Induk Pengembangan IT Del',
+                'tipe_dokumen' => 1,
                 'start_date' => Carbon::now()->format('Y-m-d H:i:s'),
                 'end_date' => Carbon::now()->addDays(5)->format('Y-m-d H:i:s'), // 5 hari ke depan
                 'keterangan_status' => true,

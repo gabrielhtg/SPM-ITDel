@@ -115,10 +115,10 @@
                                         <label>Document Type:</label>
                                         <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                             @foreach($jenis_dokumen as $type)
-                                                @if($document->tipe_dokumen == $type->jenis_dokumen)
-                                                <option value="{{ $type->jenis_dokumen }}" selected>{{ $type->jenis_dokumen }}</option>
+                                                @if($document->tipe_dokumen == $type->id)
+                                                <option value="{{ $type->id }}" selected>{{ $type->jenis_dokumen }}</option>
                                                 @else
-                                                <option value="{{ $type->jenis_dokumen }}" >{{ $type->jenis_dokumen }}</option>
+                                                <option value="{{ $type->id }}" >{{ $type->jenis_dokumen }}</option>
                                                 @endif
 
                                               
@@ -126,15 +126,33 @@
                                         </select>
                                     </div>
 
-                                <div class="form-group">
-                                    <label>Give Access to:</label>
-                                    <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
-                                        @foreach($roles as $role)
-                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                        @endforeach
-                                        <option value="0">All</option>
-                                    </select>
-                                </div>
+                                    <div class="form-group">
+                                        <label>Give Access to:</label>
+                                        <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                            @foreach($roles as $role)
+                                                @php
+                                                    $selected = in_array($role->id, explode(';', $document->give_access_to ?? '')) ? 'selected' : '';
+                                                @endphp
+                                                <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
+                                            @endforeach
+                                            <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                        </select>
+                                    </div>
+                                    
+
+                                    <div class="form-group">
+                                        <label>Give Edit to:</label>
+                                        <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
+                                            @foreach($roles as $role)
+                                                @php
+                                                    $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
+                                                @endphp
+                                                <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
+                                            @endforeach
+                                            <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                        </select>
+                                    </div>
+                                    
 
 
                                 <div class="form-group">

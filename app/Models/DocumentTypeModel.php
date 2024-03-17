@@ -12,5 +12,6 @@ class DocumentTypeModel extends Model
 
     protected $fillable = [
         'jenis_dokumen',
+        'singkatan',
     ];
 }

@@ -17,6 +17,7 @@ class DocumentModel extends Model
         'deskripsi',
         'directory',
         'give_access_to',
+        'give_edit_access_to',
         'created_by',
         'status',
         'menggantikan_dokumen',

@@ -110,7 +110,7 @@
                                         <label>Document Type:</label>
                                         <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                             @foreach($jenis_dokumen as $type)
-                                                <option value="{{ $type->jenis_dokumen }}">{{ $type->jenis_dokumen }}</option>
+                                                <option value="{{ $type->id }}">{{ $type->jenis_dokumen }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -118,6 +118,16 @@
                                 <div class="form-group">
                                     <label>Give Access to:</label>
                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                        @foreach($roles as $role)
+                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                        @endforeach
+                                        <option value="0">All</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Give Edit to:</label>
+                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
@@ -142,7 +152,7 @@
                                 
                                 <div class="form-group">
                                     <label>End Date:</label>
-                                    <input type="datetime-local" name="end_date" class="form-control" required>
+                                    <input type="datetime-local" name="end_date" class="form-control" >
                                 </div>
                                 
 

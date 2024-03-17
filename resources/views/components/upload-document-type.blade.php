@@ -17,8 +17,18 @@
                     @csrf
 
                     <div class="input-group">
+                        <label for="jenis_dokumen">Document Type:</label>
                         <input type="text" name="jenis_dokumen" placeholder="Document Type" class="form-control" required>
+                        <div class="invalid-feedback">Please provide a valid document type.</div>
                     </div>
+                    
+                    <div class="input-group">
+                        <label for="singkatan">Abbreviation:</label>
+                        <input type="text" name="singkatan" placeholder="Document Type" class="form-control" required>
+                        <div class="invalid-feedback">Please provide a valid abbreviation.</div>
+                    </div>
+                    
+                    
                 
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
