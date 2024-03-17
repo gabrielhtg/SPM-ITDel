@@ -87,7 +87,8 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
         Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
-
+        Route::get('/document-add', [DocumentController::class, 'getDocumentManagementAdd'])->name('documentAdd');
+        Route::get('/document/{id}/edit', [DocumentController::class, 'getDocumentManagementEdit'])->name('document.edit');
         /**
          * Route ini digunakan untuk mendapatkan halaman user detail
          */

@@ -13,19 +13,28 @@ class CheckDocumentActive
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Closure  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
+        // Ambil semua dokumen
         $allDocuments = DocumentModel::all();
 
-        foreach ($allDocuments as $e) {
-            $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $e->end_date);
-            $nowDate = Carbon::createFromFormat('Y-m-d H:i:s', now());
+        foreach ($allDocuments as $document) {
+            $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->start_date);
+            $carbonEndDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->end_date);
+            $nowDate = Carbon::now();
 
-            if ($carbonObject->lessThan($nowDate)) {
-                $e->update([
-                    'keterangan_status' => false
+            
+            if ($nowDate->greaterThanOrEqualTo($carbonStartDate) && $nowDate->lessThanOrEqualTo($carbonEndDate)) {
+                $document->update([
+                    'keterangan_status' => true,
+                ]);
+            } else {
+                $document->update([
+                    'keterangan_status' => false,
                 ]);
             }
         }

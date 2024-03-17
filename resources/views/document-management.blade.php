@@ -52,9 +52,12 @@
         <div class="card">
             <div class="card-body">
 
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @include('components.upload-file-modal')
-                @endif
+                
+               
+                    <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
+                        <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
+                    </a>
+                
                 @if(app(AllServices::class)->isAdmin())
                     @include('components.upload-document-type')
                 @endif
@@ -67,18 +70,19 @@
                         <th>Doc Number</th>
                         <th>Doc Name</th>
                         <th>Doc Type</th>
-                        @if(\Illuminate\Support\Facades\Auth::check())
-                            <th>Can be seen by</th>
-                        @endif
+                            
                         <th>Uploaded By</th>
                         <th>Status</th>
+                        <th>Status Aktif</th>
                         <th>Action</th>
+
 
                     </tr>
                     </thead>
                     <tbody>
 
                     @foreach($documents as $e)
+                        @if (app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to)|| (auth()->user()->id== $e->created_by) || app(AllServices::class)->isAdmin()| app(AllServices::class)->isAllView($e->id) )
                         <tr>
 
                             <td>{{ $e->nomor_dokumen }}</td>
@@ -98,8 +102,8 @@
 
                                 </div>
                             </td>
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <td>
+                            
+                                {{-- <td>
                                     <span class="d-block">
                                         @php
                                             $accessor = explode(";", $e->give_access_to);
@@ -115,8 +119,8 @@
                                             </span>
                                         @endforeach
                                     </span>
-                                </td>
-                            @endif
+                                </td> --}}
+                            
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
@@ -131,10 +135,30 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        {{ $e->status }}
+                                        @php
+                                            if($e->keterangan_status == 0) {
+                                                echo 'Tidak Berlaku';
+                                            } else {
+                                                echo 'Berlaku';
+                                            }
+                                        @endphp
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        @php
+                                            if($e->status== 0) {
+                                                echo 'Inactive';
+                                            } else {
+                                                echo 'Active';
+                                            }
+                                        @endphp
+                                    </div>
+                                </div>
+                            </td>
+                            
 
                             <td>
                                 <div class="d-flex" style="gap: 5px">
@@ -142,9 +166,17 @@
                                                 class="fas fa-eye"></i></a>
                                     @if(\Illuminate\Support\Facades\Auth::check())
                                         @include('components.detail-file-modal', ['documentId' => $e->id])
-                                        @include('components.edit-file-modal', ['documentId' => $e->id])
+                                        
 
                                     @endif
+
+                                    {{-- // jika user sekarang == user yang upload di data Dokumen
+                                    // if userSekarang -> id == document->created_by --}}
+                                    @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by))
+                                        <a href="{{ route('document.edit', ['id' => $e->id]) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                    @endif
+                                
+                                
                                     @if(app(AllServices::class)->isAdmin())
                                         @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
                                     @endif
@@ -153,6 +185,7 @@
 
                             </td>
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
@@ -188,7 +221,7 @@
                     </div>
 
 
-                    <div class="modal fade" id="modal-edit-document-{{ $e->id }}">
+                    {{-- <div class="modal fade" id="modal-edit-document-{{ $e->id }}">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -313,7 +346,7 @@
                             <!-- /.modal-content -->
                         </div>
                         <!-- /.modal-dialog -->
-                    </div>
+                    </div> --}}
                 @endforeach
             </div>
             <!-- /.card-body -->

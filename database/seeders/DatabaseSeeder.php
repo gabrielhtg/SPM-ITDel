@@ -25,7 +25,6 @@ class DatabaseSeeder extends Seeder
             createRole::class,
             allowedUser::class,
             DocumentTypesTableSeeder::class,
-            DocType::class,
             Dokumen::class,
         ]);
     }

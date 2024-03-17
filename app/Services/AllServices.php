@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Http\Controllers\RoleController;
+use App\Models\DocumentModel;
 use App\Models\RoleModel;
 use Illuminate\Support\Carbon;
 use App\Models\User;
@@ -144,9 +145,12 @@ class AllServices
     static public function isUserRole ($user, $expectedRole): bool
     {
         $roles = explode(";", $user->role);
+        $expectedRoles = explode(";", $expectedRole);
 
-        if (in_array($expectedRole, $roles)) {
-            return true;
+        foreach ($expectedRoles as $e) {
+            if (in_array($e, $roles)) {
+                return true;
+            }
         }
 
         return false;
@@ -162,6 +166,15 @@ class AllServices
 
         // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
         // sleep(10);
+    }
+
+    static public function isAllView ($id) : bool
+    {
+        
+        if (DocumentModel::find($id)->give_access_to == 0) {
+            return true;
+        }
+        return false;
     }
 
 }
