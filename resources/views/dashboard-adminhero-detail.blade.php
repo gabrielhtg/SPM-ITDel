@@ -38,28 +38,34 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Introduction</h1>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
+                        <h1 class="m-0">Dashboad Detail</h1>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- /.content-header -->
 
-        <!-- Main content -->
         <div class="card">
             <div class="card-body">
                 <section class="content" id="main-content">
                     <div class="page-header">
-                        <h2>{{ $dashboardDetail->juduldashboard }}</h2>
+                        <span>Judul Hero : </span>
+                        <h2>{{ $herosectiondetail->judulhero }}</h2>
                     </div>
                 
                     <div class="pengumuman-view">
                         <div class="container-fluid">
                             <div class="row">
+                                <div class="col-sm-10 mt-4">
+                                    <div class="box box-solid">
+                                        <p>gambar hero :</p>
+                                        <img src="{{ asset('src/walpeper/'.$herosectiondetail->gambarhero) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
+                                    </div>
+                                </div>
                                 <div id="grid-system1" class="col-sm-10 mt-2">
                                     <div class="box box-solid">
                                         <div id="grid-system1-body" class="box-body">
-                                            {!! $dashboardDetail->keterangandashboard !!}
+                                            <span style="display: block">Keterangan Hero : </span> 
+                                            {!! $herosectiondetail->tambahanhero !!}
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +73,7 @@
                                 <div id="grid-system2" class="col-sm-12 mt-5">
                                     <div class="box box-solid">
                                         <div id="grid-system2-body" class="box-body">
-                                            {{-- <table class="table">
+                                            <table class="table">
                                                 <thead>
                                                     <tr><th>Nama File:</th>
                                                     <th>Size:</th>
@@ -76,31 +82,25 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <a href="{{ asset('src/fileanc/'.$announcementDetail->file) }}" target="_blank">
-                                                                {{ $announcementDetail->file }}
+                                                            <a href="{{ asset('src/walpeper/'.$herosectiondetail->gambarhero) }}" target="_blank">
+                                                                {{ $herosectiondetail->gambarhero }}
                                                             </a>
+
                                                         </td>
                                                         <td>
-                                                            @if(!$announcementDetail->file == "")
-                                                                @if($fileSizeInMB < 1)
-                                                                    {{ $fileSizeInKB }} KB
-                                                                @else
-                                                                    {{ $fileSizeInMB }} MB
-                                                                @endif
+                                                            @if($fileSizeInMB < 1)
+                                                                {{ $fileSizeInKB }} KB
                                                             @else
-                                                                0.0 KB
+                                                                {{ $fileSizeInMB }} MB
                                                             @endif
                                                         </td>
                                                     </tr>
                                                 </tbody>
-                                            </table> --}}
+                                            </table>
                                                
-                                            <div style="border-top: 3px solid red; padding-top: 10px; margin-top:30px;">
-                                                {{-- <div style="">  
-                                                    {{ $dashboardDetail->created_at->format('Y-m-d H:i:s') }}
-                                                </div> --}}
+                                            <div style="border-top: 3px solid red; padding-top: 10px; margin-top:50px;">
 
-                                                <div style="margin-top:30px">
+                                                <div style="margin-top:0px">
                                                     <p>ttd,</p>
                                                     {{ $loggedInUserName }}
                                                 </div> 

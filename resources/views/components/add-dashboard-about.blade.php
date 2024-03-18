@@ -28,9 +28,7 @@
                 <button type="submit" form="form-addIntroduction" class="btn btn-primary">Save Changes</button>
             </div>
         </div>
-        <!-- /.modal-content -->
     </div>
-    <!-- /.modal-dialog -->
 </div>
 
 <script>

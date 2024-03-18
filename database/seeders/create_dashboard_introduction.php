@@ -17,7 +17,7 @@ class create_dashboard_introduction extends Seeder
     public function run(): void
     {
         DB::table('dashboard')->insert([
-            'juduldashboard' => 'Ini judul Introduction',
+            'juduldashboard' => 'Tentang IT DEL',
             'keterangandashboard' => '
                 Sesuai arahan dari Direktorat Jenderal Pendidikan Tinggi tentang penjaminan mutu perguruan tinggi yang terdiri atas penjaminan mutu internal dan penjaminan mutu eksternal, maka Institut Teknologi Del 
                 sebagai institusi pendidikan yang hendak menghasilkan sumber daya manusia dengan kompetensi yang baik harus mewujudkan arahan tersebut. Untuk itu dibentuklah AMI IT Del, pada tanggal 14 November 2008.  
@@ -29,6 +29,11 @@ class create_dashboard_introduction extends Seeder
                 Misi AMI IT Del
                 Marroha, menjadikan mutu sebagai ruh yang menjiwai program dan kegiatan yang diselenggarakan oleh unit kerja dan insan Institut Teknologi Del di semua Satuan Akademik dan Satuan Unit mencapai karya yang bermutu dan akuntabel.
             ',
+        ]);
+        DB::table('hero_dashboard')->insert([
+            'judulhero' => 'SPM IT DEL',
+            'tambahanhero' => 'Ini Merupakan Website SPM IT DEL',
+            'gambarhero' => '../walpeper/itd.jpeg',
         ]);
     }
 }

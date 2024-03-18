@@ -38,7 +38,97 @@
                 <!-- Content Header (Page header) -->
                 <div class="card" style="border: 2px solid rgb(62, 152, 208);margin:40px; padding:40px;">
                     <h4 class="card-header font-weight-bold fs-5">
-                        Introduction
+                        Hero Section
+                    </h4>
+                    <div class="card-body">
+                        
+                        @include('components.add-dashboard-hero')
+                        
+                        <div class="list-group">
+                            <table class="table">
+                                <tbody>
+                                    
+                                @forelse ($guestHero as $e)
+
+                                <div class="container-ann1">
+                                    <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
+                                        <tr>                                    
+                                            <td class="align-items-center">
+                                                <a href="{{ route('herosection-detail', ['id' => 1]) }}  " class="list-group-item-action" style="flex: 1;">{!! $e->judulhero !!}</a>
+                                            </td>
+                                            <td style="width: 190px;">
+                                                <div style="flex-shrink: 4;">
+                                                    <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-herosection-{{$e->id}}" >
+                                                        Update
+                                                    </button>
+
+                                                    <div class="modal fade" id="modal-update-herosection-{{$e->id}}">
+                                                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h4 class="modal-title">Edit Hero Section</h4>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form id="form-editherosection" method="POST" action="{{ route('dashboard-herosection-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                                                        @csrf
+                                                                        <div class="form-group mt-1">
+                                                                            <label for="title">Judul Besar</label>
+                                                                            <input type="text" name="judulhero" id="judulhero" class="form-control" required>
+                                                                        </div>
+                                                    
+                                                                        <label for="summernote">Keterangan Tambahan</label>
+                                                                        <textarea class="summernote" name="tambahanhero"></textarea>
+                                                    
+                                                                        <div class="form-group">
+                                                                            <label for="exampleInputFile">Walpeper Input</label>
+                                                                            <div class="input-group">
+                                                                                <div class="custom-file">
+                                                                                    <input type="file" class="custom-file-input" id="inputgambarwalpeper" name="gambarhero" value="{{ asset('src/walpeper/'.$e->gambarhero) }}">
+                                                                                    @if (!$e->gambarhero == "")
+                                                                                    <label id="inputLabel" class="custom-file-label" for="file">{{ $e->gambarhero }}</label>
+                                                                                    @else
+                                                                                    <label id="inputLabel" class="custom-file-label" for="file">Pilih Gambar</label>
+                                                                                    @endif
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                                <div class="modal-footer justify-content-between">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="submit" form="form-editherosection" class="btn btn-primary">Update Introduction</button>
+                                                                </div>
+                                                            </div>
+                                                            <!-- /.modal-content -->
+                                                        </div>
+                                                        <!-- /.modal-dialog -->
+                                                    </div>
+                                            
+                                                    <button type="button" class="btn btn-danger" style="padding: 5px 15px" data-toggle="modal">
+                                                        <a href="{{ route('dashboard-herosection-delete', ['id' => $e->id]) }}" style="color: black">Delete</a>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </div>
+                                </div>
+                                @empty
+                                <a href="#" class="list-group-item list-group-item-action">Belum ada data pengumuman</a>
+                                @endforelse
+            
+                                </tbody>
+                            </table>
+            
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="card" style="border: 2px solid rgb(62, 152, 208);margin:40px; padding:40px;">
+                    <h4 class="card-header font-weight-bold fs-5">
+                        About IT Del
                     </h4>
                     <div class="card-body">
                         
@@ -113,13 +203,11 @@
                         </div>
                     </div>
                 </div>
+
+                
             </div>
 
-            {{-- <div class="content-wrapper"> --}}
-                {{-- <div class="card"> --}}
-
-                {{-- </div> --}}
-            {{-- </div> --}}
+            
             <!-- /.content-wrapper -->
             @include('components.footer')
 
@@ -156,14 +244,13 @@
         <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
         <!-- Page specific script -->
 
-        {{-- <script>
-            document.getElementById('inputGambar').addEventListener('change', function(e) {
-                var fileName = document.getElementById('inputGambar').files[0].name;
+        <script>
+            document.getElementById('inputgambarwalpeper').addEventListener('change', function(e) {
+                var fileName = document.getElementById('inputgambarwalpeper').files[0].name;
                 var nextSibling = e.target.nextElementSibling;
                 nextSibling.innerText = fileName;
             });
-        </script> --}}
-
+        </script>
         <script>
             $(function () {
                 @if(session('toastData') != null)
@@ -223,5 +310,14 @@
                 })
             })
         </script>
+
+        <script>
+            document.getElementById('inputFile').addEventListener('change', function(e) {
+                var fileName = document.getElementById('inputFile').files[0].name;
+                var nextSibling = e.target.nextElementSibling;
+                nextSibling.innerText = fileName;
+            });
+        </script>
+
     </body>
 </html>

@@ -42,51 +42,19 @@
 
     <!-- Main Sidebar Container -->
     {{-- @include("components.sidebar") --}}
-    <section id="hero" class="d-flex align-items-center justify-content-center">
-        <div class="container" data-aos="fade-up">
-    
-          <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-            <div class="col-xl-6 col-lg-8">
-              <h1>Selamat Datang Di Website SPM<span></span></h1>
-              <h2>disini anda dapat melihat setiap aktivitas kami</h2>
+    @foreach($guestHero as $hero)
+      <section id="hero" class="d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/walpeper/' . $hero->gambarhero) }}') top center; background-size: cover; position: relative;">
+          <div class="container" data-aos="fade-up">
+      
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+              <div class="col-xl-6 col-lg-8">
+                <h1 class="fade-in">{!! $hero->judulhero !!}</h1>
+                <h2 class="fade-in" style="animation-delay: 0.5s;">{!! $hero->tambahanhero !!}</h2>
+              </div>
             </div>
           </div>
-    
-          {{-- <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-store-line"></i>
-                <h3><a href="">Lorem Ipsum</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-bar-chart-box-line"></i>
-                <h3><a href="">Dolor Sitema</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-calendar-todo-line"></i>
-                <h3><a href="">Sedare Perspiciatis</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-paint-brush-line"></i>
-                <h3><a href="">Magni Dolores</a></h3>
-              </div>
-            </div>
-            <div class="col-xl-2 col-md-4">
-              <div class="icon-box">
-                <i class="ri-database-2-line"></i>
-                <h3><a href="">Nemos Enimade</a></h3>
-              </div>
-            </div>
-          </div> --}}
-    
-        </div>
-      </section><!-- End Hero -->
+        </section><!-- End Hero -->
+    @endforeach
 
     <!-- Content Wrapper. Contains page content -->
     <div class="container-fluid">
@@ -112,49 +80,52 @@
 
     {{-- @isset($dashboard) --}}
     <section class="p-5">
-      <div class="container p-4">
+      <div class="container p-3">
           @forelse ($guestIntroduction as $item)
-            <h1 class="mb-3">{{ $item ->juduldashboard }}</h1>
+          <h1 id="keteranganContainer" class="mb-3">{{ $item->juduldashboard }}</h1>
+            {{-- <hr class="mx-2" style="border-top: 3px solid black; width: 15%;"> --}}
             <div class="p-3 rounded border custom-font-size">
                 {!! $item->keterangandashboard !!}
               <div class="row mt-5 justify-content-center">
                 <div class="col-md-3">
-                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                    <div class="fa-3x fas fa-chalkboard-teacher mb-2"></div>
+                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
+                    <div class="fa-3x fas fa-chalkboard-teacher mb-2 counter-icon"></div>
                     <div class="text-center ">
-                      <div class="text-bold">18</div>
-                      <div>Teachers</div>
+                      <div id="teacherCount" class="counter">0</div>
+                      <div class="counter-label fade-in">Teachers</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                    <div class="fa-3x fas fas fa-user mb-2"></div>
+                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
+                    <div class="fa-3x fas fa-user mb-2 counter-icon"></div>
                     <div class="text-center ">
-                      <div class="text-bold">18</div>
-                      <div>Members</div>
+                      <div id="memberCount" class="counter">0</div>
+                      <div class="counter-label fade-in">Members</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                    <div class="fa-3x fas fas fa-building mb-2"></div>
+                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
+                    <div class="fa-3x fas fa-building mb-2 counter-icon"></div>
                     <div class="text-center ">
-                      <div class="text-bold">18</div>
-                      <div>Faculties</div>
+                      <div id="facultyCount" class="counter">0</div>
+                      <div class="counter-label fade-in">Faculties</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
-                  <div class="p-5 rounded bg-primary d-flex justify-content-around align-items-center">
-                    <div class="fa-3x fas fas fa-graduation-cap mb-2"></div>
+                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
+                    <div class="fa-3x fas fa-graduation-cap mb-2 counter-icon"></div>
                     <div class="text-center ">
-                      <div class="text-bold">18</div>
-                      <div>Departements</div>
+                      <div id="departmentCount" class="counter">0</div>
+                      <div class="counter-label fade-in">Departments</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
               </div>
+
+                
 
             </div>
             @empty
@@ -259,6 +230,8 @@
 
 <!-- jQuery -->
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -306,6 +279,38 @@
     } );
 
     splide.mount();
+</script>
+
+<script>
+function animateValue(id, start, end, duration) {
+    var range = end - start;
+    var current = start;
+    var increment = end > start ? 1 : -1;
+    var stepTime = Math.abs(Math.floor(duration / range));
+    var obj = document.getElementById(id);
+    var timer = setInterval(function() {
+      current += increment;
+      obj.innerHTML = current;
+      if (current == end) {
+        clearInterval(timer);
+      }
+    }, stepTime);
+  }
+
+  function startCounters() {
+    animateValue("teacherCount", 0, 18, 3000);
+    animateValue("memberCount", 0, 9, 3000);
+    animateValue("facultyCount", 0, 18, 3000);
+    animateValue("departmentCount", 0, 18, 3000);
+  }
+
+  window.addEventListener('load', startCounters);
+</script>
+<script>
+  $(document).ready(function() {
+    var keteranganWidth = $('#keteranganContainer')[0].scrollWidth; // Mengukur lebar konten secara keseluruhan
+    $('#keteranganContainer').append('<hr class="my-3" style="border-top: 2px solid black; width: ' + keteranganWidth + 'px;">'); // Menambahkan garis dengan lebar sesuai dengan lebar konten
+  });
 </script>
 </body>
 </html>

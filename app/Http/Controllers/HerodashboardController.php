@@ -11,111 +11,27 @@ use Illuminate\Support\Facades\DB;
 
 
 
-class DashboardController extends Controller
+class HerodashboardController extends Controller
 {
+    // ----------------------------------------ini merupakan bagian untuk Hero Dashboard
 
-    public function index()
+    public function guestHero()
     {
-        $dashboard = Dashboard::all()->sortByDesc('id');
-        $herodashboard = HeroDashboard::all()->sortByDesc('id');
+        $herosection = HeroDashboard::all()->sortByDesc('id'); // Mengambil semua berita dari model News
 
-        $data = [
-            'dashboard' => $dashboard,
-            'herodashboard' => $herodashboard
-        ];
-
-        return view('components.guesslayout', $data);
+        return view('dashboard-admin', compact('herosection'));
     }
 
-    public function guestIntroduction()
+    public function indexherosection()
     {
-        $dashboard = Dashboard::all()->sortByDesc('id'); 
-        $herodashboard = HeroDashboard::all()->sortByDesc('id'); 
-
-        return view('components.guesslayout', compact('dashboard','herodashboard'));
-    }
-
-    public function getdashboard()
-    {
-
-        $dashboard = Dashboard::all()->sortByDesc('id');
+        $dashboardhero = HeroDashboard::all()->sortByDesc('id');
 
         $data = [
-            'dashboard' => $dashboard
+            'dashboard' => $dashboardhero
         ];
 
         return view('dashboard-admin', $data);
     }
-
-    public function storeintroduction(Request $request)
-    {
-        $request->validate([
-            'juduldashboard' => 'required',
-            'keterangandashboard' => 'required',
-        ]);   
-
-        Dashboard::create([
-            'juduldashboard' => $request->juduldashboard,
-            'keterangandashboard' => $request->keterangandashboard,
-        ]);
-        
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to add introduction']);
-    }
-
-
-    public function getdashboardintroductiondetail($id)
-    {
-        $dashboardDetail = Dashboard::find($id);
-
-        // Mengirimkan data pengumuman beserta ukuran file ke tampilan
-        $loggedInUserName = auth()->user()->name;
-        return view('dashboard-admin-detail', [
-            'dashboardDetail' => $dashboardDetail,
-            'loggedInUserName' => $loggedInUserName,
-        ]);
-    }
-
-    public function updatedashboard(Request $request, $id)
-    {
-        $request->validate([
-            'juduldashboard' => 'required',
-            'keterangandashboard' => 'required',
-        ]);
-
-        // Cari data pengumuman yang akan diupdate
-        $data = Dashboard::find($id);
-
-        $data->juduldashboard = $request->juduldashboard;
-        $data->keterangandashboard = $request->keterangandashboard;
-        $data->save();
-
-        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update introduction']);
-    }
-
-    public function deletedashboard($id)
-    {
-
-        $dashboard = Dashboard::find($id);
-
-        $dashboard->delete();
-
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => ' Succesfully to delete introduction']);
-    }
-
-
-
-    // ----------------------------------------ini merupakan bagian untuk Hero Dashboard
-
-    // public function indexherosection()
-    // {
-    //     $dashboard = HeroDashboard::all()->sortByDesc('id');
-
-    //     $data = [
-    //         'dashboard' => $dashboard
-    //     ];
-
-    //     return view('components.guesslayout', $data);
-    // }
 
     public function storeherosection(Request $request)
     {
@@ -173,7 +89,7 @@ class DashboardController extends Controller
         $loggedInUserName = auth()->user()->name;
 
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
-        return view('dashboard-admin', [
+        return view('dashboard-adminhero-detail', [
             'herosectiondetail' =>   $herosectiondetail,
             'fileSizeInKB' => $fileSizeInKB,
             'fileSizeInMB' => $fileSizeInMB,
@@ -207,7 +123,7 @@ class DashboardController extends Controller
 
             // Simpan file yang baru diunggah
             $walpeper = $request->file('gambarhero')->getClientOriginalName();
-            $request->file('gambar')->move(public_path('src/walpeper'), $walpeper);
+            $request->file('gambarhero')->move(public_path('src/walpeper'), $walpeper);
 
             // Update data dengan file yang baru
             $data->gambarhero = $walpeper;
@@ -223,16 +139,22 @@ class DashboardController extends Controller
 
     public function deleteherosection($id)
     {
-        $herosection = HeroDashboard::find($id);
-
-        $fileAncPath = public_path('src/walpeper/') . $herosection->gambarhero;
-
+        $data = HeroDashboard::find($id);
+    
+        if (!$data) {
+            return redirect('dashboard-admin')->with('error', 'News not found.');
+        }
+    
+        $fileAncPath = public_path('src/walpeper/') . $data->gambarhero;
+    
         if (File::exists($fileAncPath)) {
             File::delete($fileAncPath);
         }
-        $herosection->delete();
-
-        return redirect('dashboatd-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
+    
+        $data->delete();
+    
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Successfully deleted news']);
     }
+    
     
 }
