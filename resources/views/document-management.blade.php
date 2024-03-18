@@ -82,7 +82,17 @@
                     <tbody>
 
                     @foreach($documents as $e)
-                        @if (app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to)|| (auth()->user()->id== $e->created_by) || app(AllServices::class)->isAdmin()| app(AllServices::class)->isAllView($e->id)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) )
+                    @if (
+                            app(AllServices::class)->isAdmin() || 
+                            auth()->user()->id == $e->created_by ||
+                            (
+                                $e->status && (
+                                    app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) || 
+                                    app(AllServices::class)->isAllView($e->id) || 
+                                    (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->status)
+                                )
+                            )
+                        )          
                         <tr>
 
                             <td>{{ $e->nomor_dokumen }}</td>

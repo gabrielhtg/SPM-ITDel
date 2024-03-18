@@ -37,6 +37,24 @@ class CheckDocumentActive
                     'keterangan_status' => false,
                 ]);
             }
+
+        }
+
+        foreach ($allDocuments as $document) {
+            $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->start_date);
+            $nowDate = Carbon::now();
+
+            
+            if ($nowDate->greaterThanOrEqualTo($carbonStartDate)) {
+                $document->update([
+                    'status' => true,
+                ]);
+            } else {
+                $document->update([
+                    'status' => false,
+                ]);
+            }
+
         }
 
         return $next($request);

@@ -28,4 +28,13 @@ class DocumentModel extends Model
         'keterangan_status',
         'can_see_by',
     ];
+    // Di dalam model DocumentModel
+public function isReplaced()
+{
+    return !empty($this->menggantikan_dokumen);
 }
+
+    
+}
+
+
