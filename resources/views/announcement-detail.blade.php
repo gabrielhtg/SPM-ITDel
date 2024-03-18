@@ -1,5 +1,5 @@
-@php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+@php use App\Services\AllServices; @endphp
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -52,7 +52,7 @@
                     <div class="page-header">
                         <h2>{{ $announcementDetail->title }}</h2>
                     </div>
-                
+
                     <div class="pengumuman-view">
                         <div class="container-fluid">
                             <div class="row">
@@ -69,41 +69,43 @@
                                         <div id="grid-system2-body" class="box-body">
                                             <table class="table">
                                                 <thead>
-                                                    <tr><th>Nama File:</th>
+                                                <tr>
+                                                    <th>Nama File:</th>
                                                     <th>Size:</th>
-                                                    </tr>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="{{ asset('src/fileanc/'.$announcementDetail->file) }}" target="_blank">
-                                                                {{ $announcementDetail->file }}
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            @if(!$announcementDetail->file == "")
-                                                                @if($fileSizeInMB < 1)
-                                                                    {{ $fileSizeInKB }} KB
-                                                                @else
-                                                                    {{ $fileSizeInMB }} MB
-                                                                @endif
+                                                <tr>
+                                                    <td>
+                                                        <a href="{{ asset('src/fileanc/'.$announcementDetail->file) }}"
+                                                           target="_blank">
+                                                            {{ $announcementDetail->file }}
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        @if(!$announcementDetail->file == "")
+                                                            @if($fileSizeInMB < 1)
+                                                                {{ $fileSizeInKB }} KB
                                                             @else
-                                                                0.0 KB
+                                                                {{ $fileSizeInMB }} MB
                                                             @endif
-                                                        </td>
-                                                    </tr>
+                                                        @else
+                                                            0.0 KB
+                                                        @endif
+                                                    </td>
+                                                </tr>
                                                 </tbody>
                                             </table>
-                                               
+
                                             <div style="border-top: 3px solid red; padding-top: 10px; margin-top:200px;">
-                                                <div style="">  
+                                                <div style="">
                                                     {{ $announcementDetail->created_at->format('Y-m-d H:i:s') }}
                                                 </div>
 
                                                 <div style="margin-top:30px">
                                                     <p>ttd,</p>
                                                     {{ $loggedInUserName }}
-                                                </div> 
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

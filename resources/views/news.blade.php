@@ -1,5 +1,5 @@
-@php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+@php use App\Services\AllServices; @endphp
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -49,7 +49,9 @@
         <div class="card">
             <div class="card-body">
 
-                @include('components.add-news')
+                @if(AllServices::isCurrentRole("Admin"))
+                    @include('components.add-news')
+                @endif
 
                 <div class="list-group">
 
@@ -65,105 +67,129 @@
                         </thead> --}}
                         <tbody>
 
-                    @forelse ($news as $item)
+                        @forelse ($news as $item)
 
-                    <div class="container-ann1">
-                        <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div class="container-ann1">
+                                <div class="flex-wrap"
+                                     style="display: flex; justify-content: space-between; align-items: center;">
 
-                            
-                                  <tr>
-                                    {{-- <th scope="row">1</th> --}}
-                                    
-                                    <td class="align-items-center">
-                                        <a href="{{ route('news.detail', ['id' => $item->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $item->judul }}</a>
-                                    </td>
 
-                            <td style="width: 190px;">
-                            <div style="flex-shrink: 4;">
-                                <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-news-{{$item->id}}" >
-                                    Update
-                                </button>
+                                    <tr>
+                                        {{-- <th scope="row">1</th> --}}
 
-                                <div class="modal fade" id="modal-update-news-{{$item->id}}">
-                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Edit News</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                        <td class="align-items-center">
+                                            <a href="{{ route('news.detail', ['id' => $item->id]) }}"
+                                               class="list-group-item-action" style="flex: 1;">{{ $item->judul }}</a>
+                                        </td>
+
+                                        <td style="width: 190px;">
+                                            <div style="flex-shrink: 4;">
+                                                <button type="button" class="btn btn-warning" style="padding: 5px 15px"
+                                                        data-toggle="modal"
+                                                        data-target="#modal-update-news-{{$item->id}}">
+                                                    Update
                                                 </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="form-editNews" method="POST" action="{{ route('updatenews', ['id' => $item->id]) }}" enctype="multipart/form-data">
-                                                    @csrf
-                                                    {{-- input title --}}
-                                                    <div class="form-group mt-1">
-                                                        <label for="judul">Judul Berita</label>
-                                                        <input type="text" name="judul" id="title" class="form-control" value="{{ $item->judul}}" required>
-                                                    </div>
-                                
-                                                    {{-- input konten --}}
-                                                    <label for="summernote">Keterangan News</label>
-                                                    <textarea class="summernote" name="isinews">{!! $item->isinews !!}</textarea>
-                                
-                                                    {{-- input file --}}
-                                                    <div class="form-group">
-                                                        <label for="file">Gambar News</label>
-                                                        <div class="input-group">
-                                                            <div class="custom-file">
-                                                                <input type="file" class="custom-file-input" id="inputGambar" name="gambar" value="{{ asset('src/gambarnews/'.$item->gambar) }}">
-                                                                {{-- <label id="inputLabel" class="custom-file-label" for="file">Choose file</label> --}}
-                                                                @if (!$item->gambar == "")
-                                                                <label id="inputLabel" class="custom-file-label" for="file">{{ $item->gambar }}</label>
-                                                                @else
-                                                                <label id="inputLabel" class="custom-file-label" for="file">Pilih Gambar</label>
-                                                                @endif
+
+                                                <div class="modal fade" id="modal-update-news-{{$item->id}}">
+                                                    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h4 class="modal-title">Edit News</h4>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                        aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body">
+                                                                <form id="form-editNews" method="POST"
+                                                                      action="{{ route('updatenews', ['id' => $item->id]) }}"
+                                                                      enctype="multipart/form-data">
+                                                                    @csrf
+                                                                    {{-- input title --}}
+                                                                    <div class="form-group mt-1">
+                                                                        <label for="judul">Judul Berita</label>
+                                                                        <input type="text" name="judul" id="title"
+                                                                               class="form-control"
+                                                                               value="{{ $item->judul}}" required>
+                                                                    </div>
+
+                                                                    {{-- input konten --}}
+                                                                    <label for="summernote">Keterangan News</label>
+                                                                    <textarea class="summernote"
+                                                                              name="isinews">{!! $item->isinews !!}</textarea>
+
+                                                                    {{-- input file --}}
+                                                                    <div class="form-group">
+                                                                        <label for="file">Gambar News</label>
+                                                                        <div class="input-group">
+                                                                            <div class="custom-file">
+                                                                                <input type="file"
+                                                                                       class="custom-file-input"
+                                                                                       id="inputGambar" name="gambar"
+                                                                                       value="{{ asset('src/gambarnews/'.$item->gambar) }}">
+                                                                                {{-- <label id="inputLabel" class="custom-file-label" for="file">Choose file</label> --}}
+                                                                                @if (!$item->gambar == "")
+                                                                                    <label id="inputLabel"
+                                                                                           class="custom-file-label"
+                                                                                           for="file">{{ $item->gambar }}</label>
+                                                                                @else
+                                                                                    <label id="inputLabel"
+                                                                                           class="custom-file-label"
+                                                                                           for="file">Pilih
+                                                                                        Gambar</label>
+                                                                                @endif
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-between">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                        data-dismiss="modal">Close
+                                                                </button>
+                                                                <button type="submit" form="form-editNews"
+                                                                        class="btn btn-primary">Add News
+                                                                </button>
+
                                                             </div>
                                                         </div>
+                                                        <!-- /.modal-content -->
                                                     </div>
-                                                </form>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" form="form-editNews" class="btn btn-primary">Add News</button>
-                                
-                                            </div>
-                                        </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
+                                                    <!-- /.modal-dialog -->
+                                                </div>
+
+                                                <button type="button" class="btn btn-danger" style="padding: 5px 15px"
+                                                        data-toggle="modal">
+                                                    <a href="{{ route('deletenews', ['id' => $item->id]) }}"
+                                                       style="color: black">Delete</a>
+                                                </button>
+                                        </td>
+                                    </tr>
                                 </div>
-                            
-                                <button type="button" class="btn btn-danger" style="padding: 5px 15px" data-toggle="modal">
-                                    <a href="{{ route('deletenews', ['id' => $item->id]) }}" style="color: black">Delete</a>
-                                </button>
-                            </td>
-                        </tr>
                             </div>
-                        </div>
-                    </div>
-                    {{-- <a  class="list-group-item list-group-item-action">{{ $item->title }}</a> --}}
-                    @empty
+                </div>
+                {{-- <a  class="list-group-item list-group-item-action">{{ $item->title }}</a> --}}
+                @empty
                     <a href="#" class="list-group-item list-group-item-action">Belum ada data pengumuman</a>
                     @endforelse
 
-                </tbody>
-            </table>
+                    </tbody>
+                    </table>
 
-                </div>
             </div>
-            <!-- /.card-body -->
         </div>
-        <!-- /.content -->
+        <!-- /.card-body -->
     </div>
-    <!-- /.content-wrapper -->
-    @include('components.footer')
+    <!-- /.content -->
+</div>
+<!-- /.content-wrapper -->
+@include('components.footer')
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -191,7 +217,7 @@
 <!-- Page specific script -->
 
 <script>
-    document.getElementById('inputGambar').addEventListener('change', function(e) {
+    document.getElementById('inputGambar').addEventListener('change', function (e) {
         var fileName = document.getElementById('inputGambar').files[0].name;
         var nextSibling = e.target.nextElementSibling;
         nextSibling.innerText = fileName;

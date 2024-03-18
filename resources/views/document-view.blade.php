@@ -1,21 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document Management</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .card-title {
-            overflow-wrap: break-word;
-            color: #106cfc; /* Ubah warna judul kartu */
-        }
-        
-    </style>
-</head>
-@include("components.guessnavbar")
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Document</title>
 
-<section id="hero" class="d-flex align-items-center justify-content-center">
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- Tempusdominus Bootstrap 4 -->
+    <link rel="stylesheet" href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+    <!-- iCheck -->
+    <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
+    <!-- JQVMap -->
+    <link rel="stylesheet" href="{{ asset("plugins/jqvmap/jqvmap.min.css") }}">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="{{ asset("plugins/overlayScrollbars/css/OverlayScrollbars.min.css") }}">
+    <!-- Daterange picker -->
+    <link rel="stylesheet" href="{{ asset("plugins/daterangepicker/daterangepicker.css") }}">
+    <!-- summernote -->
+    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+    
+    <!-- Meta tag viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
+    </div>
+    
+    <!-- Navbar -->
+    @include("components.guessnavbar")
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    {{-- @include("components.sidebar") --}}
+    <section id="hero" class="d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
         <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
             <div class="col-xl-6 col-lg-8">
@@ -24,198 +55,173 @@
             </div>
         </div>
     </div>
-</section><!-- End Hero -->
+</section>
 
+    <!-- Content Wrapper. Contains page content -->
+    <div class="container-fluid">
+        <div class="content px-5">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
 
-<section>
+            <!-- Main content -->
+            
+            
+            
+            
+            <!-- /.content -->
+        </div>
+    </div>
+
+    <section>
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <form class="form-inline">
-                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 1130px; height: 80px; border: 2px solid #00000a;">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit" style="width: 150px; height: 80px">Search</button>
+                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
                 </form>
             </div>
         </div>
     </div>
 </section>
 
+<div class="container mt-3">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th>Doc Number</th>
+                            <th>Doc Name</th>
+                            <th>Uploaded By</th>
+                            <th>Status</th>
+                        </tr>
+                        @foreach($documents as $e)
+                            <tr>
+                                <td>{{ $e->nomor_dokumen }}</td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="d-flex align-items-center">
+                                            @if(strlen($e->name) > 75)
+                                                {{ substr($e->name, 0, 75) }}...
+                                            @else
+                                                {{ $e->name }}
+                                            @endif
+                                        </div>
+                                    </div>
+                                </td>
+                                @if(\Illuminate\Support\Facades\Auth::check())
+                                    <td>
+                                        <span class="d-block">
+                                            @php
+                                                $accessor = explode(";", $e->give_access_to);
+                                            @endphp
+
+                                            @foreach($accessor as $acc)
+                                                <span class="badge badge-primary">
+                                                    @if($acc == 0)
+                                                        All
+                                                    @else
+                                                        {{ \App\Models\RoleModel::find($acc)->role }}
+                                                    @endif
+                                                </span>
+                                            @endforeach
+                                        </span>
+                                    </td>
+                                @endif
+                                <td>
+                                    <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span> <span
+                                                    class="badge badge-success"
+                                                    style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
+
+                                    </div>
+                                </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            @php
+                                                if($e->keterangan_status == 0) {
+                                                    echo 'Tidak Berlaku';
+                                                } else {
+                                                    echo 'Berlaku';
+                                                }
+                                            @endphp
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+
+                    @foreach ($documents as $e)
 
 
-<div class="container mt-5">
-    <div class="row" id="documentCards">
-        <!-- Kartu dokumen akan ditampilkan di sini -->
+                    @endforeach
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
     </div>
 </div>
+    
+    @include('components.guessfooter')
+    {{-- Copyright © 2024 Informatika 2021 Kelompok 1. All rights reserved. --}}
 
-<div class="container mt-5">
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-end" id="pagination">
-            <!-- Tombol penomoran halaman akan ditampilkan di sini -->
-        </ul>
-    </nav>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
+<!-- ./wrapper -->
 
-
-<!-- jQuery and Bootstrap JS libraries -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        // Data dokumen
-        const documents = {!! json_encode($documents) !!};
-        const numPerPage = 8;
-        let currentPage = 1;
-        let filteredDocuments = []; // Variabel untuk menyimpan hasil pencarian
-
-        // Fungsi untuk menampilkan kartu dokumen sesuai halaman yang dipilih
-        function displayDocuments(page) {
-            const startIndex = (page - 1) * numPerPage;
-            const endIndex = startIndex + numPerPage;
-            const paginatedDocuments = filteredDocuments.length > 0 ? filteredDocuments.slice(startIndex, endIndex) : documents.slice(startIndex, endIndex);
-
-            const documentCardsContainer = document.getElementById('documentCards');
-            documentCardsContainer.innerHTML = '';
-
-            paginatedDocuments.forEach(function(e) {
-                const accessor = e.give_access_to.split(";");
-                let documentTitle = e.name;
-                if (documentTitle.length > 10) {
-                    documentTitle = documentTitle.substring(0, 29) + "...";
-                }
-                if (accessor.includes('0')) {
-                    const cardHTML = `
-                        <div class="col-lg-6 mb-4">
-                            <div class="card h-100">
-                                <div class="card-header">
-                                    <h2 class="card-title">${documentTitle}</h2>
-                                </div>
-                                <div class="card-body">
-                                    <p class="card-text">Tipe: ${e.tipe_dokumen} | Status: ${e.status}</p>
-                                    <a href="/view-document-detail/${e.id}" class="btn btn-primary">View Detail</a>
-                                </div>
-                            </div>
-                        </div>`;
-                    documentCardsContainer.innerHTML += cardHTML;
-                }
-            });
-        }
-
-        // Fungsi untuk menampilkan tombol-tombol penomoran halaman
-        function displayPagination() {
-            const totalItems = filteredDocuments.length > 0 ? filteredDocuments.length : documents.length;
-            const totalPages = Math.ceil(totalItems / numPerPage);
-            const paginationContainer = document.getElementById('pagination');
-            paginationContainer.innerHTML = '';
-
-            for (let i = 1; i <= totalPages; i++) {
-                const li = document.createElement('li');
-                li.classList.add('page-item');
-                if (i === currentPage) {
-                    li.classList.add('active');
-                }
-                const a = document.createElement('a');
-                a.classList.add('page-link');
-                a.href = '#';
-                a.innerText = i;
-                a.addEventListener('click', function() {
-                    currentPage = i;
-                    displayDocuments(currentPage);
-                    updatePagination();
-                });
-                li.appendChild(a);
-                paginationContainer.appendChild(li);
-            }
-
-            // Tambahkan tombol "Next"
-            const nextLi = document.createElement('li');
-            nextLi.classList.add('page-item');
-            const nextLink = document.createElement('a');
-            nextLink.classList.add('page-link');
-            nextLink.href = '#';
-            nextLink.innerText = 'Next';
-            nextLink.addEventListener('click', function() {
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    displayDocuments(currentPage);
-                    updatePagination();
-                }
-            });
-            nextLi.appendChild(nextLink);
-            paginationContainer.appendChild(nextLi);
-        }
-
-        // Fungsi untuk memperbarui tampilan penomoran halaman
-        function updatePagination() {
-            const paginationItems = document.querySelectorAll('#pagination .page-item');
-            paginationItems.forEach(function(item, index) {
-                if (index + 1 === currentPage) {
-                    item.classList.add('active');
-                } else {
-                    item.classList.remove('active');
-                }
-            });
-        }
-
-        // Pemanggilan fungsi untuk menampilkan dokumen dan penomoran halaman
-        displayDocuments(currentPage);
-        displayPagination();
-
-        // Fungsi pencarian
-        const searchInput = document.getElementById("searchInput");
-        searchInput.addEventListener("input", function() {
-            const searchQuery = searchInput.value.toLowerCase();
-            filteredDocuments = documents.filter(function(e) {
-                const documentTitle = e.name.toLowerCase();
-                return documentTitle.includes(searchQuery);
-            });
-            currentPage = 1;
-            displayDocuments(currentPage);
-            displayPagination();
-        });
-    });
+    $.widget.bridge('uibutton', $.ui.button)
 </script>
-<script>
-   document.addEventListener("DOMContentLoaded", function() {
-    // Ambil elemen input pencarian
-    const searchInput = document.getElementById("searchInput");
-
-    // Tambahkan event listener untuk mengawasi perubahan input
-    searchInput.addEventListener("input", function() {
-        // Ambil nilai pencarian
-        const searchQuery = searchInput.value.toLowerCase();
-
-        // Ambil semua kartu dokumen
-        const documentCards = document.querySelectorAll(".card");
-
-        // Iterasi melalui setiap kartu dokumen
-        documentCards.forEach(function(card) {
-            // Ambil judul dokumen dari kartu
-            const documentTitle = card.querySelector(".card-title").innerHTML.toLowerCase();
-
-            // Periksa apakah judul dokumen cocok dengan kueri pencarian
-            if (searchQuery === "") {
-                // Kembalikan struktur HTML ke aslinya jika pencarian kosong
-                card.parentNode.classList.remove("col-lg-15");
-                card.parentNode.classList.add("col-lg-6");
-                card.parentNode.style.display = "block";
-            } else if (documentTitle.includes(searchQuery)) {
-                // Tampilkan kartu dokumen jika cocok
-                card.parentNode.classList.add("col-lg-15");
-                card.parentNode.classList.remove("col-lg-6");
-                card.parentNode.style.display = "block";
-            } else {
-                // Sembunyikan kartu dokumen jika tidak cocok
-                card.parentNode.style.display = "none";
-            }
-        });
-    });
-});
-
+<!-- Bootstrap 4 -->
+<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<!-- ChartJS -->
+<script src="{{ asset("plugins/chart.js/Chart.min.js") }}"></script>
+<!-- Sparkline -->
+<script src="{{ asset("plugins/sparklines/sparkline.js") }}"></script>
+<!-- JQVMap -->
+<script src="{{ asset("plugins/jqvmap/jquery.vmap.min.js") }}"></script>
+<script src="{{ asset("plugins/jqvmap/maps/jquery.vmap.usa.js") }}"></script>
+<!-- jQuery Knob Chart -->
+<script src="{{ asset("plugins/jquery-knob/jquery.knob.min.js") }}"></script>
+<!-- daterangepicker -->
+<script src="{{ asset("plugins/moment/moment.min.js") }}"></script>
+<script src="{{ asset("plugins/daterangepicker/daterangepicker.js") }}"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="{{ asset("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js") }}"></script>
+<!-- Summernote -->
+<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
+<!-- overlayScrollbars -->
+<script src="{{ asset("plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js") }}"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset("dist/js/adminlte.js") }}"></script>
+<!-- AdminLTE for demo purposes -->
+{{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
 
 </script>
-
 </body>
-@include('components.footer')
 </html>

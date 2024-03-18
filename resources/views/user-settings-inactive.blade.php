@@ -1,5 +1,5 @@
-@php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+@php use App\Services\AllServices; @endphp
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -50,13 +50,13 @@
             <div class="card-body">
 
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-{{--                    @include('components.add-user-manually-modal')--}}
-{{--                    @include('components.add-user-via-invite-link')--}}
-{{--                    --}}{{--                @include('components.list-invited-user')--}}
-{{--                    <a href='{{ route('list-allowed-user') }}' class="btn btn-success">--}}
-{{--                        List Allowed User--}}
-{{--                    </a>--}}
-{{--                    @include('components.list-password-reset-request')--}}
+                    {{--                    @include('components.add-user-manually-modal')--}}
+                    {{--                    @include('components.add-user-via-invite-link')--}}
+                    {{--                    --}}{{--                @include('components.list-invited-user')--}}
+                    {{--                    <a href='{{ route('list-allowed-user') }}' class="btn btn-success">--}}
+                    {{--                        List Allowed User--}}
+                    {{--                    </a>--}}
+                    {{--                    @include('components.list-password-reset-request')--}}
                 </div>
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -82,9 +82,11 @@
                                     <div class="user-panel d-flex">
                                         <div class="d-flex align-items-center">
                                             @if($e->profile_pict == null)
-                                                <img src="{{ asset('src/img/default-profile-pict.png') }}" class="img-circle custom-border" alt="User Image">
+                                                <img src="{{ asset('src/img/default-profile-pict.png') }}"
+                                                     class="img-circle custom-border" alt="User Image">
                                             @else
-                                                <img src="{{ asset($e->profile_pict) }}" class="img-circle custom-border" alt="User Image">
+                                                <img src="{{ asset($e->profile_pict) }}"
+                                                     class="img-circle custom-border" alt="User Image">
                                             @endif
                                         </div>
                                         <div class="info">
@@ -111,7 +113,7 @@
                                     <div class="user-panel d-flex">
                                         <div class="info">
                                         <span class="d-block">
-                                            {{ app(CustomConverterService::class)->convertRole($e->role) }}
+                                            {{ app(AllServices::class)->convertRole($e->role) }}
                                         </span>
                                         </div>
                                     </div>
@@ -136,13 +138,15 @@
                                         <form action="{{ route('getUserDetail') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-success"><i class="far fa-eye" style="font-size: 14px"></i></button>
+                                            <button type="submit" class="btn btn-success"><i class="far fa-eye"
+                                                                                             style="font-size: 14px"></i>
+                                            </button>
                                         </form>
-                                        <form action="{{ route('restoreAccount') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-success"><i class="fas fa-redo" style="font-size: 14px"></i></button>
-                                        </form>
+                                        {{--                                        <form action="{{ route('restoreAccount') }}" method="POST">--}}
+                                        {{--                                            @csrf--}}
+                                        {{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
+                                        {{--                                            <button type="submit" class="btn btn-success"><i class="fas fa-redo" style="font-size: 14px"></i></button>--}}
+                                        {{--                                        </form>--}}
                                     </div>
                                 </td>
                             </tr>

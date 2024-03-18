@@ -1,5 +1,5 @@
-@php use App\Services\CustomConverterService; @endphp
-    <!DOCTYPE html>
+@php use App\Services\AllServices; @endphp
+        <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -71,7 +71,7 @@
                             @endif
                         </div>
                         <h3 class="profile-username text-center">{{ auth()->user()->name }}</h3>
-                        <p class="text-muted text-center">{{ app(CustomConverterService::class)->convertRole(auth()->user()->role) }}</p>
+                        <p class="text-muted text-center">{{ app(AllServices::class)->convertRole(auth()->user()->role) }}</p>
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
@@ -88,25 +88,25 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Role</b> <span
-                                        class="float-right">{{ app(CustomConverterService::class)->convertRole(auth()->user()->role) }}</span>
+                                            class="float-right">{{ app(AllServices::class)->convertRole(auth()->user()->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Starts On</b> <span
-                                        class="float-right">{{ CustomConverterService::convertTime(auth()->user()->created_at) }}</span>
+                                            class="float-right">{{ AllServices::convertTime(auth()->user()->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if(auth()->user()->ends_on !== null)
                                         <b>Ends On</b> <span
-                                            class="float-right">{{ CustomConverterService::convertTime(auth()->user()->ends_on) }}</span>
+                                                class="float-right">{{ AllServices::convertTime(auth()->user()->ends_on) }}</span>
                                     @else
                                         <b>Ends On</b> <span
-                                            class="float-right">-</span>
+                                                class="float-right">-</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Last Login</b> <span class="float-right">
                                         @if(auth()->user()->last_login_at !== null)
-                                            {{ CustomConverterService::getLastLogin(auth()->user()->last_login_at) }}
+                                            {{ AllServices::getLastLogin(auth()->user()->last_login_at) }}
                                         @else
                                             -
                                         @endif
@@ -124,10 +124,10 @@
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if(auth()->user()->status)
                                         <b>Account Status</b> <span
-                                            class="float-right text-success text-bold">{{ CustomConverterService::convertStatus(auth()->user()->status) }}</span>
+                                                class="float-right text-success text-bold">{{ AllServices::convertStatus(auth()->user()->status) }}</span>
                                     @else
                                         <b>Status</b> <span
-                                            class="float-right text-danger text-bold">{{ CustomConverterService::convertStatus(auth()->user()->status) }}</span>
+                                                class="float-right text-danger text-bold">{{ AllServices::convertStatus(auth()->user()->status) }}</span>
                                     @endif
 
                                 </li>
@@ -196,27 +196,27 @@
 <script>
     $(function () {
         @if(session('toastData') != null)
-            @if(session('toastData')['success'])
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 3000
-            })
-            @else
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
         @endif
     });
 </script>

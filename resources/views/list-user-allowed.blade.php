@@ -1,4 +1,4 @@
-@php use App\Services\CustomConverterService; @endphp
+@php use App\Services\AllServices; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -79,7 +79,7 @@
                             </form>
                         </div>
 
-                        <table id="example1" class="table table-bordered table-striped">
+                        <table id="example1" class="table table-hover table-bordered table-striped">
                             <thead>
                             <tr>
                                 <th>Email</th>
@@ -92,17 +92,21 @@
                             @forelse($allowedUser as $e)
                                 <tr>
                                     <td>{{ $e->email }}</td>
-                                    <td>{{ CustomConverterService::convertTime($e->created_at) }}</td>
+                                    <td>{{ AllServices::convertTime($e->created_at) }}</td>
                                     <td>{{ $e->created_by }}</td>
                                     <td>
-{{--                                        <form action="{{ route('removeFromList') }}" method="post">--}}
-{{--                                            @method('DELETE')--}}
-{{--                                            @csrf--}}
-{{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
-{{--                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>--}}
-{{--                                            </button>--}}
-{{--                                        </form>--}}
-                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->email, 'route' => 'removeFromList'])
+                                        {{--                                        <form action="{{ route('removeFromList') }}" method="post">--}}
+                                        {{--                                            @method('DELETE')--}}
+                                        {{--                                            @csrf--}}
+                                        {{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
+                                        {{--                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>--}}
+                                        {{--                                            </button>--}}
+                                        {{--                                        </form>--}}
+                                        {{--                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->email, 'route' => ''])--}}
+                                        <button type="button" class="btn btn-danger" data-toggle="modal"
+                                                data-target="#modal-delete-{{ $e->id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                     </td>
                                 </tr>
 
@@ -113,6 +117,42 @@
                             @endforelse
                             </tbody>
                         </table>
+
+                        @foreach($allowedUser as $e)
+                            <div class="modal fade" id="modal-delete-{{ $e->id }}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Delete Confirmation Dialog</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="form-delete-{{ $e->id }}" method="POST"
+                                                  action="{{ route('removeFromList') }}">
+                                                @csrf
+                                                @method('DELETE')
+                                                <input type="hidden" name="id" value="{{ $e->id }}">
+                                            </form>
+
+                                            <p>
+                                                Are you sure to remove this from list?
+                                            </p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <button type="submit" form="form-delete-{{ $e->id }}"
+                                                    class="btn btn-danger">Remove
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -191,7 +231,8 @@
         });
     });
 </script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
+<script src="{{ asset("dist/js/sweetalert2.js") }}"></script>
 <script>
     $(function () {
         @if(session('toastData') != null)
@@ -203,7 +244,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 3000
+            timer: 1000
         })
         @else
         Swal.fire({
@@ -213,7 +254,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 5000
+            timer: 2000
         })
         @endif
         @endif
@@ -226,7 +267,7 @@
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
-            timer: 5000
+            timer: 2000
         })
         @endif
     });

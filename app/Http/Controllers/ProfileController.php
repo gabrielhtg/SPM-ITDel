@@ -34,16 +34,31 @@ class ProfileController extends Controller
         $user = User::find($request->id);
         $roles = implode(';', $request->roles);
 
-        $user->update([
-            'username' => $request->username,
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'pending_roles' => $roles,
-            'verified' => false
-        ]);
+        if ($user->role == $roles) {
+            $user->update([
+                'username' => $request->username,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+            ]);
 
-        return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Wait for the admin to approve your changes!']);
+            return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Profile changed!']);
+        }
+
+        else {
+            $user->update([
+                'username' => $request->username,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'pending_roles' => $roles,
+                'verified' => false
+            ]);
+
+            return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Wait for the admin to approve your changes!']);
+        }
+
+
     }
 
     /**

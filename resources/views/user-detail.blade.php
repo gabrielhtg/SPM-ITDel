@@ -1,4 +1,4 @@
-@php use App\Services\CustomConverterService; @endphp
+@php use App\Services\AllServices; @endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,8 +11,6 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
     <link rel="stylesheet"
           href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
@@ -76,13 +74,15 @@
                             </h3>
                             <div class="pt-2" style="margin-left: 5px">
                                 @if($user->online)
-                                    <i class="fas fa-circle text-success" style="font-size: 8px; padding-bottom: 20px"></i>
+                                    <i class="fas fa-circle text-success"
+                                       style="font-size: 8px; padding-bottom: 20px"></i>
                                 @else
-                                    <i class="fas fa-circle text-danger" style="font-size: 8px; padding-bottom: 20px"></i>
+                                    <i class="fas fa-circle text-danger"
+                                       style="font-size: 8px; padding-bottom: 20px"></i>
                                 @endif
                             </div>
                         </div>
-                        <p class="text-muted text-center">{{ app(CustomConverterService::class)->convertRole($user->role) }}</p>
+                        <p class="text-muted text-center">{{ app(AllServices::class)->convertRole($user->role) }}</p>
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
@@ -99,16 +99,16 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Role</b> <span
-                                        class="float-right">{{ app(CustomConverterService::class)->convertRole($user->role) }}</span>
+                                        class="float-right">{{ app(AllServices::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Starts On</b> <span
-                                        class="float-right">{{ CustomConverterService::convertTime($user->created_at) }}</span>
+                                        class="float-right">{{ AllServices::convertTime($user->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->ends_on !== null)
                                         <b>Ends On</b> <span
-                                            class="float-right">{{ CustomConverterService::convertTime($user->ends_on) }}</span>
+                                            class="float-right">{{ AllServices::convertTime($user->ends_on) }}</span>
                                     @else
                                         <b>Ends On</b> <span
                                             class="float-right">-</span>
@@ -117,28 +117,30 @@
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Last Login</b> <span class="float-right">
                                         @if($user->last_login_at !== null)
-                                            {{ CustomConverterService::getLastLogin($user->last_login_at) }}
+                                            {{ AllServices::getLastLogin($user->last_login_at) }}
                                         @else
                                             -
                                         @endif
                                     </span>
                                 </li>
-                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>IP Address</b> <span class="float-right">
+                                @if(AllServices::isCurrentRole("Admin"))
+                                    <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
+                                        <b>IP Address</b> <span class="float-right">
                                         @if($user->ip_address !== null)
-                                            {{ $user->ip_address }}
-                                        @else
-                                            -
-                                        @endif
+                                                {{ $user->ip_address }}
+                                            @else
+                                                -
+                                            @endif
                                     </span>
-                                </li>
+                                    </li>
+                                @endif
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if($user->status)
                                         <b>Account Status</b> <span
-                                            class="float-right text-success text-bold">{{ CustomConverterService::convertStatus($user->status) }}</span>
+                                            class="float-right text-success text-bold">{{ AllServices::convertStatus($user->status) }}</span>
                                     @else
                                         <b>Status</b> <span
-                                            class="float-right text-danger text-bold">{{ CustomConverterService::convertStatus($user->status) }}</span>
+                                            class="float-right text-danger text-bold">{{ AllServices::convertStatus($user->status) }}</span>
                                     @endif
 
                                 </li>
@@ -146,10 +148,13 @@
                         </div>
                     </div>
 
-                    <div class="d-flex justify-content-center">
-                        <a class="btn btn-primary mb-3" href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
-                            IP Address</a>
-                    </div>
+                    @if(AllServices::isCurrentRole("Admin"))
+                        <div class="d-flex justify-content-center">
+                            <a class="btn btn-primary mb-3"
+                               href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
+                                IP Address</a>
+                        </div>
+                    @endif
                 </div>
 
             </div>

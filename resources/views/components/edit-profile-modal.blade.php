@@ -61,7 +61,7 @@
                                     <option value="{{ $e->id }}">{{ $e->role }}</option>
                                 @endif
                             @endforeach
-                            <option value="{{ 0 }}">All</option>
+{{--                            <option value="{{ 0 }}">Public</option>--}}
                         </select>
                     </div>
                     <input type="hidden" name="id" value="{{ auth()->user()->id }}">

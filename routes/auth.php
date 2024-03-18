@@ -10,6 +10,8 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
@@ -38,65 +40,80 @@ Route::middleware('guest')->group(function () {
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
-
-
-
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('verify-email', EmailVerificationPromptController::class)
-                ->name('verification.notice');
+    Route::middleware('checkDocumentActive')->group(function () {
+        Route::get('verify-email', EmailVerificationPromptController::class)
+            ->name('verification.notice');
 
-    Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
+        Route::get('verify-email/{id}/{hash}', VerifyEmailController::class)
+            ->middleware(['signed', 'throttle:6,1'])
+            ->name('verification.verify');
 
-    Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
+        Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
+            ->middleware('throttle:6,1')
+            ->name('verification.send');
 
-    Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->name('password.confirm');
+        Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
+            ->name('password.confirm');
 
-    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
+        Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
-    Route::put('password', [PasswordController::class, 'update'])->name('password.update');
+        Route::put('password', [PasswordController::class, 'update'])->name('password.update');
 
-    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+        Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+            ->name('logout');
 
-    Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+        Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
 
-    Route::delete('remove-user', [UserController::class, 'removeUser'])->name('remove-user');
+        Route::delete('remove-user', [UserController::class, 'removeUser'])->name('remove-user');
 
-    Route::get('/register-invitation', [RegisteredUserController::class, 'sendRegisterInvitationLink'])->name('register-invitation');
+        Route::get('/register-invitation', [RegisteredUserController::class, 'sendRegisterInvitationLink'])->name('register-invitation');
 
-    Route::delete('/delete-invitation', [RegisteredUserController::class, 'deleteInvitation'])->name('delete-invitation');
+        Route::delete('/delete-invitation', [RegisteredUserController::class, 'deleteInvitation'])->name('delete-invitation');
 
-    Route::delete('/clear-invitation', [RegisteredUserController::class, 'clearInvitation'])->name('clear-invitation');
+        Route::delete('/clear-invitation', [RegisteredUserController::class, 'clearInvitation'])->name('clear-invitation');
 
-    Route::post('/accept-register-request', [RegisteredUserController::class, 'acceptRegisterRequest'])->name('accept-register-request');
-    Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
+        Route::post('/accept-register-request', [RegisteredUserController::class, 'acceptRegisterRequest'])->name('accept-register-request');
+        Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-    Route::post('/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+        Route::post('/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
 
-    Route::get('/change-profile-pict', [ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
+        Route::get('/change-profile-pict', [ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
 
-    Route::post('/upload-profile-pict', [ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
+        Route::post('/upload-profile-pict', [ProfileController::class, 'uploadProfilePict'])->name('uploadProfilePict');
 
-    Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
-    Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
+        Route::post('/upload-file', [DocumentController::class, 'uploadFile'])->name('uploadFile');
+        Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
+        Route::get('/document-add', [DocumentController::class, 'getDocumentManagementAdd'])->name('documentAdd');
+        Route::get('/document/{id}/edit', [DocumentController::class, 'getDocumentManagementEdit'])->name('document.edit');
+        /**
+         * Route ini digunakan untuk mendapatkan halaman user detail
+         */
+        Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
 
-    Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
-    Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
+        /**
+         * --------------DEPRECATED-----------------
+         *
+         * Method ini digunakan untuk mengembalikan akun yang sudah dinonaktifkan.
+         */
+        Route::post("/restore-account", [UserController::class, 'restoreAccount'])->name('restoreAccount');
 
-    Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
 
-    Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
-    Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
-    Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
-    Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
+        Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
+        Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');
 
-    Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+
+        Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
+        Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
+        Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
+        Route::post('/add-list-allowed-user', [ListAllowedUserController::class, 'addAllowedUser'])->name('addAllowedUser');
+
+        Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
+
+        Route::post('/add-role', [RoleController::class, 'addRole'])->name('addRole');
+        Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
+    });
 });

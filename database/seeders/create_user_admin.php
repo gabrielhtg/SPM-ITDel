@@ -28,7 +28,7 @@ class create_user_admin extends Seeder
                 'phone' => '082165646255',
                 'created_at' => now(),
                 'verified' => true,
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Gabriel Cesar Hutagalung',
@@ -41,7 +41,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 49,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => 'src/img/profil_gabriel.png'
             ],
             [
                 'name' => 'David Vincent Gurning',
@@ -62,12 +62,12 @@ class create_user_admin extends Seeder
                 'username' => 'aldo',
                 'phone' => '082122232425',
                 'online' => false,
-                'password' => Hash::make("a dmin"),
+                'password' => Hash::make("admin"),
                 'status' => true,
                 'verified' => true,
                 'role' => 1,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Dr. Johannes Harungguan Sianipar, S.T., M.T.',
@@ -80,7 +80,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 2,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Rosni Lumbantoruan, ST, M.ISD,Ph.D',
@@ -93,7 +93,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 22,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Humasak Tommy Argo Simanjuntak, ST, M.ISD',
@@ -106,7 +106,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 29,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Mariana Simanjuntak, S.S, M.Sc',
@@ -119,7 +119,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 10,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Indra Hartarto Tambunan, ST., M.S.,Ph.D',
@@ -132,7 +132,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 3,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Riyanthi Angrainy Sianturi, S.Sos, M.Ds',
@@ -145,7 +145,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 3,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si',
@@ -158,7 +158,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 3,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Dr. Merry Meryam Martgrita, S.Si., M.Si',
@@ -171,7 +171,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 3,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Parmonangan Rotua Togatorop, S.Kom., M.T.I',
@@ -184,7 +184,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 34,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Arie Satia Dharma, S.T, M.Kom',
@@ -197,7 +197,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Samuel Indra Gunawan Situmeang, S.Ti., M.Sc.',
@@ -210,7 +210,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Guntur Purba Siboro, S.T, M.T',
@@ -223,7 +223,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Josua Boyke William Jawak, ST., M.Ds',
@@ -236,7 +236,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Ardiles Sinaga, S.T., M.T.',
@@ -249,7 +249,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Eka Stephani Sinambela, SST., M.Sc',
@@ -262,7 +262,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Goklas Henry Agus Panjaitan, S.Tr.Kom',
@@ -275,7 +275,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 7,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Yoke Aprilia Purba S.Kom',
@@ -288,7 +288,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 12,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Anggiat Saud Parulian, S.Tr.Kom.',
@@ -301,7 +301,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 11,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Oka Simatupang, S.Sos',
@@ -314,7 +314,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 11,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Monalisa Pasaribu, S.S, M.Ed (TESOL)',
@@ -327,7 +327,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 21,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Rentauli Mariah Silalahi, S.Pd, M. Ed',
@@ -340,7 +340,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 21,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Rusneni Vitaria',
@@ -353,7 +353,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 26,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Natal Sijabat',
@@ -366,7 +366,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 26,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Dr. Arlinta Christy Barus S.T., M.InfoTech',
@@ -379,7 +379,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 47,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Iustisia Natalia Simbolon, S.Kom.,M.T',
@@ -392,7 +392,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 47,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Ranty Deviana Siahaan, S.Kom, M.Eng.',
@@ -405,7 +405,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 47,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Herimanto, S.Kom., M.Kom',
@@ -418,7 +418,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 47,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Junita Amalia, S.Pd, M.Si',
@@ -431,7 +431,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 4,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Mario Elyezer Subekti Simaremare, S.Kom., M.Sc',
@@ -444,7 +444,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 48,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Tennov Simanjuntak, S.T, M.Sc.',
@@ -457,7 +457,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 48,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Albert Sagala, S.T, M.T',
@@ -470,7 +470,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 46,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Deni P. Lumbantoruan, S.T, M.Eng., Ph.D.',
@@ -483,7 +483,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 46,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Good Fried Panggabean, ST, MT, Ph.D',
@@ -496,7 +496,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 46,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
             [
                 'name' => 'Philippians Manurung, S.T., M.T.',
@@ -509,7 +509,7 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 46,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/useradmin_profile.png'
+                'profile_pict' => null
             ],
 
 

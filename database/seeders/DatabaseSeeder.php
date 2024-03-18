@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use DokumenSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -22,7 +23,6 @@ class DatabaseSeeder extends Seeder
             create_user_admin::class,  
             createFakePasswordResetRequest::class,  
             createRole::class,
-            create_dashboard_introduction::class,
             allowedUser::class
         ]);
     }
