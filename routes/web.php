@@ -30,12 +30,12 @@ Route::get('/', function () {
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 
 Route::get('/dashboard', function () {
+
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
 Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
 Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
-
 Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -52,8 +52,25 @@ Route::middleware('auth')->group(function () {
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+    Route::get('/deletenews/detail/{id}', [AnnouncementController::class, 'deletenews'])->name('deletenews');
+    Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
     
-    Route::get('/deletenews/detail/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
+    // about it del 
+    Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
+    Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout');
+    Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
+    // Route::get('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
+    Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');
+    Route::post('/updatedashboard/{id}', [DashboardController::class, 'updatedashboard'])->name('dashboard-introduction-udpate');
+    Route::get('/deletedashboard/detail/{id}', [DashboardController::class, 'deletedashboard'])->name('dashboard-introduction-delete');
+    
+    // herosection 
+    Route::get('/dashboard-herosection', [HerodashboardController::class, 'indexherosection'])->name('herosection');
+    Route::post('/dashboard-herosection', [HeroDashboardController::class, 'storeherosection'])->name('dashboard-herosection-add');
+    Route::get('/herosection/detail/{id}', [HeroDashboardController::class, 'getDetailherosection'])->name('herosection-detail');
+    Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
+    Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
+
     
 });
 
