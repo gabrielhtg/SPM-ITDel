@@ -48,11 +48,9 @@
 
 
                 @if(Auth::check())
-                    
-
-                    <li class="nav-item">
+g                    <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="fas fa-users-cog"></i>
+                            <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Users Settings
                                 <i class="fas fa-angle-left right"></i>
@@ -84,7 +82,7 @@
                     </a>
                 </li>
 
-                
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -3,7 +3,7 @@
 </button>
 
 <div class="modal fade" id="modal-role">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Manage Role</h4>
@@ -22,8 +22,9 @@
                     </form>
                 </div>
 
-                <table class="table table-striped table-bordered">
-                    <thead>
+                <div>
+                    <table id="table-role" class="table table-striped table-bordered">
+                        <thead>
                         <tr>
                             <th>
                                 Role
@@ -32,8 +33,8 @@
                                 Action
                             </th>
                         </tr>
-                    </thead>
-                    <tbody>
+                        </thead>
+                        <tbody>
                         @foreach($roles as $e)
                             <tr>
                                 <td>
@@ -77,8 +78,9 @@
                                 </td>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
