@@ -16,21 +16,21 @@
                     @csrf
                     {{-- input title --}}
                     <div class="form-group mt-1">
-                        <label for="judul">Judul News</label>
-                        <input type="text" name="judul" id="judul" class="form-control" required>
+                        <label for="title">Judul News</label>
+                        <input type="text" name="title" id="title" class="form-control" required>
                     </div>
 
                     {{-- input konten --}}
-                    <label for="summernote">Keterangan Berita</label>
-                    <textarea class="summernote" name="isinews"></textarea>
+                    <label for="description">Keterangan Berita</label>
+                    <textarea class="summernote" name="description"></textarea>
 
-                    {{-- input file --}}
+                    {{-- input gambar latar belakang --}}
                     <div class="form-group">
                         <label for="exampleInputFile">Gambar input</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="gambar" name="gambar">
-                                <label class="custom-file-label" for="gambar">Choose file</label>
+                                <input type="file" class="custom-file-input" id="bgimage" name="bgimage">
+                                <label class="custom-file-label" for="bgimage">Choose file</label>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,6 @@
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="submit" form="form-addNews" class="btn btn-primary">Save Changes</button>
-
             </div>
         </div>
         <!-- /.modal-content -->
@@ -48,8 +47,8 @@
 </div>
 
 <script>
-    document.getElementById('gambar').addEventListener('change', function(e) {
-        var fileName = document.getElementById('gambar').files[0].name;
+    document.getElementById('bgimage').addEventListener('change', function(e) {
+        var fileName = document.getElementById('bgimage').files[0].name;
         var nextSibling = e.target.nextElementSibling;
         nextSibling.innerText = fileName;
     });

@@ -137,85 +137,55 @@
       </section>
     {{-- @endisset --}}
       
-    <section id="news-view1" class="">
-      <div class="container" data-aos="fade-up">
-        <div class="col-sm-6">
-          <h1 class="ml-1">Berita SPM IT Del</h1>
-          {{-- <a href="#">selengkapnya</a> --}}
-      </div>
-      <div class="container-fluid py-2">
-        <div class="container py-5 border rounded">
-          @if(!empty($guestBigNews->gambar))
-            <div class="row g-4">
-                <div class="col-lg-5 col-xl-7 mt-0">
-                    <div class="position-relative overflow-hidden rounded">
-                      
-                        <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin w-100" style="width: 200px; height: 500px;" alt="">
+    <section id="news-view1" class="p-5">
+      <div class="container p-4">
+        <h1 class="mb-3">Berita SPM IT Del</h1>
+        <div class="border rounded p-3">
 
-                    </div>
-                    <div class="px-3">
-                        <p class="mt-3 fst-italic">
-                          {{ $guestBigNews->created_at->format('Y-m-d') }}
-                        </p>
-                        <a href="{{ route('news-layout-user', ['id' => $guestBigNews->id]) }}" class="text-dark mb-0 link-hover">
-                          <h2>{{ $guestBigNews->judul }}</h2>
-                        </a>
-                        
-                        <p class="text-justify">
-                          @if (str_word_count($guestBigNews->isinews) > 60)
-                              {!! substr($guestBigNews->isinews, 0, 500) !!} ...
-                          @else
-                              {!! $guestBigNews->isinews !!}
-                          @endif
-                          {{-- {!! $guestBigNews->isinews !!} --}}
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-5 col-xl-5">
-                   <div class="bg-light rounded p-4 pt-0">
-                        <div class="row g-4">
-                          @forelse($guestNews as $e)
-                            @if ($loop->index != 0)
-                              <div class="col-12">
-                                  <div class="row g-4 align-items-center">
-                                      <div class="col-5">
-                                        <div class="overflow-hidden rounded m-1" style="height: 100px; /* Sesuaikan dengan tinggi yang diinginkan */">
-                                          <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
-                                        </div>
-                                          {{-- <div class="overflow-hidden rounded">
-                                              <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" alt="">
-                                          </div> --}}
-                                      </div>
-                                      <div class="col-7">
-                                          <div class="features-content d-flex flex-column">
-                                              <a href="#" class="h6 font-weight-bold">{{ $e->judul }}</a>
-                                              <small><i class="">{{ $e->created_at->format('Y-m-d') }}</i> </small>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
+          <div class="row">
+
+            @forelse($guestNews as $e)
+
+            <div class="col-sm-6 ">
+              <div class="card" style="max-height: 390px; min-height: 390px; position: relative;">
+                <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;">
+                <div class="card-body" style="padding: 10px; position: relative;">
+                    <h5 class="card-title mb-1">{{ $e->title }}</h5>
+                    <p class="card-text text-secondary mb-1">{{ $e->created_at->format('Y-m-d') }}</p>
+                    <p class="card-text">
+                        @php
+                            $description = $e->description;
+                            // Memeriksa apakah teks mengandung tag <table> atau tag <img>
+                            $containsTable = preg_match('/<table\b[^>]>(.?)<\/table>/s', $description);
+                            $containsImage = preg_match('/<img\b[^>]*>/', $description);
+                        @endphp
+                        @if (!$containsTable && !$containsImage && !empty(trim(strip_tags($e->description))))
+                            {{-- {!! $e->description !!} --}}
+                            @if (str_word_count($e->description) > 10)
+                                {!! substr($e->description, 0, 110) !!} ...
+                            @else
+                                {!! $e->description !!}
                             @endif
-                          @empty
-                            {{-- tidak ada data --}}
-                          @endforelse
-                        </div>
-                        
-                      </div>
-                      <div class="text-end" style="margin:20px;">
-                        <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">See more...</a>
-                      </div>
-                      
+                        @endif
+                    </p>
+                    <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="btn btn-primary" style="position: absolute; bottom: 10px; left: 10px;">See more ...</a>
                 </div>
+              </div>
             </div>
+
+            @empty
+                  
+            @endforelse
+
+          </div>
+
+          <div class="text-end">
+            <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">View All News</a>
+          </div>
+          
         </div>
-        @else
-        <div class="text-center">
-          <h1>Berita Tidak Tersedia</h1>
-        </div>
-        @endif
       </div>
-      </div>
-    </section><!-- End About Section -->
+    </section>
     <!-- /.content-wrapper -->
     
     @include('components.guessfooter')

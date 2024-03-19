@@ -61,14 +61,15 @@
                 <th style="vertical-align: center;">
                     <div class="col-5">
                         <div class="overflow-hidden rounded m-3" style="height: 150px; width: 200px; /* Sesuaikan dengan lebar yang diinginkan */">
-                            <img src="{{ asset('src/gambarnews/'.$e->gambar) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
+                            <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
                         </div>
                     </div>
                 </th>
                 <th style="vertical-align: center; padding-left: 10px; width: 850px">
                     <div class="col-7">
+                      
                         <div class="features-content d-flex flex-column">
-                            <a href="#" class="h3 font-weight-bold">{{ $e->judul }}</a>
+                            <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="h3 font-weight-bold">{{ $e->title }}</a>
                             <small><i class="">{{ $e->created_at }}</i></small>
                         </div>
                     </div>

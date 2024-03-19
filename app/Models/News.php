@@ -11,9 +11,8 @@ class News extends Model
 
     protected $table = "news";
     protected $fillable = [
-        'judul',
-        'isinews',
-        'gambar',
+        'title',
+        'description',
+        'bgimage',
     ];
-
 }

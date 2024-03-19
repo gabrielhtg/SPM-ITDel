@@ -50,7 +50,7 @@
             <div class="card-body">
                 <section class="content" id="main-content">
                     <div class="page-header">
-                        <h2>{{ $newsDetail->judul }}</h2>
+                        <h2>{{ $newsDetail->title }}</h2>
                     </div>
 
                     <div class="pengumuman-view">
@@ -58,14 +58,13 @@
                             <div class="row">
                                 <div class="col-sm-10 mt-4">
                                     <div class="box box-solid">
-                                        <img src="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}"
-                                             alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
+                                        <img src="{{ asset('src/gambarnews/'.$newsDetail->bgimage) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
                                     </div>
                                 </div>
                                 <div id="grid-system1" class="col-sm-10 mt-2">
                                     <div class="box box-solid">
                                         <div id="grid-system1-body" class="box-body">
-                                            {!! $newsDetail->isinews !!}
+                                            {!! $newsDetail->description !!}
                                         </div>
                                     </div>
                                 </div>
@@ -73,33 +72,6 @@
                                 <div id="grid-system2" class="col-sm-12 mt-5">
                                     <div class="box box-solid">
                                         <div id="grid-system2-body" class="box-body">
-                                            <table class="table">
-                                                <thead>
-                                                <tr>
-                                                    <th>Nama File:</th>
-                                                    <th>Size:</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <a href="{{ asset('src/gambarnews/'.$newsDetail->gambar) }}"
-                                                           target="_blank">
-                                                            {{ $newsDetail->gambar }}
-                                                        </a>
-
-                                                    </td>
-                                                    <td>
-                                                        @if($fileSizeInMB < 1)
-                                                            {{ $fileSizeInKB }} KB
-                                                        @else
-                                                            {{ $fileSizeInMB }} MB
-                                                        @endif
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-
                                             <div style="border-top: 3px solid red; padding-top: 10px; margin-top:200px;">
                                                 <div style="">
                                                     {{ $newsDetail->created_at->format('Y-m-d H:i:s') }}

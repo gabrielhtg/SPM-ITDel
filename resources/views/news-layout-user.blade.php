@@ -34,24 +34,24 @@
     <section id="news-view1" class="">
         <div class="container" data-aos="fade-up">
             <div class="col-sm-6">
-                <h1 class="ml-1">{{ $guestBigNews->judul }}</h1>
+                <h1 class="ml-1">{{$newsdetail->title }}</h1>
                 <p class="mt-3 fst-italic" style="martin-left:5px" >
                 <hr class="mx-2" style="border-top: 3px solid black; width: 200%;">
-                    {{ $guestBigNews->created_at->format('Y-m-d') }}
+                    {{ $newsdetail->created_at->format('Y-m-d') }}
                 </p>
                 <hr class="mx-2" style="border-top: 3px solid black; width: 200%;">
             </div>
         
        
-            @if(!empty($guestBigNews->gambar))
+            @if(!empty($newsdetail->bgimage))
                     <div class="position-relative overflow-hidden rounded">
-                        <img src="{{ asset('src/gambarnews/'.$guestBigNews->gambar) }}" class="img-fluid rounded img-zoomin" style="width: 100vw; height: 400px; object-fit: contain;" alt="">
+                        <img src="{{ asset('src/gambarnews/'.$newsdetail->bgimage) }}" class="img-fluid rounded img-zoomin" style="width: 100vw; height: 400px; object-fit: contain;" alt="">
                     </div>
                     
                     <hr class="mx-1" style="border-top: 3px solid black; width: auto;">
 
                     <div class="">
-                        {!! $guestBigNews->isinews !!}
+                        {!! $newsdetail->description !!}
                     </div>
 
             @else

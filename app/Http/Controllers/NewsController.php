@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
+use DOMDocument;
 
 class NewsController extends Controller
 {
@@ -78,32 +79,40 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'judul' => 'required',
-            'isinews' => 'required',
-            'gambar' => 'required|file|mimes:jpeg,png,jpg|max:5120',
-        ]);
-    
+        $description = $request->description;
+
+        $dom = new DOMDocument();
+        $dom->loadHTML($description, 9);
+
+        $images = $dom->getElementsByTagName('img');
+
+        foreach ($images as $key => $img) {
+            $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
+            $image_name = "/src/newsimg/" . time() . $key . 'png';
+            file_put_contents(public_path() . $image_name, $data);
+
+            $img->removeAttribute('src');
+            $img->setAttribute('src', $image_name);
+        }
+
+        $description = $dom->saveHTML();
+
         // Periksa apakah ada file gambar yang diunggah
-        if ($request->hasFile('gambar')) {
+        if ($request->hasFile('bgimage')) {
             // Mendapatkan nama file asli
-            $gambarnews = $request->file('gambar')->getClientOriginalName();
-            
+            $gambarnews = $request->file('bgimage')->getClientOriginalName();
+
             // Pindahkan file gambar ke direktori yang ditentukan
-            $request->file('gambar')->move(public_path('src/gambarnews'), $gambarnews);
-    
+            $request->file('bgimage')->move(public_path('src/gambarnews'), $gambarnews);
+
             // Simpan data pengumuman ke dalam database
             News::create([
-                'judul' => $request->judul,
-                'isinews' => $request->isinews,
-                'gambar' => $gambarnews,
+                'title' => $request->title,
+                'description' => $request->description,
+                'bgimage' => $gambarnews,
             ]);
-    
+
             return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to add news']);
-        } else {
-            // Handle kasus ketika gambar kosong
-            // Sesuaikan pesan error sesuai kebutuhan Anda
-            return redirect('news')->with('error', 'news input must be jpeg, png, and jpg ');
         }
     }
     
@@ -142,6 +151,17 @@ class NewsController extends Controller
         ]);
     }
 
+    
+    public function getDetailnews($id)
+    {
+        $newsdetail = News::find($id);
+       
+        // Mengirimkan data pengumuman beserta ukuran file ke tampilan
+        return view('news-layout-user', [
+            'newsdetail' =>  $newsdetail
+        ]);
+    }
+
     public function getDetaillayoutuser($id)
     {
         
@@ -176,54 +196,91 @@ class NewsController extends Controller
 
     public function updatenews(Request $request, $id)
     {
-        // Validasi input
-        $request->validate([
-            'judul' => 'required',
-            'isinews' => 'required',
-            'gambar' => 'nullable|file|mimes:jpeg,png,jpg|max:5120',
-        ]);
+        // Temukan data news berdasarkan ID
+        $news = News::find($id);
 
-        // Cari data pengumuman yang akan diupdate
-        $data = News::find($id);
-
-        if (!$data) {
-            return redirect()->route('news')->with('error', 'Berita tidak ditemukan.');
+        // Jika data tidak ditemukan, kembalikan response dengan status 404 (Not Found)
+        if (!$news) {
+            return response()->json(['message' => 'News not found'], 404);
         }
 
-        // Jika ada file baru yang diunggah, lakukan proses penghapusan dan pembaruan file
-        if ($request->hasFile('gambar')) {
-            $fileAncPath = public_path('src/gambarnews/') . $data->gambar;
+        // Mengambil deskripsi dari request
+        $description = $request->description;
 
-            // Hapus file lama jika ada
-            if (File::exists($fileAncPath)) {
-                File::delete($fileAncPath);
+        // Membuat objek DOMDocument untuk memanipulasi HTML
+        $dom = new DOMDocument();
+        $dom->loadHTML($description, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // Mengambil semua elemen gambar dari deskripsi
+        $images = $dom->getElementsByTagName('img');
+
+        // Melakukan iterasi untuk setiap gambar
+        foreach ($images as $key => $img) {
+            // Check if the image is a new one
+            if (strpos($img->getAttribute('src'), 'data:image/') === 0) {
+                $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
+                $image_name = "/src/newsimg/" . time() . $key . '.png';
+                file_put_contents(public_path() . $image_name, $data);
+
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $image_name);
+            }
+        }
+
+        // Menyimpan kembali deskripsi yang telah diubah
+        $description = $dom->saveHTML();
+
+        // Jika ada file bgimage yang diunggah
+        if ($request->hasFile('bgimage')) {
+            // Mendapatkan nama file asli
+            $gambarnews = $request->file('bgimage')->getClientOriginalName();
+
+            // Pindahkan file bgimage ke direktori yang ditentukan
+            $request->file('bgimage')->move(public_path('src/gambarnews'), $gambarnews);
+
+            // Hapus gambar lama jika ada
+            if ($news->bgimage) {
+                $imagePath = public_path('src/gambarnews/' . $news->bgimage);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
 
-            // Simpan file yang baru diunggah
-            $gambarnews = $request->file('gambar')->getClientOriginalName();
-            $request->file('gambar')->move(public_path('src/gambarnews'), $gambarnews);
-
-            // Update data dengan file yang baru
-            $data->gambar = $gambarnews;
+            // Simpan nama file bgimage baru
+            $news->bgimage = $gambarnews;
         }
-        // Update data pengumuman dengan informasi yang baru
-        $data->judul = $request->judul;
-        $data->isinews = $request->isinews;
-        $data->save();
 
-        return redirect()->route('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to update news']);
+        // Update data news
+        $news->title = $request->title;
+        $news->description = $description;
+        $news->save();
 
+        // Redirect ke halaman news dengan pesan sukses
+        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Successfully updated news']);
     }
 
     public function deletenews($id)
     {
         $news = News::find($id);
 
-        $fileAncPath = public_path('src/gambarnews/') . $news->file;
+        $dom = new DOMDocument();
+        $dom->loadHTML($news->description, 9);
+        $images = $dom->getElementsByTagName('img');
 
-        if (File::exists($fileAncPath)) {
-            File::delete($fileAncPath);
+        foreach ($images as $key => $img) {
+            $path = $img->getAttribute('src');
+
+            if (File::exists($path)) {
+                File::delete($path);
+            }
         }
+
+        $bgimageDel = public_path('src/gambarnews/') . $news->bgimage;
+
+        if (File::exists($bgimageDel)) {
+            File::delete($bgimageDel);
+        }
+
         $news->delete();
 
         return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);

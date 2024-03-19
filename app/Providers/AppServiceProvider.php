@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer('*', function ($view) {
             $newAnnouncement = Announcement::latest()->take(5)->get();
-            $guestNews = News::latest()->take(1)->get();
+            $guestNews = News::latest()->take(6)->get();
             $guestHero = HeroDashboard::latest()->take(1)->get();
             $guestIntroduction = Dashboard::latest()->take(1)->get();
             $guestBigNews = News::latest()->first();
