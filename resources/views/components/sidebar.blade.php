@@ -77,14 +77,7 @@
                     </a>
                 </li>
 
-                <li class="nav-item">
-                    <a href="{{ route('announcement') }}" class="nav-link">
-                        <i class="nav-icon fas fa-bell"></i>
-                        <p>
-                            Announcement
-                        </p>
-                    </a>
-                </li>
+                
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

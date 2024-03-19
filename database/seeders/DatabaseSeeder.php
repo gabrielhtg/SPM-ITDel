@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             create_user_admin::class,  
             createFakePasswordResetRequest::class,  
             createRole::class,
-            allowedUser::class
+            allowedUser::class,
+            create_dashboard_introduction::class,
         ]);
     }
 }

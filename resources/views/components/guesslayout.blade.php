@@ -92,7 +92,7 @@
                     <div class="fa-3x fas fa-chalkboard-teacher mb-2 counter-icon"></div>
                     <div class="text-center ">
                       <div id="teacherCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Teachers</div> <!-- Perbesar font size untuk label -->
+                      <div class="counter-label fade-in">Mahasiswa</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
@@ -101,7 +101,7 @@
                     <div class="fa-3x fas fa-user mb-2 counter-icon"></div>
                     <div class="text-center ">
                       <div id="memberCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Members</div> <!-- Perbesar font size untuk label -->
+                      <div class="counter-label fade-in">Dosen</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
@@ -110,16 +110,16 @@
                     <div class="fa-3x fas fa-building mb-2 counter-icon"></div>
                     <div class="text-center ">
                       <div id="facultyCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Faculties</div> <!-- Perbesar font size untuk label -->
+                      <div class="counter-label fade-in">Fakultas</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
                 <div class="col-md-3">
                   <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
                     <div class="fa-3x fas fa-graduation-cap mb-2 counter-icon"></div>
-                    <div class="text-center ">
+                    <div class="text-center" style="padding-bottom:8px">
                       <div id="departmentCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Departments</div> <!-- Perbesar font size untuk label -->
+                      <div class="counter-label fade-in" style="font-size: 18px ">Program Studi</div> <!-- Perbesar font size untuk label -->
                     </div>
                   </div>
                 </div>
@@ -298,10 +298,10 @@ function animateValue(id, start, end, duration) {
   }
 
   function startCounters() {
-    animateValue("teacherCount", 0, 18, 3000);
-    animateValue("memberCount", 0, 9, 3000);
-    animateValue("facultyCount", 0, 18, 3000);
-    animateValue("departmentCount", 0, 18, 3000);
+    animateValue("teacherCount", 0, 1500, 3000);
+    animateValue("memberCount", 0, 71, 3000);
+    animateValue("facultyCount", 0, 4, 3000);
+    animateValue("departmentCount", 0, 9, 3000);
   }
 
   window.addEventListener('load', startCounters);

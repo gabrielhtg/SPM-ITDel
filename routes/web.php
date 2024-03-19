@@ -43,17 +43,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
     Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
-    Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
-    Route::post('/announcement', [AnnouncementController::class, 'store'])->name('announcement.add');
-    Route::get('/announcement/detail/{id}', [AnnouncementController::class, 'getDetail'])->name('announcement.detail');
-    Route::post('/updateannouncement/{id}', [AnnouncementController::class, 'updateannouncement'])->name('announcement.edit');
-    Route::get('/deleteannouncement/detail/{id}', [AnnouncementController::class, 'deleteannouncement'])->name('announcement.delete');
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
-    Route::get('/deletenews/detail/{id}', [AnnouncementController::class, 'deletenews'])->name('deletenews');
-    Route::get('/announcement', [AnnouncementController::class, 'getAnnouncement'])->name('announcement');
+
     
     // about it del 
     Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');

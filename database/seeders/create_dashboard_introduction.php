@@ -33,7 +33,7 @@ class create_dashboard_introduction extends Seeder
         DB::table('hero_dashboard')->insert([
             'judulhero' => 'SPM IT DEL',
             'tambahanhero' => 'Ini Merupakan Website SPM IT DEL',
-            'gambarhero' => '../walpeper/header_admisi.jpg',
+            'gambarhero' => '../walpeper/home.JPG',
         ]);
     }
 }

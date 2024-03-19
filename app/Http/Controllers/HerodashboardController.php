@@ -38,7 +38,7 @@ class HerodashboardController extends Controller
         $request->validate([
             'judulhero' => 'required',
             'tambahanhero' => 'required',
-            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:5120',
+            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
         ]);
 
         // Inisialisasi nama file dengan string kosong
@@ -103,7 +103,7 @@ class HerodashboardController extends Controller
         $request->validate([
             'judulhero' => 'required',
             'tambahanhero' => 'required',
-            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:5120',
+            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
         ]);
         // Cari data pengumuman yang akan diupdate
         $data = HeroDashboard::find($id);
