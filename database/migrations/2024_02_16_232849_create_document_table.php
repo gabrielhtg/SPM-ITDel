@@ -30,6 +30,7 @@
                         $table->boolean('keterangan_status')->default(true);
                         $table->boolean('can_see_by')->default(true);
                         $table->string('link')->nullable();
+                        $table->boolean('keterangan_berlaku')->nullable();
                         $table->timestamps();
                     });
                 }

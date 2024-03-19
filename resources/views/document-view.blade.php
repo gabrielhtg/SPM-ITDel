@@ -79,97 +79,94 @@
         </div>
     </div>
 
-    <section>
-    <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <form class="form-inline">
-                    <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
-                </form>
-            </div>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <form class="form-inline">
+                <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
+            </form>
         </div>
     </div>
-</section>
+</div>
 
 <div class="container mt-3">
     <div class="row justify-content-center">
         <div class="col-md-12">
-            <div class="card">
+            <div class="card" style="border-radius: 30px;">
                 <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-borderless" style="width: 100%;">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th scope="col">Doc Number</th>
+                                    <th scope="col">Doc Name</th>
+                                    <th scope="col">Uploaded By</th>
+                                    <th scope="col">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach($documents as $e)
+                                    @if($e->give_access_to == 0)
+                                        <tr>
+                                            <td>{{ $e->nomor_dokumen }}</td>
+                                            <td>
+                                                <div class="user-panel d-flex">
+                                                    <div class="d-flex align-items-center">
+                                                        @if(strlen($e->name) > 75)
+                                                            <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ substr($e->name, 0, 75) }}...</a>
+                                                        @else
+                                                            <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ $e->name }}</a>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </td>
 
-                    <table id="example1" class="table table-bordered table-striped">
-                        <thead>
-                        <tr>
-                            <th>Doc Number</th>
-                            <th>Doc Name</th>
-                            <th>Uploaded By</th>
-                            <th>Status</th>
-                        </tr>
-                        @foreach($documents as $e)
-                            <tr>
-                                <td>{{ $e->nomor_dokumen }}</td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if(strlen($e->name) > 75)
-                                                {{ substr($e->name, 0, 75) }}...
-                                            @else
-                                                {{ $e->name }}
+                                            @if(\Illuminate\Support\Facades\Auth::check())
+                                                <td>
+                                                    <span class="d-block">
+                                                        @php
+                                                            $accessor = explode(";", $e->give_access_to);
+                                                        @endphp
+
+                                                        @foreach($accessor as $acc)
+                                                            <span class="badge badge-primary">
+                                                                @if($acc == 0)
+                                                                    All
+                                                                @else
+                                                                    {{ \App\Models\RoleModel::find($acc)->role }}
+                                                                @endif
+                                                            </span>
+                                                        @endforeach
+                                                    </span>
+                                                </td>
                                             @endif
-                                        </div>
-                                    </div>
-                                </td>
-                                @if(\Illuminate\Support\Facades\Auth::check())
-                                    <td>
-                                        <span class="d-block">
-                                            @php
-                                                $accessor = explode(";", $e->give_access_to);
-                                            @endphp
+                                            <td style="vertical-align: middle;">
+                                                <div class="user-panel d-flex">
+                                                    <div class="info">
+                                                        <span><span class="badge badge-success">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td style="vertical-align: middle;">
+                                                <div class="user-panel d-flex">
+                                                    <div class="info">
+                                                        {{ $e->keterangan_status == 0 ? 'Tidak Berlaku' : 'Berlaku' }}
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
 
-                                            @foreach($accessor as $acc)
-                                                <span class="badge badge-primary">
-                                                    @if($acc == 0)
-                                                        All
-                                                    @else
-                                                        {{ \App\Models\RoleModel::find($acc)->role }}
-                                                    @endif
-                                                </span>
-                                            @endforeach
-                                        </span>
-                                    </td>
-                                @endif
-                                <td>
-                                    <div class="user-panel d-flex">
-                                    <div class="info">
-                                        <span> <span
-                                                    class="badge badge-success"
-                                                    style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
-
-                                    </div>
-                                </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                            @php
-                                                if($e->keterangan_status == 0) {
-                                                    echo 'Tidak Berlaku';
-                                                } else {
-                                                    echo 'Berlaku';
-                                                }
-                                            @endphp
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        @endforeach
-                        </tbody>
-                    </table>
-
-                    @foreach ($documents as $e)
-
-
-                    @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -221,6 +218,7 @@
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
 <!-- AdminLTE for demo purposes -->
 {{--<script src="{{ asset("dist/js/demo.js") }}"></script>--}}
+
 
 </script>
 </body>
