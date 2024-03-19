@@ -85,7 +85,7 @@
                                                                         <textarea class="summernote" name="tambahanhero"></textarea>
                                                     
                                                                         <div class="form-group">
-                                                                            <label for="exampleInputFile">Walpeper Input</label>
+                                                                            <label for="exampleInputFile">Foto Hero</label>
                                                                             <div class="input-group">
                                                                                 <div class="custom-file">
                                                                                     <input type="file" class="custom-file-input" id="inputgambarwalpeper" name="gambarhero" value="{{ asset('src/walpeper/'.$e->gambarhero) }}">
