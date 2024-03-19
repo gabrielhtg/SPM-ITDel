@@ -72,7 +72,6 @@
                                                 @endif
 
                                                 <div class="form-group">
-                                                    @dump($document->tipe_dokumen)
                                                     <label>Document Number:</label>
                                                     <input type="text" name="nomor_dokumen" class="form-control" required value="{{$document->nomor_dokumen}}">
                                                 </div>
@@ -85,14 +84,13 @@
 
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
-
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                                         @foreach($documents as $type)
                                                             @if($type->created_by == auth()->user()->id && !$type->isReplaced()) <!-- Penambahan pengecekan apakah dokumen sudah digantikan -->
                                                                 @php
-                                                                    $document = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
+                                                                    $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
                                                                 @endphp
-                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $document ? '('.$document->jenis_dokumen.')' : '' }}</option>
+                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$tempg->jenis_dokumen.')' : '' }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>
@@ -128,8 +126,6 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-
-
 
                                             <div class="form-group">
                                                 <label>Give Access to:</label>
