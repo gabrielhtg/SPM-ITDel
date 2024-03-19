@@ -118,7 +118,7 @@
                                     </div>
                                 </div>
                                 @empty
-                                <a href="#" class="list-group-item list-group-item-action">Belum ada data pengumuman</a>
+                                <a href="#" class="list-group-item list-group-item-action">Belum ada data hero</a>
                                 @endforelse
             
                                 </tbody>
@@ -198,7 +198,7 @@
                                     </div>
                                 </div>
                                 @empty
-                                <a href="#" class="list-group-item list-group-item-action">Belum ada data pengumuman</a>
+                                <a href="#" class="list-group-item list-group-item-action">Belum ada data about</a>
                                 @endforelse
             
                                 </tbody>
