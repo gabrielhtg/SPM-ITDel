@@ -34,6 +34,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
+Route::get('/news/layoutdetail/{id}', [NewsController::class, 'getDetaillayoutuser'])->name('news-layout-user');
 Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
 Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 Route::middleware('auth')->group(function () {
@@ -47,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+    Route::get('deletenews/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
 
     
     // about it del 

@@ -157,9 +157,10 @@
                         <p class="mt-3 fst-italic">
                           {{ $guestBigNews->created_at->format('Y-m-d') }}
                         </p>
-                        <a href="#" class="text-dark mb-0 link-hover">
+                        <a href="{{ route('news-layout-user', ['id' => $guestBigNews->id]) }}" class="text-dark mb-0 link-hover">
                           <h2>{{ $guestBigNews->judul }}</h2>
                         </a>
+                        
                         <p class="text-justify">
                           @if (str_word_count($guestBigNews->isinews) > 60)
                               {!! substr($guestBigNews->isinews, 0, 500) !!} ...

@@ -71,6 +71,8 @@ class HerodashboardController extends Controller
 
         // Periksa apakah pengumuman ditemukan
         if (!$herosectiondetail) {
+            // $isEmpty = true;
+
             // Jika tidak ditemukan, kembalikan respons dengan pesan kesalahan atau redirect ke halaman lain
             return redirect()->route('dashboard-admin')->with('error', 'Pengumuman tidak ditemukan.');
         }
@@ -87,6 +89,7 @@ class HerodashboardController extends Controller
         $fileSizeInMB = number_format($fileSizeInMB, 2);
 
         $loggedInUserName = auth()->user()->name;
+        // $isEmpty = ;
 
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
         return view('dashboard-adminhero-detail', [
@@ -94,6 +97,7 @@ class HerodashboardController extends Controller
             'fileSizeInKB' => $fileSizeInKB,
             'fileSizeInMB' => $fileSizeInMB,
             'loggedInUserName' => $loggedInUserName,
+            // 'isEmpty' => $isEmpty,
         ]);
     }
 

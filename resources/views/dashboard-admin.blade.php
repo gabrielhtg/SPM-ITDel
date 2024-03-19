@@ -42,8 +42,10 @@
                     </h4>
                     <div class="card-body">
                         
-                        @include('components.add-dashboard-hero')
-                        
+                        @if ($guestHero->isEmpty())
+                            @include('components.add-dashboard-hero')
+                        @endif
+
                         <div class="list-group">
                             <table class="table">
                                 <tbody>
@@ -132,8 +134,10 @@
                     </h4>
                     <div class="card-body">
                         
-                        @include('components.add-dashboard-about')
-                        
+                        @if($dashboard->isEmpty())
+                            @include('components.add-dashboard-about')
+                        @endif
+
                         <div class="list-group">
                             <table class="table">
                                 <tbody>
