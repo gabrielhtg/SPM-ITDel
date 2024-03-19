@@ -24,7 +24,7 @@ img {
 }
 
 .background-under-navbar {
-    background-image: url("../img/IMG_6704.jpg"); /* Ganti dengan jalur gambar yang sesuai */
+    background-image: url("../img/bg.jpg"); /* Ganti dengan jalur gambar yang sesuai */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

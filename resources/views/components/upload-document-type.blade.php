@@ -1,4 +1,3 @@
-
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success2">
     <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document Type</span>
 </button>
@@ -16,20 +15,18 @@
                 <form id="form-register" method="POST" action="{{ route('uploadTypeDocument') }}">
                     @csrf
 
-                    <div class="input-group">
-                        <label for="jenis_dokumen">Document Type:</label>
+                    <div class="form-group">
+                        <label for="jenis_dokumen">Document Type</label>
                         <input type="text" name="jenis_dokumen" placeholder="Document Type" class="form-control" required>
                         <div class="invalid-feedback">Please provide a valid document type.</div>
                     </div>
-                    
-                    <div class="input-group">
-                        <label for="singkatan">Abbreviation:</label>
-                        <input type="text" name="singkatan" placeholder="Document Type" class="form-control" required>
+
+                    <div class="form-group">
+                        <label for="singkatan">Abbreviation</label>
+                        <input type="text" name="singkatan" placeholder="Abbreviation" class="form-control" required>
                         <div class="invalid-feedback">Please provide a valid abbreviation.</div>
                     </div>
-                    
-                    
-                
+
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Add</button>

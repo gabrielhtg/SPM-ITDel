@@ -44,38 +44,46 @@
                                 <!-- Detail document content -->
                                 <table class="table table-responsive">
                                     <tbody>
-                                    <tr>
-                                        <td class="bold col-2" style="font-size: 20px; font-weight: bold;">Nama Dokumen</td>
-                                        <td class="bold" style="font-size: 18px;">{!! strlen($document->name) > 110 ? wordwrap($document->name, 110, "<br>", true) : $document->name !!}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Tipe Dokumen</td>
-                                        <td class="bold">{{ $document->tipe_dokumen }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Nomor</td>
-                                        <td class="bold">{{ $document->nomor_dokumen }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
-                                        <td class="bold">{{ $document->year }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">User Upload</td>
-                                        <td class="bold">{{ $uploadedUser->name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Created At</td>
-                                        <td class="bold">{{ $document->created_at }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Berlaku</td>
-                                        <td class="bold">{{ $document->expried_date }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="bold" style="font-size: 20px; font-weight: bold;">Status</td>
-                                        <td class="bold">{{ $document->status }}</td>
-                                    </tr>
+                                        <tr>
+                                            <td class="bold col-2" style="font-size: 20px; font-weight: bold;">Nama Dokumen</td>
+                                            <td class="bold" style="font-size: 18px;">{!! strlen($document->name) > 110 ? wordwrap($document->name, 110, "<br>", true) : $document->name !!}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tipe Dokumen</td>
+                                            <td class="bold">
+                                                @php
+                                                    $jenis_document = $jenis_dokumen->where('id', $document->tipe_dokumen)->first();
+                                                @endphp
+                                                {{ $jenis_document ? $jenis_document->jenis_dokumen : '' }}
+                                            </td>
+                                            
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Nomor</td>
+                                            <td class="bold">{{ $document->nomor_dokumen }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
+                                            <td class="bold">{{ $document->year }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">User Upload</td>
+                                            <td class="bold">{{ $uploadedUser->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Created At</td>
+                                            <td class="bold">{{ $document->start_date }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Status</td>
+                                            <td class="bold"> @php
+                                                if($document->keterangan_status == 0) {
+                                                    echo 'Tidak Berlaku';
+                                                } else {
+                                                    echo 'Berlaku';
+                                                }
+                                            @endphp</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
@@ -101,23 +109,25 @@
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
-                                                <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
-                                                    <i class="fas fa-eye"></i> Preview
-                                                </a>
+                                                @if($document->can_see_by == 1)
+                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                        <i class="fas fa-eye"></i> Preview
+                                                    </a>
+                                                @endif
                                             </div>
-                                            
                                             <div class="col-auto">
-                                                <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
-                                                    <i class="fas fa-file-download"></i> Download
-                                                </a>
+                                                @if($document->can_see_by == 1)
+                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                        <i class="fas fa-file-download"></i> Download
+                                                    </a>
+                                                @endif
                                             </div>                                            
                                         </div>
-                                        
-
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-12 mb-4">
+                            
+                            {{-- <div class="col-lg-12 mb-4">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #8699ab; padding: 20px;">
                                         <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Similar Document</h3>
@@ -127,19 +137,13 @@
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
                                                 <ol class="list-unstyled" style="padding-left: 0.5cm;">
-                                                    @foreach($similarDocuments as $similarDocument)
-                                                        @if($similarDocument->status == 'Berlaku')
-                                                            <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
-                                                                <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #8699ab; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
-                                                            </li>
-                                                        @endif
-                                                    @endforeach
+                                                    
                                                 </ol>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-lg-12">
                                 <div class="card">
@@ -151,15 +155,18 @@
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
                                                 <h4>Dokumen yang digantikan:</h4>
-                                                <ol type="a">
-                                                    @foreach($similarDocuments as $similarDocument)
-                                                        @if($similarDocument->status == 'Tidak Berlaku')
-                                                            <li style="text-align: left; list-style-type: disc; padding-left: 0.5cm;">
-                                                                <a class="preview-pdf" data-file-id="{{$similarDocument->id}}" role="button" style="font-size: 18px; color: #8699ab; font-weight: 500;" href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{$similarDocument->nama_dokumen}}</a>
-                                                            </li>
+                                                @if($document->menggantikan_dokumen)
+                                                    @foreach(explode(',', $document->menggantikan_dokumen) as $menggantikan_id)
+                                                        @php
+                                                            $dokumenDigantikan = \App\Models\DocumentModel::find($menggantikan_id);
+                                                        @endphp
+                                                        @if($dokumenDigantikan)
+                                                            <p><a href="{{ route('document-detail', ['id' => $dokumenDigantikan->id]) }}">{{ $dokumenDigantikan->name }}</a></p>
                                                         @endif
                                                     @endforeach
-                                                </ol>
+                                                @else
+                                                    <p>Tidak ada dokumen yang digantikan</p>
+                                                @endif                                                
                                             </div>
                                         </div>
                                     </div>
