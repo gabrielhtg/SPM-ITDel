@@ -90,7 +90,7 @@
                                                                 @php
                                                                     $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
                                                                 @endphp
-                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$tempg->jenis_dokumen.')' : '' }}</option>
+                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>
                                                             @endif
                                                         @endforeach
                                                     </select>
