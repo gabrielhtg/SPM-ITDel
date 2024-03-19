@@ -45,8 +45,8 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-                <div class="row align-items-center">
-                        <div class="col-md-6">
+                <div class="align-items-center">
+                        <div>
                             <div class="card card-primary card-outline" style="min-height: 80vh">
                                 <div class="card-body">
                             <form id="form-upload" enctype="multipart/form-data" method="POST" action="{{ route('uploadFile') }}">
@@ -94,16 +94,7 @@
                                     <label>Link Document:</label>
                                     <input type="text" name="link" class="form-control">
                                 </div>
-
                                 
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card-body col-md-6">
-                            <div class="card card-primary card-outline" style="min-height: 80vh">
-                                <div class="card-body">
-                            
                                     <div class="form-group">
                                         <label>Document Type:</label>
                                         <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
@@ -168,9 +159,12 @@
                                 </div>
                             
                             </form>
+                                
                                 </div>
                             </div>
                         </div>
+
+                        
                     </div>
                 </div>
             </div>

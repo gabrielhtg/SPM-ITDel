@@ -148,13 +148,13 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #8699ab; padding: 20px;">
-                                        <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Update Status</h3>
+                                        <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Replaced Document</h3>
                                     </div>
                                     <div class="card-body flex-grow-1">
                                         <!-- Isi similar document -->
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
-                                                <h4>Dokumen yang digantikan:</h4>
+                                                
                                                 @if($document->menggantikan_dokumen)
                                                     @foreach(explode(',', $document->menggantikan_dokumen) as $menggantikan_id)
                                                         @php
