@@ -52,7 +52,6 @@
                     <div class="">
                         {!! $guestBigNews->isinews !!}
                     </div>
-
             @else
             <div class="text-center">
                 <h1>Berita Tidak Tersedia</h1>
