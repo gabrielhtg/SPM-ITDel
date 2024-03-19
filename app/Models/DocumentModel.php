@@ -27,6 +27,7 @@ class DocumentModel extends Model
         'end_date',
         'keterangan_status',
         'can_see_by',
+        'masa_berlaku',
     ];
     // Di dalam model DocumentModel
 public function isReplaced()

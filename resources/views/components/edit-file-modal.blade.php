@@ -59,15 +59,16 @@
                                     <input type="text" name="name" class="form-control" required value="{{$document->name}}">
                                 </div>
 
-                                <div class="form-group">
-                                    <label>Status:</label>
-                                    <select name="keterangan_status" class="form-control" required>
-                                        <option value="" disabled>Select Status</option>
-                                        <option value="1" {{ $document->keterangan_status == 1 ? 'selected' : '' }}>Berlaku</option>
-                                        <option value="0" {{ $document->keterangan_status == 0 ? 'selected' : '' }}>Tidak Berlaku</option>
-                                    </select>
-                                </div>
-                                
+                                @if($document->keterangan_status == 1)
+                                    <div class="form-group">
+                                        <label>Status:</label>
+                                        <select name="keterangan_berlaku" class="form-control" required>
+                                            <option value="" disabled>Select Status</option>
+                                            <option value="0" selected>Berlaku</option>
+                                            <option value="1">Tidak Berlaku</option>
+                                        </select>
+                                    </div>
+                                @endif
 
                                 <div class="form-group">
                                     <label>Document Number:</label>
@@ -129,13 +130,14 @@
                                     <div class="form-group">
                                         <label>Give Access to:</label>
                                         <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                            <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
                                             @foreach($roles as $role)
                                                 @php
                                                     $selected = in_array($role->id, explode(';', $document->give_access_to ?? '')) ? 'selected' : '';
                                                 @endphp
                                                 <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                             @endforeach
-                                            <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                            
                                         </select>
                                     </div>
                                     
@@ -143,13 +145,14 @@
                                     <div class="form-group">
                                         <label>Give Edit to:</label>
                                         <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
+                                            <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>Public</option>
                                             @foreach($roles as $role)
                                                 @php
                                                     $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
                                                 @endphp
                                                 <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                             @endforeach
-                                            <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                            
                                         </select>
                                     </div>
                                     
@@ -171,7 +174,7 @@
                                 
                                 <div class="form-group">
                                     <label>End Date:</label>
-                                    <input type="datetime-local" name="end_date" class="form-control" required value="{{ $document->end_date }}">
+                                    <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
                                 </div>
                                 
                                 <div class="form-group">

@@ -58,15 +58,6 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Status:</label>
-                                    <select name="keterangan_status" class="form-control" required>
-                                        <option value="" disabled selected>Select Status</option>
-                                        <option value="1">Berlaku</option>
-                                        <option value="0">Tidak Berlaku</option>
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
                                     <label>Document Number:</label>
                                     <input type="text" name="nomor_dokumen" class="form-control" required>
                                 </div>
@@ -124,19 +115,21 @@
                                     <label>Give Access to:</label>
                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
                                         @foreach($roles as $role)
+                                        <option value="0">Public</option>
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
-                                        <option value="0">All</option>
+                                        
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Give Edit to:</label>
                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                        <option value="0">Public</option>
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
-                                        <option value="0">All</option>
+                                        
                                     </select>
                                 </div>
 
@@ -157,8 +150,9 @@
                                 
                                 <div class="form-group">
                                     <label>End Date:</label>
-                                    <input type="datetime-local" name="end_date" class="form-control" >
+                                    <input type="datetime-local" name="end_date" class="form-control" placeholder="Pilih tanggal dan waktu">
                                 </div>
+                                
                                 
 
                                 <div class="form-group">
