@@ -141,7 +141,7 @@ h6 {
 #header {
     transition: all 0.5s;
     z-index: 997;
-    padding: 0;
+    padding: 15px 0px;
 }
 
 #header.header-scrolled,
@@ -154,13 +154,18 @@ h6 {
     margin: 0;
     padding: 0;
     line-height: 1;
-    font-weight: 700;
+    font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
 }
 
 #header .logo a {
     color: #fff;
+}
+
+#header li a {
+    font-size: 17px;
+    padding-left: 50px;
 }
 
 #header .logo a span {
@@ -425,7 +430,7 @@ h6 {
 #hero {
     width: 100%;
     min-height: 100vh;
-    background: url("../img/IMG_6704.jpg") top center;
+    /* background: url("../img/IMG_6704.jpg") top center; */
     background-size: cover;
     position: relative;
 }

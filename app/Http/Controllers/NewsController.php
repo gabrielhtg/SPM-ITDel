@@ -142,6 +142,38 @@ class NewsController extends Controller
         ]);
     }
 
+    public function getDetaillayoutuser($id)
+    {
+        
+        $newsdetail = News::find($id);
+
+        if (!$newsdetail) {
+            return redirect()->route('news')->with('error', 'Pengumuman tidak ditemukan.');
+        }
+
+        // Mendapatkan ukuran file
+        $filePath = public_path('src/gambarnews') . '/' . $newsdetail->gambar;
+
+        $fileSize = filesize($filePath); // Ukuran file dalam byte
+        $fileSizeInKB = $fileSize / 1024; // Konversi ke kilobyte
+        $fileSizeInMB = $fileSizeInKB / 1024; // Konversi ke megabyte
+
+        // Membatasi jumlah desimal menjadi 2
+        $fileSizeInKB = number_format($fileSizeInKB, 2);
+        $fileSizeInMB = number_format($fileSizeInMB, 2);
+
+        $loggedInUserName = auth()->user() ? auth()->user()->name : '';
+
+
+        // Mengirimkan data pengumuman beserta ukuran file ke tampilan
+        return view('news-layout-user', [
+            'newsDetail' =>  $newsdetail,
+            'fileSizeInKB' => $fileSizeInKB,
+            'fileSizeInMB' => $fileSizeInMB,
+            'loggedInUserName' => $loggedInUserName,
+        ]);
+    }
+
     public function updatenews(Request $request, $id)
     {
         // Validasi input

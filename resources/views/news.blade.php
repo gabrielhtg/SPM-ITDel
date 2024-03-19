@@ -52,7 +52,6 @@
                 @if(AllServices::isCurrentRole("Admin"))
                     @include('components.add-news')
                 @endif
-
                 <div class="list-group">
 
                     {{-- <table class="table table-hover"> --}}

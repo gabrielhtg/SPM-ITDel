@@ -20,12 +20,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
-            create_user_admin::class,
-            createFakePasswordResetRequest::class,
+            create_user_admin::class,  
+            createFakePasswordResetRequest::class,  
             createRole::class,
             allowedUser::class,
-            DocType::class,
-            Dokumen::class,
+            create_dashboard_introduction::class,
         ]);
     }
 }
