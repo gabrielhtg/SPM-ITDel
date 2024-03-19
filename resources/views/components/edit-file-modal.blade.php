@@ -48,8 +48,8 @@
                 <!-- Main content -->
                 <section class="content">
                     <div class="container-fluid">
-                        <div class="row align-items-center">
-                                <div class="col-md-6">
+                        <div class=" align-items-center">
+                                <div >
                                     <div class="card card-primary card-outline" style="min-height: 80vh">
                                         <div class="card-body">
                                             <form id="form-upload" enctype="multipart/form-data" method="POST" action="{{ route('updateDocument', ['id' => $document->id]) }}">
@@ -105,92 +105,84 @@
                                                     <label>Link Document:</label>
                                                     <input type="text" name="link" class="form-control" value="{{ $document->link }}">
                                                 </div>
+                                                <div class="form-group">
+                                                    <label>Document Type:</label>
+                                                    <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
+                                                        @foreach($jenis_dokumen as $type)
+                                                            @if($document->tipe_dokumen == $type->id)
+                                                            <option value="{{ $type->id }}" selected>{{ $type->jenis_dokumen }}</option>
+                                                            @else
+                                                            <option value="{{ $type->id }}" >{{ $type->jenis_dokumen }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+    
+                                                <div class="form-group">
+                                                    <label>Give Access to:</label>
+                                                    <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                                        <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                                        @foreach($roles as $role)
+                                                            @php
+                                                                $selected = in_array($role->id, explode(';', $document->give_access_to ?? '')) ? 'selected' : '';
+                                                            @endphp
+                                                            <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
+                                                        @endforeach
+    
+                                                    </select>
+                                                </div>
+    
+    
+                                                <div class="form-group">
+                                                    <label>Give Edit to:</label>
+                                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
+                                                        <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>Public</option>
+                                                        @foreach($roles as $role)
+                                                            @php
+                                                                $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
+                                                            @endphp
+                                                            <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
+                                                        @endforeach
+    
+                                                    </select>
+                                                </div>
+    
+    
+    
+                                            <div class="form-group">
+                                                <label>Can See By:</label>
+                                                <select name="can_see_by" class="form-control" required>
+                                                    <option value="" disabled>Select Visibility</option>
+                                                    <option value="1" @if($document->can_see_by == 1) selected @endif>Public</option>
+                                                    <option value="0" @if($document->can_see_by == 0) selected @endif>Private</option>
+                                                </select>
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label>Start Date:</label>
+                                                <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label>End Date:</label>
+                                                <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
+                                            </div>
+    
+                                            <div class="form-group">
+                                                <label>Year:</label>
+                                                <input type="number" name="year" class="form-control" required min="1" value="{{ $document->year }}">
+                                            </div>
+    
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                                <button type="submit" class="btn btn-primary">Upload Document</button>
+                                            </div>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="card-body col-md-6">
-                                    <div class="card card-primary card-outline" style="min-height: 80vh">
-                                        <div class="card-body">
 
-                                            <div class="form-group">
-                                                <label>Document Type:</label>
-                                                <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
-                                                    @foreach($jenis_dokumen as $type)
-                                                        @if($document->tipe_dokumen == $type->id)
-                                                        <option value="{{ $type->id }}" selected>{{ $type->jenis_dokumen }}</option>
-                                                        @else
-                                                        <option value="{{ $type->id }}" >{{ $type->jenis_dokumen }}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group">
-                                                <label>Give Access to:</label>
-                                                <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
-                                                    <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
-                                                    @foreach($roles as $role)
-                                                        @php
-                                                            $selected = in_array($role->id, explode(';', $document->give_access_to ?? '')) ? 'selected' : '';
-                                                        @endphp
-                                                        <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-
-
-                                            <div class="form-group">
-                                                <label>Give Edit to:</label>
-                                                <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
-                                                    <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>Public</option>
-                                                    @foreach($roles as $role)
-                                                        @php
-                                                            $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
-                                                        @endphp
-                                                        <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
-                                                    @endforeach
-
-                                                </select>
-                                            </div>
-
-
-
-                                        <div class="form-group">
-                                            <label>Can See By:</label>
-                                            <select name="can_see_by" class="form-control" required>
-                                                <option value="" disabled>Select Visibility</option>
-                                                <option value="1" @if($document->can_see_by == 1) selected @endif>Public</option>
-                                                <option value="0" @if($document->can_see_by == 0) selected @endif>Private</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Start Date:</label>
-                                            <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>End Date:</label>
-                                            <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Year:</label>
-                                            <input type="number" name="year" class="form-control" required min="1" value="{{ $document->year }}">
-                                        </div>
-
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
-                                            <button type="submit" class="btn btn-primary">Upload Document</button>
-                                        </div>
-
-                                    </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                     </div>
                 </section>

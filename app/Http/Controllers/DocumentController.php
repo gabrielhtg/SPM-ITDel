@@ -378,29 +378,16 @@ class DocumentController extends Controller
     public function getDocumentDetail($id)
     {
         $document = DocumentModel::find($id);
-
-        if (!$document) {
-            return redirect()->route('viewdocument')->with('error', 'Document not found!');
-        }
-
-        $requestedType = $document->tipe_dokumen;
-        $requestedStatus = $document->status;
-
-        $similarDocuments = DocumentModel::where('tipe_dokumen', $requestedType)
-            ->where('give_access_to', 'LIKE', ['0', '50'])
-            ->where('id', '!=', $id)
-            ->get();
-
-        $similarDocumentsNotActive = DocumentModel::where('tipe_dokumen', $requestedType)
-            ->where('status', 'Tidak Berlaku')
-            ->where('give_access_to', 'LIKE', ['0', '50'])
-            ->where('id', '!=', $id)
-            ->get();
-
-        $similarDocuments = $similarDocuments->merge($similarDocumentsNotActive);
-
+        $jenis_dokumen = DocumentTypeModel::all();
         $uploadedUser = User::find($document->created_by);
-
-        return view('document-detail', ['document' => $document, 'uploadedUser' => $uploadedUser, 'similarDocuments' => $similarDocuments]);
+    
+        // Mengembalikan tampilan dengan melewatkan data $jenis_dokumen
+        return view('document-detail', [
+            'document' => $document, 
+            'uploadedUser' => $uploadedUser, 
+            'jenis_dokumen' => $jenis_dokumen, // Melewatkan data jenis_dokumen ke tampilan
+        ]);
     }
+    
+
 }

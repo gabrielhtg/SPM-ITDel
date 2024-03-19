@@ -33,7 +33,7 @@
                     <a href="{{ route('news') }}" class="nav-link active">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
-                            News Management
+                            News
                         </p>
                     </a>
                 </li>
@@ -49,7 +49,7 @@
                 @endif
 
 
-                @if(Auth::check())
+                @if(Auth::check() && auth()->user()->role != null)
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-users-cog"></i>
@@ -75,14 +75,17 @@
                     </li>
 
                 @endif
-                <li class="nav-item">
-                    <a href="{{ route('documentManagement') }}" class="nav-link">
-                        <i class="fas fa-file nav-icon"></i>
-                        <p>
-                            Document Management
-                        </p>
-                    </a>
-                </li>
+
+                @if(auth()->user()->role != null)
+                    <li class="nav-item">
+                        <a href="{{ route('documentManagement') }}" class="nav-link">
+                            <i class="fas fa-file nav-icon"></i>
+                            <p>
+                                Document Management
+                            </p>
+                        </a>
+                    </li>
+                @endif
 
 
             </ul>
