@@ -70,12 +70,12 @@
                         </a>
                     </li>
                     <li class="col">
-                        <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
+                        <a href="#" class="nav-link" onclick="redirectToNewsView()">
                             Akreditasi
                         </a>
                     </li>
                     <li class="col">
-                        <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
+                        <a href="#" class="nav-link" onclick="redirectToNewsView()">
                             Aktivitas
                         </a>
                     </li>
