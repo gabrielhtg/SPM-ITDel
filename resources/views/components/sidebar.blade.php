@@ -26,6 +26,9 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
+                
+
+                @if(Auth::check() && Auth::user()->username === 'admin')
                 <li class="nav-item">
                     <a href="{{ route('news') }}" class="nav-link active">
                         <i class="nav-icon fas fa-newspaper"></i>
@@ -35,7 +38,6 @@
                     </a>
                 </li>
 
-                @if(Auth::check() && Auth::user()->username === 'admin')
                     <li class="nav-item">
                         <a href="{{ route('dashboard-admin') }}" class="nav-link">
                             <i class="nav-icon fas fa-newspaper"></i>
