@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
-class NewsSeeder extends Seeder
+class create_news extends Seeder
 {
     /**
      * Run the database seeds.
