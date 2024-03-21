@@ -52,12 +52,12 @@
         <div class="card">
             <div class="card-body">
 
-                
-               
+
+
                     <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
                         <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
                     </a>
-                
+
                 @if(app(AllServices::class)->isAdmin())
                     @include('components.upload-document-type')
                 @endif
@@ -70,7 +70,7 @@
                         <th>Doc Number</th>
                         <th>Doc Name</th>
                         <th>Doc Type</th>
-                            
+
                         <th>Uploaded By</th>
                         <th>Status</th>
                         <th>Status Aktif</th>
@@ -83,7 +83,7 @@
 
                     @foreach($documents as $e)
                     @if (
-                            app(AllServices::class)->isAdmin() || 
+                            app(AllServices::class)->isAdmin() ||
                             auth()->user()->id == $e->created_by ||
                             (
                                 $e->keterangan_status==1 && (
@@ -92,7 +92,7 @@
                                     (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
                                 )
                             )
-                        )          
+                        )
                         <tr>
 
                             <td>{{ $e->nomor_dokumen }}</td>
@@ -109,15 +109,15 @@
                                     <div class="d-flex align-items-center">
                                         @php
                                             $document = $jenis_dokumen->where('id', $e->tipe_dokumen)->first();
-                                            
+
                                         @endphp
                                         {{ $document ? $document->jenis_dokumen : '' }}
                                     </div>
                                 </div>
                             </td>
-                            
-                            
-                            
+
+
+
                                 {{-- <td>
                                     <span class="d-block">
                                         @php
@@ -135,7 +135,7 @@
                                         @endforeach
                                     </span>
                                 </td> --}}
-                            
+
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
@@ -167,7 +167,7 @@
                                     </div>
                                 </div>
                             </td>
-                            
+
 
                             <td>
                                 <div class="d-flex" style="gap: 5px">
@@ -175,7 +175,7 @@
                                                 class="fas fa-eye"></i></a>
                                     @if(\Illuminate\Support\Facades\Auth::check())
                                         @include('components.detail-file-modal', ['documentId' => $e->id])
-                                        
+
 
                                     @endif
 
@@ -184,8 +184,8 @@
                                     @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
                                         <a href="{{ route('document.edit', ['id' => $e->id]) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
                                     @endif
-                                
-                                
+
+
                                     @if(app(AllServices::class)->isAdmin())
                                         @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
                                     @endif
@@ -217,9 +217,17 @@
                                     <p><strong>User
                                             Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
-                                    <p><strong>Created At:</strong> {{ $e->created_at }}</p>
-                                    <p><strong>Tanggal Berlaku:</strong> {{ $e->expried_date }}</p>
-                                    <p><strong>Status:</strong> {{ $e->status }}</p>
+                                    <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
+                                    <p><strong>Tanggal Berlaku:</strong> {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}</p>
+                                    <p><strong>Status:</strong>
+                                        @if($e->status == 0)
+                                            Berlaku
+                                        @elseif($e->status == 1)
+                                            Tidak Berlaku
+                                        @endif
+                                    </p>
+                                    <p><strong>Menggantikan Dokumen:</strong> {{ $e->menggantikan_dokumen }} </p>
+
                                     <!-- Anda dapat menambahkan atribut tambahan sesuai kebutuhan -->
                                 </div>
                                 <div class="modal-footer">

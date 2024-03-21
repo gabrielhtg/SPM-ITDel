@@ -6,8 +6,8 @@
     <title>Document Management</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-   
-    
+
+
 </head>
 <body>
     @include("components.guessnavbar")
@@ -37,8 +37,8 @@
                     <div class="col-lg-8">
                         <div class="card">
 
-                            <div class="card-header" style="background-color: #8699ab; padding: 20px;">
-                                <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Detail Document</h3>
+                            <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
+                                <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Detail Document</h3>
                             </div>
                             <div class="card-body">
                                 <!-- Detail document content -->
@@ -56,7 +56,7 @@
                                                 @endphp
                                                 {{ $jenis_document ? $jenis_document->jenis_dokumen : '' }}
                                             </td>
-                                            
+
                                         </tr>
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Nomor</td>
@@ -95,8 +95,8 @@
                             <!-- Card Preview Document -->
                             <div class="col-lg-12 mb-4">
                                 <div class="card">
-                                    <div class="card-header" style="background-color: #8699ab; padding: 20px;">
-                                        <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Preview Document</h3>
+                                    <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Preview Document</h3>
                                     </div>
                                     <div class="card-body flex-grow-1 text-center">
                                         <!-- Isi preview document -->
@@ -110,23 +110,23 @@
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
                                                 @if($document->can_see_by == 1)
-                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-eye"></i> Preview
                                                     </a>
                                                 @endif
                                             </div>
                                             <div class="col-auto">
                                                 @if($document->can_see_by == 1)
-                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #8699ab; border-radius: 15px; margin: 10px 0; border: none;">
+                                                    <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-file-download"></i> Download
                                                     </a>
                                                 @endif
-                                            </div>                                            
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             {{-- <div class="col-lg-12 mb-4">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #8699ab; padding: 20px;">
@@ -137,7 +137,7 @@
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
                                                 <ol class="list-unstyled" style="padding-left: 0.5cm;">
-                                                    
+
                                                 </ol>
                                             </div>
                                         </div>
@@ -147,14 +147,14 @@
 
                             <div class="col-lg-12">
                                 <div class="card">
-                                    <div class="card-header" style="background-color: #8699ab; padding: 20px;">
-                                        <h3 class="card-title" style="color: white !important; font-size: 20px; font-weight: bold;">Replaced Document</h3>
+                                    <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Replaced Document</h3>
                                     </div>
                                     <div class="card-body flex-grow-1">
                                         <!-- Isi similar document -->
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
-                                                
+
                                                 @if($document->menggantikan_dokumen)
                                                     @foreach(explode(',', $document->menggantikan_dokumen) as $menggantikan_id)
                                                         @php
@@ -166,7 +166,7 @@
                                                     @endforeach
                                                 @else
                                                     <p>Tidak ada dokumen yang digantikan</p>
-                                                @endif                                                
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
