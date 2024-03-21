@@ -8,17 +8,6 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-        <!-- Notifications Bell -->
-        <li class="nav-item">
-            <a class="nav-link" data-toggle="modal" href="#notificationsModal">
-                <i class="far fa-bell"></i>
-                {{-- @if(count($newAnnouncement) > 0)
-                    <span id="announcementCounter" class="badge badge-warning navbar-badge">
-                        {{ count($newAnnouncement) }}
-                    </span>
-                @endif --}}
-            </a>
-        </li>
 
         @if(!\Illuminate\Support\Facades\Auth::check())
             <li class="nav-item ml-3">
