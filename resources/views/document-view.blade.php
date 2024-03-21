@@ -99,6 +99,7 @@
                                         </thead>
                                         <tbody>
                                             @foreach($documents as $e)
+                                                @if($e->keterangan_status==1)
                                                 <tr>
                                                     <td>{{ $e->nomor_dokumen }}</td>
                                                     <td>
@@ -151,6 +152,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                @endif
                                             @endforeach
                                         </tbody>
                                     </table>

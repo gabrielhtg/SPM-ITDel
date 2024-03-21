@@ -19,7 +19,7 @@ class DocumentModel extends Model
         'give_access_to',
         'give_edit_access_to',
         'created_by',
-        'status',
+        
         'menggantikan_dokumen',
         'year',
         'tipe_dokumen',

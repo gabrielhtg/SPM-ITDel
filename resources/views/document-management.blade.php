@@ -86,10 +86,10 @@
                             app(AllServices::class)->isAdmin() || 
                             auth()->user()->id == $e->created_by ||
                             (
-                                $e->status && (
+                                $e->keterangan_status==1 && (
                                     app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) || 
                                     app(AllServices::class)->isAllView($e->id) || 
-                                    (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->status)
+                                    (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
                                 )
                             )
                         )          
@@ -163,13 +163,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        @php
-                                            if($e->status== 0) {
-                                                echo 'Inactive';
-                                            } else {
-                                                echo 'Active';
-                                            }
-                                        @endphp
+                                        
                                     </div>
                                 </div>
                             </td>

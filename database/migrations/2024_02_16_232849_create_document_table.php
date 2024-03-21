@@ -21,7 +21,6 @@
                         $table->string('give_access_to');
                         $table->string('give_edit_access_to')->nullable();
                         $table->string('created_by');
-                        $table->boolean('status')->nullable();
                         $table->string('menggantikan_dokumen')->nullable();
                         $table->integer('year');
                         $table->string('tipe_dokumen');

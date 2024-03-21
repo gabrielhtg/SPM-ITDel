@@ -29,12 +29,12 @@ class CheckDocumentActive
                 // Jika end_date null, anggap dokumen aktif jika start_date < now
                 if ($nowDate->greaterThanOrEqualTo($carbonStartDate)) {
                     $document->update([
-                        'status' => true,
+                        // 'status' => true,
                         'keterangan_status' => true,
                     ]);
                 } else {
                     $document->update([
-                        'status' => false,
+                        // 'status' => false,
                         'keterangan_status' => false,
                     ]);
                 }
