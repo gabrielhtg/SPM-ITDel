@@ -168,7 +168,7 @@
                             @endif
                         @endif
                     </p>
-                    <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="btn btn-primary" style="position: absolute; bottom: 10px; left: 10px;">See more ...</a>
+                    <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">See more ...</a>
                 </div>
               </div>
             </div>
