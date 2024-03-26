@@ -46,6 +46,7 @@
 
     <!-- Main Sidebar Container -->
     {{-- @include("components.sidebar") --}}
+
     <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center">
     <div class="container" data-aos="fade-up">
         <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
@@ -55,7 +56,7 @@
             </div>
         </div>
     </div>
-</section>
+    </section>
 
 
     <!-- Content Wrapper. Contains page content -->
@@ -98,10 +99,8 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        @php $counter = 0; @endphp <!-- Menambahkan variabel counter -->
                                         @foreach($documents as $e)
                                             @if($e->keterangan_status==1)
-                                                @if($counter < 10) <!-- Hanya render dokumen jika counter kurang dari 10 -->
                                                 <tr>
                                                     <td>{{ $e->nomor_dokumen }}</td>
                                                     <td>
@@ -117,20 +116,20 @@
                                                     </td>
                                                     @if(\Illuminate\Support\Facades\Auth::check())
                                                         <td>
-                                                        <span class="d-block">
-                                                            @php
-                                                                $accessor = explode(";", $e->give_access_to);
-                                                            @endphp
-                                                            @foreach($accessor as $acc)
-                                                                <span class="badge badge-primary">
-                                                                    @if($acc == 0)
-                                                                        All
-                                                                    @else
-                                                                        {{ \App\Models\RoleModel::find($acc)->role }}
-                                                                    @endif
-                                                                </span>
-                                                            @endforeach
-                                                        </span>
+                                                            <span class="d-block">
+                                                                @php
+                                                                    $accessor = explode(";", $e->give_access_to);
+                                                                @endphp
+                                                                @foreach($accessor as $acc)
+                                                                    <span class="badge badge-primary">
+                                                                        @if($acc == 0)
+                                                                            All
+                                                                        @else
+                                                                            {{ \App\Models\RoleModel::find($acc)->role }}
+                                                                        @endif
+                                                                    </span>
+                                                                @endforeach
+                                                            </span>
                                                         </td>
                                                     @endif
                                                     <td style="vertical-align: middle;">
@@ -154,19 +153,11 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                @php $counter++; @endphp <!-- Increment counter -->
-                                                @endif
                                             @endif
                                         @endforeach
                                         </tbody>
                                     </table>
                                 </div>
-                            </div>
-                        </div>
-                        <!-- Tombol "See More" -->
-                        <div class="row justify-content-center mt-3">
-                            <div class="col-md-12 text-center">
-                                <a href="{{ route('documentManagementAll') }}" class="btn btn-primary">See More</a>
                             </div>
                         </div>
                     </div>

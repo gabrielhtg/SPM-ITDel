@@ -19,8 +19,27 @@ class DocumentController extends Controller
 {
     public function getDocumentManagementView()
     {
-
+        // Ambil 10 dokumen terbaru
         $documents = DocumentModel::all();
+
+        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $jenis_dokumen = DocumentTypeModel::all();
+        $roles = RoleModel::all();
+
+        $data = [
+            'documents' => $documents,
+            'uploadedUsers' => $uploadedUsers,
+            'jenis_dokumen' => $jenis_dokumen,
+            'roles' => $roles,
+        ];
+
+        return view('document-management', $data);
+    }
+
+    public function getDocumentManagementViewAll()
+    {
+
+        $documents = DocumentModel::orderBy('created_at', 'desc')->get();
 
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
         $jenis_dokumen = DocumentTypeModel::all();
@@ -35,8 +54,9 @@ class DocumentController extends Controller
 
         ];
 
-        return view('document-management', $data);
+        return view('document-view-all', $data);
     }
+
 
     // public function getDocumentManagement()
     // {
@@ -280,33 +300,33 @@ class DocumentController extends Controller
             'nomor_dokumen.unique' => 'Nomor dokumen sudah digunakan.',
             'start_date.required' => 'Tanggal mulai harus diisi.',
             'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
-    
+
             'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
             'can_see_by.required' => 'Pilihan untuk dapat dilihat atau tidak harus dipilih.',
             'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
             'link.url' => 'Link dokumen tidak valid.',
         ]);
-    
+
         // Jika validasi gagal, kembalikan dengan pesan kesalahan
         if ($validator->fails()) {
             return redirect()->route('documentManagement', $id)->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
         }
-    
+
         // Cari dokumen yang akan diperbarui
         $document = DocumentModel::findOrFail($id);
-    
+
         // Hapus file lama jika ada
         if ($request->hasFile('file') && $document->directory) {
             // Hapus file lama dari sistem penyimpanan
             if (File::exists(public_path($document->directory))) {
                 File::delete(public_path($document->directory));
             }
-    
+
             // Setel direktori dokumen menjadi null karena file lama dihapus
             $document->directory = null;
             $document->nama_dokumen = null;
         }
-    
+
         // Proses file baru jika ada yang diunggah
         if ($request->hasFile('file')) {
             // Lakukan pengungahan file baru
@@ -314,21 +334,21 @@ class DocumentController extends Controller
             $documentType = DocumentTypeModel::find($request->tipe_dokumen);
             $documentTypeAbbreviation = $documentType ? $documentType->singkatan : '';
             $nameWithoutSpaces = Str::slug($request->name);
-    
+
             // Mendapatkan ekstensi file
             $fileExtension = $file->getClientOriginalExtension();
-    
+
             // Membentuk nama file baru dengan ekstensi
             $filename = $documentTypeAbbreviation . '_' . $nameWithoutSpaces . '.' . $fileExtension;
-    
+
             // Simpan file dengan nama baru
             $file->move(public_path('/src/documents/'), $filename);
-    
+
             // Setel nama dan direktori dokumen baru
             $document->nama_dokumen = $filename;
             $document->directory = '/src/documents/' . $filename;
         }
-    
+
         // Simpan perubahan data dokumen
         $document->keterangan_berlaku = $request->keterangan_berlaku;
         $document->name = $request->name;
@@ -343,12 +363,12 @@ class DocumentController extends Controller
         $document->give_edit_access_to = implode(';', $request->input('give_edit_access_to', []));
         $document->can_see_by = $request->can_see_by ?? $document->can_see_by; // Menyesuaikan agar nilai default dipertahankan jika tidak ada input yang diberikan
         $document->link = $request->link;
-    
+
         // Konversi input array menjadi string untuk kolom 'menggantikan_dokumen'
         $menggantikanDokumen = $request->input('menggantikan_dokumen', []);
         $menggantikanDokumenImploded = is_array($menggantikanDokumen) ? implode(',', $menggantikanDokumen) : $menggantikanDokumen;
         $document->menggantikan_dokumen = $menggantikanDokumenImploded;
-    
+
         // Update keterangan_status based on start_date and end_date
         $currentDateTime = now();
         if ($request->start_date <= $currentDateTime && (!$request->end_date || $request->end_date >= $currentDateTime)) {
@@ -356,14 +376,14 @@ class DocumentController extends Controller
         } else {
             $document->keterangan_status = false;
         }
-    
+
         // Simpan perubahan ke database
         $document->save();
-    
+
         // Redirect dengan pesan sukses
         return redirect()->route('documentManagement', $id)->with('toastData', ['success' => true, 'text' => 'File berhasil diperbarui!']);
     }
-    
+
 
     public function removeDocument(Request $request)
     {
@@ -389,6 +409,7 @@ class DocumentController extends Controller
         $documents = DocumentModel::whereIn('give_access_to', ['0', '50'])
             ->orWhere('give_access_to', 'LIKE', '%1%')
             ->orderBy('created_at', 'desc')
+            ->take(10) // Mengambil hanya 10 dokumen
             ->get();
 
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
@@ -396,19 +417,20 @@ class DocumentController extends Controller
         return view('document-view', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers]);
     }
 
+
     public function getDocumentDetail($id)
     {
         $document = DocumentModel::find($id);
         $jenis_dokumen = DocumentTypeModel::all();
         $uploadedUser = User::find($document->created_by);
-    
+
         // Mengembalikan tampilan dengan melewatkan data $jenis_dokumen
         return view('document-detail', [
-            'document' => $document, 
-            'uploadedUser' => $uploadedUser, 
+            'document' => $document,
+            'uploadedUser' => $uploadedUser,
             'jenis_dokumen' => $jenis_dokumen, // Melewatkan data jenis_dokumen ke tampilan
         ]);
     }
-    
+
 
 }

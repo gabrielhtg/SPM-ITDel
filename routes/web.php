@@ -28,6 +28,7 @@ Route::get('/', function () {
 })->name('dashboard');
 
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
+Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
 
 Route::get('/dashboard', function () {
 
@@ -50,8 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
     Route::get('deletenews/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
 
-    
-    // about it del 
+
+    // about it del
     Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
     Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout');
     Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
@@ -59,15 +60,15 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');
     Route::post('/updatedashboard/{id}', [DashboardController::class, 'updatedashboard'])->name('dashboard-introduction-udpate');
     Route::get('/deletedashboard/detail/{id}', [DashboardController::class, 'deletedashboard'])->name('dashboard-introduction-delete');
-    
-    // herosection 
+
+    // herosection
     Route::get('/dashboard-herosection', [HerodashboardController::class, 'indexherosection'])->name('herosection');
     Route::post('/dashboard-herosection', [HeroDashboardController::class, 'storeherosection'])->name('dashboard-herosection-add');
     Route::get('/herosection/detail/{id}', [HeroDashboardController::class, 'getDetailherosection'])->name('herosection-detail');
     Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
     Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
 
-    
+
 });
 
 require __DIR__ . '/auth.php';

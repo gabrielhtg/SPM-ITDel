@@ -14,6 +14,7 @@ class Announcement extends Model
         'title',
         'content',
         'file',
+        'created_at',
     ];
 
 }
