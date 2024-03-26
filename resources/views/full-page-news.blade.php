@@ -153,10 +153,11 @@
           navbarMobile.classList.toggle('active');
       });
   </script>
-  <script>
+<script>
     $(document).ready(function() {
-        $('#searchInput').on('keyup', function() {
-            var searchText = $(this).val().toLowerCase();
+        // Function to perform search
+        function performSearch() {
+            var searchText = $('#searchInput').val().toLowerCase();
 
             // Loop through all table rows
             $('#news-view table tbody tr').each(function() {
@@ -178,9 +179,21 @@
                     $(this).hide();
                 }
             });
+        }
+
+        // Listen for form submission
+        $('#searchInput').closest('form').on('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            performSearch(); // Perform search
+        });
+
+        // Listen for keyup event
+        $('#searchInput').on('keyup', function() {
+            performSearch(); // Perform search
         });
     });
-  </script>
+</script>
+
 
 </body>
 
