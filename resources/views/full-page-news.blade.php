@@ -29,18 +29,16 @@
       <div class="container-fluid py-2">
         <div class="container py-5 border rounded">
           <div class="container" data-aos="fade-up">
-            <form action="/news/page/cari" method="GET">
-              @csrf
-              <div class="input-group">
-                <input type="search" name="carinews" class="form-control form-control-lg" placeholder="Cari berita yang ingin anda temukan disini">
-                <div class="input-group-append">
-                  <button type="submit" class="btn btn-lg btn-default">
-                    <i class="fa fa-search"></i>
-                  </button>
+            <div class="container mt-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <form class="form-inline">
+                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
+                        </form>
+                    </div>
                 </div>
-              </div>
-            </form>
-
+            </div>
+            
 
             <div class="col-sm-6">
               <h1 class="ml-1 mt-5">Berita AMI IT Del</h1>
@@ -155,7 +153,35 @@
           navbarMobile.classList.toggle('active');
       });
   </script>
-  
+  <script>
+    $(document).ready(function() {
+        $('#searchInput').on('keyup', function() {
+            var searchText = $(this).val().toLowerCase();
+
+            // Loop through all table rows
+            $('#news-view table tbody tr').each(function() {
+                var found = false;
+
+                // Check if the search text matches the news title
+                $(this).find('a').each(function() {
+                    var titleText = $(this).text().toLowerCase();
+                    if (titleText.includes(searchText)) {
+                        found = true;
+                        return false; // Break the loop if found
+                    }
+                });
+
+                // Show or hide the row based on the search result
+                if (found) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        });
+    });
+  </script>
+
 </body>
 
 </html>
