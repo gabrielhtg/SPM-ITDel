@@ -27,41 +27,34 @@
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class=" bg-dark">
     
 
-    <section id="news-view1" class="">
-        <div class="container" data-aos="fade-up">
-            <div class="col-sm-6">
-                <h1 class="ml-1">{{$newsdetail->title }}</h1>
-                <p class="mt-3 fst-italic" style="martin-left:5px" >
-                <hr class="mx-2" style="border-top: 3px solid black; width: 200%;">
-                    {{ $newsdetail->created_at->format('Y-m-d') }}
-                </p>
-                <hr class="mx-2" style="border-top: 3px solid black; width: 200%;">
+    <div style="margin-bottom:100px;">
+        @include("components.guessnavbar")
+    </div>
+    
+    
+    
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-lg-20">
+                <hr>
+                <h1 class="mb-4">{{$newsdetail->title }}</h1>
+                <p class="text-muted">{{ $newsdetail->created_at->format('Y-m-d') }}</p>
+                <img src="{{ asset('src/gambarnews/'.$newsdetail->bgimage) }}" class="img-fluid rounded img-zoomin mx-auto d-block mb-4" style="object-fit: cover; height: 600px;" alt="">
+                <hr>
+                <div class="lead" style="margin-bottom: 200px; margin-top: 50px; text-align: justify;">
+                    {!! $newsdetail->description !!}
+                </div>                
             </div>
-        
-       
-            @if(!empty($newsdetail->bgimage))
-                    <div class="position-relative overflow-hidden rounded">
-                        <img src="{{ asset('src/gambarnews/'.$newsdetail->bgimage) }}" class="img-fluid rounded img-zoomin" style="width: 100vw; height: 400px; object-fit: contain;" alt="">
-                    </div>
-                    
-                    <hr class="mx-1" style="border-top: 3px solid black; width: auto;">
-
-                    <div class="">
-                        {!! $newsdetail->description !!}
-                    </div>
-
-            @else
-            <div class="text-center">
-                <h1>Berita Tidak Tersedia</h1>
-            </div>
-            @endif
         </div>
-      </section><!-- End About Section -->
-      <!-- /.content-wrapper -->
+    </div>
+    
+
+      @include("components.guessfooter")
 
 
 
