@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             create_news::class,
             Dokumen::class,
             DocType::class,
+            HeroDocumentSeeder::class,
         ]);
     }
 }

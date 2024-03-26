@@ -11,6 +11,7 @@ use App\Models\HeroDashboard;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeroDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,8 @@ Route::get('/', function () {
 
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
+Route::get('/hero/{id}', [HeroDocumentController::class, 'getView'])->name('hero.view');
+
 
 Route::get('/dashboard', function () {
 
