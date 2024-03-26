@@ -22,6 +22,7 @@
                         $table->string('give_edit_access_to')->nullable();
                         $table->string('created_by');
                         $table->string('menggantikan_dokumen')->nullable();
+                        $table->string('parent')->nullable();
                         $table->integer('year');
                         $table->string('tipe_dokumen');
                         $table->timestamp('start_date');
@@ -31,6 +32,7 @@
                         $table->string('link')->nullable();
                         $table->boolean('keterangan_berlaku')->nullable();
                         $table->timestamps();
+                        
                     });
                 }
 

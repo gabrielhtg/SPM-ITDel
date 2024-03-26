@@ -73,7 +73,11 @@
                                     <label>Menggantikan Dokumen:</label>
                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                         @foreach($documents as $type)
-                                            @if($type->created_by == auth()->user()->id && !$type->isReplaced()) <!-- Penambahan pengecekan apakah dokumen sudah digantikan -->
+                                            @php
+                                                // Periksa apakah dokumen sudah digantikan
+                                                $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
+                                            @endphp
+                                            @if($type->created_by == auth()->user()->id && !$isReplaced) <!-- Tampilkan hanya jika dokumen belum digantikan -->
                                                 @php
                                                     $document = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
                                                 @endphp
@@ -82,6 +86,12 @@
                                         @endforeach
                                     </select>
                                 </div>
+                                
+                                
+                                
+                                
+                                
+                                
                                 
                                 
 

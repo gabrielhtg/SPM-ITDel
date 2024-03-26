@@ -109,20 +109,25 @@
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
-                                                @if($document->can_see_by == 1)
+                                                @if($document->link)
+                                                    <a class="download-file btn btn-primary" href="{{ $document->link }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
+                                                        <i class="fas fa-external-link-alt"></i> Open
+                                                    </a>
+                                                @elseif($document->can_see_by == 1 && $document->give_access_to == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-eye"></i> Preview
                                                     </a>
                                                 @endif
                                             </div>
                                             <div class="col-auto">
-                                                @if($document->can_see_by == 1)
+                                                @if(!$document->link && $document->can_see_by == 1 && $document->give_access_to == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-file-download"></i> Download
                                                     </a>
                                                 @endif
                                             </div>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -154,24 +159,30 @@
                                         <!-- Isi similar document -->
                                         <div class="row justify-content-center mb-4">
                                             <div class="col fw-semibold text-center">
-
-                                                @if($document->menggantikan_dokumen)
-                                                    @foreach(explode(',', $document->menggantikan_dokumen) as $menggantikan_id)
-                                                        @php
-                                                            $dokumenDigantikan = \App\Models\DocumentModel::find($menggantikan_id);
-                                                        @endphp
-                                                        @if($dokumenDigantikan)
-                                                            <p><a href="{{ route('document-detail', ['id' => $dokumenDigantikan->id]) }}">{{ $dokumenDigantikan->name }}</a></p>
-                                                        @endif
-                                                    @endforeach
+                                                @php
+                                                    // Mendapatkan dokumen dengan parent yang sama dengan dokumen yang sedang dilihat,
+                                                    // tetapi tidak termasuk dokumen yang sedang dilihat
+                                                    $similarDocuments = \App\Models\DocumentModel::where('parent', $document->parent)
+                                                                        ->where('id', '!=', $document->id)
+                                                                        ->get();
+                                                @endphp
+                            
+                                                @if($similarDocuments->isNotEmpty())
+                                                    <ul>
+                                                        @foreach($similarDocuments as $similarDocument)
+                                                            <li><a href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{ $similarDocument->name }}</a></li>
+                                                        @endforeach
+                                                    </ul>
                                                 @else
-                                                    <p>Tidak ada dokumen yang digantikan</p>
+                                                    <p>Tidak ada dokumen yang memiliki parent yang sama.</p>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            
                         </div>
                     </div>
                 </div>

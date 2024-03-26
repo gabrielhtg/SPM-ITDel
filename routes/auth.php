@@ -16,6 +16,7 @@ use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HeroDocumentController;
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -40,6 +41,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
+    Route::get('/hero-documents/{id}', [HeroDocumentController::class, 'getView'])->name('hero-documents.view');
+    
 });
 
 Route::middleware('auth')->group(function () {

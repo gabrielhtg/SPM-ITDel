@@ -61,6 +61,9 @@
                 @if(app(AllServices::class)->isAdmin())
                     @include('components.upload-document-type')
                 @endif
+                @if(app(AllServices::class)->isAdmin())
+                    @include('components.edit-document-hero')
+                @endif
 
 
                 <table id="example1" class="table table-bordered table-striped">
