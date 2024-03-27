@@ -13,6 +13,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
@@ -98,18 +99,12 @@
                                 {{ AllServices::convertRole($e->informable_to) }}
                             </td>
                             <td>
-                                <div class="form-group d-flex justify-content-center">
-                                    <div class="custom-control custom-switch">
-                                        <input type="checkbox" class="custom-control-input" id="customSwitch{{ $e->id }}">
-                                        <label class="custom-control-label" for="customSwitch{{ $e->id }}"></label>
-                                    </div>
-                                </div>
 
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#modal-delete-role-{{ $e->id }}">
-                                    Remove
+                                    <i class="bi bi-archive"></i>
                                 </button>
 
                                 <div class="modal fade" id="modal-delete-role-{{ $e->id }}">
