@@ -22,7 +22,29 @@
 
                     <div class="form-group mt-3">
                         <label for="atasan-role">Atasan</label>
-                        <select id="atasan-role" name="atasan_role" class="select2 form-control">
+                        <select id="atasan-role" name="atasan_role" class="form-control" style="width: 100%">
+                            <option></option>
+                            @foreach($roles as $e)
+                                @if($e->role !== "Admin")
+                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="accountable-to">Accountable To:</label>
+                        <select id="accountable-to" name="accountable_to[]" class="form-control" style="width: 100%">
+                            <option></option>
+                            @foreach($roles as $e)
+                                @if($e->role !== "Admin")
+                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="informable-to">Informable To:</label>
+                        <select id="informable-to" name="informable_to[]" class="form-control" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
                                 @if($e->role !== "Admin")

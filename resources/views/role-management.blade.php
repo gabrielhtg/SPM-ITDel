@@ -60,7 +60,19 @@
                             Role
                         </th>
                         <th>
-                            Action
+                            Atasan
+                        </th>
+                        <th>
+                            Responsible To
+                        </th>
+                        <th>
+                            Accountable To
+                        </th>
+                        <th>
+                            Informable To
+                        </th>
+                        <th>
+                            Aksi
                         </th>
                     </tr>
                     </thead>
@@ -69,6 +81,18 @@
                         <tr>
                             <td>
                                 {{$e->role}}
+                            </td>
+                            <td>
+                                {{ AllServices::convertRole($e->atasan_id) }}
+                            </td>
+                            <td>
+                                {{ AllServices::convertRole($e->responsible_to) }}
+                            </td>
+                            <td>
+                                {{ AllServices::convertRole($e->accountable_to) }}
+                            </td>
+                            <td>
+                                {{ AllServices::convertRole($e->informable_to) }}
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
@@ -81,24 +105,31 @@
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h4 class="modal-title">Delete Confirmation Dialog</h4>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
                                                     <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
-                                                <form id="form-remove-role-{{ $e->id }}" action="{{ route('removeRole') }}" method="post">
+                                                <form id="form-remove-role-{{ $e->id }}"
+                                                      action="{{ route('removeRole') }}" method="post">
                                                     @csrf
                                                     @method('DELETE')
                                                     <input type="hidden" name="id" value="{{ $e->id }}">
                                                 </form>
 
                                                 <p>
-                                                    Are you sure to remove role <strong>{{ $e->role }}</strong>? All users who have this role will lose this role.
+                                                    Are you sure to remove role <strong>{{ $e->role }}</strong>? All
+                                                    users who have this role will lose this role.
                                                 </p>
                                             </div>
                                             <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                <button type="submit" form="form-remove-role-{{ $e->id }}" class="btn btn-danger">Ok</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                                    Close
+                                                </button>
+                                                <button type="submit" form="form-remove-role-{{ $e->id }}"
+                                                        class="btn btn-danger">Ok
+                                                </button>
                                             </div>
                                         </div>
                                         <!-- /.modal-content -->
@@ -198,28 +229,18 @@
 </script>
 <script>
     $(function () {
-        // Summernote
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-</script>
-<script>
-    $(function () {
         //Initialize Select2 Elements
         $('#atasan-role').select2({
             placeholder: "Select role",
-            allowClear: true
+            allowClear: true,
+        });
+        $('#accountable-to').select2({
+            placeholder: "Select role",
+            allowClear: true,
+        });
+        $('#informable-to').select2({
+            placeholder: "Select role",
+            allowClear: true,
         });
     })
 </script>

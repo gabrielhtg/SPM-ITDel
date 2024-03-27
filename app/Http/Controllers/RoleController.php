@@ -33,7 +33,9 @@ class RoleController extends Controller
             RoleModel::create([
                 'role' => $request->nama_role,
                 'atasan_id' => $request->atasan_role,
-                'responsible_to' => AllServices::getResponsibleTo($request->atasan_role)
+                'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
+                'informable_to' => implode(';', $request->informable_to),
+                'accountable_to' => implode(';', $request->accountable_to)
             ]);
 
             return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);

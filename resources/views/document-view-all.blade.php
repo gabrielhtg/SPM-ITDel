@@ -7,13 +7,15 @@
     <title>Document</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
+    <link rel="stylesheet"
+          href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- JQVMap -->
@@ -48,13 +50,13 @@
     {{-- @include("components.sidebar") --}}
 
     <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center">
-    <div class="container" data-aos="fade-up">
-        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-            <div class="col-xl-6 col-lg-8">
-                <h1>Document Management<span></span></h1>
-                <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
+                    <h1>Document Management<span></span></h1>
+                    <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+                </div>
             </div>
-        </div>
         </div>
     </section>
 
@@ -77,7 +79,8 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <form class="form-inline">
-                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
+                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search"
+                                   aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
                         </form>
                     </div>
                 </div>
@@ -107,7 +110,8 @@
                                                         <div class="user-panel d-flex">
                                                             <div class="d-flex align-items-center">
                                                                 @if(strlen($e->name) > 75)
-                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ substr($e->name, 0, 75) }}...</a>
+                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ substr($e->name, 0, 75) }}
+                                                                        ...</a>
                                                                 @else
                                                                     <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ $e->name }}</a>
                                                                 @endif
@@ -135,7 +139,8 @@
                                                     <td style="vertical-align: middle;">
                                                         <div class="user-panel d-flex">
                                                             <div class="info">
-                                                                <span><span class="badge badge-success">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
+                                                                <span><span
+                                                                        class="badge badge-success">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
                                                             </div>
                                                         </div>
                                                     </td>
@@ -222,16 +227,16 @@
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
 
 <script>
-    $(document).ready(function() {
-        $('#searchInput').on('keyup', function() {
+    $(document).ready(function () {
+        $('#searchInput').on('keyup', function () {
             var searchText = $(this).val().toLowerCase();
 
             // Loop through all table rows
-            $('table tbody tr').each(function() {
+            $('table tbody tr').each(function () {
                 var found = false;
 
                 // Check if the search text matches the Doc Number or Doc Name
-                $(this).find('td:nth-child(1), td:nth-child(2)').each(function() {
+                $(this).find('td:nth-child(1), td:nth-child(2)').each(function () {
                     var cellText = $(this).text().toLowerCase();
                     if (cellText.includes(searchText)) {
                         found = true;
