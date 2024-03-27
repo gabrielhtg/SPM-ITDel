@@ -31,13 +31,15 @@ class RoleController extends Controller
     {
         if (!AllServices::isRoleExist($request->role)) {
             RoleModel::create([
-                'role' => $request->role
+                'role' => $request->nama_role,
+                'atasan_id' => $request->atasan_role,
+                'responsible_to' => AllServices::getResponsibleTo($request->atasan_role)
             ]);
 
-            return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->role . ' added successfully!']);
+            return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);
         }
 
-        return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->role . ' failed to add. Already exist!']);
+        return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' failed to add. Already exist!']);
     }
 
     /**

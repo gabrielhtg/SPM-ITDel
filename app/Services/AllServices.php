@@ -2,11 +2,9 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\RoleController;
 use App\Models\DocumentModel;
 use App\Models\RoleModel;
 use Illuminate\Support\Carbon;
-use App\Models\User;
 
 
 class AllServices
@@ -170,11 +168,29 @@ class AllServices
 
     static public function isAllView ($id) : bool
     {
-        
+
         if (DocumentModel::find($id)->give_access_to == 0) {
             return true;
         }
         return false;
+    }
+
+    static public function getResponsibleTo ($idAtasan) : string {
+        $nextRole = $idAtasan;
+        $responsibleTo = strval($idAtasan);
+
+        while (true) {
+            $visitedRole = RoleModel::find($nextRole);
+            $nextRole = $visitedRole->atasan_id;
+
+            if ($nextRole == null) {
+                break;
+            }
+
+            $responsibleTo = $responsibleTo . ';' . $nextRole;
+        }
+
+        return $responsibleTo;
     }
 
 }

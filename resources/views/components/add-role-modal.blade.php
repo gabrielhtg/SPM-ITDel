@@ -6,26 +6,28 @@
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Role Role</h4>
+                <h4 class="modal-title">Add Role</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{route('addRole')}}" method="POST">
+                <form id="form-add-role" action="{{route('addRole')}}" method="POST">
                     @csrf
 
                     <div class="form-group">
                         <label for="nama-role">Role Name</label>
-                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama-role" required>
+                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama_role" required>
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="atasan-role">Atasan</label>
-                        <select id="atasan-role" name="atasan-role" class="select2 form-control" required>
+                        <select id="atasan-role" name="atasan_role" class="select2 form-control">
                             <option></option>
                             @foreach($roles as $e)
-                                <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @if($e->role !== "Admin")
+                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -33,6 +35,7 @@
             </div>
             <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="form-add-role">Add</button>
             </div>
         </div>
         <!-- /.modal-content -->
