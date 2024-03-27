@@ -20,7 +20,8 @@ class ListAllowedUserController extends Controller
         $allowedUser = AllowedUserModel::all();
 
         $data = [
-            'allowedUser' => $allowedUser
+            'allowedUser' => $allowedUser,
+            'active_sidebar' => [0, 0]
         ];
 
         return view('list-user-allowed', $data);

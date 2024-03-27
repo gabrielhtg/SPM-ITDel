@@ -22,8 +22,8 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-
         $data = [
+            'active_sidebar' => [0,0],
             'roles' => RoleModel::all()
         ];
         return view('profile.edit', $data);

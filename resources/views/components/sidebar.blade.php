@@ -27,10 +27,18 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
+                <li class="nav-item">
+                    <a href="{{ route('admin-dashboard') }}" class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-newspaper"></i>
+                        <p>
+                            Admin Dashboard
+                        </p>
+                    </a>
+                </li>
 
                 @if(Auth::check() && Auth::user()->username === 'admin')
                 <li class="nav-item">
-                    <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
+                    <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             News
@@ -39,7 +47,7 @@
                 </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('dashboard-admin') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
+                        <a href="{{ route('dashboard-admin') }}" class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Dashboard Management
@@ -48,10 +56,9 @@
                     </li>
                 @endif
 
-
                 @if(Auth::check() && auth()->user()->role != null)
                     <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Users Settings
@@ -77,7 +84,7 @@
 
                 @if(auth()->user()->role != null)
                     <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
+                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>
                                 Document Management

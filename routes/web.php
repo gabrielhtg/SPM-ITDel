@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
@@ -24,19 +23,21 @@ use App\Http\Controllers\HeroDocumentController;
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
-})->name('dashboard');
+//Route::get('/', function () {
+//    return view('dashboard');
+//})->name('dashboard');
 
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
 Route::get('/hero/{id}', [HeroDocumentController::class, 'getView'])->name('hero.view');
 
 
-Route::get('/dashboard', function () {
-
-    return view('dashboard');
-})->middleware(['auth', 'verified']);
+//Route::get('/dashboard', function () {
+//    $data = [
+//        'active_sidebar' => [2,0]
+//    ];
+//    return view('dashboard', $data);
+//})->middleware(['auth', 'verified']);
 
 Route::get('/news/layoutdetail/{id}', [NewsController::class, 'getDetailnews'])->name('news-layout-user');
 Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');

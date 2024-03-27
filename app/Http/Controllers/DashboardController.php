@@ -42,7 +42,7 @@ class DashboardController extends Controller
 
         $data = [
             'dashboard' => $dashboard,
-            'active_sidebar' => [2, 0]
+            'active_sidebar' => [3, 0]
         ];
 
         return view('dashboard-admin', $data);

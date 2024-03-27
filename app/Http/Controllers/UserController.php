@@ -29,7 +29,7 @@ class UserController extends Controller
                 'roles' => $roles,
                 'users' => $users,
                 'pending_action' => $passwordResetReq,
-                'active_sidebar' => [3, 1]
+                'active_sidebar' => [4, 1]
             ];
 
             return view("user-settings", $data);
@@ -46,7 +46,7 @@ class UserController extends Controller
 
             $data = [
                 'users' => $users,
-                'active_sidebar' => [3, 2]
+                'active_sidebar' => [4, 2]
             ];
 
             return view("user-settings-inactive", $data);

@@ -32,7 +32,7 @@ class NewsController extends Controller
 
         $data = [
             'news' => $news,
-            'active_sidebar' => [1, 0]
+            'active_sidebar' => [2, 0]
         ];
 
         return view('news', $data);

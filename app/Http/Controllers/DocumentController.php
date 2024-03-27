@@ -35,7 +35,7 @@ class DocumentController extends Controller
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
-            'active_sidebar' => [4, 0],
+            'active_sidebar' => [5, 0],
             'documenthero'=> $documenthero,
             'documentheroIds' => $documentheroIds,
         ];
@@ -106,6 +106,7 @@ class DocumentController extends Controller
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
+            'active_sidebar' => [0, 0]
         ];
         return view('components/upload-file-modal', $data);
     }
@@ -136,6 +137,7 @@ class DocumentController extends Controller
                 'uploadedUsers' => $uploadedUsers,
                 'jenis_dokumen' => $jenis_dokumen,
                 'roles' => $roles,
+                'active_sidebar' => [0, 0]
             ];
 
             return view('components/edit-file-modal', $data);
