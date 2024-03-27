@@ -14,7 +14,7 @@ class NewsController extends Controller
     public function index(){
             // mengambil data dari table pegawai
         $news = DB::table('news')->paginate(10);
-        
+
             // mengirim data pegawai ke view index
         // return view('full-page-news',['news' => $news]);
         return view('full-page-news', [
@@ -31,7 +31,8 @@ class NewsController extends Controller
         $news = News::all()->sortByDesc('id');
 
         $data = [
-            'news' => $news
+            'news' => $news,
+            'active_sidebar' => [1, 0]
         ];
 
         return view('news', $data);
@@ -44,7 +45,7 @@ class NewsController extends Controller
         // } else {
         //     $guestNews = News::all()->sortByDesc('id');
         // }
-    
+
         // $data = [
         //     'guestNews' => $guestNews  // Perbaikan nama variabel disini
         // ];
@@ -54,8 +55,8 @@ class NewsController extends Controller
             'news' => $news
         ];
 
-        // return view('news', $data);  
-    
+        // return view('news', $data);
+
         return view('full-page-news', $data);
     }
 
@@ -68,7 +69,7 @@ class NewsController extends Controller
 
         return view('full-page-news',['news' => $news]);
     }
-    
+
 
     public function guestNews()
     {
@@ -115,11 +116,11 @@ class NewsController extends Controller
             return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to add news']);
         }
     }
-    
+
 
     public function getDetail($id)
     {
-        
+
         $newsdetail = News::find($id);
         // $users = auth()->user()->name;
 
@@ -151,11 +152,11 @@ class NewsController extends Controller
         ]);
     }
 
-    
+
     public function getDetailnews($id)
     {
         $newsdetail = News::find($id);
-       
+
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
         return view('news-layout-user', [
             'newsdetail' =>  $newsdetail
@@ -164,7 +165,7 @@ class NewsController extends Controller
 
     public function getDetaillayoutuser($id)
     {
-        
+
         $newsdetail = News::find($id);
 
         if (!$newsdetail) {

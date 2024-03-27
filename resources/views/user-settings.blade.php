@@ -293,13 +293,10 @@
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
     let tableRole = new DataTable('#table-role', {
-        layout : {
-            topStart : 'search',
-            topEnd : null
-        },
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
+        "pageLength": 10,
     });
 
 

@@ -30,7 +30,7 @@
 
                 @if(Auth::check() && Auth::user()->username === 'admin')
                 <li class="nav-item">
-                    <a href="{{ route('news') }}" class="nav-link active">
+                    <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-newspaper"></i>
                         <p>
                             News
@@ -50,8 +50,8 @@
 
 
                 @if(Auth::check() && auth()->user()->role != null)
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
+                    <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Users Settings
@@ -60,20 +60,19 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-active') }}" class="nav-link">
+                                <a href="{{ route('user-settings-active') }}" class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Active User</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-inactive') }}" class="nav-link">
+                                <a href="{{ route('user-settings-inactive') }}" class="nav-link {{ $active_sidebar[1] != 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inactive User</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-
                 @endif
 
                 @if(auth()->user()->role != null)

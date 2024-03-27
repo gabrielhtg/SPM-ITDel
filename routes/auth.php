@@ -41,14 +41,17 @@ Route::middleware('guest')->group(function () {
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
-    
 
 
-    
+
+
 });
 
 Route::middleware('auth')->group(function () {
     Route::middleware('checkDocumentActive')->group(function () {
+        Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
+        Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
+
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');
 
