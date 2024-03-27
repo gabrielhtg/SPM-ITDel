@@ -101,7 +101,7 @@
                     <div class="row mt-3 bg-white">
                         <div class="col">
                             <div class="input-group w-100">
-                                <select name="role" class="form-control select2" required>
+                                <select name="role" class="form-control select2" style="width: 100%" required>
                                     <option></option>
                                     @foreach($roles as $e)
                                         <option value="{{ $e->id }}">{{ $e->role }}</option>

@@ -109,7 +109,11 @@ class ProfileController extends Controller
 
     public function changeProfilePict(): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
-        return \view('profile.change-profile-pict');
+        $data = [
+            'active_sidebar' => [0,0]
+        ];
+
+        return \view('profile.change-profile-pict', $data);
     }
 
     public function uploadProfilePict(Request $request): void
