@@ -35,7 +35,7 @@ class DocumentController extends Controller
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
-            'active_sidebar' => [4, 0]
+            'active_sidebar' => [4, 0],
             'documenthero'=> $documenthero,
             'documentheroIds' => $documentheroIds,
         ];
