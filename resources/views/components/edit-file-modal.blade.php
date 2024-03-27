@@ -85,16 +85,21 @@
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
-{{--                                                        @foreach($documents as $type)--}}
-{{--                                                            @if($type->created_by == auth()->user()->id && !$type->isReplaced()) <!-- Penambahan pengecekan apakah dokumen sudah digantikan -->--}}
-{{--                                                                @php--}}
-{{--                                                                    $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();--}}
-{{--                                                                @endphp--}}
-{{--                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>--}}
-{{--                                                            @endif--}}
-{{--                                                        @endforeach--}}
+                                                        @foreach($documents as $type)
+                                                        @php
+                                                        // Periksa apakah dokumen sudah digantikan
+                                                        $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
+                                                    @endphp
+                                                            @if($type->created_by == auth()->user()->id && !$isReplaced) <!-- Ubah pemanggilan fungsi -->
+                                                                @php
+                                                                    $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
+                                                                @endphp
+                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>
+                                                            @endif
+                                                        @endforeach
                                                     </select>
                                                 </div>
+                                                
 
                                                 <div class="form-group">
                                                     <label>File:</label>
@@ -117,7 +122,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-
+    
                                                 <div class="form-group">
                                                     <label>Give Access to:</label>
                                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
@@ -128,11 +133,11 @@
                                                             @endphp
                                                             <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                                         @endforeach
-
+    
                                                     </select>
                                                 </div>
-
-
+    
+    
                                                 <div class="form-group">
                                                     <label>Give Edit to:</label>
                                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
@@ -143,12 +148,12 @@
                                                             @endphp
                                                             <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                                         @endforeach
-
+    
                                                     </select>
                                                 </div>
-
-
-
+    
+    
+    
                                             <div class="form-group">
                                                 <label>Can See By:</label>
                                                 <select name="can_see_by" class="form-control" required>
@@ -157,22 +162,22 @@
                                                     <option value="0" @if($document->can_see_by == 0) selected @endif>Private</option>
                                                 </select>
                                             </div>
-
+    
                                             <div class="form-group">
                                                 <label>Start Date:</label>
                                                 <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
                                             </div>
-
+    
                                             <div class="form-group">
                                                 <label>End Date:</label>
                                                 <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
                                             </div>
-
+    
                                             <div class="form-group">
                                                 <label>Year:</label>
                                                 <input type="number" name="year" class="form-control" required min="1" value="{{ $document->year }}">
                                             </div>
-
+    
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
                                                 <button type="submit" class="btn btn-primary">Upload Document</button>

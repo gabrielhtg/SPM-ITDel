@@ -87,14 +87,6 @@
                                     </select>
                                 </div>
                                 
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-
                                 <div class="form-group">
                                     <label>File:</label>
                                     <input type="file" name="file" class="form-control-file" >
