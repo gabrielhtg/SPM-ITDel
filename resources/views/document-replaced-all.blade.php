@@ -100,6 +100,7 @@
                                         <div class="card-body flex-grow-1">
                                             <!-- Isi similar document -->
                                             <div class="row justify-content-center mb-4">
+
                                                 <div class="col fw-semibold text-center">
                                                     @php
                                                         $count = count(explode(',', $document->menggantikan_dokumen));
