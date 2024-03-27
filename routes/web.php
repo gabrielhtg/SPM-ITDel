@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
@@ -10,7 +11,6 @@ use App\Models\HeroDashboard;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HeroDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,21 +23,17 @@ use App\Http\Controllers\HeroDocumentController;
 |
 */
 
-//Route::get('/', function () {
-//    return view('dashboard');
-//})->name('dashboard');
+Route::get('/', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
-Route::get('/hero/{id}', [HeroDocumentController::class, 'getView'])->name('hero.view');
 
+Route::get('/dashboard', function () {
 
-//Route::get('/dashboard', function () {
-//    $data = [
-//        'active_sidebar' => [2,0]
-//    ];
-//    return view('dashboard', $data);
-//})->middleware(['auth', 'verified']);
+    return view('dashboard');
+})->middleware(['auth', 'verified']);
 
 Route::get('/news/layoutdetail/{id}', [NewsController::class, 'getDetailnews'])->name('news-layout-user');
 Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
@@ -47,7 +43,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
+    Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');

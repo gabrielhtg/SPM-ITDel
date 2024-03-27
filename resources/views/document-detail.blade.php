@@ -114,7 +114,7 @@
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
-                                                @if($document->link && $document->can_see_by == 1) 
+                                                @if($document->link && $document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" href="{{ $document->link }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-external-link-alt"></i> Open
                                                     </a>
@@ -125,14 +125,13 @@
                                                 @endif
                                             </div>
                                             <div class="col-auto">
-                                                @if(!$document->link && $document->can_see_by == 1 && $document->can_see_by == 1)
+                                                @if($document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-file-download"></i> Download
                                                     </a>
                                                 @endif
                                             </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>
@@ -171,7 +170,7 @@
                                                                         ->where('id', '!=', $document->id)
                                                                         ->get();
                                                 @endphp
-                            
+
                                                 @if($similarDocuments->isNotEmpty())
                                                     <ul>
                                                         @foreach($similarDocuments as $similarDocument)
@@ -179,15 +178,13 @@
                                                         @endforeach
                                                     </ul>
                                                 @else
-                                                    <p>Tidak ada dokumen yang memiliki parent yang sama.</p>
+                                                    <p>Tidak ada dokumen yang digantikan</p>
                                                 @endif
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
-                            
                         </div>
                     </div>
                 </div>
