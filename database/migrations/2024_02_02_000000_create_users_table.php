@@ -25,7 +25,7 @@ return new class extends Migration
             $table->boolean('status')->nullable();
             $table->string('pending_roles', 20)->nullable();
             $table->boolean('verified');
-            $table->string('role')->nullable();
+            $table->string('role');
             $table->rememberToken();
             $table->timestamps();
             $table->string('profile_pict')->nullable();

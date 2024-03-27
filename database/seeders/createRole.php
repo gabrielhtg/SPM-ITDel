@@ -13,7 +13,7 @@ class createRole extends Seeder
      */
     public function run(): void
     {
-        DB::table('role')->insert([
+        DB::table('roles')->insert([
            ['role' => 'Rektor '],
            ['role' => 'Wakil Rektor 1 '],
            ['role' => 'Dekan'],
