@@ -75,36 +75,36 @@
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Username</b> <span class="float-right">{{ auth()->user()->username }}</span>
+                                    <b>Nama Pengguna</b> <span class="float-right">{{ auth()->user()->username }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Phone Number</b> <span class="float-right">{{ auth()->user()->phone }}</span>
+                                    <b>Nomor Telepon</b> <span class="float-right">{{ auth()->user()->phone }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
+                                    <b>Alamat Email</b> <span class="float-right">{{ auth()->user()->email }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Name</b> <span class="float-right">{{ auth()->user()->name }}</span>
+                                    <b>Nama</b> <span class="float-right">{{ auth()->user()->name }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Role</b> <span
+                                    <b>Peran</b> <span
                                             class="float-right">{{ app(AllServices::class)->convertRole(auth()->user()->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Starts On</b> <span
+                                    <b>Mulai Aktif Pada</b> <span
                                             class="float-right">{{ AllServices::convertTime(auth()->user()->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if(auth()->user()->ends_on !== null)
-                                        <b>Ends On</b> <span
+                                        <b>Berakhir Pada</b> <span
                                                 class="float-right">{{ AllServices::convertTime(auth()->user()->ends_on) }}</span>
                                     @else
-                                        <b>Ends On</b> <span
+                                        <b>Berakhir Pada</b> <span
                                                 class="float-right">-</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Last Login</b> <span class="float-right">
+                                    <b>Login Terakhir</b> <span class="float-right">
                                         @if(auth()->user()->last_login_at !== null)
                                             {{ AllServices::getLastLogin(auth()->user()->last_login_at) }}
                                         @else
@@ -113,7 +113,7 @@
                                     </span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>IP Address</b> <span class="float-right">
+                                    <b>Alamat IP</b> <span class="float-right">
                                         @if(auth()->user()->ip_address !== null)
                                             {{ auth()->user()->ip_address }}
                                         @else
@@ -123,7 +123,7 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if(auth()->user()->status)
-                                        <b>Account Status</b> <span
+                                        <b>Status Akun</b> <span
                                                 class="float-right text-success text-bold">{{ AllServices::convertStatus(auth()->user()->status) }}</span>
                                     @else
                                         <b>Status</b> <span
@@ -136,7 +136,7 @@
 
                         <div class="d-flex mt-4 justify-content-center" style="gap: 15px">
                             <a href="{{ route('change-profile-pict') }}" class="btn btn-primary"
-                               style="width: 180px"><b>Change Profile Image</b></a>
+                               style="width: 180px"><b>Ubah Gambar Profil</b></a>
                             {{--                            <button class="btn btn-primary" style="width: 180px"><b>Edit Profile</b></button>--}}
                             @include('components.edit-profile-modal')
                             @include('components.change-password-modal')

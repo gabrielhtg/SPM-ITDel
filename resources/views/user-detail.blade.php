@@ -86,19 +86,19 @@
                         <div class="d-flex justify-content-center">
                             <ul class="list-group list-group-unbordered mb-3" style="width: 500px">
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Username</b> <span class="float-right">{{ $user->username }}</span>
+                                    <b>Nama Pengguna</b> <span class="float-right">{{ $user->username }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Phone Number</b> <span class="float-right">{{ $user->phone }}</span>
+                                    <b>No Telepon</b> <span class="float-right">{{ $user->phone }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Email</b> <span class="float-right">{{ $user->email }}</span>
+                                    <b>Alamat Email</b> <span class="float-right">{{ $user->email }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Name</b> <span class="float-right">{{ $user->name }}</span>
+                                    <b>Nama</b> <span class="float-right">{{ $user->name }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Role</b> <span
+                                    <b>Peran</b> <span
                                         class="float-right">{{ app(AllServices::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">

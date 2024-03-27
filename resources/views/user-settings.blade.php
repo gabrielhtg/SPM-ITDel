@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Pengaturan Pengguna</title>
 
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <!-- Google Font: Source Sans Pro -->
@@ -53,7 +53,7 @@
                     @if(AllServices::isCurrentRole("Admin"))
                         @include('components.add-user-manually-modal')
                         <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
-                            List Allowed User
+                            Daftar Pengguna yang Diizinkan
                         </a>
                         @include('components.list-action-pending-modal')
                     @endif
@@ -62,13 +62,13 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>IP Addr</th>
-                        <th>Phone</th>
-                        <th>Action</th>
+                        <th>Nama</th>
+                        <th>Nama Pengguna</th>
+                        <th>Alamat Email</th>
+                        <th>Peran</th>
+                        <th>Alamat IP</th>
+                        <th>No. Telepon</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
