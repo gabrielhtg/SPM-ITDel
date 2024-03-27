@@ -46,8 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
-    Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
+
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');

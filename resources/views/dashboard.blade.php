@@ -32,11 +32,11 @@
 <div class="wrapper">
 
     <!-- Preloader -->
-    <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
-    </div>
+{{--    <div class="preloader flex-column justify-content-center align-items-center">--}}
+{{--        <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">--}}
+{{--    </div>--}}
 
-    
+
     @if(!\Illuminate\Support\Facades\Auth::check())
         @include("components.guesslayout");
     @else
@@ -44,9 +44,9 @@
         @include("components.sidebar")
         @include('components.footer')
     @endif
-    
-    
-   
+
+
+
     <!-- /.content-wrapper -->
 
     <!-- Control Sidebar -->
