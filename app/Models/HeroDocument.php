@@ -9,6 +9,6 @@ class HeroDocument extends Model
 {
     use HasFactory;
     protected $table = 'hero_document';
-    protected $fillable = ['title', 'description','image'];
+    protected $fillable = ['titlehero', 'descriptionhero','imagehero'];
 
 }

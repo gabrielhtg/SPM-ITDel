@@ -8,7 +8,7 @@ use App\Models\RoleModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
-
+use App\Models\HeroDocument;
 use Illuminate\Support\Str;
 use App\Models\User;
 use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
@@ -25,16 +25,24 @@ class DocumentController extends Controller
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
         $jenis_dokumen = DocumentTypeModel::all();
         $roles = RoleModel::all();
+        $documenthero = HeroDocument::first();
+        $documentheroIds = $documenthero->pluck('id'); 
 
+
+        // dd($documenthero);
         $data = [
             'documents' => $documents,
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
+            'documenthero'=> $documenthero,
+            'documentheroIds' => $documentheroIds,
         ];
-
+        
         return view('document-management', $data);
     }
+
+    
 
     public function getDocumentManagementViewAll()
     {
@@ -405,7 +413,8 @@ class DocumentController extends Controller
 
 
     public function getDocument()
-    {
+    {   
+        $documenthero = HeroDocument::all();
         $documents = DocumentModel::whereIn('give_access_to', ['0', '50'])
             ->orWhere('give_access_to', 'LIKE', '%1%')
             ->orderBy('created_at', 'desc')
@@ -413,8 +422,12 @@ class DocumentController extends Controller
             ->get();
 
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
-
-        return view('document-view', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers]);
+        $data=['documenthero'=>$documenthero,
+                'documents'=>$documents,
+                'uploadedUsers' => $uploadedUsers
+            ];
+           
+        return view('document-view', $data);
     }
 
 

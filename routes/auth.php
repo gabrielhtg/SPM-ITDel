@@ -15,8 +15,9 @@ use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HeroDocumentController;
+use Illuminate\Support\Facades\Route;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
@@ -41,6 +42,10 @@ Route::middleware('guest')->group(function () {
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
+   
+    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
+    
+
     
 
 
@@ -94,6 +99,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/update-document/{id}', [DocumentController::class, 'updateDocument'])->name('updateDocument');
         Route::get('/document-add', [DocumentController::class, 'getDocumentManagementAdd'])->name('documentAdd');
         Route::get('/document/{id}/edit', [DocumentController::class, 'getDocumentManagementEdit'])->name('document.edit');
+        Route::get('/hero/{id}/edit', [HeroDocumentController::class, 'edit'])->name('hero.edit');
+        Route::put('/heroes/{id}', [HeroDocumentController::class, 'update'])->name('hero.update');
+
         /**
          * Route ini digunakan untuk mendapatkan halaman user detail
          */
