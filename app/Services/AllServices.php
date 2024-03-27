@@ -175,22 +175,25 @@ class AllServices
         return false;
     }
 
-    static public function getResponsibleTo ($idAtasan) : string {
-        $nextRole = $idAtasan;
-        $responsibleTo = strval($idAtasan);
+    static public function getResponsibleTo ($idAtasan) : ?string {
+        if($idAtasan != null) {
+            $nextRole = $idAtasan;
+            $responsibleTo = strval($idAtasan);
 
-        while (true) {
-            $visitedRole = RoleModel::find($nextRole);
-            $nextRole = $visitedRole->atasan_id;
+            while (true) {
+                $visitedRole = RoleModel::find($nextRole);
+                $nextRole = $visitedRole->atasan_id;
 
-            if ($nextRole == null) {
-                break;
+                if ($nextRole == null) {
+                    break;
+                }
+
+                $responsibleTo = $responsibleTo . ';' . $nextRole;
             }
-
-            $responsibleTo = $responsibleTo . ';' . $nextRole;
+            return $responsibleTo;
         }
 
-        return $responsibleTo;
+        return null;
     }
 
 }

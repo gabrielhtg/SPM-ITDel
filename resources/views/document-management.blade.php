@@ -1,6 +1,6 @@
 {{-- @php use App\Models\User;use App\Services\AllServices; @endphp --}}
 @php use App\Services\AllServices; @endphp
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -57,17 +57,17 @@
             <div class="card-body">
 
 
-
-                    <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
-                        <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
-                    </a>
+                <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
+                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
+                </a>
 
                 @if(app(AllServices::class)->isAdmin())
                     @include('components.upload-document-type')
                 @endif
                 @if(app(AllServices::class)->isAdmin())
                     @include('components.edit-document-hero')
-                @endif
+                              
+                @endif
 
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -89,40 +89,39 @@
                     <tbody>
 
                     @foreach($documents as $e)
-                    @if (
-                            app(AllServices::class)->isAdmin() ||
-                            auth()->user()->id == $e->created_by ||
-                            (
-                                $e->keterangan_status==1 && (
-                                    app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) || 
-                                    app(AllServices::class)->isAllView($e->id) || 
-                                    (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
+                        @if (
+                                app(AllServices::class)->isAdmin() ||
+                                auth()->user()->id == $e->created_by ||
+                                (
+                                    $e->keterangan_status==1 && (
+                                        app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) ||
+                                        app(AllServices::class)->isAllView($e->id) ||
+                                        (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
+                                    )
                                 )
                             )
-                        )
-                        <tr>
+                            <tr>
 
-                            <td>{{ $e->nomor_dokumen }}</td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->name }}
+                                <td>{{ $e->nomor_dokumen }}</td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="d-flex align-items-center">
+                                            {{ $e->name }}
+                                        </div>
+
                                     </div>
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="d-flex align-items-center">
+                                            @php
+                                                $document = $jenis_dokumen->where('id', $e->tipe_dokumen)->first();
 
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        @php
-                                            $document = $jenis_dokumen->where('id', $e->tipe_dokumen)->first();
-
-                                        @endphp
-                                        {{ $document ? $document->jenis_dokumen : '' }}
+                                            @endphp
+                                            {{ $document ? $document->jenis_dokumen : '' }}
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-
+                                </td>
 
 
                                 {{-- <td>
@@ -143,64 +142,64 @@
                                     </span>
                                 </td> --}}
 
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
                                         <span> {{ \App\Models\User::find($e->created_by)->name }} <span
-                                                    class="badge badge-success"
-                                                    style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
+                                                class="badge badge-success"
+                                                style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
 
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        @php
-                                            if($e->keterangan_status == 0) {
-                                                echo 'Tidak Berlaku';
-                                            } else {
-                                                echo 'Berlaku';
-                                            }
-                                        @endphp
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+                                            @php
+                                                if($e->keterangan_status == 0) {
+                                                    echo 'Tidak Berlaku';
+                                                } else {
+                                                    echo 'Berlaku';
+                                                }
+                                            @endphp
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        
+                                </td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="info">
+
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
 
-                            <td>
-                                <div class="d-flex" style="gap: 5px">
-                                    <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
+                                <td>
+                                    <div class="d-flex" style="gap: 5px">
+                                        <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
                                                 class="fas fa-eye"></i></a>
-                                    @if(\Illuminate\Support\Facades\Auth::check())
-                                        @include('components.detail-file-modal', ['documentId' => $e->id])
+                                        @if(\Illuminate\Support\Facades\Auth::check())
+                                            @include('components.detail-file-modal', ['documentId' => $e->id])
+
+                                        @endif
+
+                                        {{-- // jika user sekarang == user yang upload di data Dokumen
+                                        // if userSekarang -> id == document->created_by --}}
+                                        @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
+                                            <a href="{{ route('document.edit', ['id' => $e->id]) }}"
+                                               class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                        @endif
 
 
-                                    @endif
+                                        @if(app(AllServices::class)->isAdmin())
+                                            @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
+                                        @endif
 
-                                    {{-- // jika user sekarang == user yang upload di data Dokumen
-                                    // if userSekarang -> id == document->created_by --}}
-                                    @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
-                                        <a href="{{ route('document.edit', ['id' => $e->id]) }}" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                    @endif
+                                    </div>
 
-
-                                    @if(app(AllServices::class)->isAdmin())
-                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
-                                    @endif
-
-                                </div>
-
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @endif
                     @endforeach
                     </tbody>
@@ -225,7 +224,9 @@
                                             Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
-                                    <p><strong>Tanggal Berlaku:</strong> {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}</p>
+                                    <p><strong>Tanggal
+                                            Berlaku:</strong> {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
+                                        - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}</p>
                                     <p><strong>Status:</strong>
                                         @if($e->status == 0)
                                             Berlaku
