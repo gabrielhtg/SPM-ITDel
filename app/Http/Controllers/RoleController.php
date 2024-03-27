@@ -6,6 +6,7 @@ use App\Models\RoleModel;
 use App\Models\User;
 use App\Services\AllServices;
 use Couchbase\Role;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
@@ -29,7 +30,7 @@ class RoleController extends Controller
      */
     public function addRole(Request $request)
     {
-        if (!AllServices::isRoleExist($request->role)) {
+        try {
             RoleModel::create([
                 'role' => $request->nama_role,
                 'atasan_id' => $request->atasan_role,
@@ -39,9 +40,13 @@ class RoleController extends Controller
             ]);
 
             return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);
-        }
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan! Role sudah pernah ditambahkan sebelumnya.']);
+            }
 
-        return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' failed to add. Already exist!']);
+            return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan!']);
+        }
     }
 
     /**

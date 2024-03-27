@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Role Management</title>
 
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <!-- Google Font: Source Sans Pro -->
