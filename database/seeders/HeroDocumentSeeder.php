@@ -12,7 +12,7 @@ class HeroDocumentSeeder extends Seeder
      */
     public function run(): void
     {
-        $imagePath = 'src/img/hero-bg.jpg';
+        $imagePath = 'hero-bg.jpg';
         HeroDocument::create([
             'titlehero' => 'Document Management',
             'descriptionhero' => 'disini anda dapat melihat setiap document yang tersedia',

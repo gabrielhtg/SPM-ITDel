@@ -46,16 +46,22 @@
 
     <!-- Main Sidebar Container -->
     {{-- @include("components.sidebar") --}}
-    <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center">
-    <div class="container" data-aos="fade-up">
-        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-            <div class="col-xl-6 col-lg-8">
-                <h1>Document Management<span></span></h1>
-                <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+   @foreach($documenthero as $s)
+   {{-- @php
+   dd($s->imagehero);
+   @endphp --}}
+    <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/img/' . $s->imagehero) }}') top center; background-size: cover; position: relative;">
+        <div class="container" data-aos="fade-up">
+            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8">
+                    <h1>{{ $s->titlehero }}</h1>
+                    <h2>{{ $s->descriptionhero }}</h2>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+@endforeach
+
 
 
     <!-- Content Wrapper. Contains page content -->
