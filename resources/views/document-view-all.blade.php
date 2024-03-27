@@ -55,7 +55,7 @@
                 <h2>disini anda dapat melihat setiap document yang tersedia</h2>
             </div>
         </div>
-    </div>
+        </div>
     </section>
 
 
