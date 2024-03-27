@@ -50,20 +50,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-{{--                    @if(AllServices::isCurrentRole("Admin"))--}}
-{{--                        @include('components.add-user-manually-modal')--}}
-{{--                        @include('components.manage-role-modal')--}}
-{{--                        <a href='{{ route('list-allowed-user') }}' class="btn btn-success">--}}
-{{--                            List Allowed User--}}
-{{--                        </a>--}}
-{{--                        @include('components.list-action-pending-modal')--}}
-{{--                    @endif--}}
-                    <form class="d-flex" action="{{ route("addRole") }}" method="post" style="gap: 10px">
-                        @csrf
-                        <input placeholder="Insert new role here" name="role" type="text" class="form-control" required>
-
-                        <button class="btn btn-success" type="submit" style="min-width: 100px">Add Role</button>
-                    </form>
+                    @include('components.add-role-modal')
                 </div>
 
                 <table id="table-role" class="table table-striped table-bordered">
@@ -163,65 +150,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- Page specific script -->
 <script>
-    let table = new DataTable('#example1', {
-        "responsive": true, "lengthChange": false, "autoWidth": false,
-        "buttons": [
-            {
-                extend: 'pdf',
-                filename: 'User Settings Data',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    },
-                    columns: [
-                        0, 1, 2, 3, 4, 5
-                    ]
-                },
-                orientation: "landscape"
-            },
-            {
-                extend: 'excel',
-                filename: 'User Settings Data',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    },
-                    columns: [
-                        0, 1, 2, 3, 4, 5
-                    ]
-                },
-            },
-            {
-                extend: 'print',
-                filename: 'User Settings Data',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    },
-                    columns: [
-                        0, 1, 2, 3, 4, 5
-                    ]
-                },
-            },
-            {
-                extend: 'colvis',
-                columns: [
-                    0, 1, 2, 3, 4, 5
-                ]
-            },
-        ],
-        "pageLength": 10,
-        "select": true
-    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-
     let tableRole = new DataTable('#table-role', {
         "responsive": true,
         "lengthChange": false,
         "autoWidth": false,
         "pageLength": 10,
     });
-
-
 </script>
 <script>
     $(function () {
