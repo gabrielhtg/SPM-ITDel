@@ -72,6 +72,9 @@
                             Informable To
                         </th>
                         <th>
+                            Status
+                        </th>
+                        <th>
                             Aksi
                         </th>
                     </tr>
@@ -93,6 +96,15 @@
                             </td>
                             <td>
                                 {{ AllServices::convertRole($e->informable_to) }}
+                            </td>
+                            <td>
+                                <div class="form-group d-flex justify-content-center">
+                                    <div class="custom-control custom-switch">
+                                        <input type="checkbox" class="custom-control-input" id="customSwitch{{ $e->id }}">
+                                        <label class="custom-control-label" for="customSwitch{{ $e->id }}"></label>
+                                    </div>
+                                </div>
+
                             </td>
                             <td>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
