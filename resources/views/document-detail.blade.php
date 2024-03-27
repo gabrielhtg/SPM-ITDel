@@ -12,16 +12,21 @@
 <body>
     @include("components.guessnavbar")
 
-<section id="hero" class="d-flex align-items-center justify-content-center">
-    <div class="container" data-aos="fade-up">
-        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-            <div class="col-xl-6 col-lg-8">
-                <h1>Document Detail<span></span></h1>
-                <h2>disini anda dapat melihat Informasi Mengenai Dokumen</h2>
-            </div>
-        </div>
-    </div>
-</section><!-- End Hero -->
+    @foreach($documenthero as $s)
+    {{-- @php
+    dd($s->imagehero);
+    @endphp --}}
+     <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/img/' . $s->imagehero) }}') top center; background-size: cover; position: relative;">
+         <div class="container" data-aos="fade-up">
+             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                 <div class="col-xl-6 col-lg-8">
+                     <h1>{{ $s->titlehero }}</h1>
+                     <h2>{{ $s->descriptionhero }}</h2>
+                 </div>
+             </div>
+         </div>
+     </section>
+ @endforeach
 
 <section>
     <div class="content-wrapper">
@@ -109,18 +114,18 @@
                                         </div>
                                         <div class="row justify-content-center">
                                             <div class="col-auto">
-                                                @if($document->link)
+                                                @if($document->link && $document->can_see_by == 1) 
                                                     <a class="download-file btn btn-primary" href="{{ $document->link }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-external-link-alt"></i> Open
                                                     </a>
-                                                @elseif($document->can_see_by == 1 && $document->give_access_to == 1)
+                                                @elseif($document->can_see_by == 1 && $document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-eye"></i> Preview
                                                     </a>
                                                 @endif
                                             </div>
                                             <div class="col-auto">
-                                                @if(!$document->link && $document->can_see_by == 1 && $document->give_access_to == 1)
+                                                @if(!$document->link && $document->can_see_by == 1 && $document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
                                                         <i class="fas fa-file-download"></i> Download
                                                     </a>

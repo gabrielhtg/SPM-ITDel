@@ -436,12 +436,15 @@ public function updateDocument(Request $request, $id)
         $document = DocumentModel::find($id);
         $jenis_dokumen = DocumentTypeModel::all();
         $uploadedUser = User::find($document->created_by);
+        $documenthero = HeroDocument::all();
 
         // Mengembalikan tampilan dengan melewatkan data $jenis_dokumen
         return view('document-detail', [
             'document' => $document,
             'uploadedUser' => $uploadedUser,
-            'jenis_dokumen' => $jenis_dokumen, // Melewatkan data jenis_dokumen ke tampilan
+            'jenis_dokumen' => $jenis_dokumen,
+            'documenthero'=> $documenthero
+            // Melewatkan data jenis_dokumen ke tampilan
         ]);
     }
 
