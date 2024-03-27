@@ -5,10 +5,22 @@ namespace App\Http\Controllers;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Services\AllServices;
+use Couchbase\Role;
 use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
+    public function getHalamanRoleManagement() {
+
+
+        $data = [
+            'active_sidebar' => [6, 0],
+            'roles' => RoleModel::all()
+        ];
+
+        return view('role-management', $data);
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse

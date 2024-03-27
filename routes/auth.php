@@ -134,6 +134,7 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/change-password', [ProfileController::class, 'changePassword'])->name('change-password');
 
+        Route::get('/role-management', [RoleController::class, 'getHalamanRoleManagement'])->name('role-management');
         Route::post('/add-role', [RoleController::class, 'addRole'])->name('addRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
     });

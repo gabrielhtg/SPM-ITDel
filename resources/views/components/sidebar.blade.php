@@ -30,7 +30,7 @@
                 <li class="nav-item">
                     <a href="{{ route('admin-dashboard') }}"
                        class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
-                        <i class="nav-icon gifas fa-tachometer-alt"></i>
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Admin Dashboard
                         </p>
@@ -98,6 +98,17 @@
                     </li>
                 @endif
 
+                @if(AllServices::isCurrentRole('admin'))
+                    <li class="nav-item">
+                        <a href="{{ route('role-management') }}"
+                           class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-crown"></i>
+                            <p>
+                                Role Management
+                            </p>
+                        </a>
+                    </li>
+                @endif
 
             </ul>
         </nav>
