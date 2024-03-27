@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-primary" style="width: 180px" data-toggle="modal" data-target="#modal-success1">
-    <span style="margin-left: 5px"><b>Edit Profile</b></span>
+    <span style="margin-left: 5px"><b>Sunting Profil</b></span>
 </button>
 
 <div class="modal fade" id="modal-success1">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Edit Profile</h4>
+                <h4 class="modal-title">Sunting Profil</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>

@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-warning" style="width: 180px" data-toggle="modal" data-target="#modal-change-password">
-    <span style="margin-left: 5px"><b>Change Password</b></span>
+    <span style="margin-left: 5px"><b>Ganti Kata Sandi</b></span>
 </button>
 
 <div class="modal fade" id="modal-change-password">

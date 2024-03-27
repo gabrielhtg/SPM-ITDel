@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-invited-user">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add From Excel File</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan dari file Excel</span>
 </button>
 
 <div class="modal fade" id="modal-list-invited-user">

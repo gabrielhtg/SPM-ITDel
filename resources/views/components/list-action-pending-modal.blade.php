@@ -10,7 +10,7 @@
     }
 @endphp
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-register-pending">
-    <span style="margin-left: 5px">List Pending Action</span>
+    <span style="margin-left: 5px">Daftar Tindakan yang Tertunda</span>
     @if($banyakData != 0)
         <span class="badge badge-primary" style="margin-left: 5px">{{ $banyakData }}</span>
     @endif
@@ -21,7 +21,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">List Pending Action</h4>
+                <h4 class="modal-title">Daftar Tindakan yang Tertunda</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -30,11 +30,11 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Email</th>
-                        <th>Name</th>
-                        <th>Last Requested At</th>
-                        <th>Requested Role</th>
-                        <th>Action</th>
+                        <th>Alamat Email</th>
+                        <th>Nama</th>
+                        <th>Terakhir Diminta Pada</th>
+                        <th>Peran yang Diminta</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -100,12 +100,12 @@
                         @endif
                         @if($banyakData == 0)
                             <tr>
-                                <td colspan="5">There is no pending action request.</td>
+                                <td colspan="5">Tidak ada permintaan tindakan yang tertunda.</td>
                             </tr>
                         @endif
                     @empty
                         <tr>
-                            <td colspan="5">There is no pending action request.</td>
+                            <td colspan="5">Tidak ada permintaan tindakan yang tertunda.</td>
                         </tr>
                     @endforelse
                     </tbody>
@@ -134,7 +134,7 @@
                                     </p>
                                 </div>
                                 <div class="modal-footer justify-content-between">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                     <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">
                                         Delete
                                     </button>
@@ -147,7 +147,7 @@
                 @endforeach
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
             </div>
         </div>
         <!-- /.modal-content -->

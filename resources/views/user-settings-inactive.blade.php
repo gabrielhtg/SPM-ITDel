@@ -62,13 +62,13 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Name</th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>IP Address</th>
-                        <th>Phone</th>
-                        <th>Action</th>
+                        <th>Nama</th>
+                        <th>Nama Pengguna</th>
+                        <th>Alamat Email</th>
+                        <th>Peran</th>
+                        <th>Alamat IP</th>
+                        <th>No. Telepon</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>

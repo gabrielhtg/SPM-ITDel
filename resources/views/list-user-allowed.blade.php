@@ -52,7 +52,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Allowed User</h1>
+                        <h1 class="m-0">Pengguna yang diizinkan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -69,12 +69,12 @@
                         </div>
 
                         <div class="mb-3">
-                            <span class="mb-2">Add allowed user</span>
+                            <span class="mb-2">Tambahkan pengguna yang diizinkan</span>
                             <form action="{{ route("addAllowedUser") }}" method="post" class="w-100">
                                 @csrf
                                 <div class="d-flex">
                                     <input type="email" name="email" class="form-control" required>
-                                    <button class="btn btn-primary ml-2" type="submit">Add</button>
+                                    <button class="btn btn-primary ml-2" type="submit">Tambah</button>
                                 </div>
                             </form>
                         </div>
@@ -82,10 +82,10 @@
                         <table id="example1" class="table table-hover table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Email</th>
-                                <th>Created At</th>
-                                <th>Created By</th>
-                                <th>Action</th>
+                                <th>Alamat Email</th>
+                                <th>Dibuat pada</th>
+                                <th>Dibuat oleh</th>
+                                <th>Aksi</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -112,7 +112,7 @@
 
                             @empty
                                 <tr>
-                                    <td colspan="4">There is no allowed user data.</td>
+                                    <td colspan="4">Tidak ada data pengguna yang diizinkan.</td>
                                 </tr>
                             @endforelse
                             </tbody>

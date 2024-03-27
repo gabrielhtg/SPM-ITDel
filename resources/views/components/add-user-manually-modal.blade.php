@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success1">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add User Manually</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Pengguna Secara Manual</span>
 </button>
 
 <div class="modal fade" id="modal-success1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add User</h4>
+                <h4 class="modal-title">Tambah Pengguna</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col">
                             <div class="input-group">
-                                <input type="text" name="name" class="form-control" placeholder="Full name" required>
+                                <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-user"></span>
@@ -31,7 +31,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="input-group">
-                                <input type="text" name="username" class="form-control" placeholder="Username" required>
+                                <input type="text" name="username" class="form-control" placeholder="Nama Pengguna" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-user"></span>
@@ -45,7 +45,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="input-group">
-                                <input type="email" name="email" class="form-control" placeholder="Email" required>
+                                <input type="email" name="email" class="form-control" placeholder="Alamat Email" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-envelope"></span>
@@ -59,7 +59,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="input-group">
-                                <input type="text" name="phone" class="form-control" placeholder="Phone Number" required>
+                                <input type="text" name="phone" class="form-control" placeholder="Nomor Telepon" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <i class="fas fa-phone"></i>
@@ -72,7 +72,7 @@
                     <div class="row mt-3">
                         <div class="col">
                             <div class="input-group">
-                                <input type="password" name="password" class="form-control" placeholder="Password" required>
+                                <input type="password" name="password" class="form-control" placeholder="Kata Sandi" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
@@ -87,7 +87,7 @@
                         <div class="col">
                             <div class="input-group">
                                 <input type="password" name="password_confirmation" class="form-control"
-                                       placeholder="Retype password" required>
+                                       placeholder="Ketik Ulang Kata Sandi" required>
                                 <div class="input-group-append">
                                     <div class="input-group-text">
                                         <span class="fas fa-lock"></span>
