@@ -31,6 +31,7 @@ class DocumentController extends Controller
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
+            'active_sidebar' => [4, 0]
         ];
 
         return view('document-management', $data);
@@ -208,7 +209,7 @@ class DocumentController extends Controller
         // $status = $request->menggantikan_dokumen ? false : true;
 
         // Convert array to string for 'give_access_to' column
-       
+
 
         // Simpan file dengan nama baru
         $file->move(public_path('/src/documents/'), $filename);

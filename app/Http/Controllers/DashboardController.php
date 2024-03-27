@@ -29,8 +29,8 @@ class DashboardController extends Controller
 
     public function guestIntroduction()
     {
-        $dashboard = Dashboard::all()->sortByDesc('id'); 
-        $herodashboard = HeroDashboard::all()->sortByDesc('id'); 
+        $dashboard = Dashboard::all()->sortByDesc('id');
+        $herodashboard = HeroDashboard::all()->sortByDesc('id');
 
         return view('components.guesslayout', compact('dashboard','herodashboard'));
     }
@@ -41,7 +41,8 @@ class DashboardController extends Controller
         $dashboard = Dashboard::all()->sortByDesc('id');
 
         $data = [
-            'dashboard' => $dashboard
+            'dashboard' => $dashboard,
+            'active_sidebar' => [2, 0]
         ];
 
         return view('dashboard-admin', $data);
@@ -52,13 +53,13 @@ class DashboardController extends Controller
         $request->validate([
             'juduldashboard' => 'required',
             'keterangandashboard' => 'required',
-        ]);   
+        ]);
 
         Dashboard::create([
             'juduldashboard' => $request->juduldashboard,
             'keterangandashboard' => $request->keterangandashboard,
         ]);
-        
+
         return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to add introduction']);
     }
 
@@ -149,7 +150,7 @@ class DashboardController extends Controller
 
     public function getDetailherosection($id)
     {
-        
+
         $herosectiondetail = HeroDashboard::find($id);
         // $users = auth()->user()->name;
 
@@ -234,5 +235,5 @@ class DashboardController extends Controller
 
         return redirect('dashboatd-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
     }
-    
+
 }

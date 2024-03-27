@@ -39,7 +39,7 @@
                 </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('dashboard-admin') }}" class="nav-link">
+                        <a href="{{ route('dashboard-admin') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Dashboard Management
@@ -66,7 +66,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-inactive') }}" class="nav-link {{ $active_sidebar[1] != 1 ? 'active' : '' }}">
+                                <a href="{{ route('user-settings-inactive') }}" class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inactive User</p>
                                 </a>
@@ -77,7 +77,7 @@
 
                 @if(auth()->user()->role != null)
                     <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link">
+                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>
                                 Document Management
