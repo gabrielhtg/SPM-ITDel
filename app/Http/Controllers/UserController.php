@@ -88,6 +88,7 @@ class UserController extends Controller
         $user = User::find($request->user_id);
         $data = [
             'user' => $user,
+            'active_sidebar' => [0, 0]
         ];
 
         return view('user-detail', $data);

@@ -1,4 +1,4 @@
-@php use Illuminate\Support\Facades\Auth; @endphp
+@php use App\Services\AllServices;use Illuminate\Support\Facades\Auth; @endphp
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{ route("dashboard") }}" class="brand-link">
@@ -28,26 +28,28 @@
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <a href="{{ route('admin-dashboard') }}" class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-newspaper"></i>
+                    <a href="{{ route('admin-dashboard') }}"
+                       class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
+                        <i class="nav-icon gifas fa-tachometer-alt"></i>
                         <p>
                             Admin Dashboard
                         </p>
                     </a>
                 </li>
 
-                @if(Auth::check() && Auth::user()->username === 'admin')
-                <li class="nav-item">
-                    <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-newspaper"></i>
-                        <p>
-                            News
-                        </p>
-                    </a>
-                </li>
+                @if(Auth::check() && AllServices::isCurrentRole("admin"))
+                    <li class="nav-item">
+                        <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-newspaper"></i>
+                            <p>
+                                News
+                            </p>
+                        </a>
+                    </li>
 
                     <li class="nav-item">
-                        <a href="{{ route('dashboard-admin') }}" class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
+                        <a href="{{ route('dashboard-admin') }}"
+                           class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
                             <p>
                                 Dashboard Management
@@ -67,13 +69,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-active') }}" class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
+                                <a href="{{ route('user-settings-active') }}"
+                                   class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Active User</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-inactive') }}" class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                <a href="{{ route('user-settings-inactive') }}"
+                                   class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Inactive User</p>
                                 </a>
@@ -84,7 +88,8 @@
 
                 @if(auth()->user()->role != null)
                     <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
+                        <a href="{{ route('documentManagement') }}"
+                           class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>
                                 Document Management

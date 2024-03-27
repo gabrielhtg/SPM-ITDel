@@ -20,7 +20,7 @@ class CheckDocumentActive
     {
         // Ambil semua dokumen
         $allDocuments = DocumentModel::all();
-        
+
         foreach ($allDocuments as $document) {
             $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->start_date);
             $nowDate = Carbon::now();
@@ -61,16 +61,17 @@ class CheckDocumentActive
                     $document->update([
                         'keterangan_status' => false,
                         'end_date'=>now()
-                        
+
                     ]);
                 }
-
-
-                
             }
         }
 
-
+        if (auth()->check()) {
+            auth()->user()->update([
+                'online' =>true
+            ]);
+        }
         return $next($request);
     }
 }
