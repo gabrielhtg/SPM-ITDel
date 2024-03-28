@@ -17,7 +17,7 @@
 
                     <div class="form-group">
                         <label for="nama-role">Role Name</label>
-                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama_role" required>
+                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama_role" required autofocus>
                     </div>
 
                     <div class="form-group mt-3">

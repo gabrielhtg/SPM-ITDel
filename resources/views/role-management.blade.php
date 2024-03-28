@@ -20,8 +20,6 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
-    <!-- SummerNote -->
-    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -64,6 +62,9 @@
                             Atasan
                         </th>
                         <th>
+                            Bawahan
+                        </th>
+                        <th>
                             Responsible To
                         </th>
                         <th>
@@ -90,6 +91,9 @@
                                 {{ AllServices::convertRole($e->atasan_id) }}
                             </td>
                             <td>
+                                {{ AllServices::convertRole($e->bawahan) }}
+                            </td>
+                            <td>
                                 {{ AllServices::convertRole($e->responsible_to) }}
                             </td>
                             <td>
@@ -99,12 +103,19 @@
                                 {{ AllServices::convertRole($e->informable_to) }}
                             </td>
                             <td>
+                                <form action="{{ route('update-status') }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="btn {{ $e->status ? 'btn-success' : 'btn-danger' }} btn-sm">
+                                        {{ $e->status ? 'AKTIF' : 'TIDAK AKTIF' }}
+                                    </button>
 
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
+                                </form>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-danger" data-toggle="modal"
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
                                         data-target="#modal-delete-role-{{ $e->id }}">
-                                    <i class="bi bi-archive"></i>
+                                    <i class="bi bi-pencil-square"></i>
                                 </button>
 
                                 <div class="modal fade" id="modal-delete-role-{{ $e->id }}">
@@ -181,7 +192,6 @@
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>

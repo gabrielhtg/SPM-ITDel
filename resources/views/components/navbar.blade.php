@@ -52,13 +52,13 @@
     </ul>
 </nav>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(function(navLink) {
-            navLink.addEventListener('click', function() {
-                document.getElementById('announcementCounter').style.display = 'none';
-            });
-        });
-    });
-</script>
+{{--<script>--}}
+{{--    document.addEventListener('DOMContentLoaded', function() {--}}
+{{--        var navLinks = document.querySelectorAll('.nav-link');--}}
+{{--        navLinks.forEach(function(navLink) {--}}
+{{--            navLink.addEventListener('click', function() {--}}
+{{--                document.getElementById('announcementCounter').style.display = 'none';--}}
+{{--            });--}}
+{{--        });--}}
+{{--    });--}}
+{{--</script>--}}
