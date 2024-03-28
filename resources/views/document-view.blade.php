@@ -98,9 +98,9 @@
                                     <table class="table table-borderless" style="width: 100%;">
                                         <thead class="table-primary custom-thead">
                                         <tr>
-                                            <th scope="col">Doc Number</th>
-                                            <th scope="col">Doc Name</th>
-                                            <th scope="col">Uploaded By</th>
+                                            <th scope="col ">Nomor Dokumen</th>
+                                            <th scope="col">Nama Dokumen</th>
+                                            <th scope="col">Deskripsi</th>
                                             <th scope="col">Status</th>
                                         </tr>
                                         </thead>
@@ -112,39 +112,27 @@
                                                     <td>
                                                         <div class="user-panel d-flex">
                                                             <div class="d-flex align-items-center">
-                                                                @if(strlen($e->name) > 75)
-                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ substr($e->name, 0, 75) }}...</a>
+                                                                @if(strlen($e->name) > 30)
+                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">
+                                                                        <?php
+                                                                        $name = $e->name;
+                                                                        while(strlen($name) > 30) {
+                                                                            echo substr($name, 0, 30) . "<br>";
+                                                                            $name = substr($name, 30);
+                                                                        }
+                                                                        echo $name;
+                                                                        ?>
+                                                                    </a>
                                                                 @else
                                                                     <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ $e->name }}</a>
                                                                 @endif
-                                                            </div>
+                                                            </div>
                                                         </div>
                                                     </td>
-                                                    @if(\Illuminate\Support\Facades\Auth::check())
-                                                        <td>
-                                                        <span class="d-block">
-                                                            @php
-                                                                $accessor = explode(";", $e->give_access_to);
-                                                            @endphp
-                                                            @foreach($accessor as $acc)
-                                                                <span class="badge badge-primary">
-                                                                    @if($acc == 0)
-                                                                        All
-                                                                    @else
-                                                                        {{ \App\Models\RoleModel::find($acc)->role }}
-                                                                    @endif
-                                                                </span>
-                                                            @endforeach
-                                                        </span>
-                                                        </td>
-                                                    @endif
-                                                    <td style="vertical-align: middle;">
-                                                        <div class="user-panel d-flex">
-                                                            <div class="info">
-                                                                <span><span class="badge badge-success">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
+                                                   
+                                                    <td class="bold" style="font-size: 18px;">
+                                                        {!! strlen($e->deskripsi) > 75 ? (strlen($e->deskripsi) >= 225 ? wordwrap(substr($e->deskripsi, 0, 225), 75, "<br>", true) . '...' : wordwrap($e->deskripsi, 75, "<br>", true)) : $e->deskripsi !!}
+                                                    </td>
                                                     <td style="vertical-align: middle;">
                                                         <div class="user-panel d-flex">
                                                             <div class="info">
@@ -159,8 +147,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                @php $counter++; @endphp <!-- Increment counter -->
-                                                @endif
+                                                
                                             @endif
                                         @endforeach
                                         </tbody>

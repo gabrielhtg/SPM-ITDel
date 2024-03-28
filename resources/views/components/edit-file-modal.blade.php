@@ -81,16 +81,17 @@
                                                     <textarea class="summernote" name="deskripsi">{!! $document->deskripsi !!}</textarea>
                                                 </div>
 
-
+                                                {{-- @php
+                                                dd($document->menggantikan_dokumen);
+                                                @endphp --}}
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                                         @foreach($documents as $type)
                                                         @php
-                                                        // Periksa apakah dokumen sudah digantikan
                                                         $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
                                                     @endphp
-                                                            @if($type->created_by == auth()->user()->id && !$isReplaced) <!-- Ubah pemanggilan fungsi -->
+                                                            @if($type->created_by == auth()->user()->id && !$isReplaced) ->
                                                                 @php
                                                                     $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
                                                                 @endphp

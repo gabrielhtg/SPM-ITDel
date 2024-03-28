@@ -166,6 +166,21 @@ class AllServices
         // sleep(10);
     }
 
+    static public function dokumenchange($id) {
+        if ($id) {
+            $document = DocumentModel::find($id); // Mengambil dokumen berdasarkan ID
+            if ($document) {
+                return $document->nama_dokumen; // Mengembalikan nama dokumen jika ditemukan
+            } else {
+                return "Tidak Menggantikan Dokumen Apapun"; // Mengembalikan pesan jika dokumen tidak ditemukan
+            }
+        } else {
+            return "Tidak Menggantikan Dokumen Apapun"; // Mengembalikan pesan jika ID dokumen kosong atau null
+        }
+    }
+    
+    
+
     static public function isAllView ($id) : bool
     {
 
