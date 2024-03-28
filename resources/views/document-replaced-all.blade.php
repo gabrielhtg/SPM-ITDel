@@ -28,6 +28,10 @@
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
 
     <!-- Meta tag viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,23 +50,17 @@
 
     <!-- Main Sidebar Container -->
     {{-- @include("components.sidebar") --}}
-    @foreach($documenthero as $s)
-        {{-- @php
-        dd($s->imagehero);
-        @endphp --}}
-        <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center"
-                 style="background: url('{{ asset('src/img/' . $s->imagehero) }}') top center; background-size: cover; position: relative;">
-            <div class="container" data-aos="fade-up">
-                <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-                    <div class="col-xl-6 col-lg-8">
-                        <h1>{{ $s->titlehero }}</h1>
-                        <h2>{{ $s->descriptionhero }}</h2>
-                    </div>
-                </div>
-            </div>
-        </section>
-    @endforeach
 
+    <section id="hero" class="background-under-navbar d-flex align-items-center justify-content-center">
+    <div class="container" data-aos="fade-up">
+        <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+            <div class="col-xl-6 col-lg-8">
+                <h1>Document Management<span></span></h1>
+                <h2>disini anda dapat melihat setiap document yang tersedia</h2>
+            </div>
+        </div>
+    </div>
+    </section>
 
 
     <!-- Content Wrapper. Contains page content -->
@@ -94,90 +92,43 @@
                     <div class="col-md-12">
                         <div class="card" style="border-radius: 30px;">
                             <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-borderless" style="width: 100%;">
-                                        <thead class="table-primary custom-thead">
-                                        <tr>
-                                            <th scope="col">Doc Number</th>
-                                            <th scope="col">Doc Name</th>
-                                            <th scope="col">Uploaded By</th>
-                                            <th scope="col">Status</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        @foreach($documents as $e)
-                                            @if($e->keterangan_status==1)
-                                                <tr>
-                                                    <td>{{ $e->nomor_dokumen }}</td>
-                                                    <td>
-                                                        <div class="user-panel d-flex">
-                                                            <div class="d-flex align-items-center">
-                                                                @if(strlen($e->name) > 75)
-                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ substr($e->name, 0, 75) }}...</a>
-                                                                @else
-                                                                    <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ $e->name }}</a>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    @if(\Illuminate\Support\Facades\Auth::check())
-                                                        <td>
-                                                        <span class="d-block">
+                                <div class="col-lg-12">
+                                    <div class="card">
+                                        <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
+                                            <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Replaced Document</h3>
+                                        </div>
+                                        <div class="card-body flex-grow-1">
+                                            <!-- Isi similar document -->
+                                            <div class="row justify-content-center mb-4">
+
+                                                <div class="col fw-semibold text-center">
+                                                    @php
+                                                        $count = count(explode(',', $document->menggantikan_dokumen));
+                                                    @endphp
+                                                    @if($document->menggantikan_dokumen)
+                                                        @foreach(explode(',', $document->menggantikan_dokumen) as $index => $menggantikan_id)
                                                             @php
-                                                                $accessor = explode(";", $e->give_access_to);
+                                                                $dokumenDigantikan = \App\Models\DocumentModel::find($menggantikan_id);
                                                             @endphp
-                                                            @foreach($accessor as $acc)
-                                                                <span class="badge badge-primary">
-                                                                    @if($acc == 0)
-                                                                        All
-                                                                    @else
-                                                                        {{ \App\Models\RoleModel::find($acc)->role }}
-                                                                    @endif
-                                                                </span>
-                                                            @endforeach
-                                                        </span>
-                                                        </td>
+                                                            @if($dokumenDigantikan)
+                                                                <p><a href="{{ route('document-detail', ['id' => $dokumenDigantikan->id]) }}">{{ $dokumenDigantikan->name }}</a></p>
+                                                                <!-- Tampilkan tombol "See More" jika jumlah dokumen melebihi 10 -->
+
+                                                                <a href="{{ route('moreReplaced') }}">See More</a>
+
+                                                            @endif
+                                                        @endforeach
+                                                    @else
+                                                        <p>Tidak ada dokumen yang digantikan</p>
                                                     @endif
-                                                    <td style="vertical-align: middle;">
-                                                        <div class="user-panel d-flex">
-                                                            <div class="info">
-                                                                <span><span class="badge badge-success">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td style="vertical-align: middle;">
-                                                        <div class="user-panel d-flex">
-                                                            <div class="info">
-                                                                @php
-                                                                    if($e->keterangan_status == 0) {
-                                                                        echo 'Tidak Berlaku';
-                                                                    } else {
-                                                                        echo 'Berlaku';
-                                                                    }
-                                                                @endphp
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                @php $counter++; @endphp <!-- Increment counter -->
-                                                @endif
-                                            @endif
-                                        @endforeach
-                                        </tbody>
-                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- Tombol "See More" hanya tampil jika jumlah file lebih dari 10 -->
-                @if(count($documents) > 9)
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-md-12 text-center">
-                            <a href="{{ route('documentManagementAll') }}" class="btn btn-primary">See More</a>
-                        </div>
-                    </div>
-                @endif
             </div>
 
         </div>
@@ -203,6 +154,8 @@
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
+<!-- DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -236,6 +189,10 @@
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
+
+
+
+
 
 <script>
     $(document).ready(function() {

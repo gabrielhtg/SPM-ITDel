@@ -30,6 +30,10 @@
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+    <!-- DataTables -->
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
 
     <!-- Meta tag viewport -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -192,6 +196,8 @@
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
+<!-- DataTables JS -->
+<script type="text/javascript" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button)
@@ -225,6 +231,16 @@
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.js") }}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#myTable').DataTable({
+            "paging": true
+        });
+    });
+</script>
+
+
 
 <script>
     $(document).ready(function () {

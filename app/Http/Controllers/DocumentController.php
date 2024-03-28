@@ -6,6 +6,7 @@ use App\Models\DocumentModel;
 use App\Models\DocumentTypeModel;
 use App\Models\RoleModel;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use App\Models\HeroDocument;
@@ -445,6 +446,20 @@ public function updateDocument(Request $request, $id)
             'jenis_dokumen' => $jenis_dokumen,
             'documenthero'=> $documenthero
             // Melewatkan data jenis_dokumen ke tampilan
+        ]);
+    }
+
+    public function getDocumentDetailReplaced($id = 1)
+    {
+        $document = DocumentModel::find($id);
+        $jenis_dokumen = DocumentTypeModel::all();
+        $uploadedUser = User::find($document->created_by);
+
+        // Mengembalikan tampilan dengan melewatkan data $jenis_dokumen
+        return view('document-replaced-all', [
+            'document' => $document,
+            'uploadedUser' => $uploadedUser,
+            'jenis_dokumen' => $jenis_dokumen, // Melewatkan data jenis_dokumen ke tampilan
         ]);
     }
 
