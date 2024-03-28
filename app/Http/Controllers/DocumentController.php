@@ -449,18 +449,24 @@ public function updateDocument(Request $request, $id)
         ]);
     }
 
-    public function getDocumentDetailReplaced($id = 1)
+    public function getDocumentDetailReplaced()
     {
-        $document = DocumentModel::find($id);
-        $jenis_dokumen = DocumentTypeModel::all();
-        $uploadedUser = User::find($document->created_by);
+        $documents = DocumentModel::orderBy('created_at', 'desc')->get();
 
-        // Mengembalikan tampilan dengan melewatkan data $jenis_dokumen
-        return view('document-replaced-all', [
-            'document' => $document,
-            'uploadedUser' => $uploadedUser,
-            'jenis_dokumen' => $jenis_dokumen, // Melewatkan data jenis_dokumen ke tampilan
-        ]);
+        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $jenis_dokumen = DocumentTypeModel::all();
+        $roles = RoleModel::all();
+
+
+        $data = [
+            'documents' => $documents,
+            'uploadedUsers' => $uploadedUsers,
+            'jenis_dokumen' => $jenis_dokumen,
+            'roles' => $roles,
+
+        ];
+
+        return view('document-replaced-all', $data);
     }
 
 
