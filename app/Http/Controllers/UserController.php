@@ -67,11 +67,11 @@ class UserController extends Controller
                     'status' => false,
                     'ends_on' => now(),
                 ]);
-                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "The account in " . $user->name . " name was successfully deactivated!"]);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Akun dengan nama pengguna " .$user->name . " berhasil dinonaktifkan!"]);
             }
 
             else {
-                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to deleted user!"]);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Gagal untuk menghapus pengguna!"]);
             }
         }
 
@@ -108,6 +108,6 @@ class UserController extends Controller
             'ends_on' => null
         ]);
 
-        return redirect()->route('user-settings-inactive')->with('toastData', ['success' => true, 'text' => 'Successfully activated User ' . $user->name]);
+        return redirect()->route('user-settings-inactive')->with('toastData', ['success' => true, 'text' => 'Berhasil mengaktifkan pengguna ' . $user->name]);
     }
 }

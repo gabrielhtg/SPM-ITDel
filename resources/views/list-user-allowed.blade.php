@@ -123,7 +123,7 @@
                                 <div class="modal-dialog modal-dialog-centered">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h4 class="modal-title">Delete Confirmation Dialog</h4>
+                                            <h4 class="modal-title">Hapus Pengguna yang Diizinkan</h4>
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
@@ -137,14 +137,14 @@
                                             </form>
 
                                             <p>
-                                                Are you sure to remove this from list?
+                                                Apakah anda yakin akan menghapus ini dari daftar?
                                             </p>
                                         </div>
                                         <div class="modal-footer justify-content-between">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup
                                             </button>
                                             <button type="submit" form="form-delete-{{ $e->id }}"
-                                                    class="btn btn-danger">Remove
+                                                    class="btn btn-danger">Hapus
                                             </button>
                                         </div>
                                     </div>

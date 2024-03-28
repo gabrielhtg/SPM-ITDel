@@ -159,9 +159,7 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                @php $counter++; @endphp <!-- Increment counter -->
                                                 @endif
-                                            @endif
                                         @endforeach
                                         </tbody>
                                     </table>

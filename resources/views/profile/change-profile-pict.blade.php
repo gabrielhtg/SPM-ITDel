@@ -72,11 +72,11 @@
                                 <input type="file" class="sr-only" id="inputImage" name="file" accept="image/*">
                                 <span class="docs-tooltip" data-toggle="tooltip" title=""
                                       data-original-title="Import image with Blob URLs">
-                            Upload Image
+                            Unggah Gambar
                         </span>
                             </label>
 
-                            <button id="btnSubmit" class="btn btn-success">Set as Profile Picture</button>
+                            <button id="btnSubmit" class="btn btn-success">Tetapkan sebagai foto profil</button>
                         </div>
 
                 </div>
@@ -172,17 +172,17 @@
                 success: function(response) {
                     // Redirect to user-settings page
                     sessionStorage.setItem('success', "1");
-                    sessionStorage.setItem('text', 'Successfully changed profile photo.');
+                    sessionStorage.setItem('text', 'Berhasil mengganti foto profil');
                     window.location.href = '{{ route("change-profile-pict") }}';
                 },
                 error: function(jqXHR, status, error) {
                     if (jqXHR.status === 413) {
                         sessionStorage.setItem('success', "0");
-                        sessionStorage.setItem('text', 'The file you uploaded is too large. Please upload files smaller than 2MB.');
+                        sessionStorage.setItem('text', 'File yang anda unggah terlalu besar. Harap unggah file yang lebih kecil dari 2 MB.');
                         window.location.href = '{{ route("change-profile-pict") }}';
                     } else {
                         sessionStorage.setItem('success', "0");
-                        sessionStorage.setItem('text', 'An error occurred: ' + error);
+                        sessionStorage.setItem('text', 'Terjadi Kesalahan: ' + error);
                         window.location.href = '{{ route("change-profile-pict") }}';
                     }
                 }
