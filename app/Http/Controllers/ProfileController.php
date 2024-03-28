@@ -44,7 +44,7 @@ class ProfileController extends Controller
                     'phone' => $request->phone,
                 ]);
 
-                return redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Profile changed!']);
+                return redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Profil berubah!']);
             }
 
             catch (QueryException $e) {
@@ -64,7 +64,7 @@ class ProfileController extends Controller
                 'verified' => false
             ]);
 
-            return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Success. Wait for the admin to approve your changes!']);
+            return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Tunggu hingga admin menyetujui perubahan Anda!']);
         }
 
 
@@ -141,11 +141,11 @@ class ProfileController extends Controller
             \auth()->user()->update([
                 'password' => Hash::make($request->password),
             ]);
-            return \redirect()->route('profile')->with('toastData', ['success' => true, 'text' => "Successfully changed password!"]);
+            return \redirect()->route('profile')->with('toastData', ['success' => true, 'text' => "Berhasil mengubah kata sandi!"]);
         }
 
         else {
-            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Failed to change password!"]);
+            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Gagal mengubah kata sandi"]);
         }
 
     }
