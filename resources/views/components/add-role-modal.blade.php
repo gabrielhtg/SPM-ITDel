@@ -17,12 +17,14 @@
 
                     <div class="form-group">
                         <label for="nama-role">Role Name</label>
-                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama_role" required autofocus>
+                        <input type="text" class="form-control" placeholder="Type Here" id="nama-role" name="nama_role"
+                               required>
                     </div>
 
                     <div class="form-group mt-3">
                         <label for="atasan-role">Atasan</label>
-                        <select id="atasan-role" name="atasan_role" class="form-control" style="width: 100%">
+                        <select id="atasan-role" name="atasan_role" class="atasan-role-custom form-control"
+                                style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
                                 @if($e->role !== "Admin")
@@ -33,7 +35,8 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="accountable-to">Accountable To:</label>
-                        <select id="accountable-to" name="accountable_to[]" multiple="multiple" class="form-control" style="width: 100%">
+                        <select id="accountable-to" name="accountable_to[]" multiple="multiple"
+                                class="accountable-to-custom form-control" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
                                 @if($e->role !== "Admin")
@@ -44,7 +47,8 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="informable-to">Informable To:</label>
-                        <select id="informable-to" name="informable_to[]" class="form-control" multiple="multiple" style="width: 100%">
+                        <select id="informable-to" name="informable_to[]" class="informable-to-custom form-control"
+                                multiple="multiple" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
                                 @if($e->role !== "Admin")
