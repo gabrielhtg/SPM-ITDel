@@ -136,4 +136,28 @@ class RoleController extends Controller
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil mengganti status role!']);
     }
+
+    public function editRole (Request $request){
+        $role = RoleModel::find($request->id);
+
+        $informableTo = null;
+        $accountableTo = null;
+
+        if ($request->informable_to !== null) {
+            $informableTo = implode(';', $request->informable_to);
+        }
+
+        if ($request->accountable_to !== null) {
+            $accountableTo = implode(';', $request->accountable_to);
+        }
+
+        $role->update([
+            'role' => $request->nama_role,
+            'atasan_id'=>$request->atasan_role,
+            'accountable_to'=> $accountableTo,
+            'informable_to' => $informableTo
+        ]);
+
+        return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
+    }
 }

@@ -154,6 +154,11 @@ class AllServices
         return false;
     }
 
+    /**
+     * @return bool
+     *
+     * Method ini berfungsi untuk mengecek apakah user yang sedang login sekarang adalah admin atau tidak
+     */
     static public function isAdmin (): bool
     {
         if (RoleModel::find(auth()->user()->role)->role == "Admin") {
@@ -218,4 +223,14 @@ class AllServices
         return $semuaNonaktif;
     }
 
+    public static function isThisRoleExistInArray($array, $id): bool
+    {
+        $temp = explode(";", $array);
+
+        if (in_array($id, $temp)) {
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -61,9 +61,9 @@
                         <th>
                             Atasan
                         </th>
-                        <th>
-                            Bawahan
-                        </th>
+{{--                        <th>--}}
+{{--                            Bawahan--}}
+{{--                        </th>--}}
                         <th>
                             Responsible To
                         </th>
@@ -83,49 +83,51 @@
                     </thead>
                     <tbody>
                     @foreach($roles as $e)
-                        <tr>
-                            <td>
-                                {{$e->role}}
-                            </td>
-                            <td>
-                                {{ AllServices::convertRole($e->atasan_id) }}
-                            </td>
-                            <td>
-                                {{ AllServices::convertRole($e->bawahan) }}
-                            </td>
-                            <td>
-                                {{ AllServices::convertRole($e->responsible_to) }}
-                            </td>
-                            <td>
-                                {{ AllServices::convertRole($e->accountable_to) }}
-                            </td>
-                            <td>
-                                {{ AllServices::convertRole($e->informable_to) }}
-                            </td>
-                            <td>
-                                <form action="{{ route('update-status') }}" method="POST">
-                                    @csrf
-                                    <button type="submit"
-                                            class="btn {{ $e->status ? 'btn-success' : 'btn-danger' }} btn-sm">
-                                        {{ $e->status ? 'AKTIF' : 'TIDAK AKTIF' }}
-                                    </button>
+                        @if(!($e->role == "Admin"))
+                            <tr>
+                                <td>
+                                    {{$e->role}}
+                                </td>
+                                <td>
+                                    {{ AllServices::convertRole($e->atasan_id) }}
+                                </td>
+{{--                                <td>--}}
+{{--                                    {{ AllServices::convertRole($e->bawahan) }}--}}
+{{--                                </td>--}}
+                                <td>
+                                    {{ AllServices::convertRole($e->responsible_to) }}
+                                </td>
+                                <td>
+                                    {{ AllServices::convertRole($e->accountable_to) }}
+                                </td>
+                                <td>
+                                    {{ AllServices::convertRole($e->informable_to) }}
+                                </td>
+                                <td>
+                                    <form action="{{ route('update-status') }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                                class="btn {{ $e->status ? 'btn-success' : 'btn-danger' }} btn-sm">
+                                            {{ $e->status ? 'AKTIF' : 'TIDAK AKTIF' }}
+                                        </button>
 
-                                    <input type="hidden" name="id" value="{{ $e->id }}">
-                                </form>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#modal-edit-role{{ $e->id }}">
-                                    <i class="bi bi-pencil-square"></i>
-                                </button>
-                            </td>
-                        </tr>
+                                        <input type="hidden" name="id" value="{{ $e->id }}">
+                                    </form>
+                                </td>
+                                <td>
+                                    <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
+                                            data-target="#modal-edit-role{{ $e->id }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>
 
                 @foreach($roles as $e)
-{{--                    @if(AllServices::)--}}
+                    @if(!($e->role == "Admin"))
                         <div class="modal fade" id="modal-edit-role{{ $e->id }}">
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                 <div class="modal-content">
@@ -136,59 +138,77 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="form-add-role" action="{{route('addRole')}}" method="POST">
+                                        <form id="form-edit-role" action="{{route('editRole')}}" method="POST">
                                             @csrf
 
                                             <div class="form-group">
                                                 <label for="nama-role{{ $e->id }}">Role Name</label>
-                                                <input type="text" class="form-control" placeholder="Type Here" id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
+                                                <input type="text" class="form-control" value="{{ $e->role }}" placeholder="Type Here"
+                                                       id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
                                             </div>
 
                                             <div class="form-group mt-3">
                                                 <label for="atasan-role{{ $e->id }}">Atasan</label>
-                                                <select id="atasan-role{{ $e->id }}" name="atasan_role" class="atasan-role-custom form-control" style="width: 100%">
+                                                <select id="atasan-role{{ $e->id }}" name="atasan_role"
+                                                        class="atasan-role-custom form-control" style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($e->role !== "Admin")
-                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @if($role->role !== "Admin")
+                                                            @if($role->id == $e->atasan_id)
+                                                                <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
+                                                            @else
+                                                                <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
                                                 <label for="accountable-to{{ $e->id }}">Accountable To:</label>
-                                                <select id="accountable-to{{ $e->id }}" name="accountable_to[]" multiple="multiple" class="accountable-to-custom form-control" style="width: 100%">
+                                                <select id="accountable-to{{ $e->id }}" name="accountable_to[]"
+                                                        multiple="multiple" class="accountable-to-custom form-control"
+                                                        style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($e->role !== "Admin")
-                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @if($role->role !== "Admin")
+                                                            @if(AllServices::isThisRoleExistInArray($e->accountable_to, $role))
+                                                                <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
+                                                            @else
+                                                                <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
                                                 <label for="informable-to{{ $e->id }}">Informable To:</label>
-                                                <select id="informable-to{{ $e->id }}" name="informable_to[]" class="informable-to-custom form-control" multiple="multiple" style="width: 100%">
+                                                <select id="informable-to{{ $e->id }}" name="informable_to[]"
+                                                        class="informable-to-custom form-control" multiple="multiple"
+                                                        style="width: 100%">
                                                     <option></option>
-                                                    @foreach($roles as $role)
-                                                        @if($e->role !== "Admin")
+                                                    @if($role->role !== "Admin")
+                                                        @if(AllServices::isThisRoleExistInArray($e->informable_to, $role))
+                                                            <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
+                                                        @else
                                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
-                                                    @endforeach
+                                                    @endif
                                                 </select>
                                             </div>
+
+                                            <input type="hidden" value="{{ $e->id }}" name="id">
                                         </form>
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" form="form-add-role">Add</button>
+                                        <button type="submit" class="btn btn-primary" form="form-edit-role">Edit</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
                             </div>
                             <!-- /.modal-dialog -->
                         </div>
-{{--                    @endif--}}
+                    @endif
                 @endforeach
             </div>
             <!-- /.card-body -->

@@ -47,7 +47,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
-    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
+//    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
 });
 
 Route::middleware('auth')->group(function () {
@@ -136,6 +136,7 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/role-management', [RoleController::class, 'getHalamanRoleManagement'])->name('role-management');
         Route::post('/add-role', [RoleController::class, 'addRole'])->name('addRole');
+        Route::post('/edit-role', [RoleController::class, 'editRole'])->name('editRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
     });
