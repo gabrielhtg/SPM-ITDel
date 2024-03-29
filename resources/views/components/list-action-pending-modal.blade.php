@@ -10,7 +10,7 @@
     }
 @endphp
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-list-register-pending">
-    <span style="margin-left: 5px">Daftar Tindakan yang Tertunda</span>
+    <span>Daftar Tindakan yang Tertunda</span>
     @if($banyakData != 0)
         <span class="badge badge-primary" style="margin-left: 5px">{{ $banyakData }}</span>
     @endif
