@@ -196,4 +196,25 @@ class AllServices
         return null;
     }
 
+    /**
+     * @param $idBawahan
+     * @return bool
+     *
+     * Method ini digunakan untuk melakukan pengecekan terhadap semua role bawahan yang ada
+     * apakah sudah nonaktif semua atau tidak.
+     */
+    public static function isAllBawahanNonAktif ($idBawahan) : bool {
+        $roleBahahan = explode(";", $idBawahan);
+
+        $semuaNonaktif = true;
+
+        foreach ($roleBahahan as $e) {
+            if (RoleModel::find($e)->status) {
+                $semuaNonaktif = false;
+            }
+        }
+
+        return $semuaNonaktif;
+    }
+
 }

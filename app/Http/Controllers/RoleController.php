@@ -122,8 +122,10 @@ class RoleController extends Controller
             }
         }
 
-        if ($role->bawahan !g== null) {
-            return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada yang menjadi anggota dari role ini!']);
+        if ($role->bawahan !== null) {
+            if (AllServices::isAllBawahanNonAktif($role->bawahan)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role aktif yang menjadi anggota dari role ini!']);
+            }
         }
 
         $currentRoleStatus = $role->status;
