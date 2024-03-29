@@ -41,7 +41,7 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::get('/register', [RegisteredUserController::class, 'getHalamanLogin'])->name('register-page');
 
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
 
-        Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+        Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
         Route::delete('remove-user', [UserController::class, 'removeUser'])->name('remove-user');
 

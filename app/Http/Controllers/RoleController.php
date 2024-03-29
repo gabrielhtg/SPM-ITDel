@@ -122,7 +122,7 @@ class RoleController extends Controller
             }
         }
 
-        if ($role->bawahan == null) {
+        if ($role->bawahan !g== null) {
             return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada yang menjadi anggota dari role ini!']);
         }
 
