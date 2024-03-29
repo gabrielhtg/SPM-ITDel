@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function getHalamanLogin(): View
     {
         $data = [
             'roles' => RoleModel::all()
