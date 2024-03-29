@@ -125,7 +125,70 @@
                 </table>
 
                 @foreach($roles as $e)
-                    @if(AllServices::) @endif
+{{--                    @if(AllServices::)--}}
+                        <div class="modal fade" id="modal-edit-role{{ $e->id }}">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Edit Role</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-add-role" action="{{route('addRole')}}" method="POST">
+                                            @csrf
+
+                                            <div class="form-group">
+                                                <label for="nama-role{{ $e->id }}">Role Name</label>
+                                                <input type="text" class="form-control" placeholder="Type Here" id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <label for="atasan-role{{ $e->id }}">Atasan</label>
+                                                <select id="atasan-role{{ $e->id }}" name="atasan_role" class="atasan-role-custom form-control" style="width: 100%">
+                                                    <option></option>
+                                                    @foreach($roles as $role)
+                                                        @if($e->role !== "Admin")
+                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <label for="accountable-to{{ $e->id }}">Accountable To:</label>
+                                                <select id="accountable-to{{ $e->id }}" name="accountable_to[]" multiple="multiple" class="accountable-to-custom form-control" style="width: 100%">
+                                                    <option></option>
+                                                    @foreach($roles as $role)
+                                                        @if($e->role !== "Admin")
+                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <label for="informable-to{{ $e->id }}">Informable To:</label>
+                                                <select id="informable-to{{ $e->id }}" name="informable_to[]" class="informable-to-custom form-control" multiple="multiple" style="width: 100%">
+                                                    <option></option>
+                                                    @foreach($roles as $role)
+                                                        @if($e->role !== "Admin")
+                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" form="form-add-role">Add</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+{{--                    @endif--}}
                 @endforeach
             </div>
             <!-- /.card-body -->
