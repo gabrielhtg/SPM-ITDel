@@ -203,7 +203,7 @@ class AllServices
      * Method ini digunakan untuk melakukan pengecekan terhadap semua role bawahan yang ada
      * apakah sudah nonaktif semua atau tidak.
      */
-    public static function isAllBawahanNonAktif ($idBawahan) : bool {
+    public static function isAdaBawahanActive ($idBawahan) : bool {
         $roleBahahan = explode(";", $idBawahan);
 
         $semuaNonaktif = true;
@@ -211,6 +211,7 @@ class AllServices
         foreach ($roleBahahan as $e) {
             if (RoleModel::find($e)->status) {
                 $semuaNonaktif = false;
+                break;
             }
         }
 

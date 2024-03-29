@@ -113,52 +113,79 @@
                                 </form>
                             </td>
                             <td>
-                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal"
-                                        data-target="#modal-delete-role-{{ $e->id }}">
+                                <button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#modal-edit-role{{ $e->id }}">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
-
-                                <div class="modal fade" id="modal-delete-role-{{ $e->id }}">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h4 class="modal-title">Delete Confirmation Dialog</h4>
-                                                <button type="button" class="close" data-dismiss="modal"
-                                                        aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form id="form-remove-role-{{ $e->id }}"
-                                                      action="{{ route('removeRole') }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <input type="hidden" name="id" value="{{ $e->id }}">
-                                                </form>
-
-                                                <p>
-                                                    Are you sure to remove role <strong>{{ $e->role }}</strong>? All
-                                                    users who have this role will lose this role.
-                                                </p>
-                                            </div>
-                                            <div class="modal-footer justify-content-between">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                                                    Close
-                                                </button>
-                                                <button type="submit" form="form-remove-role-{{ $e->id }}"
-                                                        class="btn btn-danger">Ok
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <!-- /.modal-content -->
-                                    </div>
-                                    <!-- /.modal-dialog -->
-                                </div>
                             </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+
+                @foreach($roles as $e)
+                    <div class="modal fade" id="modal-edit-role{{ $e->id }}">
+                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Edit Role</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="form-add-role" action="{{route('addRole')}}" method="POST">
+                                        @csrf
+
+                                        <div class="form-group">
+                                            <label for="nama-role{{ $e->id }}">Role Name</label>
+                                            <input type="text" class="form-control" placeholder="Type Here" id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
+                                        </div>
+
+                                        <div class="form-group mt-3">
+                                            <label for="atasan-role{{ $e->id }}">Atasan</label>
+                                            <select id="atasan-role{{ $e->id }}" name="atasan_role" class="atasan-role-custom form-control" style="width: 100%">
+                                                <option></option>
+                                                @foreach($roles as $e)
+                                                    @if($e->role !== "Admin")
+                                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="accountable-to{{ $e->id }}">Accountable To:</label>
+                                            <select id="accountable-to{{ $e->id }}" name="accountable_to[]" multiple="multiple" class="accountable-to-custom form-control" style="width: 100%">
+                                                <option></option>
+                                                @foreach($roles as $e)
+                                                    @if($e->role !== "Admin")
+                                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="informable-to{{ $e->id }}">Informable To:</label>
+                                            <select id="informable-to{{ $e->id }}" name="informable_to[]" class="informable-to-custom form-control" multiple="multiple" style="width: 100%">
+                                                <option></option>
+                                                @foreach($roles as $e)
+                                                    @if($e->role !== "Admin")
+                                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary" form="form-add-role">Add</button>
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
+                @endforeach
             </div>
             <!-- /.card-body -->
         </div>
@@ -247,15 +274,15 @@
 <script>
     $(function () {
         //Initialize Select2 Elements
-        $('#atasan-role').select2({
+        $('atasan-role-custom').select2({
             placeholder: "Select role",
             allowClear: true,
         });
-        $('#accountable-to').select2({
+        $('.accountable-to-custom').select2({
             placeholder: "Select role",
             allowClear: true,
         });
-        $('#informable-to').select2({
+        $('.informable-to-custom').select2({
             placeholder: "Select role",
             allowClear: true,
         });
