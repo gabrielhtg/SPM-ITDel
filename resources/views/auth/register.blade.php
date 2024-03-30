@@ -116,7 +116,9 @@
                             <select name="role" class="select2" style="width: 100%" required>
                                 <option></option>
                                 @foreach($roles as $e)
-                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @if($e->status)
+                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
