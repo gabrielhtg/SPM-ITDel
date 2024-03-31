@@ -115,40 +115,12 @@
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Last Login</b> <span class="float-right">
-                                        @if($user->last_login_at !== null)
-                                            {{ AllServices::getLastLogin($user->last_login_at) }}
-                                        @else
-                                            -
-                                        @endif
-                                    </span>
-                                </li>
-                                @if(AllServices::isCurrentRole("Admin"))
-                                    <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                        <b>IP Address</b> <span class="float-right">
-                                        @if($user->ip_address !== null)
-                                                {{ $user->ip_address }}
-                                            @else
-                                                -
-                                            @endif
-                                    </span>
-                                    </li>
-                                @endif
-                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Account Status</b> <span
-                                        class="float-right text-success text-bold">Active</span>
+                                        <b>Status</b> <span
+                                            class="float-right text-danger text-bold">Inactive</span>
                                 </li>
                             </ul>
                         </div>
                     </div>
-
-                    @if(AllServices::isCurrentRole("Admin"))
-                        <div class="d-flex justify-content-center">
-                            <a class="btn btn-primary mb-3"
-                               href="https://www.infobyip.com/ip-{{ $user->ip_address }}.html">Check
-                                IP Address</a>
-                        </div>
-                    @endif
                 </div>
 
             </div>

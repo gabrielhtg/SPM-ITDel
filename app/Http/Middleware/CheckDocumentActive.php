@@ -6,6 +6,7 @@ use App\Models\DocumentModel;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CheckDocumentActive
 {
@@ -55,7 +56,7 @@ class CheckDocumentActive
 
         foreach ($allDocuments as $document) {
             $keterangan_berlaku = $document->keterangan_berlaku;
-            $carbonEndDate =  $document->end_date;
+//            $carbonEndDate =  $document->end_date;
             if ($keterangan_berlaku !== null) {
                 if ($keterangan_berlaku == 1) {
                     $document->update([
@@ -68,6 +69,7 @@ class CheckDocumentActive
         }
 
         if (auth()->check()) {
+
             auth()->user()->update([
                 'online' =>true
             ]);

@@ -1,5 +1,5 @@
 @php use App\Services\AllServices; @endphp
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -13,21 +13,7 @@
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-          href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
-    <!-- iCheck -->
-    <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
-    <!-- JQVMap -->
-    <link rel="stylesheet" href="{{ asset("plugins/jqvmap/jqvmap.min.css") }}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
-    <!-- overlayScrollbars -->
-    <link rel="stylesheet" href="{{ asset("plugins/overlayScrollbars/css/OverlayScrollbars.min.css") }}">
-    <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{ asset("plugins/daterangepicker/daterangepicker.css") }}">
-    <!-- summernote -->
-    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
 </head>
@@ -88,19 +74,19 @@
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Peran</b> <span
-                                            class="float-right">{{ app(AllServices::class)->convertRole(auth()->user()->role) }}</span>
+                                        class="float-right">{{ app(AllServices::class)->convertRole(auth()->user()->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     <b>Mulai Aktif Pada</b> <span
-                                            class="float-right">{{ AllServices::convertTime(auth()->user()->created_at) }}</span>
+                                        class="float-right">{{ AllServices::convertTime(auth()->user()->created_at) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
                                     @if(auth()->user()->ends_on !== null)
                                         <b>Berakhir Pada</b> <span
-                                                class="float-right">{{ AllServices::convertTime(auth()->user()->ends_on) }}</span>
+                                            class="float-right">{{ AllServices::convertTime(auth()->user()->ends_on) }}</span>
                                     @else
                                         <b>Berakhir Pada</b> <span
-                                                class="float-right">-</span>
+                                            class="float-right">-</span>
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
@@ -120,16 +106,6 @@
                                             -
                                         @endif
                                     </span>
-                                </li>
-                                <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    @if(auth()->user()->status)
-                                        <b>Status Akun</b> <span
-                                                class="float-right text-success text-bold">{{ AllServices::convertStatus(auth()->user()->status) }}</span>
-                                    @else
-                                        <b>Status</b> <span
-                                                class="float-right text-danger text-bold">{{ AllServices::convertStatus(auth()->user()->status) }}</span>
-                                    @endif
-
                                 </li>
                             </ul>
                         </div>
