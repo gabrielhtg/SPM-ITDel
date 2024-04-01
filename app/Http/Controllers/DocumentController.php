@@ -449,25 +449,24 @@ public function updateDocument(Request $request, $id)
         ]);
     }
 
-    public function getDocumentDetailReplaced()
+    public function getDocumentDetailReplaced($id)
     {
-        $documents = DocumentModel::orderBy('created_at', 'desc')->get();
-
-        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $document = DocumentModel::find($id);
         $jenis_dokumen = DocumentTypeModel::all();
-        $roles = RoleModel::all();
-
+        $uploadedUser = User::find($document->created_by);
+        $documenthero = HeroDocument::all();
 
         $data = [
-            'documents' => $documents,
-            'uploadedUsers' => $uploadedUsers,
+            'document' => $document,
+            'uploadedUser' => $uploadedUser,
             'jenis_dokumen' => $jenis_dokumen,
-            'roles' => $roles,
-
+            'documenthero'=> $documenthero
         ];
 
         return view('document-replaced-all', $data);
     }
+
+
 
 
 }

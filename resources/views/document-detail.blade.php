@@ -170,6 +170,7 @@
                                                                         ->where('id', '!=', $document->id)
                                                                         ->get();
                                                     $documentCount = $similarDocuments->count();
+                                                    
                                                 @endphp
 
                                                 @if($documentCount > 0)
@@ -180,7 +181,11 @@
                                                         @endforeach
                                                     </ul>
                                                     @if($documentCount > 9)
-                                                        <a href="{{ route('documentReplaced') }}" class="btn btn-primary">See More</a>
+                                                    <a href="{{ route('documentReplaced', ['id' => $document->id]) }}" class="btn btn-primary">See More</a>
+                                                    @php
+                                                   
+                                                    @endphp
+
                                                     @endif
                                                 @else
                                                     <p>Tidak ada dokumen yang digantikan</p>
