@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Services\AllServices;
-use Couchbase\Role;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -115,6 +114,7 @@ class RoleController extends Controller
     public function updateStatus (Request $request) {
         $role = RoleModel::find($request->id);
         $users = User::all();
+        $allRole = RoleModel::all();
 
         foreach ($users as $user) {
             if (AllServices::isUserRole($user, $request->id)) {
@@ -125,6 +125,16 @@ class RoleController extends Controller
         if ($role->bawahan !== null) {
             if (!AllServices::isAdaBawahanActive($role->bawahan)) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role aktif yang menjadi anggota dari role ini!']);
+            }
+        }
+
+        foreach ($allRole as $e) {
+            if (AllServices::isThisRoleExistInArray($e->accountable_to, $request->id)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang accountable to role ini!']);
+            }
+
+            if (AllServices::isThisRoleExistInArray($e->informable_to, $request->id)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang informable to role ini!']);
             }
         }
 

@@ -17,6 +17,11 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+
+    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+{{--    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -135,7 +140,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="form-edit-role" action="{{route('editRole')}}" method="POST">
+                                        <form id="form-edit-role{{ $e->id }}" action="{{route('editRole')}}" method="POST">
                                             @csrf
 
                                             <div class="form-group">
@@ -168,11 +173,7 @@
                                                     <option></option>
                                                     @foreach($roles as $role)
                                                         @if($role->role !== "Admin")
-                                                            @if(AllServices::isThisRoleExistInArray($e->accountable_to, $role))
-                                                                <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
-                                                            @else
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -183,13 +184,11 @@
                                                         class="informable-to-custom form-control" multiple="multiple"
                                                         style="width: 100%">
                                                     <option></option>
-                                                    @if($role->role !== "Admin")
-                                                        @if(AllServices::isThisRoleExistInArray($e->informable_to, $role))
-                                                            <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
-                                                        @else
-                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    @foreach($roles as $role)
+                                                        @if($role->role !== "Admin")
+                                                                <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
-                                                    @endif
+                                                    @endforeach
                                                 </select>
                                             </div>
 
@@ -198,7 +197,7 @@
                                     </div>
                                     <div class="modal-footer justify-content-between">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" form="form-edit-role">Edit</button>
+                                        <button type="submit" class="btn btn-primary" form="form-edit-role{{ $e->id }}">Edit</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -230,11 +229,13 @@
 <!-- DataTables  & Plugins -->
 <script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
 <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Page specific script -->
 <script>
     let tableRole = new DataTable('#table-role', {
@@ -292,11 +293,9 @@
         });
         $('.accountable-to-custom').select2({
             placeholder: "Select role",
-            allowClear: true,
         });
         $('.informable-to-custom').select2({
             placeholder: "Select role",
-            allowClear: true,
         });
     })
 </script>
