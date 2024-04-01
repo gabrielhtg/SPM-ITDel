@@ -3,7 +3,6 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
 use App\Models\DocumentModel;
 
 class CheckDocumentReplaced
@@ -15,22 +14,22 @@ class CheckDocumentReplaced
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        // Cek apakah ada dokumen baru yang menggantikan dokumen sebelumnya dengan ID yang sama
-        if ($request->filled('menggantikan_dokumen')) {
-            $dokumenDigantikan = DocumentModel::whereIn('id', $request->menggantikan_dokumen)->get();
-            
-            // Loop melalui dokumen yang akan digantikan
-            foreach ($dokumenDigantikan as $dokumen) {
-                // Ubah status dokumen sebelumnya menjadi tidak aktif (status = 0)
-                $dokumenSebelumnya = DocumentModel::find($dokumen->menggantikan_dokumen);
-                if ($dokumenSebelumnya) {
-                    $dokumenSebelumnya->status = 0;
-                    $dokumenSebelumnya->save();
-                }
+        // Ambil semua dokumen dengan parent null
+        $documentsWithNullParent = DocumentModel::whereNull('parent')->get();
+        
+        // Loop melalui setiap dokumen
+        foreach ($documentsWithNullParent as $document) {
+            // Perbarui parent menjadi id sendiri jika tidak digunakan sebagai parent oleh dokumen lain
+            if (!DocumentModel::where('parent', $document->id)->exists()) {
+                $document->update([
+                    'parent' => $document->id
+                    
+                ]);
             }
         }
+        // dd("Document ID: " . $document->id, "Parent Value: " . $document->parent);
 
         return $next($request);
     }
