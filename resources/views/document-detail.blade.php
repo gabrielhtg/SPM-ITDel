@@ -169,14 +169,19 @@
                                                     $similarDocuments = \App\Models\DocumentModel::where('parent', $document->parent)
                                                                         ->where('id', '!=', $document->id)
                                                                         ->get();
+                                                    $documentCount = $similarDocuments->count();
                                                 @endphp
 
-                                                @if($similarDocuments->isNotEmpty())
-                                                    <ul>
-                                                        @foreach($similarDocuments as $similarDocument)
+                                                @if($documentCount > 0)
+                                                    <ul style="list-style-type: none; padding-left: 0;"> <!-- Menghapus bullet points dan padding -->
+                                                        @foreach($similarDocuments->take(10) as $similarDocument)
                                                             <li><a href="{{ route('document-detail', ['id' => $similarDocument->id]) }}">{{ $similarDocument->name }}</a></li>
+                                                            <br> <!-- Menambahkan baris kosong setelah setiap dokumen -->
                                                         @endforeach
                                                     </ul>
+                                                    @if($documentCount > 9)
+                                                        <a href="{{ route('documentReplaced') }}" class="btn btn-primary">See More</a>
+                                                    @endif
                                                 @else
                                                     <p>Tidak ada dokumen yang digantikan</p>
                                                 @endif
