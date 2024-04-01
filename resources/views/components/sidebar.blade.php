@@ -63,7 +63,7 @@
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
-                                Users Settings
+                                Pengaturan Pengguna
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -72,14 +72,14 @@
                                 <a href="{{ route('user-settings-active') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Active User</p>
+                                    <p>Pengguna Aktif</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('user-settings-inactive') }}"
                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Inactive User</p>
+                                    <p>Pengguna Tidak Aktif</p>
                                 </a>
                             </li>
                         </ul>

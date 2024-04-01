@@ -17,6 +17,7 @@ class RoleModel extends Model
         'created_at',
         'updated_at',
         'bawahan',
+        'status',
         'responsible_to',
         'accountable_to',
         'informable_to'

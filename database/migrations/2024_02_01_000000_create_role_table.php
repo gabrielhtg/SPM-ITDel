@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('atasan_id')->nullable();
             $table->foreign('atasan_id')->references('id')->on('roles');
             $table->string('bawahan')->nullable();
+            $table->boolean('status')->nullable();
             $table->string('responsible_to')->nullable();
             $table->string('accountable_to')->nullable();
             $table->string('informable_to')->nullable();

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Registration Page (v2)</title>
+    <title>SPM Registration Page</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -18,7 +18,7 @@
 <div class="register-box">
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="{{ route("dashboard") }}" class="h1"><b>AMI</b> IT Del</a>
+            <a href="{{ route("dashboard") }}" class="h1"><b>SPM</b> IT Del</a>
         </div>
         <div class="card-body">
 
@@ -113,10 +113,12 @@
                 <div class="row mt-3">
                     <div class="col">
                         <div class="input-group">
-                            <select name="role" class="select2" required>
+                            <select name="role" class="select2" style="width: 100%" required>
                                 <option></option>
                                 @foreach($roles as $e)
-                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @if($e->status)
+                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

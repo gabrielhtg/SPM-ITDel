@@ -47,9 +47,23 @@ class RoleController extends Controller
                 'atasan_id' => $request->atasan_role,
                 'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
                 'informable_to' => $informableTo,
+                'status' => true,
                 'accountable_to' => $accountableTo
             ]);
 
+            if ($request->atasan_role != null) {
+                $atasan = RoleModel::find($request->atasan_role);
+
+                if ($atasan->bawahan == null) {
+                    $atasan->update([
+                        'bawahan' => RoleModel::whereRole($request->nama_role)->first()->id
+                    ]);
+                } else {
+                    $atasan->update([
+                        'bawahan' => $atasan->bawahan . ';' . RoleModel::whereRole($request->nama_role)->first()->id
+                    ]);
+                }
+            }
             return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
@@ -96,5 +110,54 @@ class RoleController extends Controller
 
         $localRole->delete();
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus role!']);
+    }
+
+    public function updateStatus (Request $request) {
+        $role = RoleModel::find($request->id);
+        $users = User::all();
+
+        foreach ($users as $user) {
+            if (AllServices::isUserRole($user, $request->id)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada user active dengan role tersebut!']);
+            }
+        }
+
+        if ($role->bawahan !== null) {
+            if (!AllServices::isAdaBawahanActive($role->bawahan)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role aktif yang menjadi anggota dari role ini!']);
+            }
+        }
+
+        $currentRoleStatus = $role->status;
+
+        $role->update([
+            'status' => !$currentRoleStatus
+        ]);
+
+        return back()->with('toastData', ['success' => true, 'text' => 'Berhasil mengganti status role!']);
+    }
+
+    public function editRole (Request $request){
+        $role = RoleModel::find($request->id);
+
+        $informableTo = null;
+        $accountableTo = null;
+
+        if ($request->informable_to !== null) {
+            $informableTo = implode(';', $request->informable_to);
+        }
+
+        if ($request->accountable_to !== null) {
+            $accountableTo = implode(';', $request->accountable_to);
+        }
+
+        $role->update([
+            'role' => $request->nama_role,
+            'atasan_id'=>$request->atasan_role,
+            'accountable_to'=> $accountableTo,
+            'informable_to' => $informableTo
+        ]);
+
+        return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
     }
 }

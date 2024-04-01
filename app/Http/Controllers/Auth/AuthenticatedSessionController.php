@@ -30,7 +30,7 @@ class AuthenticatedSessionController extends Controller
     {
         $userAllowed = User::where('username', $request->username)->first();
 
-        if ($userAllowed !== null && $userAllowed->status) {
+        if ($userAllowed !== null && $userAllowed->verified) {
             $request->authenticate();
 
             $request->session()->regenerate();

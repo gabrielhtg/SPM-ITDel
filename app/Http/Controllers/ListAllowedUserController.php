@@ -34,7 +34,7 @@ class ListAllowedUserController extends Controller
         try {
             $spreadsheet = IOFactory::load($file);
         } catch (\PhpOffice\PhpSpreadsheet\Exception $e) {
-            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Unsupported file!']);
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'File tidak didukung!']);
         }
         $worksheet = $spreadsheet->getActiveSheet();
 
@@ -64,13 +64,13 @@ class ListAllowedUserController extends Controller
             }
         }
 
-        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added allowed user from excel file!']);
+        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan pengguna yang diizinkan dari file excel!']);
     }
 
     public function removeFromList (Request $request) {
         AllowedUserModel::find($request->id)->delete();
 
-        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully removed data!']);
+        return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Data berhasil dihapus!']);
     }
 
     /**
@@ -87,9 +87,9 @@ class ListAllowedUserController extends Controller
                 'created_by' => auth()->user()->username
             ]);
 
-            return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Successfully added new allowed user!']);
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan pengguna baru yang diizinkan!']);
         } catch (QueryException $e) {
-            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Failed to add new allowed user. Email already added!']);
+            return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Gagal menambahkan pengguna baru yang diizinkan. Email sudah ditambahkan!']);
 
         }
     }

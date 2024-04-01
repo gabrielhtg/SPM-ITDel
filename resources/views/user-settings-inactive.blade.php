@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Pengaturan Pengguna</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -18,8 +18,6 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
-    <!-- SummerNote -->
-    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -38,7 +36,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Inactive Users</h1>
+                        <h1 class="m-0">Pengguna Tidak Aktif</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -66,91 +64,73 @@
                         <th>Nama Pengguna</th>
                         <th>Alamat Email</th>
                         <th>Peran</th>
-                        <th>Alamat IP</th>
                         <th>No. Telepon</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
+
+
                     @foreach($users as $e)
-
-                        @if($e->id == auth()->user()->id)
-                            @continue
-                        @else
-                            <tr>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if($e->profile_pict == null)
-                                                <img src="{{ asset('src/img/default-profile-pict.png') }}"
-                                                     class="img-circle custom-border" alt="User Image">
-                                            @else
-                                                <img src="{{ asset($e->profile_pict) }}"
-                                                     class="img-circle custom-border" alt="User Image">
-                                            @endif
-                                        </div>
-                                        <div class="info">
-                                            <span class="d-block">{{ $e->name }}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                            <span class="d-block">{{ $e->username }}</span>
-                                        </div>
-                                    </div>
-
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                            <span class="d-block"> {{ $e->email }}</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="info">
-                                        <span class="d-block">
-                                            {{ app(AllServices::class)->convertRole($e->role) }}
-                                        </span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        @if($e->ip_address !== null)
-                                            {{ $e->ip_address }}
+                        <tr>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        @if($e->profile_pict == null)
+                                            <img src="{{ asset('src/img/default-profile-pict.png') }}"
+                                                 class="img-circle custom-border" alt="User Image">
                                         @else
-                                            -
+                                            <img src="{{ asset($e->profile_pict) }}"
+                                                 class="img-circle custom-border" alt="User Image">
                                         @endif
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        {{ $e->phone }}
+                                    <div class="info">
+                                        <span class="d-block">{{ $e->name }}</span>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span class="d-block">{{ $e->username }}</span>
+                                    </div>
+                                </div>
 
-                                <td>
-                                    <div class="d-flex" style="gap: 10px">
-                                        <form action="{{ route('getUserDetail') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="user_id" value="{{ $e->id }}">
-                                            <button type="submit" class="btn btn-success"><i class="far fa-eye"
-                                                                                             style="font-size: 14px"></i>
-                                            </button>
-                                        </form>
-                                        {{--                                        <form action="{{ route('restoreAccount') }}" method="POST">--}}
-                                        {{--                                            @csrf--}}
-                                        {{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
-                                        {{--                                            <button type="submit" class="btn btn-success"><i class="fas fa-redo" style="font-size: 14px"></i></button>--}}
-                                        {{--                                        </form>--}}
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <span class="d-block"> {{ $e->email }}</span>
                                     </div>
-                                </td>
-                            </tr>
-                        @endif
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                    <span class="d-block">
+                                        {{ app(AllServices::class)->convertRole($e->role) }}
+                                    </span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    {{ $e->phone }}
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="d-flex" style="gap: 10px">
+                                    <form action="{{ route('getUserDetailInactive') }}" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="user_id" value="{{ $e->id }}">
+                                        <button type="submit" class="btn btn-success"><i class="far fa-eye"
+                                                                                         style="font-size: 14px"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
@@ -283,24 +263,6 @@
         })
         @endif
     });
-</script>
-<script>
-    $(function () {
-        // Summernote
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
 </script>
 </body>
 </html>

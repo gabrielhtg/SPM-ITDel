@@ -41,13 +41,13 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
 
-    Route::get('/register', [RegisteredUserController::class, 'create'])->name('register');
+    Route::get('/register', [RegisteredUserController::class, 'getHalamanLogin'])->name('register-page');
 
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
-    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
+//    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
 });
 
 Route::middleware('auth')->group(function () {
@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
         Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
             ->name('logout');
 
-        Route::post('register', [RegisteredUserController::class, 'store'])->name('register');
+        Route::post('/register', [RegisteredUserController::class, 'store'])->name('register');
 
         Route::delete('remove-user', [UserController::class, 'removeUser'])->name('remove-user');
 
@@ -97,6 +97,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+//            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');.update');
         Route::post('/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
 
         Route::get('/change-profile-pict', [ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
@@ -114,6 +116,7 @@ Route::middleware('auth')->group(function () {
          * Route ini digunakan untuk mendapatkan halaman user detail
          */
         Route::post("/user-detail", [UserController::class, 'getUserDetail'])->name('getUserDetail');
+        Route::post("/user-detail-inactive", [UserController::class, 'getUserDetailInactive'])->name('getUserDetailInactive');
 
         /**
          * --------------DEPRECATED-----------------
@@ -136,6 +139,8 @@ Route::middleware('auth')->group(function () {
 
         Route::get('/role-management', [RoleController::class, 'getHalamanRoleManagement'])->name('role-management');
         Route::post('/add-role', [RoleController::class, 'addRole'])->name('addRole');
+        Route::post('/edit-role', [RoleController::class, 'editRole'])->name('editRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
+        Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
     });
 });

@@ -48,20 +48,22 @@
                     </div>
 
                     <div class="input-group mt-3">
-                        <select name="roles[]" class="select2 form-control" multiple="multiple" data-placeholder="Role" style="width: 100%;" required>
+                        <label for="edit-profile"></label>
+                        <select id="edit-profile" name="roles[]" class="form-control" multiple="multiple" style="width: 100%;" required>
                             @php
                                 $array = explode(";", auth()->user()->role);
                                 $i = 0;
                             @endphp
 
                             @foreach($roles as $e)
-                                @if(in_array($e->id, $array))
-                                    <option value="{{ $e->id }}" selected>{{ $e->role }}</option>
-                                @else
-                                    <option value="{{ $e->id }}">{{ $e->role }}</option>
-                                @endif
+                               @if($e->status)
+                                    @if(in_array($e->id, $array))
+                                        <option value="{{ $e->id }}" selected>{{ $e->role }}</option>
+                                    @else
+                                        <option value="{{ $e->id }}">{{ $e->role }}</option>
+                                    @endif
+                               @endif
                             @endforeach
-{{--                            <option value="{{ 0 }}">Public</option>--}}
                         </select>
                     </div>
                     <input type="hidden" name="id" value="{{ auth()->user()->id }}">

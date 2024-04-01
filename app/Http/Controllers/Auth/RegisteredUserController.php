@@ -22,7 +22,7 @@ class RegisteredUserController extends Controller
     /**
      * Display the registration view.
      */
-    public function create(): View
+    public function getHalamanLogin(): View
     {
         $data = [
             'roles' => RoleModel::all()
@@ -119,30 +119,30 @@ class RegisteredUserController extends Controller
         $data = AllowedUserModel::where('email', $request->email)->first();
 
         if ($data !== null) {
-            $user = User::where('email', $request->email)->where('status', true)->first();
-            if ($user == null) {
-                if (User::where('email', $request->email)->where('status', null)->first() == null) {
-                    $request->validate([
-                        'name' => ['required', 'string', 'max:255'],
-                        'username' => ['required', 'string', 'max:20'],
-                        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-                    ]);
+            try {
+                $request->validate([
+                    'name' => ['required', 'string', 'max:255'],
+                    'username' => ['required', 'string', 'max:20'],
+                    'password' => ['required', 'confirmed', Rules\Password::defaults()],
+                ]);
 
-                    User::create([
-                        'name' => $request->name,
-                        'username' => $request->username,
-                        'email' => $request->email,
-                        'phone' => $request->phone,
-                        'verified' => false,
-                        'password' => Hash::make($request->password),
-                        'pending_roles' => $request->role
-                    ]);
+                User::create([
+                    'name' => $request->name,
+                    'username' => $request->username,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'verified' => false,
+                    'password' => Hash::make($request->password),
+                    'pending_roles' => $request->role
+                ]);
 
-                    return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+            }
+            catch (QueryException $e) {
+                if ($e->errorInfo[1] == 1062) {
+                    return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Gagal. User sudah terdaftar sebelumnya.']);
                 }
             }
-
-            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'You are already registered!']);
         }
 
         else {
@@ -175,7 +175,6 @@ class RegisteredUserController extends Controller
         if ($resetObject) {
             $resetObject->update([
                 'verified' => true,
-                'status' => true,
                 'role' => $resetObject->pending_roles,
                 'pending_roles' => null,
                 'created_at' => now()
