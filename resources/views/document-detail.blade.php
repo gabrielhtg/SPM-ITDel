@@ -68,6 +68,10 @@
                                             <td class="bold">{{ $document->nomor_dokumen }}</td>
                                         </tr>
                                         <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Deskripsi</td>
+                                            <td class="bold">{{ $document->deskripsi }}</td>
+                                        </tr>
+                                        <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
                                             <td class="bold">{{ $document->year }}</td>
                                         </tr>
@@ -170,7 +174,7 @@
                                                                         ->where('id', '!=', $document->id)
                                                                         ->get();
                                                     $documentCount = $similarDocuments->count();
-                                                    
+
                                                 @endphp
 
                                                 @if($documentCount > 0)
@@ -183,7 +187,7 @@
                                                     @if($documentCount > 9)
                                                     <a href="{{ route('documentReplaced', ['id' => $document->id]) }}" class="btn btn-primary">See More</a>
                                                     @php
-                                                   
+
                                                     @endphp
 
                                                     @endif
@@ -200,6 +204,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
     <!-- /.content -->
     </section>

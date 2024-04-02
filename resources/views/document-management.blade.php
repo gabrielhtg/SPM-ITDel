@@ -219,6 +219,7 @@
                                     <p><strong>Nama Dokumen:</strong> {{ $e->name}}</p>
                                     <p><strong>Tipe Dokumen:</strong> {{ $e->tipe_dokumen }}</p>
                                     <p><strong>Nomor Dokumen:</strong> {{ $e->nomor_dokumen }}</p>
+                                    <p><strong>Deskripsi Dokumen:</strong> {{ $e->deskripsi }}</p>
                                     <p><strong>Tahun:</strong> {{ $e->year }}</p>
                                     <p><strong>User
                                             Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
