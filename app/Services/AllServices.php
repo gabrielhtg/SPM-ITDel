@@ -183,8 +183,8 @@ class AllServices
             return "Tidak Menggantikan Dokumen Apapun"; // Mengembalikan pesan jika ID dokumen kosong atau null
         }
     }
-    
-    
+
+
 
     static public function isAllView ($id) : bool
     {
@@ -247,5 +247,23 @@ class AllServices
         }
 
         return false;
+    }
+
+    public static function removeIdFromArray($array, $id): string
+    {
+        $temp = is_string($array) ? explode(";", $array) : $array;
+        $returnValue = "";
+
+        foreach ($temp as $e) {
+            if ($e != $id) {
+                $returnValue .= $e . ";";
+            }
+        }
+
+        if (!empty($returnValue)) {
+            $returnValue = substr($returnValue, 0, -1);
+        }
+
+        return $returnValue;
     }
 }

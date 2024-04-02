@@ -128,6 +128,12 @@ class RoleController extends Controller
             }
         }
 
+        if ($role->atasan_id !== null) {
+            if (!RoleModel::find($role->atasan_id)->status) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan role atasan aktif!']);
+            }
+        }
+
         foreach ($allRole as $e) {
             if (AllServices::isThisRoleExistInArray($e->accountable_to, $request->id)) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang accountable to role ini!']);
@@ -161,6 +167,29 @@ class RoleController extends Controller
             $accountableTo = implode(';', $request->accountable_to);
         }
 
+        if ($request->atasan_role != null) {
+            $atasanBaru = RoleModel::find($request->atasan_role);
+            $atasanLama = RoleModel::find($role->atasan_id);
+
+            if ($atasanLama != null) {
+                $atasanLama->update([
+                    'bawahan' => AllServices::removeIdFromArray($atasanLama->bawahan, $role->id)
+                ]);
+            }
+
+            if ($atasanBaru->bawahan == null) {
+                $atasanBaru->update([
+                    'bawahan' => $role->id
+                ]);
+            }
+
+            else {
+                $atasanBaru->update([
+                    'bawahan' => $atasanBaru->bawahan . ";" . $role->id
+                ]);
+            }
+        }
+
         $role->update([
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
@@ -168,6 +197,7 @@ class RoleController extends Controller
             'accountable_to'=> $accountableTo,
             'informable_to' => $informableTo
         ]);
+
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
     }
