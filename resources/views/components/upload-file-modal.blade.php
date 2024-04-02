@@ -121,7 +121,7 @@
                                 <div class="form-group">
                                     <label>Give Edit to:</label>
                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
-                                        <option value="0">Public</option>
+                                        
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach

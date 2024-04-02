@@ -142,7 +142,7 @@
                                                 <div class="form-group">
                                                     <label>Give Edit to:</label>
                                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
-                                                        <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>Public</option>
+                                                        
                                                         @foreach($roles as $role)
                                                             @php
                                                                 $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
