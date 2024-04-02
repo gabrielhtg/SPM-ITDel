@@ -48,7 +48,7 @@ class DocumentController extends Controller
     {
 
         $documents = DocumentModel::orderBy('created_at', 'desc')->get();
-
+        $documenthero = HeroDocument::all();
         $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
         $jenis_dokumen = DocumentTypeModel::all();
         $roles = RoleModel::all();
@@ -59,6 +59,7 @@ class DocumentController extends Controller
             'uploadedUsers' => $uploadedUsers,
             'jenis_dokumen' => $jenis_dokumen,
             'roles' => $roles,
+            'documenthero'=>$documenthero,
 
         ];
 
