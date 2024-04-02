@@ -155,7 +155,7 @@
                                                         class="atasan-role-custom form-control" style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($role->role !== "Admin")
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id)
                                                             @if($role->id == $e->atasan_id)
                                                                 <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
                                                             @else
@@ -172,7 +172,7 @@
                                                         style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($role->role !== "Admin")
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id)
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
                                                     @endforeach
@@ -185,7 +185,7 @@
                                                         style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($role->role !== "Admin")
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id)
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
                                                     @endforeach
