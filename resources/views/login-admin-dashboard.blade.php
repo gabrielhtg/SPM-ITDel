@@ -73,7 +73,7 @@
         id: 'ms',
         data: {
           imageURL: 'https://i.pravatar.cc/300?img=68',
-          name: {!! json_encode($user) !!},
+          name: {!! json_encode($roles) !!},
         },
         options: {
           nodeBGColor: '#cdb4db',

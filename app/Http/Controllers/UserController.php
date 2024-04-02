@@ -102,6 +102,21 @@ class UserController extends Controller
         return view('user-detail', $data);
     }
 
+    public function indexlogindashboard(Request $request)
+    {
+        $user = User::find($request->user_id);
+        $roles = RoleModel::all();
+        $data = [
+            'roles' => $roles,
+            'user' => $user,
+            'active_sidebar' => [0, 0]
+        ];
+
+        return view('login-admin-dashboard', $data);
+    }
+
+
+
     public function getUserDetailInactive(Request $request)
     {
         $user = UserInactiveModel::find($request->user_id);
