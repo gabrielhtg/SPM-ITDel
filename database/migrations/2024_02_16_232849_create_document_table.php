@@ -16,7 +16,7 @@
                         $table->string('name');
                         $table->string('nama_dokumen');
                         $table->string('nomor_dokumen');
-                        $table->string('deskripsi')->nullable();
+                        $table->text('deskripsi')->nullable();
                         $table->string('directory')->nullable();
                         $table->string('give_access_to');
                         $table->string('give_edit_access_to')->nullable();
