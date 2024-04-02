@@ -35,12 +35,12 @@
                 @endif
             @endif
 
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Masuk untuk memulai sesi Anda</p>
 
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group">
-                    <input name="username" type="text" class="form-control" placeholder="Username" required autofocus autocomplete="username">
+                    <input name="username" type="text" class="form-control" placeholder="Nama Pengguna" required autofocus autocomplete="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -50,7 +50,7 @@
                 <span class="text-danger">{{ $errors->first('username') }}</span>
 
                 <div class="input-group mt-3">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Kata Sandi" required autocomplete="current-password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -64,13 +64,13 @@
                         <div class="icheck-primary">
                             <input type="checkbox" id="remember" name="remember">
                             <label for="remember">
-                                Remember Me
+                                Ingat Saya
                             </label>
                         </div>
                     </div>
                     <!-- /.col -->
                     <div class="col-4">
-                        <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <button type="submit" class="btn btn-primary btn-block">Masuk</button>
                     </div>
                     <!-- /.col -->
                 </div>
@@ -81,12 +81,12 @@
             <p class="mb-1">
                 @if (Route::has('password.request'))
                     <a href="{{ route('password.request') }}">
-                        {{ __('Forgot your password?') }}
+                        {{ __('Lupa Password?') }}
                     </a>
                 @endif
             </p>
             <p class="mb-0">
-                <a href="{{ route("register") }}" class="text-center">Register</a>
+                <a href="{{ route("register") }}" class="text-center">Daftar</a>
             </p>
         </div>
         <!-- /.card-body -->
