@@ -156,7 +156,8 @@
                                     <input type="number" name="year" class="form-control" required min="1">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Back</button>
+
                                     <button type="submit" class="btn btn-primary">Upload Document</button>
                                 </div>
                             
