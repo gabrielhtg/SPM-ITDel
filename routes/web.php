@@ -30,6 +30,7 @@ Route::get('/', function () {
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
 Route::get('/document-replaced-all/{id}', [\App\Http\Controllers\DocumentController::class, 'getDocumentDetailReplaced'])->name('documentReplaced');
+Route::get('/document-management-add', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementAdddoc'])->name('documentManagementAdd');
 
 
 
