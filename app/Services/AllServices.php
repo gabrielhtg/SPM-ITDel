@@ -41,7 +41,7 @@ class AllServices
         }
 
         else {
-            return "Not Defined Yet";
+            return "Belum Didefinisikan";
         }
     }
 
