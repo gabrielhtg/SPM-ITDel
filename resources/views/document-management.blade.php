@@ -45,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Manajemen Dokumen</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -58,7 +58,7 @@
 
 
                 <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
+                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Dokumen</span>
                 </a>
 
                 @if(app(AllServices::class)->isAdmin())
@@ -74,14 +74,14 @@
                     <thead>
                     <tr>
 
-                        <th>Doc Number</th>
-                        <th>Doc Name</th>
-                        <th>Doc Type</th>
+                        <th>Nomor Dokumen</th>
+                        <th>Nama Dokumen</th>
+                        <th>Tipe Dokumen</th>
 
-                        <th>Uploaded By</th>
+                        <th>Diunggah Oleh</th>
                         <th>Status</th>
-                        <th>Replace Document</th>
-                        <th>Action</th>
+                        <th>Menggantikan</th>
+                        <th>Tindakan</th>
 
 
                     </tr>
@@ -239,7 +239,7 @@
                                     <!-- Anda dapat menambahkan atribut tambahan sesuai kebutuhan -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>
@@ -481,7 +481,7 @@
 
     $(document).ready(function () {
         $('.select2').select2({
-            placeholder: "Search Document Type",
+            placeholder: "Cari Tipe Dokumen",
             allowClear: true,
             minimumInputLength: 1 // Minimum characters to start searching
         });

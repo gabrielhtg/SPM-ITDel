@@ -26,17 +26,17 @@
                     <textarea class="summernote" name="descriptionhero">{{ $documenthero->descriptionhero }}</textarea>
                 
                     <div class="form-group">
-                        <label for="exampleInputFile">Walpeper Input</label>
+                        <label for="exampleInputFile">Unggah Walpaper</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" class="custom-file-input" id="file" name="imagehero">
-                                <label class="custom-file-label" for="file">Choose file</label>
+                                <label class="custom-file-label" for="file">Pilih File</label>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                     </div>
                 </form>
             </div>

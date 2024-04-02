@@ -38,7 +38,7 @@
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1 class="m-0">Edit Document</h1>
+                                <h1 class="m-0">Edit Dokumen</h1>
                             </div><!-- /.col -->
                         </div><!-- /.row -->
                     </div><!-- /.container-fluid -->
@@ -56,7 +56,7 @@
                                                 @csrf
 
                                                 <div class="form-group">
-                                                    <label>Title:</label>
+                                                    <label>Judul:</label>
                                                     <input type="text" name="name" class="form-control" required value="{{$document->name}}">
                                                 </div>
 
@@ -64,7 +64,7 @@
                                                     <div class="form-group">
                                                         <label>Status:</label>
                                                         <select name="keterangan_berlaku" class="form-control" required>
-                                                            <option value="" disabled>Select Status</option>
+                                                            <option value="" disabled>Pilih Status</option>
                                                             <option value="0" selected>Berlaku</option>
                                                             <option value="1">Tidak Berlaku</option>
                                                         </select>
@@ -72,12 +72,12 @@
                                                 @endif
 
                                                 <div class="form-group">
-                                                    <label>Document Number:</label>
+                                                    <label>Nomor Dokumen:</label>
                                                     <input type="text" name="nomor_dokumen" class="form-control" required value="{{$document->nomor_dokumen}}">
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label for="summernote">Description</label>
+                                                    <label for="summernote">Deskripsi</label>
                                                     <textarea class="summernote" name="deskripsi">{!! $document->deskripsi !!}</textarea>
                                                 </div>
 
@@ -108,11 +108,11 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label>Link Document:</label>
+                                                    <label>Link Dokumen:</label>
                                                     <input type="text" name="link" class="form-control" value="{{ $document->link }}">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label>Document Type:</label>
+                                                    <label>Tipe Dokumen:</label>
                                                     <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                                         @foreach($jenis_dokumen as $type)
                                                             @if($document->tipe_dokumen == $type->id)
@@ -125,9 +125,9 @@
                                                 </div>
     
                                                 <div class="form-group">
-                                                    <label>Give Access to:</label>
+                                                    <label>Berikan Akses Kepada:</label>
                                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
-                                                        <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>All</option>
+                                                        <option value="0" {{ in_array('0', explode(';', $document->give_access_to ?? '')) ? 'selected' : '' }}>Semua</option>
                                                         @foreach($roles as $role)
                                                             @php
                                                                 $selected = in_array($role->id, explode(';', $document->give_access_to ?? '')) ? 'selected' : '';
@@ -140,8 +140,8 @@
     
     
                                                 <div class="form-group">
-                                                    <label>Give Edit to:</label>
-                                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
+                                                    <label>Berikan izin edit kepada:</label>
+                                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan izin edit kepada" style="width: 100%;">
                                                         
                                                         @foreach($roles as $role)
                                                             @php
@@ -156,33 +156,33 @@
     
     
                                             <div class="form-group">
-                                                <label>Can See By:</label>
+                                                <label>Bisa dilihat oleh:</label>
                                                 <select name="can_see_by" class="form-control" required>
                                                     <option value="" disabled>Select Visibility</option>
-                                                    <option value="1" @if($document->can_see_by == 1) selected @endif>Public</option>
-                                                    <option value="0" @if($document->can_see_by == 0) selected @endif>Private</option>
+                                                    <option value="1" @if($document->can_see_by == 1) selected @endif>Publik</option>
+                                                    <option value="0" @if($document->can_see_by == 0) selected @endif>Pribadi</option>
                                                 </select>
                                             </div>
     
                                             <div class="form-group">
-                                                <label>Start Date:</label>
+                                                <label>Tanggal Mulai:</label>
                                                 <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
                                             </div>
     
                                             <div class="form-group">
-                                                <label>End Date:</label>
+                                                <label>Tanggal Berakhir:</label>
                                                 <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
                                             </div>
     
                                             <div class="form-group">
-                                                <label>Year:</label>
+                                                <label>Tahun:</label>
                                                 <input type="number" name="year" class="form-control" required min="1" value="{{ $document->year }}">
                                             </div>
     
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Back</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Kembali</button>
 
-                                                <button type="submit" class="btn btn-primary">Upload Document</button>
+                                                <button type="submit" class="btn btn-primary">Unggah Dokumen</button>
                                             </div>
                                             </form>
                                         </div>
