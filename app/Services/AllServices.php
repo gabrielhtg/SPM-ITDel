@@ -41,7 +41,7 @@ class AllServices
         }
 
         else {
-            return "Not Defined Yet";
+            return "Belum Didefinisikan";
         }
     }
 
@@ -171,6 +171,21 @@ class AllServices
         // sleep(10);
     }
 
+    static public function dokumenchange($id) {
+        if ($id) {
+            $document = DocumentModel::find($id); // Mengambil dokumen berdasarkan ID
+            if ($document) {
+                return $document->nama_dokumen; // Mengembalikan nama dokumen jika ditemukan
+            } else {
+                return "Tidak Menggantikan Dokumen Apapun"; // Mengembalikan pesan jika dokumen tidak ditemukan
+            }
+        } else {
+            return "Tidak Menggantikan Dokumen Apapun"; // Mengembalikan pesan jika ID dokumen kosong atau null
+        }
+    }
+
+
+
     static public function isAllView ($id) : bool
     {
 
@@ -232,5 +247,23 @@ class AllServices
         }
 
         return false;
+    }
+
+    public static function removeIdFromArray($array, $id): string
+    {
+        $temp = is_string($array) ? explode(";", $array) : $array;
+        $returnValue = "";
+
+        foreach ($temp as $e) {
+            if ($e != $id) {
+                $returnValue .= $e . ";";
+            }
+        }
+
+        if (!empty($returnValue)) {
+            $returnValue = substr($returnValue, 0, -1);
+        }
+
+        return $returnValue;
     }
 }

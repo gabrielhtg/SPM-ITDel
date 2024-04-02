@@ -81,24 +81,25 @@
                                                     <textarea class="summernote" name="deskripsi">{!! $document->deskripsi !!}</textarea>
                                                 </div>
 
-
+                                                {{-- @php
+                                                dd($document->menggantikan_dokumen);
+                                                @endphp --}}
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
                                                         @foreach($documents as $type)
-                                                        @php
-                                                        // Periksa apakah dokumen sudah digantikan
-                                                        $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
-                                                    @endphp
-                                                            @if($type->created_by == auth()->user()->id && !$isReplaced) <!-- Ubah pemanggilan fungsi -->
-                                                                @php
-                                                                    $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
-                                                                @endphp
-                                                                <option value="{{ $type->id }}">{{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>
-                                                            @endif
+                                                            @php
+                                                                $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
+                                                                $selected = is_array($document->menggantikan_dokumen) && in_array($type->id, $document->menggantikan_dokumen);
+                                                                $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
+                                                            @endphp
+                                                            <option value="{{ $type->id }}" @if($type->tipe_dokumen == $type->id || $selected) selected @endif>
+                                                                {{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}
+                                                            </option>
                                                         @endforeach
                                                     </select>
                                                 </div>
+                                                
                                                 
 
                                                 <div class="form-group">
@@ -141,7 +142,7 @@
                                                 <div class="form-group">
                                                     <label>Give Edit to:</label>
                                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Edit Access to" style="width: 100%;">
-                                                        <option value="0" {{ in_array('0', explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '' }}>Public</option>
+                                                        
                                                         @foreach($roles as $role)
                                                             @php
                                                                 $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
@@ -179,7 +180,8 @@
                                             </div>
     
                                             <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Back</button>
+
                                                 <button type="submit" class="btn btn-primary">Upload Document</button>
                                             </div>
                                             </form>

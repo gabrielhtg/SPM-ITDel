@@ -70,8 +70,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary"><i class="far fa-save mr-1"></i> Save</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" form="form-register" class="btn btn-primary"><i class="far fa-save mr-1"></i>Simpan</button>
             </div>
         </div>
         <!-- /.modal-content -->

@@ -121,7 +121,7 @@
                                 <div class="form-group">
                                     <label>Give Edit to:</label>
                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
-                                        <option value="0">Public</option>
+                                        
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
@@ -156,7 +156,8 @@
                                     <input type="number" name="year" class="form-control" required min="1">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Back</button>
+
                                     <button type="submit" class="btn btn-primary">Upload Document</button>
                                 </div>
                             

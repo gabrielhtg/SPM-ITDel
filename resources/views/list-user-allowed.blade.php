@@ -11,11 +11,6 @@
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <!-- Ionicons -->
-    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet"
-          href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- JQVMap -->
@@ -38,26 +33,22 @@
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
-    <!-- Navbar -->
     @include("components.navbar")
-    <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
     @include("components.sidebar")
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Pengguna yang diizinkan</h1>
+                        <h1 class="m-0">Pengguna yang Diizinkan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
 
         <!-- Main content -->
         <section class="content">
@@ -69,7 +60,7 @@
                         </div>
 
                         <div class="mb-3">
-                            <span class="mb-2">Tambahkan pengguna yang diizinkan</span>
+                            <span class="mb-2">Tambahkan pengguna yang Diizinkan</span>
                             <form action="{{ route("addAllowedUser") }}" method="post" class="w-100">
                                 @csrf
                                 <div class="d-flex">
@@ -95,14 +86,6 @@
                                     <td>{{ AllServices::convertTime($e->created_at) }}</td>
                                     <td>{{ $e->created_by }}</td>
                                     <td>
-                                        {{--                                        <form action="{{ route('removeFromList') }}" method="post">--}}
-                                        {{--                                            @method('DELETE')--}}
-                                        {{--                                            @csrf--}}
-                                        {{--                                            <input type="hidden" name="id" value="{{ $e->id }}">--}}
-                                        {{--                                            <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i>--}}
-                                        {{--                                            </button>--}}
-                                        {{--                                        </form>--}}
-                                        {{--                                        @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->email, 'route' => ''])--}}
                                         <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#modal-delete-{{ $e->id }}">
                                             <i class="fas fa-trash"></i>
@@ -200,6 +183,7 @@
         bsCustomFileInput.init();
     });
 </script>
+
 <!-- DataTables  & Plugins -->
 <script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
 <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
@@ -220,18 +204,8 @@
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
-        });
     });
 </script>
-{{--<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
 <script src="{{ asset("dist/js/sweetalert2.js") }}"></script>
 <script>
     $(function () {

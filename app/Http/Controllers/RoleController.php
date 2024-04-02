@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Services\AllServices;
-use Couchbase\Role;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -64,13 +63,13 @@ class RoleController extends Controller
                     ]);
                 }
             }
-            return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);
+            return back()->with('toastData', ['success' => true, 'text' => 'Peran ' . $request->nama_role . ' berhasil ditambahkan!']);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
-                return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan! Role sudah pernah ditambahkan sebelumnya.']);
+                return back()->with('toastData', ['success' => false, 'text' => 'Peran ' . $request->nama_role . ' gagal untuk ditambahkan! Role sudah pernah ditambahkan sebelumnya.']);
             }
 
-            return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan!']);
+            return back()->with('toastData', ['success' => false, 'text' => 'Peran ' . $request->nama_role . ' gagal untuk ditambahkan!']);
         }
     }
 
@@ -115,6 +114,7 @@ class RoleController extends Controller
     public function updateStatus (Request $request) {
         $role = RoleModel::find($request->id);
         $users = User::all();
+        $allRole = RoleModel::all();
 
         foreach ($users as $user) {
             if (AllServices::isUserRole($user, $request->id)) {
@@ -125,6 +125,22 @@ class RoleController extends Controller
         if ($role->bawahan !== null) {
             if (!AllServices::isAdaBawahanActive($role->bawahan)) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role aktif yang menjadi anggota dari role ini!']);
+            }
+        }
+
+        if ($role->atasan_id !== null) {
+            if (!RoleModel::find($role->atasan_id)->status) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan role atasan aktif!']);
+            }
+        }
+
+        foreach ($allRole as $e) {
+            if (AllServices::isThisRoleExistInArray($e->accountable_to, $request->id)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang accountable to role ini!']);
+            }
+
+            if (AllServices::isThisRoleExistInArray($e->informable_to, $request->id)) {
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang informable to role ini!']);
             }
         }
 
@@ -151,12 +167,37 @@ class RoleController extends Controller
             $accountableTo = implode(';', $request->accountable_to);
         }
 
+        if ($request->atasan_role != null) {
+            $atasanBaru = RoleModel::find($request->atasan_role);
+            $atasanLama = RoleModel::find($role->atasan_id);
+
+            if ($atasanLama != null) {
+                $atasanLama->update([
+                    'bawahan' => AllServices::removeIdFromArray($atasanLama->bawahan, $role->id)
+                ]);
+            }
+
+            if ($atasanBaru->bawahan == null) {
+                $atasanBaru->update([
+                    'bawahan' => $role->id
+                ]);
+            }
+
+            else {
+                $atasanBaru->update([
+                    'bawahan' => $atasanBaru->bawahan . ";" . $role->id
+                ]);
+            }
+        }
+
         $role->update([
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
+            'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
             'accountable_to'=> $accountableTo,
             'informable_to' => $informableTo
         ]);
+
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
     }

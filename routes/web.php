@@ -30,7 +30,10 @@ Route::get('/', function () {
 
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
-Route::get('/document-replaced-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentDetailReplaced'])->name('documentReplaced');
+Route::get('/document-replaced-all/{id}', [\App\Http\Controllers\DocumentController::class, 'getDocumentDetailReplaced'])->name('documentReplaced');
+Route::get('/document-management-add', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementAdddoc'])->name('documentManagementAdd');
+Route::get('/document-management-reject', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementRejectdoc'])->name('documentManagementReject');
+
 
 Route::get('/dashboard', function () {
 
@@ -42,9 +45,9 @@ Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage
 Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 Route::middleware('auth')->group(function () {
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
     Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');

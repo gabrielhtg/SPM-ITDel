@@ -1,13 +1,12 @@
 @php use App\Services\AllServices; @endphp
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Role Management</title>
+    <title>Manajemen Peran</title>
 
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -18,8 +17,11 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+
+    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+{{--    <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -38,7 +40,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Role Management</h1>
+                        <h1 class="m-0">Manajemen Peran</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -56,22 +58,22 @@
                     <thead>
                     <tr>
                         <th>
-                            Role
+                            Peran
                         </th>
                         <th>
                             Atasan
                         </th>
-{{--                        <th>--}}
-{{--                            Bawahan--}}
-{{--                        </th>--}}
                         <th>
-                            Responsible To
+                            Bawahan
                         </th>
                         <th>
-                            Accountable To
+                            Bertanggung jawab Untuk
                         </th>
                         <th>
-                            Informable To
+                            Bertanggung jawab Kepada
+                        </th>
+                        <th>
+                            Dapat Diinformasikan Kepada
                         </th>
                         <th>
                             Status
@@ -91,9 +93,9 @@
                                 <td>
                                     {{ AllServices::convertRole($e->atasan_id) }}
                                 </td>
-{{--                                <td>--}}
-{{--                                    {{ AllServices::convertRole($e->bawahan) }}--}}
-{{--                                </td>--}}
+                                <td>
+                                    {{ AllServices::convertRole($e->bawahan) }}
+                                </td>
                                 <td>
                                     {{ AllServices::convertRole($e->responsible_to) }}
                                 </td>
@@ -132,17 +134,17 @@
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Edit Role</h4>
+                                        <h4 class="modal-title">Sunting Peran</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <form id="form-edit-role" action="{{route('editRole')}}" method="POST">
+                                        <form id="form-edit-role{{ $e->id }}" action="{{route('editRole')}}" method="POST">
                                             @csrf
 
                                             <div class="form-group">
-                                                <label for="nama-role{{ $e->id }}">Role Name</label>
+                                                <label for="nama-role{{ $e->id }}">Nama Role</label>
                                                 <input type="text" class="form-control" value="{{ $e->role }}" placeholder="Type Here"
                                                        id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
                                             </div>
@@ -153,7 +155,7 @@
                                                         class="atasan-role-custom form-control" style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($role->role !== "Admin")
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id && $role->status)
                                                             @if($role->id == $e->atasan_id)
                                                                 <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
                                                             @else
@@ -164,35 +166,29 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="accountable-to{{ $e->id }}">Accountable To:</label>
+                                                <label for="accountable-to{{ $e->id }}">Bertanggung jawab Kepada:</label>
                                                 <select id="accountable-to{{ $e->id }}" name="accountable_to[]"
                                                         multiple="multiple" class="accountable-to-custom form-control"
                                                         style="width: 100%">
                                                     <option></option>
                                                     @foreach($roles as $role)
-                                                        @if($role->role !== "Admin")
-                                                            @if(AllServices::isThisRoleExistInArray($e->accountable_to, $role))
-                                                                <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
-                                                            @else
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id && $role->status)
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
-                                                            @endif
                                                         @endif
                                                     @endforeach
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="informable-to{{ $e->id }}">Informable To:</label>
+                                                <label for="informable-to{{ $e->id }}">Dapat Diinformasikan Kepada:</label>
                                                 <select id="informable-to{{ $e->id }}" name="informable_to[]"
                                                         class="informable-to-custom form-control" multiple="multiple"
                                                         style="width: 100%">
                                                     <option></option>
-                                                    @if($role->role !== "Admin")
-                                                        @if(AllServices::isThisRoleExistInArray($e->informable_to, $role))
-                                                            <option value="{{ $role->id }}" selected>{{ $role->role }}</option>
-                                                        @else
-                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                    @foreach($roles as $role)
+                                                        @if($role->role !== "Admin" && $role->id !== $e->id && $role->status)
+                                                                <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
-                                                    @endif
+                                                    @endforeach
                                                 </select>
                                             </div>
 
@@ -200,8 +196,8 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" form="form-edit-role">Edit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" form="form-edit-role{{ $e->id }}">Sunting</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -235,18 +231,11 @@
 <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("plugins/select2/js/select2.full.min.js") }}"></script>
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 <!-- Page specific script -->
 <script>
     let tableRole = new DataTable('#table-role', {
@@ -286,7 +275,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Gagal menambahkan user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
@@ -299,16 +288,14 @@
     $(function () {
         //Initialize Select2 Elements
         $('.atasan-role-custom').select2({
-            placeholder: "Select role",
+            placeholder: "Pilih peran",
             allowClear: true,
         });
         $('.accountable-to-custom').select2({
-            placeholder: "Select role",
-            allowClear: true,
+            placeholder: "Pilih peran",
         });
         $('.informable-to-custom').select2({
-            placeholder: "Select role",
-            allowClear: true,
+            placeholder: "Pilih peran",
         });
     })
 </script>

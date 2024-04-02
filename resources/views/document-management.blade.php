@@ -80,7 +80,7 @@
 
                         <th>Uploaded By</th>
                         <th>Status</th>
-                        <th>Status Aktif</th>
+                        <th>Replace Document</th>
                         <th>Action</th>
 
 
@@ -169,7 +169,7 @@
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="info">
-
+                                            {{app(AllServices::class)->dokumenchange($e->menggantikan_dokumen)}}
                                         </div>
                                     </div>
                                 </td>

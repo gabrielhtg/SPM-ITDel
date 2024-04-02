@@ -86,6 +86,34 @@
                     </li>
                 @endif
 
+                @if(Auth::check() && auth()->user()->role != null)
+                    <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-users-cog"></i>
+                            <p>
+                                Laporan Dokumen
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{{ route('documentManagementAdd') }}"
+                                   class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Add</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('documentManagementReject') }}"
+                                   class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Reject</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                @endif
+
                 @if(auth()->user()->role != null)
                     <li class="nav-item">
                         <a href="{{ route('documentManagement') }}"
@@ -104,7 +132,7 @@
                            class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-crown"></i>
                             <p>
-                                Role Management
+                                Manajemen Peran
                             </p>
                         </a>
                     </li>
