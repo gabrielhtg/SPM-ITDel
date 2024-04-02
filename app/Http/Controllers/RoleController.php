@@ -63,13 +63,13 @@ class RoleController extends Controller
                     ]);
                 }
             }
-            return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' added successfully!']);
+            return back()->with('toastData', ['success' => true, 'text' => 'Peran ' . $request->nama_role . ' berhasil ditambahkan!']);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
-                return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan! Role sudah pernah ditambahkan sebelumnya.']);
+                return back()->with('toastData', ['success' => false, 'text' => 'Peran ' . $request->nama_role . ' gagal untuk ditambahkan! Role sudah pernah ditambahkan sebelumnya.']);
             }
 
-            return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan!']);
+            return back()->with('toastData', ['success' => false, 'text' => 'Peran ' . $request->nama_role . ' gagal untuk ditambahkan!']);
         }
     }
 

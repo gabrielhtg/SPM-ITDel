@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Role Management</title>
+    <title>Manajemen Peran</title>
 
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <link rel="stylesheet"
@@ -40,7 +40,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Role Management</h1>
+                        <h1 class="m-0">Manajemen Peran</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -58,7 +58,7 @@
                     <thead>
                     <tr>
                         <th>
-                            Role
+                            Peran
                         </th>
                         <th>
                             Atasan
@@ -67,13 +67,13 @@
 {{--                            Bawahan--}}
 {{--                        </th>--}}
                         <th>
-                            Responsible To
+                            Bertanggung jawab Untuk
                         </th>
                         <th>
-                            Accountable To
+                            Bertanggung jawab Kepada
                         </th>
                         <th>
-                            Informable To
+                            Dapat Diinformasikan Kepada
                         </th>
                         <th>
                             Status
@@ -134,7 +134,7 @@
                             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">Edit Role</h4>
+                                        <h4 class="modal-title">Sunting Peran</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -144,7 +144,7 @@
                                             @csrf
 
                                             <div class="form-group">
-                                                <label for="nama-role{{ $e->id }}">Role Name</label>
+                                                <label for="nama-role{{ $e->id }}">Nama Role</label>
                                                 <input type="text" class="form-control" value="{{ $e->role }}" placeholder="Type Here"
                                                        id="nama-role{{ $e->id }}" name="nama_role" required autofocus>
                                             </div>
@@ -166,7 +166,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="accountable-to{{ $e->id }}">Accountable To:</label>
+                                                <label for="accountable-to{{ $e->id }}">Bertanggung jawab Kepada:</label>
                                                 <select id="accountable-to{{ $e->id }}" name="accountable_to[]"
                                                         multiple="multiple" class="accountable-to-custom form-control"
                                                         style="width: 100%">
@@ -179,7 +179,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="informable-to{{ $e->id }}">Informable To:</label>
+                                                <label for="informable-to{{ $e->id }}">Dapat Diinformasikan Kepada:</label>
                                                 <select id="informable-to{{ $e->id }}" name="informable_to[]"
                                                         class="informable-to-custom form-control" multiple="multiple"
                                                         style="width: 100%">
@@ -196,8 +196,8 @@
                                         </form>
                                     </div>
                                     <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" form="form-edit-role{{ $e->id }}">Edit</button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary" form="form-edit-role{{ $e->id }}">Sunting</button>
                                     </div>
                                 </div>
                                 <!-- /.modal-content -->
@@ -275,7 +275,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Gagal menambahkan user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
@@ -288,14 +288,14 @@
     $(function () {
         //Initialize Select2 Elements
         $('.atasan-role-custom').select2({
-            placeholder: "Select role",
+            placeholder: "Pilih peran",
             allowClear: true,
         });
         $('.accountable-to-custom').select2({
-            placeholder: "Select role",
+            placeholder: "Pilih peran",
         });
         $('.informable-to-custom').select2({
-            placeholder: "Select role",
+            placeholder: "Pilih peran",
         });
     })
 </script>

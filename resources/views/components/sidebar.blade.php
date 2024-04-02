@@ -104,7 +104,7 @@
                            class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-crown"></i>
                             <p>
-                                Role Management
+                                Manajemen Peran
                             </p>
                         </a>
                     </li>
