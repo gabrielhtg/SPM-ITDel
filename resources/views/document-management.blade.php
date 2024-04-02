@@ -453,7 +453,7 @@
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Gagal edit hero! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',

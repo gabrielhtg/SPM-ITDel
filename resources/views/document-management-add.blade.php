@@ -176,9 +176,14 @@
                                     </div>
                                 </form>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" form="document-form">Submit</button>
+                            </div>
                         </div>
                     </div>
                 </div>
+
 
                 <div class="modal fade" id="modal-success2">
                     <div class="modal-dialog modal-dialog-centered">
