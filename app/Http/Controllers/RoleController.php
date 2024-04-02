@@ -164,6 +164,7 @@ class RoleController extends Controller
         $role->update([
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
+            'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
             'accountable_to'=> $accountableTo,
             'informable_to' => $informableTo
         ]);
