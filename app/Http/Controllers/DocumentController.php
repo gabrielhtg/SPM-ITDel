@@ -493,6 +493,32 @@ public function updateDocument(Request $request, $id)
         return view('document-management-add', $data);
     }
 
+    public function getDocumentManagementRejectdoc()
+    {
+        // Ambil 10 dokumen terbaru
+        $documents = DocumentModel::all();
+
+        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $jenis_dokumen = DocumentTypeModel::all();
+        $roles = RoleModel::all();
+        $documenthero = HeroDocument::first();
+        $documentheroIds = $documenthero->pluck('id');
+
+
+        // dd($documenthero);
+        $data = [
+            'documents' => $documents,
+            'uploadedUsers' => $uploadedUsers,
+            'jenis_dokumen' => $jenis_dokumen,
+            'roles' => $roles,
+            'active_sidebar' => [5, 0],
+            'documenthero'=> $documenthero,
+            'documentheroIds' => $documentheroIds,
+        ];
+
+        return view('document-management-reject', $data);
+    }
+
 
 
 

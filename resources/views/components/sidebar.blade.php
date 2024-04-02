@@ -104,7 +104,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('user-settings-inactive') }}"
+                                <a href="{{ route('documentManagementReject') }}"
                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Reject</p>

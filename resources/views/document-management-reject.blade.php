@@ -45,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Reject Laporan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -57,19 +57,7 @@
             <div class="card-body">
 
 
-                <a href="#modal-add-document" class="btn btn-success mb-3" data-toggle="modal">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Laporan</span>
-                </a>
-
-                <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Tipe Laporan</span>
-                </a>
-
-
-                @if(app(AllServices::class)->isAdmin())
-                    @include('components.list-document-pending-modal')
-                @endif
-            
+              
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -118,7 +106,7 @@
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="d-flex align-items-center">
-                                            Waiting
+                                            Rejected
                                         </div>
 
                                     </div>
@@ -128,12 +116,11 @@
                                     <div class="d-flex" style="gap: 5px">
                                         <a href="#" target="_blank" class="btn btn-success"><i
                                                 class="fas fa-eye"></i></a>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
+                                      
 
                                         {{-- // jika user sekarang == user yang upload di data Dokumen
                                         // if userSekarang -> id == document->created_by --}}
-                                            <a href="#"
-                                               class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                            
 
                                     </div>
 
