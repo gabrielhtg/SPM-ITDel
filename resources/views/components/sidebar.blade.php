@@ -28,7 +28,7 @@
                      with font-awesome or any other icon font library -->
 
                 <li class="nav-item">
-                    <a href="{{ route('admin-dashboard') }}"
+                    <a href="{{ route('indexlogindashboard') }}"
                        class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
@@ -50,7 +50,7 @@
                     <li class="nav-item">
                         <a href="{{ route('dashboard-admin') }}"
                            class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
-                            <i class="nav-icon fas fa-newspaper"></i>
+                            <i class="nav-icon fas fa-window-restore"></i>
                             <p>
                                 Dashboard Management
                             </p>

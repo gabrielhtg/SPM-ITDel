@@ -6,6 +6,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
+use App\Http\Controllers\LoginDashboardController;
 use App\Models\Dashboard;
 use App\Models\HeroDashboard;
 use App\Models\User;
@@ -72,6 +73,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
     Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
 
+
+    //admin dashboard
+    Route::get('/dashboarduser', [UserController::class, 'indexlogindashboard'])->name('indexlogindashboard');
 
 });
 
