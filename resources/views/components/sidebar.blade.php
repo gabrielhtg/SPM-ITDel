@@ -120,7 +120,7 @@
                            class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>
-                                Document Management
+                                Manajemen Dokumen
                             </p>
                         </a>
                     </li>

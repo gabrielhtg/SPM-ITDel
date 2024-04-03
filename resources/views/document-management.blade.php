@@ -177,8 +177,9 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 5px">
-                                        <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
-                                                class="fas fa-eye"></i></a>
+                                        <a href="{{ $e->link ? $e->link : ($e->directory ? asset($e->directory) : '#') }}" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+
+
                                         @if(\Illuminate\Support\Facades\Auth::check())
                                             @include('components.detail-file-modal', ['documentId' => $e->id])
 
@@ -225,9 +226,15 @@
                                             Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
-                                    <p><strong>Tanggal
-                                            Berlaku:</strong> {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
-                                        - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}</p>
+                                    <p><strong>Tanggal Berlaku:</strong> 
+                                        {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }} 
+                                        @if($e->end_date)
+                                            - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}
+                                        @else
+                                            - Sekarang
+                                        @endif
+                                    </p>
+
                                     <p><strong>Status:</strong>
                                         @if($e->status == 0)
                                             Berlaku
