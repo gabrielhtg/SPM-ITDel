@@ -436,7 +436,7 @@
         @if(session('toastData')['success'])
         Swal.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'Sukses',
             text: '{!! session('toastData')['text'] !!}',
             toast: true,
             showConfirmButton: false,
