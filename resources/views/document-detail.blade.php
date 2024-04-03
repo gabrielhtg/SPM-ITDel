@@ -47,7 +47,7 @@
                             </div>
                             <div class="card-body">
                                 <!-- Detail document content -->
-                                <table class="table table-responsive">
+                                <table class="table table-responsive table-borderless" >
                                     <tbody>
                                         <tr>
                                             <td class="bold col-2" style="font-size: 20px; font-weight: bold;">Nama Dokumen</td>
