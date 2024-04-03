@@ -68,9 +68,14 @@
                                             <td class="bold">{{ $document->nomor_dokumen }}</td>
                                         </tr>
                                         <tr>
+                                        <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Deskripsi</td>
-                                            <td class="bold">{{ $document->deskripsi }}</td>
+                                            <td class="bold">
+                                                {!! strlen($document->deskripsi) > 145 ? wordwrap($document->deskripsi, 145, "<br>", true) : $document->deskripsi !!}
+                                            </td>
                                         </tr>
+
+
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
                                             <td class="bold">{{ $document->year }}</td>

@@ -137,7 +137,7 @@
                                                     </td>
                                                    
                                                     <td class="bold" style="font-size: 18px;">
-                                                        {!! strlen($e->deskripsi) > 75 ? (strlen($e->deskripsi) >= 225 ? wordwrap(substr($e->deskripsi, 0, 225), 75, "<br>", true) . '...' : wordwrap($e->deskripsi, 75, "<br>", true)) : $e->deskripsi !!}
+                                                    {!! strlen($e->deskripsi) > 40 ? substr($e->deskripsi, 0, 40) . '...' : $e->deskripsi !!}
                                                     </td>
                                                     <td style="vertical-align: middle;">
                                                         <div class="user-panel d-flex">
