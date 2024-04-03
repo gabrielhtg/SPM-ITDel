@@ -83,7 +83,7 @@
                 <div class="row justify-content-center">
                     <div class="col-md-12">
                         <form class="form-inline">
-                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
+                            <input id="searchInput" class="form-control mr-sm-2" type="search" placeholder="Cari" aria-label="Search" style="width: 100%; height: 80px; border: 2px solid #00000a;">
                         </form>
                     </div>
                 </div>
@@ -161,7 +161,7 @@
                 @if(count($documents) > 9)
                     <div class="row justify-content-center mt-3">
                         <div class="col-md-12 text-center">
-                            <a href="{{ route('documentManagementAll') }}" class="btn btn-primary">See More</a>
+                            <a href="{{ route('documentManagementAll') }}" class="btn btn-primary">Lihat Selengkapnya</a>
                         </div>
                     </div>
                 @endif

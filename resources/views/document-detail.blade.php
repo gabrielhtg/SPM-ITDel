@@ -43,7 +43,7 @@
                         <div class="card">
 
                             <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
-                                <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Detail Document</h3>
+                                <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Detail Dokumen</h3>
                             </div>
                             <div class="card-body">
                                 <!-- Detail document content -->
@@ -105,7 +105,7 @@
                             <div class="col-lg-12 mb-4">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
-                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Preview Document</h3>
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Lihat Dokumen</h3>
                                     </div>
                                     <div class="card-body flex-grow-1 text-center">
                                         <!-- Isi preview document -->
@@ -118,18 +118,18 @@
                                             <div class="col-auto">
                                                 @if($document->link && $document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" href="{{ $document->link }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
-                                                        <i class="fas fa-external-link-alt"></i> Open
+                                                        <i class="fas fa-external-link-alt"></i> Buka
                                                     </a>
                                                 @elseif($document->directory && $document->can_see_by == 1)
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" target="_blank" style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
-                                                        <i class="fas fa-eye"></i> Preview
+                                                        <i class="fas fa-eye"></i> Lihat
                                                     </a>
                                                 @endif
                                             </div>
                                             @if($document->directory && $document->can_see_by == 1)
                                                 <div class="col-auto">
                                                     <a class="download-file btn btn-primary" data-label="UU No. 11 Tahun 2020" data-kategori="Peraturan" data-id="153567" href="{{ asset($document->directory) }}" download style="width: 150px; height: 40px; font-size: 1rem; background-color: #4387ca; border-radius: 15px; margin: 10px 0; border: none;">
-                                                        <i class="fas fa-file-download"></i> Download
+                                                        <i class="fas fa-file-download"></i> Unduh
                                                     </a>
                                                 </div>
                                             @endif
@@ -160,7 +160,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
-                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Replaced Document</h3>
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Dokumen Sejenis</h3>
                                     </div>
                                     <div class="card-body flex-grow-1">
                                         <!-- Isi similar document -->
@@ -184,7 +184,7 @@
                                                         @endforeach
                                                     </ul>
                                                     @if($documentCount > 9)
-                                                    <a href="{{ route('documentReplaced', ['id' => $document->id]) }}" class="btn btn-primary">See More</a>
+                                                    <a href="{{ route('documentReplaced', ['id' => $document->id]) }}" class="btn btn-primary">Lihat Selengkapnya</a>
                                                     @php
 
                                                     @endphp
