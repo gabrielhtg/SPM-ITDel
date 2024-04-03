@@ -162,8 +162,18 @@
                                         <input type="text" class="form-control" id="document-period" name="document-period" required>
                                     </div>
                                     <div class="form-group">
+                                        <label for="document-type">Jenis Dokumen</label>
+                                        <select class="form-control" id="document-kind" name="document-type" required>
+                                            <option value="">Pilih Jenis Dokumen</option> <!-- Opsi kosong -->
+                                            <option value="Tipe 1">Revisi</option>
+                                            <option value="Tipe 2">Baru</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="document-type">Tipe Dokumen</label>
                                         <select class="form-control" id="document-type" name="document-type" required>
+                                            <option value="">Pilih Tipe Dokumen</option> <!-- Opsi kosong -->
                                             <option value="Tipe 1">Tipe 1</option>
                                             <option value="Tipe 2">Tipe 2</option>
                                             <option value="Tipe 3">Tipe 3</option>
