@@ -131,8 +131,9 @@
                                                     </td>
                                                    
                                                     <td class="bold" style="font-size: 18px;">
-                                                        {!! strlen($e->deskripsi) > 75 ? (strlen($e->deskripsi) >= 225 ? wordwrap(substr($e->deskripsi, 0, 225), 75, "<br>", true) . '...' : wordwrap($e->deskripsi, 75, "<br>", true)) : $e->deskripsi !!}
-                                                    </td>
+                                                        {!! strlen($e->deskripsi) > 40 ? substr($e->deskripsi, 0, 40) . '...' : $e->deskripsi !!}
+                                                    </td>
+
                                                     <td style="vertical-align: middle;">
                                                         <div class="user-panel d-flex">
                                                             <div class="info">
@@ -159,7 +160,7 @@
                 </div>
                 <!-- Tombol "See More" hanya tampil jika jumlah file lebih dari 10 -->
                 @if(count($documents) > 9)
-                    <div class="row justify-content-center mt-3">
+                    <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
                             <a href="{{ route('documentManagementAll') }}" class="btn btn-primary">See More</a>
                         </div>
