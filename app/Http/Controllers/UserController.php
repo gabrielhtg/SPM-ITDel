@@ -106,6 +106,9 @@ class UserController extends Controller
     {
         $user = User::find($request->user_id);
         $roles = RoleModel::all();
+
+
+
         $data = [
             'roles' => $roles,
             'user' => $user,
