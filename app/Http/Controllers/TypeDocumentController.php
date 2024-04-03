@@ -34,25 +34,25 @@ class TypeDocumentController extends Controller
             'jenis_dokumen' => 'required|unique:document_types',
             'singkatan' => 'required|unique:document_types',
         ], [
-            'jenis_dokumen.unique' => "The Document Type is already in use.",
-            'singkatan.unique' => "The abbreviation is already in use.",
+            'jenis_dokumen.unique' => "Tipe dokumen sudah digunakan.",
+            'singkatan.unique' => "Singkatam sudah digunakan.",
         ]);
-    
+
         if (!AllServices::isAdmin()) {
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
         }
-    
+
         if ($validator->fails()) {
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
         }
-    
+
         DocumentTypeModel::create([
             'jenis_dokumen' => $request->jenis_dokumen,
             'singkatan' => $request->singkatan,
         ]);
-    
-        return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Document Type uploaded successfully!']);
+
+        return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Tipe dokumen berhasil ditambahkan!']);
     }
-    
+
 
 }
