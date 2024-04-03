@@ -222,8 +222,7 @@
                                     <p><strong>Nomor Dokumen:</strong> {{ $e->nomor_dokumen }}</p>
                                     <p><strong>Deskripsi Dokumen:</strong> {{ $e->deskripsi }}</p>
                                     <p><strong>Tahun:</strong> {{ $e->year }}</p>
-                                    <p><strong>User
-                                            Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
+                                    <p><strong>Diunggah Oleh:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
                                     <p><strong>Tanggal Berlaku:</strong> 
