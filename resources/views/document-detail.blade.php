@@ -49,44 +49,22 @@
                                 <!-- Detail document content -->
                                 <table class="table table-responsive table-borderless" >
                                     <tbody>
+                                         <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Nomor Dokumen</td>
+                                            <td class="bold">{{ $document->nomor_dokumen }}</td>
+                                        </tr>
                                         <tr>
                                             <td class="bold col-2" style="font-size: 20px; font-weight: bold;">Nama Dokumen</td>
                                             <td class="bold" style="font-size: 18px;">{!! strlen($document->name) > 110 ? wordwrap($document->name, 110, "<br>", true) : $document->name !!}</td>
                                         </tr>
-                                        <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tipe Dokumen</td>
-                                            <td class="bold">
-                                                @php
-                                                    $jenis_document = $jenis_dokumen->where('id', $document->tipe_dokumen)->first();
-                                                @endphp
-                                                {{ $jenis_document ? $jenis_document->jenis_dokumen : '' }}
-                                            </td>
-
-                                        </tr>
-                                        <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Nomor</td>
-                                            <td class="bold">{{ $document->nomor_dokumen }}</td>
-                                        </tr>
+                                        
+                                        
                                         <tr>
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Deskripsi</td>
                                             <td class="bold">
                                                 {!! strlen($document->deskripsi) > 145 ? wordwrap($document->deskripsi, 145, "<br>", true) : $document->deskripsi !!}
                                             </td>
-                                        </tr>
-
-
-                                        <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
-                                            <td class="bold">{{ $document->year }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">User Upload</td>
-                                            <td class="bold">{{ $uploadedUser->name }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Created At</td>
-                                            <td class="bold">{{ $document->start_date }}</td>
                                         </tr>
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Status</td>
@@ -98,6 +76,32 @@
                                                 }
                                             @endphp</td>
                                         </tr>
+
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tipe Dokumen</td>
+                                            <td class="bold">
+                                                @php
+                                                    $jenis_document = $jenis_dokumen->where('id', $document->tipe_dokumen)->first();
+                                                @endphp
+                                                {{ $jenis_document ? $jenis_document->jenis_dokumen : '' }}
+                                            </td>
+
+                                        </tr>
+
+
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tahun</td>
+                                            <td class="bold">{{ $document->year }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Diunggah Oleh</td>
+                                            <td class="bold">{{ $uploadedUser->name }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Dibuat</td>
+                                            <td class="bold">{{ $document->start_date }}</td>
+                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
