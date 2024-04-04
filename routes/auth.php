@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\RoleTreeController;
 use App\Http\Controllers\TypeDocumentController;
 use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
@@ -144,5 +145,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit-role', [RoleController::class, 'editRole'])->name('editRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
+        Route::get('/dashboarduser', [RoleTreeController::class, 'indexlogindashboard'])->name('indexlogindashboard');
     });
 });

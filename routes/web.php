@@ -72,11 +72,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/herosection/detail/{id}', [HeroDashboardController::class, 'getDetailherosection'])->name('herosection-detail');
     Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
     Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
-
-
-    //admin dashboard
-    Route::get('/dashboarduser', [UserController::class, 'indexlogindashboard'])->name('indexlogindashboard');
-
 });
 
 require __DIR__ . '/auth.php';
