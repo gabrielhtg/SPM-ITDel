@@ -100,12 +100,13 @@
                             </a>
                         </li>
                         
+                        
                     @endif
                         <li class="nav-item">
                             <a href="{{ route('getdocument') }}" class="nav-link">
                                 
-                                Dokumen
-                                {{-- </p> --}}
+                                   Dokumen
+                                
                             </a>
                         </li>
 

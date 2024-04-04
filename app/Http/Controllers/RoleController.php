@@ -14,7 +14,7 @@ class RoleController extends Controller
 
 
         $data = [
-            'active_sidebar' => [6, 0],
+            'active_sidebar' => [7, 0],
             'roles' => RoleModel::all()
         ];
 

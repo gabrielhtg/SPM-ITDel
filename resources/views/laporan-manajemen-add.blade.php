@@ -57,9 +57,7 @@
             <div class="card-body">
 
 
-                <a href="#modal-add-document" class="btn btn-success mb-3" data-toggle="modal">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Laporan</span>
-                </a>
+                @include('components.upload-laporan')
 
                 <a href="#modal-success2" class="btn btn-success mb-3" data-toggle="modal">
                     <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Tipe Laporan</span>
@@ -142,57 +140,7 @@
                     </tbody>
                 </table>
 
-                <div class="modal fade" id="modal-add-document" tabindex="-1" role="dialog" aria-labelledby="modal-add-document-label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-add-document-label">Tambah Dokumen</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="document-form" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label for="document-name">Nama Dokumen</label>
-                                        <input type="text" class="form-control" id="document-name" name="document-name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-period">Periode</label>
-                                        <input type="text" class="form-control" id="document-period" name="document-period" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-type">Jenis Dokumen</label>
-                                        <select class="form-control" id="document-kind" name="document-type" required>
-                                            <option value="">Pilih Jenis Dokumen</option> <!-- Opsi kosong -->
-                                            <option value="Tipe 1">Revisi</option>
-                                            <option value="Tipe 2">Baru</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="document-type">Tipe Dokumen</label>
-                                        <select class="form-control" id="document-type" name="document-type" required>
-                                            <option value="">Pilih Tipe Dokumen</option> <!-- Opsi kosong -->
-                                            <option value="Tipe 1">Tipe 1</option>
-                                            <option value="Tipe 2">Tipe 2</option>
-                                            <option value="Tipe 3">Tipe 3</option>
-                                            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-file">Dokumen:</label>
-                                        <input type="file" class="form-control-file" id="document-file" name="document-file" required>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" form="document-form">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
 
                 <div class="modal fade" id="modal-success2">
