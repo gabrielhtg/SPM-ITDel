@@ -105,10 +105,7 @@ class UserController extends Controller
     public function indexlogindashboard(Request $request)
     {
         $user = User::find($request->user_id);
-        $roles = RoleModel::all();
-
-
-
+        $roles = RoleModel::find(2);
         $data = [
             'roles' => $roles,
             'user' => $user,

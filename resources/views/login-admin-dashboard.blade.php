@@ -21,10 +21,11 @@
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
-	<script src="https://cdn.jsdelivr.net/npm/apextree"></script>
-	<style>
+    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
+    <style>
         body, html {
             margin: 0;
             padding: 0;
@@ -32,9 +33,9 @@
             /* font-family: Arial, sans-serif; */
         }
 
-		body h1 {
-			text-align: center
-		}
+        body h1 {
+            text-align: center
+        }
 
         #svg-tree {
             width: 100%;
@@ -43,21 +44,31 @@
             justify-content: center;
             align-items: center;
         }
+
         #svg-tree svg {
             max-width: 100%;
             max-height: 100%;
         }
 
-		.tampilan-strukturTree{
-			margin-left: 250px
-		}
+        .tampilan-strukturTree {
+            margin-left: 250px
+        }
     </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-	@include("components.navbar")
-	@include("components.sidebar")
+@include("components.navbar")
+@include("components.sidebar")
 
+<div class="wrapper">
+    <div class="tampilan-strukturTree">
+        <h1>Struktur Organisasi SPM</h1>
+
+        <div id="svg-tree">
+
+        </div>
+    </div>
+</div>
 	<div class="wrapper">
 		<div class="tampilan-strukturTree">
 			<h1>Struktur Organisasi SPM</h1>
@@ -81,14 +92,14 @@
         height: 800,
         nodeWidth: 150,
         nodeHeight: 100,
-        fontColor: '#000',
+        fontColor: '#fff',
         borderColor: '#333',
         childrenSpacing: 50,
         siblingSpacing: 20,
         direction: 'top',
         enableExpandCollapse: true,
         nodeTemplate: (content) =>
-          `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
+            `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
           <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
           <div style="font-weight: bold; font-size: 14px">${content.name}</div>
          </div>`,
@@ -197,5 +208,108 @@
 			})
 		})
 	</script>
+    };
+    const tree = new ApexTree(document.getElementById('svg-tree'), options);
+    tree.render(data);
+</script>
+<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+<!-- Bootstrap 4 -->
+<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+<!-- DataTables  & Plugins -->
+<script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
+<script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
+<script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
+<script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
+<script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
+<script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
+<script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
+<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- AdminLTE App -->
+<script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+<!-- Page specific script -->
+
+<script>
+    document.getElementById('inputGambar').addEventListener('change', function (e) {
+        var fileName = document.getElementById('inputGambar').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script>
+
+<script>
+    $(function () {
+        @if(session('toastData') != null)
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+        @endif
+
+        @if (!$errors->isEmpty())
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+    });
+</script>
+{{--
+<script>
+    $(function () {
+        // Summernote
+        $('.summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+</script> --}}
+<script>
+    $(function () {
+        // Summernote
+        $('.summernote').summernote({
+            // placeholder: 'desc...',
+            minHeight: 230,
+            // disableDragAndDrop: true,
+        })
+    })
+</script>
 </body>
 </html>
