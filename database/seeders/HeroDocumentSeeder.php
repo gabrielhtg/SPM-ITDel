@@ -14,7 +14,7 @@ class HeroDocumentSeeder extends Seeder
     {
         $imagePath = 'hero-bg.jpg';
         HeroDocument::create([
-            'titlehero' => 'Document Management',
+            'titlehero' => 'Manajemen Dokumen',
             'descriptionhero' => 'disini anda dapat melihat setiap document yang tersedia',
             'imagehero' => $imagePath,
         ]);

@@ -104,7 +104,7 @@
                         <li class="nav-item">
                             <a href="{{ route('getdocument') }}" class="nav-link">
                                 
-                                Document
+                                Dokumen
                                 {{-- </p> --}}
                             </a>
                         </li>

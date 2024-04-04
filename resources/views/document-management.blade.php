@@ -45,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Manajemen Dokumen</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -58,7 +58,7 @@
 
 
                 <a href="{{ route('documentAdd') }}" class="btn btn-success mb-3">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document</span>
+                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Dokumen</span>
                 </a>
 
                 @if(app(AllServices::class)->isAdmin())
@@ -74,14 +74,14 @@
                     <thead>
                     <tr>
 
-                        <th>Doc Number</th>
-                        <th>Doc Name</th>
-                        <th>Doc Type</th>
+                        <th>Nomor Dokumen</th>
+                        <th>Nama Dokumen</th>
+                        <th>Tipe Dokumen</th>
 
-                        <th>Uploaded By</th>
+                        <th>Diunggah Oleh</th>
                         <th>Status</th>
-                        <th>Replace Document</th>
-                        <th>Action</th>
+                        <th>Menggantikan</th>
+                        <th>Tindakan</th>
 
 
                     </tr>
@@ -177,8 +177,9 @@
 
                                 <td>
                                     <div class="d-flex" style="gap: 5px">
-                                        <a href="{{ asset($e->directory) }}" target="_blank" class="btn btn-success"><i
-                                                class="fas fa-eye"></i></a>
+                                        <a href="{{ $e->link ? $e->link : ($e->directory ? asset($e->directory) : '#') }}" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+
+
                                         @if(\Illuminate\Support\Facades\Auth::check())
                                             @include('components.detail-file-modal', ['documentId' => $e->id])
 
@@ -221,13 +222,18 @@
                                     <p><strong>Nomor Dokumen:</strong> {{ $e->nomor_dokumen }}</p>
                                     <p><strong>Deskripsi Dokumen:</strong> {{ $e->deskripsi }}</p>
                                     <p><strong>Tahun:</strong> {{ $e->year }}</p>
-                                    <p><strong>User
-                                            Upload:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
+                                    <p><strong>Diunggah Oleh:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
-                                    <p><strong>Tanggal
-                                            Berlaku:</strong> {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
-                                        - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}</p>
+                                    <p><strong>Tanggal Berlaku:</strong>
+                                        {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
+                                        @if($e->end_date)
+                                            - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}
+                                        @else
+                                            - Sekarang
+                                        @endif
+                                    </p>
+
                                     <p><strong>Status:</strong>
                                         @if($e->status == 0)
                                             Berlaku
@@ -240,7 +246,7 @@
                                     <!-- Anda dapat menambahkan atribut tambahan sesuai kebutuhan -->
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                 </div>
                             </div>
                         </div>
@@ -429,7 +435,7 @@
         @if(session('toastData')['success'])
         Swal.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'Sukses',
             text: '{!! session('toastData')['text'] !!}',
             toast: true,
             showConfirmButton: false,
@@ -449,7 +455,7 @@
         @endif
         @endif
 
-        @if (!$errors->isEmpty())
+        @if(session('toastData') != null)
         Swal.fire({
             icon: 'error',
             title: 'Failed',
@@ -482,7 +488,7 @@
 
     $(document).ready(function () {
         $('.select2').select2({
-            placeholder: "Search Document Type",
+            placeholder: "Cari Tipe Dokumen",
             allowClear: true,
             minimumInputLength: 1 // Minimum characters to start searching
         });

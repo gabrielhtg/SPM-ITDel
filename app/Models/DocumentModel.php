@@ -28,6 +28,7 @@ class DocumentModel extends Model
         'can_see_by',
         'masa_berlaku',
         'parent',
+        'link',
     ];
 
     // Metode untuk melakukan pengecekan kesamaan antara id dan menggantikan_dokumen

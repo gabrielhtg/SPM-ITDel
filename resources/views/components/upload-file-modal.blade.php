@@ -35,7 +35,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Add Document</h1>
+                        <h1 class="m-0">Tambahkan Dokumen</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -53,25 +53,25 @@
                                 @csrf
 
                                 <div class="form-group">
-                                    <label>Title:</label>
+                                    <label>Judul:</label>
                                     <input type="text" name="name" class="form-control" required>
                                 </div>
 
                                 
 
                                 <div class="form-group">
-                                    <label>Document Number:</label>
+                                    <label>Nomor Dokumen:</label>
                                     <input type="text" name="nomor_dokumen" class="form-control" required>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="summernote">Description</label>
+                                    <label for="summernote">Deskripsi</label>
                                     <textarea class="summernote" name="deskripsi"></textarea>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Menggantikan Dokumen:</label>
-                                    <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
+                                    <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Cari Tipe Dokumen" style="width: 100%;">
                                         @foreach($documents as $type)
                                             @php
                                                 // Periksa apakah dokumen sudah digantikan
@@ -93,13 +93,13 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Link Document:</label>
+                                    <label>Link Dokumen:</label>
                                     <input type="text" name="link" class="form-control">
                                 </div>
                                 
                                     <div class="form-group">
-                                        <label>Document Type:</label>
-                                        <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
+                                        <label>Tipe Dokumen:</label>
+                                        <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Cari Tipe Dokumen" style="width: 100%;">
                                             @foreach($jenis_dokumen as $type)
                                                 <option value="{{ $type->id }}">{{ $type->jenis_dokumen }}</option>
                                             @endforeach
@@ -107,8 +107,8 @@
                                     </div>
 
                                 <div class="form-group">
-                                    <label>Give Access to:</label>
-                                    <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                    <label>Berikan Akses Kepada:</label>
+                                    <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan Akses Kepada" style="width: 100%;">
                                         <option value="0">Public</option>
                                         @foreach($roles as $role)
                                         
@@ -119,8 +119,8 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Give Edit to:</label>
-                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
+                                    <label>Berikan Izin Edit Kepada:</label>
+                                    <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan Izin Edit Kepada" style="width: 100%;">
                                         
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
@@ -131,34 +131,34 @@
 
 
                                 <div class="form-group">
-                                    <label>Can See By:</label>
+                                    <label>Dapat Dilihat Oleh:</label>
                                     <select name="can_see_by" class="form-control" required>
-                                        <option value="" disabled selected>Select Visibility</option>
-                                        <option value="1">Public</option>
-                                        <option value="0">Private</option>
+                                        <option value="" disabled selected>Pilih Visabilitas</option>
+                                        <option value="1">Publik</option>
+                                        <option value="0">Pribadi</option>
                                     </select>
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Start Date:</label>
+                                    <label>Tanggal Mulai:</label>
                                     <input type="datetime-local" name="start_date" class="form-control" required>
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label>End Date:</label>
+                                    <label>Tanggal Berakhir:</label>
                                     <input type="datetime-local" name="end_date" class="form-control" placeholder="Pilih tanggal dan waktu">
                                 </div>
                                 
                                 
 
                                 <div class="form-group">
-                                    <label>Year:</label>
+                                    <label>Tahun:</label>
                                     <input type="number" name="year" class="form-control" required min="1">
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Back</button>
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Kembali</button>
 
-                                    <button type="submit" class="btn btn-primary">Upload Document</button>
+                                    <button type="submit" class="btn btn-primary">Unggah Dokumen</button>
                                 </div>
                             
                             </form>
@@ -272,7 +272,7 @@
 
     $(document).ready(function () {
         $('.select2').select2({
-            placeholder: "Search Document Type",
+            placeholder: "Cari Tipe Dokumen",
             allowClear: true,
             minimumInputLength: 1 // Minimum characters to start searching
         });

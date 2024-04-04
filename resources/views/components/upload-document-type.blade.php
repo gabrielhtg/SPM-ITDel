@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-success2">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Document Type</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Tipe Dokumen</span>
 </button>
 
 <div class="modal fade" id="modal-success2">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Document Type</h4>
+                <h4 class="modal-title">Tambahkan Tipe Dokumen</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -16,20 +16,20 @@
                     @csrf
 
                     <div class="form-group">
-                        <label for="jenis_dokumen">Document Type</label>
-                        <input type="text" name="jenis_dokumen" placeholder="Document Type" class="form-control" required>
-                        <div class="invalid-feedback">Please provide a valid document type.</div>
+                        <label for="jenis_dokumen">Tipe Dokumen</label>
+                        <input type="text" name="jenis_dokumen" placeholder="Tipe Dokumen" class="form-control" required>
+                        <div class="invalid-feedback">Harap berikan jenis dokumen yang valid.</div>
                     </div>
 
                     <div class="form-group">
-                        <label for="singkatan">Abbreviation</label>
-                        <input type="text" name="singkatan" placeholder="Abbreviation" class="form-control" required>
-                        <div class="invalid-feedback">Please provide a valid abbreviation.</div>
+                        <label for="singkatan">Singkatan</label>
+                        <input type="text" name="singkatan" placeholder="Singkatan" class="form-control" required>
+                        <div class="invalid-feedback">Harap berikan singkatan yang valid.</div>
                     </div>
 
                     <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Add</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Tambahkan</button>
                     </div>
                 </form>
             </div>
