@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Manajemen Peran</title>
+    <title>Manajemen Role</title>
 
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
     <link rel="stylesheet"
@@ -40,7 +40,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Manajemen Peran</h1>
+                        <h1 class="m-0">Manajemen Role</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -58,7 +58,7 @@
                     <thead>
                     <tr>
                         <th>
-                            Peran
+                            Role
                         </th>
                         <th>
                             Atasan
@@ -67,13 +67,13 @@
                             Bawahan
                         </th>
                         <th>
-                            Bertanggung jawab Untuk
+                            Responsible To
                         </th>
                         <th>
-                            Bertanggung jawab Kepada
+                            Accountable To
                         </th>
                         <th>
-                            Dapat Diinformasikan Kepada
+                            Informable To 
                         </th>
                         <th>
                             Status
@@ -166,7 +166,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="accountable-to{{ $e->id }}">Bertanggung jawab Kepada:</label>
+                                                <label for="accountable-to{{ $e->id }}">Responsible To:</label>
                                                 <select id="accountable-to{{ $e->id }}" name="accountable_to[]"
                                                         multiple="multiple" class="accountable-to-custom form-control"
                                                         style="width: 100%">
@@ -179,7 +179,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="informable-to{{ $e->id }}">Dapat Diinformasikan Kepada:</label>
+                                                <label for="informable-to{{ $e->id }}">Informable To:</label>
                                                 <select id="informable-to{{ $e->id }}" name="informable_to[]"
                                                         class="informable-to-custom form-control" multiple="multiple"
                                                         style="width: 100%">
@@ -288,14 +288,14 @@
     $(function () {
         //Initialize Select2 Elements
         $('.atasan-role-custom').select2({
-            placeholder: "Pilih peran",
+            placeholder: "Pilih role",
             allowClear: true,
         });
         $('.accountable-to-custom').select2({
-            placeholder: "Pilih peran",
+            placeholder: "Pilih role",
         });
         $('.informable-to-custom').select2({
-            placeholder: "Pilih peran",
+            placeholder: "Pilih role",
         });
     })
 </script>

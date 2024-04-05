@@ -98,7 +98,7 @@
                                     <b>Nama</b> <span class="float-right">{{ $user->name }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Peran</b> <span
+                                    <b>Role</b> <span
                                         class="float-right">{{ app(AllServices::class)->convertRole($user->role) }}</span>
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
