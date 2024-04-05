@@ -11,12 +11,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="form-register" method="POST" action= "">
+                <form id="form-register" method="POST" action= "{{ route('uploadTypeLaporan') }}">
                     @csrf
 
                     <div class="form-group">
                         <label for="jenis_dokumen">Document Type</label>
-                        <input type="text" name="jenis_dokumen" placeholder="Document Type" class="form-control" required>
+                        <input type="text" name="nama_laporan" placeholder="Document Type" class="form-control" required>
                         <div class="invalid-feedback">Please provide a valid document type.</div>
                     </div>
 

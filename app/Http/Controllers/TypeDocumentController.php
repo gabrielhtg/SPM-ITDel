@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\DocumentTypeModel;
+use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
@@ -52,6 +53,29 @@ class TypeDocumentController extends Controller
         ]);
 
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Tipe dokumen berhasil ditambahkan!']);
+    }
+
+    public function addLaporanType(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'nama_laporan' => 'required|unique:tipe_laporan',
+        ], [
+            'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
+        ]);
+
+        if (!AllServices::isAdmin()) {
+            return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
+        }
+
+        if ($validator->fails()) {
+            return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+        }
+
+        LaporanTypeModel::create([
+            'nama_laporan' => $request->nama_laporan,
+        ]);
+
+        return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
     }
 
 
