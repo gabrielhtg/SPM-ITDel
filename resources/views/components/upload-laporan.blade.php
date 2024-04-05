@@ -27,17 +27,8 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Berikan Akses Kepada:</label>
-                        <select name="tujuan[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan Akses Kepada" style="width: 100%;">
-                            <option value="0">Public</option>
-                            @foreach($roles as $role)
-                            
-                                <option value="{{ $role->id }}">{{ $role->role }}</option>
-                            @endforeach
-                            
-                        </select>
-                    </div>
+                  
+                    
                     <div class="form-group">
                         <label for="revisi">Revisi:</label>
                         <select class="form-control" id="revisi" name="revisi">

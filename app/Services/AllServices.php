@@ -237,6 +237,38 @@ class AllServices
 
         return $semuaNonaktif;
     }
+    public static function isResponsible($array): bool
+    {   
+        // Dapatkan semua role dari database
+        $roles = RoleModel::all();
+        
+        // Iterasi melalui setiap role
+        foreach($roles as $role) {
+            // Periksa apakah nilai dalam $array ada di dalam kolom responsible_to dari role saat ini
+            if (strpos($role->responsible_to, $array) !== false) {
+                return true; // Jika ada, kembalikan true
+            }
+        }
+        
+        return false; // Jika tidak ada, kembalikan false
+    }
+    public static function isnotResponsible($array): bool
+    {   
+        // Dapatkan semua role dari database
+        $roles = RoleModel::find($array);
+       
+        
+        if($roles->responsible_to===null){
+            return true;
+        }
+        else{
+            return false;
+        }
+        
+        
+    }
+    
+    
 
     public static function isThisRoleExistInArray($array, $id): bool
     {
@@ -266,4 +298,16 @@ class AllServices
 
         return $returnValue;
     }
+
+   
+    
+
+
+    
+    
+
+    
+    
+    
+
 }
