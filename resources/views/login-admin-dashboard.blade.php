@@ -74,8 +74,8 @@
         //         nodeBGColorHover: '#cdb4db',
         //     },"children":[]};
 
-        const data = {!! $tree !!};
-      const options = {
+    const data = {!! $tree !!};
+    const options = {
         contentKey: 'data',
         width: 1200,
         height: 800,
@@ -91,6 +91,8 @@
           `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
           <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
           <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+          
+          
          </div>`,
         canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
         enableToolbar: true,
