@@ -93,9 +93,9 @@
                                 <td>
                                     {{ AllServices::convertRole($e->atasan_id) }}
                                 </td>
-                                <td>
-                                    {{ AllServices::convertRole($e->bawahan) }}
-                                </td>
+                                                <td>
+                                                    {{ AllServices::convertRole($e->bawahan) }}
+                                                </td>
                                 <td>
                                     {{ AllServices::convertRole($e->responsible_to) }}
                                 </td>
