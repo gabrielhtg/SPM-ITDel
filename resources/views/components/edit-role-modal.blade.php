@@ -30,7 +30,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="accountable-to">Bertanggung jawab Kepada:</label>
+                        <label for="accountable-to">Accountable To:</label>
                         <select id="accountable-to" name="accountable_to[]" multiple="multiple" class="form-control" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
@@ -41,7 +41,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="informable-to">Dapat diinformasikan Kepada:</label>
+                        <label for="informable-to">Informable To:</label>
                         <select id="informable-to" name="informable_to[]" class="form-control" multiple="multiple" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)

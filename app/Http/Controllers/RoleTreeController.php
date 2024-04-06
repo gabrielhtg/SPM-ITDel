@@ -7,7 +7,6 @@ use App\Models\RoleTree;
 use App\Models\TreeData;
 use App\Models\User;
 use Illuminate\Http\Request;
-use function Laravel\Prompts\select;
 
 class RoleTreeController extends Controller
 {

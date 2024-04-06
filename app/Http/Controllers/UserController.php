@@ -108,25 +108,13 @@ class UserController extends Controller
         $roles = RoleModel::find(2);
         $data = [
             'roles' => $roles,
-            'user' => $user,
+            'user' => $user ,
             'active_sidebar' => [0, 0]
         ];
 
         return view('login-admin-dashboard', $data);
     }
 
-
-
-    public function getUserDetailInactive(Request $request)
-    {
-        $user = UserInactiveModel::find($request->user_id);
-        $data = [
-            'user' => $user,
-            'active_sidebar' => [0, 0]
-        ];
-
-        return view('user-detail-inactive', $data);
-    }
 
     /**
      * @param Request $request

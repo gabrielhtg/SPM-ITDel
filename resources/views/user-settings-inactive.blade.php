@@ -63,7 +63,7 @@
                         <th>Nama</th>
                         <th>Nama Pengguna</th>
                         <th>Alamat Email</th>
-                        <th>Peran</th>
+                        <th>Role</th>
                         <th>No. Telepon</th>
                         <th>Aksi</th>
                     </tr>

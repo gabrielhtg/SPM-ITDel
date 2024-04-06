@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             Dokumen::class,
             DocType::class,
             HeroDocumentSeeder::class,
+            TipeLaporanSeeder::class,
         ]);
     }
 }
