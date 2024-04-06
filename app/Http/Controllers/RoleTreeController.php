@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Models\RoleModel;
 use App\Models\RoleTree;
 use App\Models\TreeData;
@@ -26,19 +25,11 @@ class RoleTreeController extends Controller
                 break;
             }
         }
-        
 
         // Pastikan $roleAtasanPuncak tidak null sebelum digunakan
         if (!empty($roleAtasanPuncak)) {
-            try {
-                $atasanPuncak = User::where('role', strval($roleAtasanPuncak->id))->firstOrFail();
-            } catch (ModelNotFoundException $exception) {
-                // Tindakan jika user dengan role yang diharapkan tidak ditemukan
-                return view('error-page', ['error' => 'User with specified role not found.']);
-            }
-            
             $atasanPuncak = User::where('role', strval($roleAtasanPuncak->id))->first();
-            
+
             foreach ($roles as $e) {
                 if($atasanPuncak->profile_pict == null) {
                     $RoleTreeData = new TreeData(asset('src/img/default-profile-pict.png'), $atasanPuncak->name, $roleAtasanPuncak-> role);
@@ -54,9 +45,9 @@ class RoleTreeController extends Controller
                     foreach ($userTemp as $user) {
                         foreach ($roles as $e){
                             if($user->profile_pict == null) {
-                                $tempTreeData = new TreeData(asset('src/img/default-profile-pict.png'), $user->name, $e -> role);
+                                $tempTreeData = new TreeData(asset('src/img/default-profile-pict.png'), $user->name, $e->role);
                             } else {
-                                $tempTreeData = new TreeData(asset($user->profile_pict), $user->name, $e -> role);
+                                $tempTreeData = new TreeData(asset($user->profile_pict), $user->name, $e->role);
                             }
                         }
 

@@ -69,16 +69,6 @@
         </div>
     </div>
 </div>
-	<div class="wrapper">
-		<div class="tampilan-strukturTree">
-			<h1>Struktur Organisasi SPM</h1>
-
-			<div id="svg-tree">
-
-			</div>
-		</div>
-	</div>
-
 	<script>
 		// const data = {"id":3,data:{imageURL:"http://127.0.0.1:8000/src/img/default-profile-pict.png","name":"Arnaldo Sinaga"},options: {
         //         nodeBGColor: '#cdb4db',
@@ -92,7 +82,7 @@
         height: 800,
         nodeWidth: 150,
         nodeHeight: 100,
-        fontColor: '#fff',
+        fontColor: '#000',
         borderColor: '#333',
         childrenSpacing: 50,
         siblingSpacing: 20,
@@ -180,40 +170,6 @@
 			@endif
 		});
 	</script>
-	{{--
-	<script>
-		$(function () {
-			// Summernote
-			$('.summernote').summernote({
-				minHeight: 230,
-				toolbar: [
-					['style', ['style']],
-					['font', ['bold', 'underline', 'clear']],
-					['fontname', ['fontname']],
-					['color', ['color']],
-					['para', ['ul', 'ol', 'paragraph']],
-					['table', ['table']],
-					['insert', ['link']],
-					['view', ['fullscreen', 'codeview', 'help']],
-				],
-				disableDragAndDrop: true,
-			})
-		})
-	</script> --}}
-	<script>
-		$(function () {
-			// Summernote
-			$('.summernote').summernote({
-				// placeholder: 'desc...',
-				minHeight: 230,
-				// disableDragAndDrop: true,
-			})
-		})
-	</script>
-    };
-    const tree = new ApexTree(document.getElementById('svg-tree'), options);
-    tree.render(data);
-</script>
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
