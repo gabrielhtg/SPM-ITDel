@@ -8,265 +8,213 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>LoginAdminDashboard</title>
-	<!-- Google Font: Source Sans Pro -->
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
-    <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <!-- SummerNote -->
-    <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
-    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            /* font-family: Arial, sans-serif; */
-        }
-
-        body h1 {
-            text-align: center
-        }
-
-        #svg-tree {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #svg-tree svg {
-            max-width: 100%;
-            max-height: 100%;
-        }
-
-        .tampilan-strukturTree {
-            margin-left: 250px
-        }
-    </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
-@include("components.navbar")
-@include("components.sidebar")
+    <div class="wrapper">
 
-<div class="wrapper">
-    <div class="tampilan-strukturTree">
-        <h1>Struktur Organisasi SPM</h1>
+        <!-- Navbar -->
+        @include("components.navbar")
+        <!-- /.navbar -->
 
-        <div id="svg-tree">
+        <!-- Main Sidebar Container -->
+        @include("components.sidebar")
 
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">Struktur Organisasi SPM Institut Teknologi Del</h1>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="card vh-100" >
+                <div class="card-body d-flex justify-content-center">
+                    <div id="svg-tree"></div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.content -->
         </div>
+
+        @include('components.footer')
+
+        <!-- Control Sidebar -->
+        <aside class="control-sidebar control-sidebar-dark">
+            <!-- Control sidebar content goes here -->
+        </aside>
+        <!-- /.control-sidebar -->
     </div>
-</div>
-	<script>
-		// const data = {"id":3,data:{imageURL:"http://127.0.0.1:8000/src/img/default-profile-pict.png","name":"Arnaldo Sinaga"},options: {
-        //         nodeBGColor: '#cdb4db',
-        //         nodeBGColorHover: '#cdb4db',
-        //     },"children":[]};
 
-    const data = {!! $tree !!};
-    const options = {
-        contentKey: 'data',
-        width: 1200,
-        height: 800,
-        nodeWidth: 150,
-        nodeHeight: 100,
-        fontColor: '#000',
-        borderColor: '#333',
-        childrenSpacing: 50,
-        siblingSpacing: 20,
-        direction: 'top',
-        nodeTemplate: (content) =>
-            `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
-          <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-          <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
+    <script>
+        const data = {!! $tree !!};
+        const options = {
+            contentKey: 'data',
+            width: 800,
+            height: 600,
+            nodeWidth: 150,
+            nodeHeight: 100,
+            fontColor: '#000',
+            borderColor: '#333',
+            childrenSpacing: 50,
+            siblingSpacing: 20,
+            direction: 'top',
+            nodeTemplate: (content) =>
+                `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
+              <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
+              <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+             </div>`,
+            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
+        };
+        const tree = new ApexTree(document.getElementById('svg-tree'), options);
+        tree.render(data);
+    </script>
+    <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+    <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+    <script>
+        document.getElementById('inputGambar').addEventListener('change', function (e) {
+            var fileName = document.getElementById('inputGambar').files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
 
+    <script>
+        $(function () {
+            @if(session('toastData') != null)
+            @if(session('toastData')['success'])
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{!! session('toastData')['text'] !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 3000
+            })
+            @else
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: '{!! session('toastData')['text'] !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
+            @endif
+            @endif
 
-         </div>`,
-        canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
-        enableToolbar: true,
-      };
-      const tree = new ApexTree(document.getElementById('svg-tree'), options);
-      tree.render(data);
-	</script>
-	<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
-	<!-- Bootstrap 4 -->
-	<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-	<!-- DataTables  & Plugins -->
-	<script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
-	<script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
-	<script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
-	<script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
-	<script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
-	<script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-	<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-	<!-- AdminLTE App -->
-	<script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-	<!-- Page specific script -->
+            @if (!$errors->isEmpty())
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
+            @endif
+        });
+    </script>
+    <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
+    <!-- Bootstrap 4 -->
+    <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
+    <!-- DataTables  & Plugins -->
+    <script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
+    <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
+    <script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
+    <script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
+    <script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
+    <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
+    <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- AdminLTE App -->
+    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+    <!-- Page specific script -->
 
-	<script>
-		document.getElementById('inputGambar').addEventListener('change', function (e) {
-			var fileName = document.getElementById('inputGambar').files[0].name;
-			var nextSibling = e.target.nextElementSibling;
-			nextSibling.innerText = fileName;
-		});
-	</script>
+    <script>
+        document.getElementById('inputGambar').addEventListener('change', function (e) {
+            var fileName = document.getElementById('inputGambar').files[0].name;
+            var nextSibling = e.target.nextElementSibling;
+            nextSibling.innerText = fileName;
+        });
+    </script>
 
-	<script>
-		$(function () {
-			@if(session('toastData') != null)
-			@if(session('toastData')['success'])
-			Swal.fire({
-				icon: 'success',
-				title: 'Success',
-				text: '{!! session('toastData')['text'] !!}',
-				toast: true,
-				showConfirmButton: false,
-				position: 'top-end',
-				timer: 3000
-			})
-			@else
-			Swal.fire({
-				icon: 'error',
-				title: 'Failed',
-				text: '{!! session('toastData')['text'] !!}',
-				toast: true,
-				showConfirmButton: false,
-				position: 'top-end',
-				timer: 5000
-			})
-			@endif
-			@endif
+    <script>
+        $(function () {
+            @if(session('toastData') != null)
+            @if(session('toastData')['success'])
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{!! session('toastData')['text'] !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 3000
+            })
+            @else
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: '{!! session('toastData')['text'] !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
+            @endif
+            @endif
 
-			@if (!$errors->isEmpty())
-			Swal.fire({
-				icon: 'error',
-				title: 'Failed',
-				text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-				toast: true,
-				showConfirmButton: false,
-				position: 'top-end',
-				timer: 5000
-			})
-			@endif
-		});
-	</script>
-<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-<!-- DataTables  & Plugins -->
-<script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
-<script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-<!-- Page specific script -->
+            @if (!$errors->isEmpty())
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+                toast: true,
+                showConfirmButton: false,
+                position: 'top-end',
+                timer: 5000
+            })
+            @endif
+        });
+    </script>
 
-<script>
-    document.getElementById('inputGambar').addEventListener('change', function (e) {
-        var fileName = document.getElementById('inputGambar').files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script>
-
-<script>
-    $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
+    <script>
+        $(function () {
+            // Summernote
+            $('.summernote').summernote({
+                // placeholder: 'desc...',
+                minHeight: 230,
+                // disableDragAndDrop: true,
+            })
         })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if (!$errors->isEmpty())
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-    });
-</script>
-{{--
-<script>
-    $(function () {
-        // Summernote
-        $('.summernote').summernote({
-            minHeight: 230,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-</script> --}}
-<script>
-    $(function () {
-        // Summernote
-        $('.summernote').summernote({
-            // placeholder: 'desc...',
-            minHeight: 230,
-            // disableDragAndDrop: true,
-        })
-    })
-</script>
+    </script>
 </body>
 </html>
