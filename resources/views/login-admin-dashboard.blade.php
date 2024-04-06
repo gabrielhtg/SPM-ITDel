@@ -87,13 +87,12 @@
         childrenSpacing: 50,
         siblingSpacing: 20,
         direction: 'top',
-        enableExpandCollapse: true,
         nodeTemplate: (content) =>
             `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
           <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
           <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-          
-          
+
+
          </div>`,
         canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
         enableToolbar: true,

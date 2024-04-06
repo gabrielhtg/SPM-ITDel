@@ -8,10 +8,9 @@ class TreeData
     public $name;
     public $role;
 
-    public function __construct($imageURL, $name, $role)
+    public function __construct($imageURL, $name)
     {
         $this->imageURL = $imageURL;
         $this->name = $name;
-        $this->role = $role;
     }
 }

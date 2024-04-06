@@ -50,8 +50,10 @@ class RoleTreeController extends Controller
 
             if ($arrayRoleBawahan !== null) {
                 foreach ($arrayRoleBawahan as $roleBawahan) {
-                    if ($roleBawahan !== "") {
-                        $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan)));
+                    if ($roleBawahan) {
+                        if (count(User::where('role', $roleBawahan)->get())) {
+                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan)));
+                        }
                     }
                 }
             }
