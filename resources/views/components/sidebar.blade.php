@@ -59,7 +59,7 @@
                 @endif
 
                 @if(Auth::check() && auth()->user()->role != null)
-                    <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ $active_sidebar[0] == 4 ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
@@ -87,7 +87,7 @@
                 @endif
 
                 @if(Auth::check() && auth()->user()->role != null)
-                    <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
+                    <li class="nav-item {{ $active_sidebar[0] == 5 ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
