@@ -17,6 +17,7 @@ use App\Http\Controllers\ListAllowedUserController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HeroDocumentController;
+use App\Http\Controllers\LaporanController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -112,6 +113,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/document/{id}/edit', [DocumentController::class, 'getDocumentManagementEdit'])->name('document.edit');
         Route::get('/hero/{id}/edit', [HeroDocumentController::class, 'edit'])->name('hero.edit');
         Route::put('/heroes/{id}', [HeroDocumentController::class, 'update'])->name('hero.update');
+        Route::post('/laporan/add', [LaporanController::class, 'addLaporan'])->name('laporan.store');
 
         /**
          * Route ini digunakan untuk mendapatkan halaman user detail
@@ -129,6 +131,7 @@ Route::middleware('auth')->group(function () {
 
         Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
         Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');
+        Route::post('upload-laporan-type', [TypeDocumentController::class, 'addLaporanType'])->name('uploadTypeLaporan');
 
 
         Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');

@@ -88,7 +88,7 @@
 
                 @if(Auth::check() && auth()->user()->role != null)
                     <li class="nav-item {{ $active_sidebar[0] == 3 ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ $active_sidebar[0] == 4 ? 'active' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Laporan Dokumen
@@ -97,14 +97,14 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="{{ route('documentManagementAdd') }}"
+                                <a href="{{ route('LaporanManagementAdd') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('documentManagementReject') }}"
+                                <a href="{{ route('LaporanManagementReject') }}"
                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Reject</p>
@@ -117,7 +117,7 @@
                 @if(auth()->user()->role != null)
                     <li class="nav-item">
                         <a href="{{ route('documentManagement') }}"
-                           class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
+                           class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>
                                 Manajemen Dokumen
@@ -129,10 +129,10 @@
                 @if(AllServices::isCurrentRole('admin'))
                     <li class="nav-item">
                         <a href="{{ route('role-management') }}"
-                           class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
+                           class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-crown"></i>
                             <p>
-                                Manajemen Peran
+                                Manajemen Role
                             </p>
                         </a>
                     </li>

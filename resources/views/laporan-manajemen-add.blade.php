@@ -55,20 +55,33 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-
-
-                <a href="#modal-add-document" class="btn btn-success mb-3" data-toggle="modal">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Laporan</span>
-                </a>
-
-                <a href="#modal-success2" class="btn btn-success mb-3" data-toggle="modal">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Tipe Laporan</span>
-                </a>
-
-
-                @if(app(AllServices::class)->isAdmin())
-                    @include('components.list-document-pending-modal')
+                
+                @if((app(AllServices::class)->isAdmin()))
+                @include('components.upload-tipe-laporan')
                 @endif
+              
+                
+                
+                @php
+                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
+                // dd($isResponsible);
+            @endphp
+            
+            @if($isResponsible)
+                @include('components.list-document-pending-modal')
+            @endif
+            
+            @php
+            $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role);
+            // dd($isResponsible);
+        @endphp
+        
+            @if($isResponsiblenot === false)
+            @include('components.upload-laporan')
+            @endif
+            
+            
+                
 
 
                 <table id="example1" class="table table-bordered table-striped">
@@ -142,89 +155,10 @@
                     </tbody>
                 </table>
 
-                <div class="modal fade" id="modal-add-document" tabindex="-1" role="dialog" aria-labelledby="modal-add-document-label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-add-document-label">Tambah Dokumen</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="document-form" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label for="document-name">Nama Dokumen</label>
-                                        <input type="text" class="form-control" id="document-name" name="document-name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-period">Periode</label>
-                                        <input type="text" class="form-control" id="document-period" name="document-period" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-type">Jenis Dokumen</label>
-                                        <select class="form-control" id="document-kind" name="document-type" required>
-                                            <option value="">Pilih Jenis Dokumen</option> <!-- Opsi kosong -->
-                                            <option value="Tipe 1">Revisi</option>
-                                            <option value="Tipe 2">Baru</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="document-type">Tipe Dokumen</label>
-                                        <select class="form-control" id="document-type" name="document-type" required>
-                                            <option value="">Pilih Tipe Dokumen</option> <!-- Opsi kosong -->
-                                            <option value="Tipe 1">Tipe 1</option>
-                                            <option value="Tipe 2">Tipe 2</option>
-                                            <option value="Tipe 3">Tipe 3</option>
-                                            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-file">Dokumen:</label>
-                                        <input type="file" class="form-control-file" id="document-file" name="document-file" required>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" form="document-form">Submit</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
 
 
-                <div class="modal fade" id="modal-success2">
-                    <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add Document Type</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form id="form-register" method="POST" action="{{ route('uploadTypeDocument') }}">
-                                    @csrf
-
-                                    <div class="form-group">
-                                        <label for="jenis_dokumen">Document Type</label>
-                                        <input type="text" name="jenis_dokumen" placeholder="Document Type" class="form-control" required>
-                                        <div class="invalid-feedback">Please provide a valid document type.</div>
-                                    </div>
-
-                                    <div class="modal-footer justify-content-between">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Add</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.modal-content -->
-                    </div>
-                    <!-- /.modal-dialog -->
-                </div>
+                
 
 
             </div>

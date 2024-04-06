@@ -1,8 +1,14 @@
+
+@php use App\Services\AllServices; @endphp
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-list-register-pending">
     <span>Request Laporan</span>
+    @if(($banyakData != 0))
+        <span class="badge badge-primary" style="margin-left: 5px">{{ $banyakData }}</span>
+    @endif
 </button>
 
-<div class="modal fade" id="modal-list-register-pending">
+<!-- Modal -->
+<div class="modal fade" id="modal-list-register-pending" tabindex="-1" aria-labelledby="modal-list-register-pendingLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
@@ -18,16 +24,19 @@
                             <th>Nama Dokumen</th>
                             <th>Periode</th>
                             <th>Tipe Laporan</th>
-                            <th>Status</th>
+                            <th>Pengirim</th>
                             <th>Aksi</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
+                        @foreach($laporan as $lap)
+                        @if(($lap->status === null) &&(app(AllServices::class)->isUserRole(auth()->user(), $lap->tujuan)) )
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span class="d-block"> Miko </span>
+                                        <span class="d-block"> {{$lap->nama_laporan}} </span>
                                     </div>
                                 </div>
                             </td>
@@ -39,22 +48,47 @@
                                 </div>
                             </td>
                             <td>
-                                Laporan Kerja
+                                {{$lap->tipeLaporan->nama_laporan}}
                             </td>
                             <td>
-                                Waiting
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                    <span> {{ \App\Models\User::find($lap->created_by)->name }} <span
+                                            class="badge badge-success"
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($lap->created_by)->role) }}</span></span>
+
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <div class="d-flex" style="gap: 5px">
-                                    <button type="button" class="btn btn-success"><i class="fas fa-check" style="font-size: 14px"></i></button>
-                                    <button type="button" class="btn btn-success"><i class="far fa-eye" style="font-size: 14px"></i></button>
-                                    <button type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    <!-- Form for approving -->
+                                    <a href="{{ $lap->directory ? asset($lap->directory) : '#' }}" target="_blank" class="btn btn-success">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    
+                                    <form action="{{ route('laporan.approve', ['id' => $lap->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-success" >
+                                            <i class="fas fa-check" style="font-size: 14px;"></i>
+                                        </button>
+                                    </form>
+
+                                    <!-- Form for rejecting -->
+                                    <form action="{{ route('laporan.reject', ['id' => $lap->id]) }}" method="POST" style="display: inline;">
+                                        @csrf
+                                        @method('PUT')
+                                        <button type="submit" class="btn btn-danger" >
+                                            <i class="fas fa-times" style="font-size: 14px;"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="5">Tidak ada permintaan tindakan yang tertunda.</td>
-                        </tr>
+                         
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
             </div>

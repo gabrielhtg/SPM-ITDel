@@ -33,7 +33,7 @@
                         <th>Alamat Email</th>
                         <th>Nama</th>
                         <th>Terakhir Diminta Pada</th>
-                        <th>Peran yang Diminta</th>
+                        <th>Role yang Diminta</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>

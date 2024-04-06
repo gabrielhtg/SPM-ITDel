@@ -1,12 +1,12 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-role">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Peran</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Add Role</span>
 </button>
 
 <div class="modal fade" id="modal-role">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambahkan Peran</h4>
+                <h4 class="modal-title">Add Role</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -34,7 +34,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="accountable-to">Bertanggung jawab Kepada:</label>
+                        <label for="accountable-to">Responsible To:</label>
                         <select id="accountable-to" name="accountable_to[]" multiple="multiple"
                                 class="accountable-to-custom form-control" style="width: 100%">
                             <option></option>
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="informable-to">Dapat Diinformasikan Kepada:</label>
+                        <label for="informable-to">Informable To:</label>
                         <select id="informable-to" name="informable_to[]" class="informable-to-custom form-control"
                                 multiple="multiple" style="width: 100%">
                             <option></option>

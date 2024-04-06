@@ -6,7 +6,7 @@ use App\Http\Controllers\AnnouncementController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
-use App\Http\Controllers\LoginDashboardController;
+
 use App\Models\Dashboard;
 use App\Models\HeroDashboard;
 use App\Models\User;
@@ -31,8 +31,12 @@ Route::get('/', function () {
 Route::get('/document-management', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementView'])->name('documentManagement');
 Route::get('/document-management-all', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementViewAll'])->name('documentManagementAll');
 Route::get('/document-replaced-all/{id}', [\App\Http\Controllers\DocumentController::class, 'getDocumentDetailReplaced'])->name('documentReplaced');
-Route::get('/document-management-add', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementAdddoc'])->name('documentManagementAdd');
-Route::get('/document-management-reject', [\App\Http\Controllers\DocumentController::class, 'getDocumentManagementRejectdoc'])->name('documentManagementReject');
+Route::get('/laporan-management-add', [\App\Http\Controllers\LaporanController::class, 'getLaporanManagementView'])->name('LaporanManagementAdd');
+Route::get('/laporan-management-reject', [\App\Http\Controllers\LaporanController::class, 'getLaporanManagementReject'])->name('LaporanManagementReject');
+
+Route::put('/laporan/{id}/approve', [\App\Http\Controllers\LaporanController::class, 'approve'])->name('laporan.approve');
+Route::put('/laporan/{id}/reject', [\App\Http\Controllers\LaporanController::class, 'reject'])->name('laporan.reject');
+
 
 
 Route::get('/dashboard', function () {
