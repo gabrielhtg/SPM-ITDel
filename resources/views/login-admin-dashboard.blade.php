@@ -7,13 +7,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>LoginAdminDashboard</title>
+    <title>Admin Dashboard</title>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -46,7 +43,7 @@
             <!-- Main content -->
             <div class="card vh-100" >
                 <div class="card-body d-flex justify-content-center">
-                    <div id="svg-tree"></div>
+                    <div id="svg-tree" class="w-100"></div>
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -67,8 +64,8 @@
         const data = {!! $tree !!};
         const options = {
             contentKey: 'data',
-            width: 800,
-            height: 600,
+            width: '100%',
+            height: '500px',
             nodeWidth: 150,
             nodeHeight: 100,
             fontColor: '#000',
@@ -89,14 +86,6 @@
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
     <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-    <script>
-        document.getElementById('inputGambar').addEventListener('change', function (e) {
-            var fileName = document.getElementById('inputGambar').files[0].name;
-            var nextSibling = e.target.nextElementSibling;
-            nextSibling.innerText = fileName;
-        });
-    </script>
-
     <script>
         $(function () {
             @if(session('toastData') != null)
@@ -139,82 +128,9 @@
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-    <!-- DataTables  & Plugins -->
-    <script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
-    <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
-    <script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
-    <script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
-    <script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
-    <script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-    <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
     <!-- Page specific script -->
-
-    <script>
-        document.getElementById('inputGambar').addEventListener('change', function (e) {
-            var fileName = document.getElementById('inputGambar').files[0].name;
-            var nextSibling = e.target.nextElementSibling;
-            nextSibling.innerText = fileName;
-        });
-    </script>
-
-    <script>
-        $(function () {
-            @if(session('toastData') != null)
-            @if(session('toastData')['success'])
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 3000
-            })
-            @else
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
-            @endif
-
-            @if (!$errors->isEmpty())
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
-        });
-    </script>
-
-    <script>
-        $(function () {
-            // Summernote
-            $('.summernote').summernote({
-                // placeholder: 'desc...',
-                minHeight: 230,
-                // disableDragAndDrop: true,
-            })
-        })
-    </script>
 </body>
 </html>
