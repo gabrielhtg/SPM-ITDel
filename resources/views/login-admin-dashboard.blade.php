@@ -92,7 +92,7 @@
         height: 800,
         nodeWidth: 150,
         nodeHeight: 100,
-        fontColor: '#fff',
+        fontColor: '#000',
         borderColor: '#333',
         childrenSpacing: 50,
         siblingSpacing: 20,
