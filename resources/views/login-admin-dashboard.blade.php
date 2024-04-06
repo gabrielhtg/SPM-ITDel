@@ -59,30 +59,6 @@
         <!-- /.control-sidebar -->
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
-    <script>
-        const data = {!! $tree !!};
-        const options = {
-            contentKey: 'data',
-            width: '100%',
-            height: '500px',
-            nodeWidth: 150,
-            nodeHeight: 100,
-            fontColor: '#000',
-            borderColor: '#333',
-            childrenSpacing: 50,
-            siblingSpacing: 20,
-            direction: 'top',
-            nodeTemplate: (content) =>
-                `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
-              <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-              <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-             </div>`,
-            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
-        };
-        const tree = new ApexTree(document.getElementById('svg-tree'), options);
-        tree.render(data);
-    </script>
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
     <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
@@ -131,6 +107,30 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-    <!-- Page specific script -->
+
+    <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
+    <script>
+        const data = {!! $tree !!};
+        const options = {
+            contentKey: 'data',
+            width: '100%',
+            height: '500px',
+            nodeWidth: 150,
+            nodeHeight: 100,
+            fontColor: '#000',
+            borderColor: '#333',
+            childrenSpacing: 50,
+            siblingSpacing: 20,
+            direction: 'top',
+            nodeTemplate: (content) =>
+                `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
+              <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
+              <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+             </div>`,
+            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
+        };
+        const tree = new ApexTree(document.getElementById('svg-tree'), options);
+        tree.render(data);
+    </script>
 </body>
 </html>
