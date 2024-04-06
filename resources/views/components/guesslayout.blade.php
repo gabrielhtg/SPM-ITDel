@@ -35,7 +35,7 @@
     <div class="preloader flex-column justify-content-center align-items-center">
         <img class="animation__shake" src="{{ asset("src/img/logo.png") }}" alt="LogoDel" height="60" width="60">
     </div>
-    
+
     <!-- Navbar -->
     @include("components.guessnavbar")
     <!-- /.navbar -->
@@ -45,7 +45,7 @@
     @foreach($guestHero as $hero)
       <section id="hero" class="d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/walpeper/' . $hero->gambarhero) }}') top center; background-size: cover; position: relative;">
           <div class="container" data-aos="fade-up">
-      
+
             <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
               <div class="col-xl-6 col-lg-8">
                 <h1 class="fade-in">{!! $hero->judulhero !!}</h1>
@@ -63,17 +63,17 @@
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
-                        
+
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
 
             <!-- Main content -->
-            
-            
-            
-            
+
+
+
+
             <!-- /.content -->
         </div>
     </div>
@@ -125,18 +125,18 @@
                 </div>
               </div>
 
-                
+
 
             </div>
             @empty
             <p>No data available.</p>
           @endforelse
-                      
-          
+
+
         </div>
       </section>
     {{-- @endisset --}}
-      
+
     <section id="news-view1" class="p-5">
       <div class="container p-4">
         <h1 class="mb-3">Berita SPM IT Del</h1>
@@ -148,7 +148,7 @@
 
             <div class="col-sm-6 ">
               <div class="card" style="max-height: 390px; min-height: 390px; position: relative;">
-                <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;">
+                <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;" loading="lazy">
                 <div class="card-body" style="padding: 10px; position: relative;">
                     <h5 class="card-title mb-1">{{ $e->title }}</h5>
                     <p class="card-text text-secondary mb-1">{{ $e->created_at->format('Y-m-d') }}</p>
@@ -174,7 +174,7 @@
             </div>
 
             @empty
-                  
+
             @endforelse
 
           </div>
@@ -182,12 +182,12 @@
           <div class="text-end">
             <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">View All News</a>
           </div>
-          
+
         </div>
       </div>
     </section>
     <!-- /.content-wrapper -->
-    
+
     @include('components.guessfooter')
     {{-- Copyright © 2024 Informatika 2021 Kelompok 1. All rights reserved. --}}
 
