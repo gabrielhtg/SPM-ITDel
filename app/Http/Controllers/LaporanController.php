@@ -20,7 +20,7 @@ class LaporanController extends Controller
 
     // Hitung jumlah data laporan dengan status null dan user id-nya terdapat dalam laporan->tujuan
     $banyakData = Laporan::whereNull('status')
-                          ->whereJsonContains('tujuan', [auth()->user()->role])
+                         ->where('tujuan', [auth()->user()->role])
                           ->count();
     // dd($banyakData);
 
