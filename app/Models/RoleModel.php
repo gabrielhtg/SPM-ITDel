@@ -20,6 +20,8 @@ class RoleModel extends Model
         'status',
         'responsible_to',
         'accountable_to',
-        'informable_to'
+        'informable_to',
+        'is_admin',
+        'required_to_submit_document'
     ];
 }

@@ -34,7 +34,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="accountable-to">Responsible To:</label>
+                        <label for="accountable-to">Responsible To</label>
                         <select id="accountable-to" name="accountable_to[]" multiple="multiple"
                                 class="accountable-to-custom form-control" style="width: 100%">
                             <option></option>
@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="informable-to">Informable To:</label>
+                        <label for="informable-to">Informable To</label>
                         <select id="informable-to" name="informable_to[]" class="informable-to-custom form-control"
                                 multiple="multiple" style="width: 100%">
                             <option></option>
@@ -54,6 +54,24 @@
                                 @if($e->role !== "Admin")
                                     <option value="{{ $e->id }}">{{ $e->role }}</option>
                                 @endif
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="is_admin">Punya Akses Admin</label>
+                        <select id="is_admin" name="is_admin" class="atasan-role-custom form-control"
+                                style="width: 100%">
+                            <option value="0">Tidak</option>
+                            <option value="1">Ya</option>
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="wajib-melaporkan">Wajib Melaporkan</label>
+                        <select id="wajib-melaporkan" name="wajib_melaporkan[]" class="informable-to-custom form-control"
+                                multiple="multiple" style="width: 100%">
+                            <option></option>
+                            @foreach($tipe_dokumen as $e)
+                                <option value="{{ $e->id }}">{{ $e->nama_laporan }}</option>
                             @endforeach
                         </select>
                     </div>

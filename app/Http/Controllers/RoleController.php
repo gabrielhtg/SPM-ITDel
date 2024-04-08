@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\RoleModel;
+use App\Models\TipeLaporan;
 use App\Models\User;
 use App\Services\AllServices;
 use Illuminate\Database\QueryException;
@@ -15,7 +16,8 @@ class RoleController extends Controller
 
         $data = [
             'active_sidebar' => [7, 0],
-            'roles' => RoleModel::all()
+            'roles' => RoleModel::all(),
+            'tipe_dokumen' => TipeLaporan::all()
         ];
 
         return view('role-management', $data);
@@ -31,6 +33,7 @@ class RoleController extends Controller
     {
         $informableTo = null;
         $accountableTo = null;
+        $laporan = null;
 
         if ($request->informable_to !== null) {
             $informableTo = implode(';', $request->informable_to);
@@ -40,6 +43,10 @@ class RoleController extends Controller
             $accountableTo = implode(';', $request->accountable_to);
         }
 
+        if ($request->wajib_melaporkan !== null) {
+            $laporan = implode(";", $request->wajib_melaporkan);
+        }
+
         try {
             RoleModel::create([
                 'role' => $request->nama_role,
@@ -47,7 +54,9 @@ class RoleController extends Controller
                 'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
                 'informable_to' => $informableTo,
                 'status' => true,
-                'accountable_to' => $accountableTo
+                'accountable_to' => $accountableTo,
+                'is_admin' => $request->is_admin,
+                'required_to_submit_document' => $laporan
             ]);
 
             if ($request->atasan_role != null) {

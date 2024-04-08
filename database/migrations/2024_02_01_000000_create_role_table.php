@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('responsible_to')->nullable();
             $table->string('accountable_to')->nullable();
             $table->string('informable_to')->nullable();
+            $table->boolean("is_admin")->nullable();
+            $table->string("required_to_submit_document")->nullable();
         });
     }
 

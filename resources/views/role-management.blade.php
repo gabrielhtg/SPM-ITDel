@@ -73,7 +73,13 @@
                             Accountable To
                         </th>
                         <th>
-                            Informable To 
+                            Informable To
+                        </th>
+                        <th>
+                            Admin Access
+                        </th>
+                        <th>
+                            Wajib Melaporkan
                         </th>
                         <th>
                             Status
@@ -93,9 +99,9 @@
                                 <td>
                                     {{ AllServices::convertRole($e->atasan_id) }}
                                 </td>
-                                                <td>
-                                                    {{ AllServices::convertRole($e->bawahan) }}
-                                                </td>
+                                    <td>
+                                        {{ AllServices::convertRole($e->bawahan) }}
+                                    </td>
                                 <td>
                                     {{ AllServices::convertRole($e->responsible_to) }}
                                 </td>
@@ -104,6 +110,12 @@
                                 </td>
                                 <td>
                                     {{ AllServices::convertRole($e->informable_to) }}
+                                </td>
+                                <td>
+                                    {{ $e->is_admin }}
+                                </td>
+                                <td>
+                                    {{ $e->required_to_submit_document }}
                                 </td>
                                 <td>
                                     <form action="{{ route('update-status') }}" method="POST">
@@ -289,7 +301,6 @@
         //Initialize Select2 Elements
         $('.atasan-role-custom').select2({
             placeholder: "Pilih role",
-            allowClear: true,
         });
         $('.accountable-to-custom').select2({
             placeholder: "Pilih role",
