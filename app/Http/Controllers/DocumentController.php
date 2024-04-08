@@ -473,6 +473,7 @@ public function updateDocument(Request $request, $id)
         $tipe_laporan = LaporanTypeModel::all();
         $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
 
+
         return view('components/view-tipe-laporan', compact('tipe_laporan', 'active_sidebar'));
     }
 
