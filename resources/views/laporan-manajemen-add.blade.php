@@ -175,14 +175,15 @@
                                     if($item->status === null) {
                                         echo '-';
                                     } elseif ($item->status === 1) {
-                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
+                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y H:i:s');
                                     } elseif ($item->status === 0) {
-                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
+                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y H:i:s');
                                     }
                                     @endphp
                                 </div>
                             </div>
                         </td>
+                        
                         
                         <td>
                             <div class="d-flex" style="gap: 5px">
