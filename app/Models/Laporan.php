@@ -12,8 +12,7 @@ class Laporan extends Model
 
     protected $fillable = [
         'id_tipelaporan',
-        'disetujui_oleh',
-        'ditolak_oleh',
+        'direview_oleh',
         'created_by',
         'nama_laporan',
         'directory',
@@ -37,14 +36,11 @@ class Laporan extends Model
     }
 
     // Relasi dengan tabel users (disetujui oleh)
-    public function approvedByUser()
+    public function reviewByUser()
     {
-        return $this->belongsTo(User::class, 'disetujui_oleh');
+        return $this->belongsTo(User::class, 'direview_oleh');
     }
 
     // Relasi dengan tabel users (ditolak oleh)
-    public function rejectedByUser()
-    {
-        return $this->belongsTo(User::class, 'ditolak_oleh');
-    }
+    
 }
