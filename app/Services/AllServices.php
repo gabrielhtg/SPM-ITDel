@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\DocumentModel;
 use App\Models\RoleModel;
+use App\Models\TipeLaporan;
 use Illuminate\Support\Carbon;
 
 
@@ -44,6 +45,35 @@ class AllServices
             return "Belum Didefinisikan";
         }
     }
+
+    static public function convertDokumenLaporan ($laporan): string
+    {
+        if ($laporan !== null) {
+            $currentLaporan = explode(";", $laporan);
+
+            $output = '';
+
+            $len = count($currentLaporan);
+            $i = 0;
+
+            foreach ($currentLaporan as $e) {
+                $output = $output . trim(TipeLaporan::find($e)->nama_laporan);
+
+                if ($i != $len - 1) {
+                    $output = $output . ', ';
+                }
+
+                $i++;
+            }
+
+            return $output;
+        }
+
+        else {
+            return "Belum Didefinisikan";
+        }
+    }
+
 
     /**
      * @param $time
@@ -238,10 +268,10 @@ class AllServices
         return $semuaNonaktif;
     }
     public static function isResponsible($array): bool
-    {   
+    {
         // Dapatkan semua role dari database
         $roles = RoleModel::all();
-        
+
         // Iterasi melalui setiap role
         foreach($roles as $role) {
             // Periksa apakah nilai dalam $array ada di dalam kolom responsible_to dari role saat ini
@@ -249,26 +279,24 @@ class AllServices
                 return true; // Jika ada, kembalikan true
             }
         }
-        
+
         return false; // Jika tidak ada, kembalikan false
     }
     public static function isnotResponsible($array): bool
-    {   
+    {
         // Dapatkan semua role dari database
         $roles = RoleModel::find($array);
-       
-        
+
+
         if($roles->responsible_to===null){
             return true;
         }
         else{
             return false;
         }
-        
-        
+
+
     }
-    
-    
 
     public static function isThisRoleExistInArray($array, $id): bool
     {
@@ -299,15 +327,15 @@ class AllServices
         return $returnValue;
     }
 
-   
-    
 
 
-    
-    
 
-    
-    
-    
+
+
+
+
+
+
+
 
 }

@@ -167,13 +167,30 @@ class RoleController extends Controller
 
         $informableTo = null;
         $accountableTo = null;
+        $laporan = null;
 
         if ($request->informable_to !== null) {
             $informableTo = implode(';', $request->informable_to);
+
+            $role->update([
+                'informable_to' => $informableTo,
+            ]);
         }
 
         if ($request->accountable_to !== null) {
             $accountableTo = implode(';', $request->accountable_to);
+
+            $role->update([
+                'accountable_to'=> $accountableTo,
+            ]);
+        }
+
+        if ($request->wajib_melaporkan !== null) {
+            $laporan = implode(";", $request->wajib_melaporkan);
+
+            $role->update([
+                'required_to_submit_document' => $laporan
+            ]);
         }
 
         if ($request->atasan_role != null) {
@@ -203,8 +220,7 @@ class RoleController extends Controller
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
             'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
-            'accountable_to'=> $accountableTo,
-            'informable_to' => $informableTo
+            'is_admin' => $request->is_admin,
         ]);
 
 

@@ -63,9 +63,9 @@
                         <th>
                             Atasan
                         </th>
-                        <th>
-                            Bawahan
-                        </th>
+{{--                        <th>--}}
+{{--                            Bawahan--}}
+{{--                        </th>--}}
                         <th>
                             Responsible To
                         </th>
@@ -99,9 +99,9 @@
                                 <td>
                                     {{ AllServices::convertRole($e->atasan_id) }}
                                 </td>
-                                    <td>
-                                        {{ AllServices::convertRole($e->bawahan) }}
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        {{ AllServices::convertRole($e->bawahan) }}--}}
+{{--                                    </td>--}}
                                 <td>
                                     {{ AllServices::convertRole($e->responsible_to) }}
                                 </td>
@@ -112,10 +112,14 @@
                                     {{ AllServices::convertRole($e->informable_to) }}
                                 </td>
                                 <td>
-                                    {{ $e->is_admin }}
+                                    @if($e->is_admin == true)
+                                        Yes
+                                    @else
+                                        No
+                                    @endif
                                 </td>
                                 <td>
-                                    {{ $e->required_to_submit_document }}
+                                    {{ AllServices::convertDokumenLaporan($e->required_to_submit_document) }}
                                 </td>
                                 <td>
                                     <form action="{{ route('update-status') }}" method="POST">
@@ -178,7 +182,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="accountable-to{{ $e->id }}">Responsible To:</label>
+                                                <label for="accountable-to{{ $e->id }}">Accountable To</label>
                                                 <select id="accountable-to{{ $e->id }}" name="accountable_to[]"
                                                         multiple="multiple" class="accountable-to-custom form-control"
                                                         style="width: 100%">
@@ -191,7 +195,7 @@
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
-                                                <label for="informable-to{{ $e->id }}">Informable To:</label>
+                                                <label for="informable-to{{ $e->id }}">Informable To</label>
                                                 <select id="informable-to{{ $e->id }}" name="informable_to[]"
                                                         class="informable-to-custom form-control" multiple="multiple"
                                                         style="width: 100%">
@@ -200,6 +204,32 @@
                                                         @if($role->role !== "Admin" && $role->id !== $e->id && $role->status)
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="form-group mt-3">
+                                                <label for="is_admin{{ $e->id }}">Punya Akses Admin</label>
+                                                <select id="is_admin{{ $e->id }}" name="is_admin" class="atasan-role-custom form-control"
+                                                        style="width: 100%">
+                                                    <option></option>
+                                                    @if($e->is_admin)
+                                                        <option value="0">Tidak</option>
+                                                        <option value="1" selected>Ya</option>
+                                                    @else
+                                                        <option value="0" selected>Tidak</option>
+                                                        <option value="1">Ya</option>
+                                                    @endif
+
+                                                </select>
+                                            </div>
+                                            <div class="form-group mt-3">
+                                                <label for="wajib-melaporkan{{ $e->id }}">Wajib Melaporkan</label>
+                                                <select id="wajib-melaporkan{{ $e->id }}" name="wajib_melaporkan[]" class="informable-to-custom form-control"
+                                                        multiple="multiple" style="width: 100%">
+                                                    <option></option>
+                                                    @foreach($tipe_dokumen as $laporan)
+                                                        <option value="{{ $laporan->id }}">{{ $laporan->nama_laporan }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
