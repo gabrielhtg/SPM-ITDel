@@ -50,16 +50,24 @@ class RegisteredUserController extends Controller
 
         if ($data !== null) {
             if (!$user) {
-                User::create([
-                    'name' => $request->name,
-                    'username' => $request->username,
-                    'email' => $request->email,
-                    'phone' => $request->phone,
-                    'verified' => true,
-                    'password' => Hash::make($request->password),
-                    'role' => $request->role
-                ]);
-                return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully created user!']);
+                try {
+                    User::create([
+                        'name' => $request->name,
+                        'username' => $request->username,
+                        'email' => $request->email,
+                        'phone' => $request->phone,
+                        'verified' => true,
+                        'password' => Hash::make($request->password),
+                        'role' => $request->role
+                    ]);
+                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully created user!']);
+                }
+                catch (QueryException $e) {
+                    if ($e->errorInfo[1] == 1062) {
+                        return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Gagal. User sudah terdaftar sebelumnya.']);
+                    }
+                }
+
             }
 
             else {

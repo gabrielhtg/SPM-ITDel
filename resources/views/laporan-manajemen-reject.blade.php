@@ -26,6 +26,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -45,7 +46,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Reject Laporan</h1>
+                        <h1 class="m-0">Document Management</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -55,117 +56,133 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
+                @php
+                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
+               
+            @endphp
+            
+            @if($isResponsible)
+                @include('components.list-document-pending-modal')
+            @endif
 
-
-              
-
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
                     <tr>
-
                         <th>Nama</th>
                         <th>Periode</th>
                         <th>Tipe Laporan</th>
-
                         <th>Status</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Diperiksa Oleh</th>
+                        <th>diperiksa Pada</th>
                         <th>Tindakan</th>
-
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
+                    
+                    @foreach ($laporan as $item)
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() ||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    <tr style="
+                            @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
+                            @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
+                            @else background-color: #e8f0fe; /* Warna biru */
+                            @endif
+                            ">
 
-                            <tr>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Miko
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            April
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Laporan Kerja
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Rejected
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="d-flex" style="gap: 5px">
-                                        <a href="#" target="_blank" class="btn btn-success"><i
-                                                class="fas fa-eye"></i></a>
-                                      
-
-                                        {{-- // jika user sekarang == user yang upload di data Dokumen
-                                        // if userSekarang -> id == document->created_by --}}
-                                            
-
-                                    </div>
-
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
-
-                <div class="modal fade" id="modal-add-document" tabindex="-1" role="dialog" aria-labelledby="modal-add-document-label" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="modal-add-document-label">Tambah Dokumen</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    {{$item->nama_laporan}}
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <form id="document-form" enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <label for="document-name">Nama Dokumen</label>
-                                        <input type="text" class="form-control" id="document-name" name="document-name" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-period">Periode</label>
-                                        <input type="text" class="form-control" id="document-period" name="document-period" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-type">Tipe Dokumen</label>
-                                        <select class="form-control" id="document-type" name="document-type" required>
-                                            <option value="Tipe 1">Tipe 1</option>
-                                            <option value="Tipe 2">Tipe 2</option>
-                                            <option value="Tipe 3">Tipe 3</option>
-                                            <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="document-file">Dokumen:</label>
-                                        <input type="file" class="form-control-file" id="document-file" name="document-file" required>
-                                    </div>
-                                </form>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    April
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    {{$item->tipeLaporan->nama_laporan}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    @php
+                                    if($item->status === null) {
+                                        echo 'Menunggu';
+                                    } elseif ($item->status === 1) {
+                                        echo 'Disetujui';
+                                    } elseif ($item->status === 0) {
+                                        echo 'Ditolak';
+                                    }
+                                    @endphp
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="info">
+                                    <span>{{ \App\Models\User::find($item->created_by)->name }}
+                                        <span class="badge badge-success"
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->created_by)->role) }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="info">
+                                    @if($item->direview_oleh !== null)
+                                    <span>{{ \App\Models\User::find($item->direview_oleh)->name }}
+                                        <span class="badge badge-success "
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->direview_oleh)->role) }}</span>
+                                    </span>
+                                    @else
+                                    <span>Belum Diperiksa</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    @php
+                                    if($item->status === null) {
+                                        echo '-';
+                                    } elseif ($item->status === 1) {
+                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y H:i:s');
+                                    } elseif ($item->status === 0) {
+                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y H:i:s');
+                                    }
+                                    @endphp
+                                </div>
+                            </div>
+                        </td>
+                        
+                        
+                        <td>
+                            <div class="d-flex" style="gap: 5px">
+                                <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+            
+
+                
+
+
+                
 
 
             </div>

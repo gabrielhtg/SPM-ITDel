@@ -65,6 +65,7 @@
                 @endif
 
 
+
                 @php
                 $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
                 // dd($isResponsible);
@@ -103,7 +104,7 @@
                 <tbody>
 
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isAdmin() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by)
                     <tr style="
                             @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
                             @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
@@ -178,9 +179,9 @@
                                     if($item->status === null) {
                                         echo '-';
                                     } elseif ($item->status === 1) {
-                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
+                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y H:i:s');
                                     } elseif ($item->status === 0) {
-                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
+                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y H:i:s');
                                     }
                                     @endphp
                                 </div>
