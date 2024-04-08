@@ -190,23 +190,6 @@ class AllServices
         return false;
     }
 
-    /**
-     * @return bool
-     *
-     * Method ini berfungsi untuk mengecek apakah user yang sedang login sekarang adalah admin atau tidak
-     */
-    static public function isAdmin (): bool
-    {
-        if (RoleModel::find(auth()->user()->role)->role == "Admin") {
-            return true;
-        }
-
-        return false;
-
-        // dump(RoleModel::find(auth()->user()->role)->role == "Admin");
-        // sleep(10);
-    }
-
     static public function dokumenchange($id) {
         if ($id) {
             $document = DocumentModel::find($id); // Mengambil dokumen berdasarkan ID
