@@ -61,10 +61,10 @@
                     <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Dokumen</span>
                 </a>
 
-                @if(app(AllServices::class)->isAdmin())
+                @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
                     @include('components.upload-document-type')
                 @endif
-                @if(app(AllServices::class)->isAdmin())
+                @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
                     @include('components.edit-document-hero')
                               
                 @endif
@@ -90,7 +90,7 @@
 
                     @foreach($documents as $e)
                         @if (
-                                app(AllServices::class)->isAdmin() ||
+                                app(AllServices::class)->isLoggedUserHasAdminAccess() ||
                                 auth()->user()->id == $e->created_by ||
                                 (
                                     $e->keterangan_status==1 && (
@@ -187,13 +187,13 @@
 
                                         {{-- // jika user sekarang == user yang upload di data Dokumen
                                         // if userSekarang -> id == document->created_by --}}
-                                        @if((app(AllServices::class)->isAdmin()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
+                                        @if((app(AllServices::class)->isLoggedUserHasAdminAccess()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
                                             <a href="{{ route('document.edit', ['id' => $e->id]) }}"
                                                class="btn btn-success"><i class="fas fa-edit"></i></a>
                                         @endif
 
 
-                                        @if(app(AllServices::class)->isAdmin())
+                                        @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
                                             @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
                                         @endif
 
