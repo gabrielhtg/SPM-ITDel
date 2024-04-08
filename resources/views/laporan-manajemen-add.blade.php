@@ -57,9 +57,10 @@
         <div class="card">
             <div class="card-body">
                 
-                @if((app(AllServices::class)->isAdmin()))
+                @if((app(AllServices::class)->isLoggedUserHasAdminAccess()))
                 @include('components.upload-tipe-laporan')
                 @endif
+                
               
                 
                 
@@ -101,7 +102,7 @@
                 <tbody>
                     
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isAdmin() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
                     <tr style="
                             @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
                             @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
