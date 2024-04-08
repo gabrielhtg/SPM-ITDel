@@ -28,7 +28,7 @@ class create_user_admin extends Seeder
                 'phone' => '082165646255',
                 'created_at' => now(),
                 'verified' => true,
-                'profile_pict' => null
+                'profile_pict' => null,
             ],
             [
                 'name' => 'Gabriel Cesar Hutagalung',
@@ -41,7 +41,7 @@ class create_user_admin extends Seeder
                 'role' => 1,
 //                'role' => 49,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/profil_gabriel.png'
+                'profile_pict' => 'src/img/profil_gabriel.png',
             ],
 //            [
 //                'name' => 'David Vincent Gurning',

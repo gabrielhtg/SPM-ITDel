@@ -46,6 +46,12 @@ class AllServices
         }
     }
 
+    /**
+     * @param $laporan
+     * @return string
+     *
+     * Method ini digunakan untuk mengonversi array id laporan yang ada menjadi nama aslinya
+     */
     static public function convertDokumenLaporan ($laporan): string
     {
         if ($laporan !== null) {
@@ -327,15 +333,14 @@ class AllServices
         return $returnValue;
     }
 
+    /**
+     * @return bool
+     *
+     * Method ini digunakan untuk mengecek apakah user yang sedang login sekarang adalah seorang admin atau tidak
+     */
+    public static  function isLoggedUserHasAdminAccess () : bool {
+        $isAdmin = RoleModel::find(auth()->user()->role);
 
-
-
-
-
-
-
-
-
-
-
+        return $isAdmin->is_admin;
+    }
 }

@@ -37,7 +37,7 @@
                     </a>
                 </li>
 
-                @if(Auth::check() && AllServices::isCurrentRole("admin"))
+                @if(Auth::check() && AllServices::isLoggedUserHasAdminAccess())
                     <li class="nav-item">
                         <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
@@ -126,7 +126,7 @@
                     </li>
                 @endif
 
-                @if(AllServices::isCurrentRole('admin'))
+                @if(AllServices::isLoggedUserHasAdminAccess())
                     <li class="nav-item">
                         <a href="{{ route('role-management') }}"
                            class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
