@@ -18,6 +18,8 @@ class Laporan extends Model
         'directory',
         'revisi',
         'tujuan',
+        'accountable_to',
+        'informable_to',
         'status',
         'approve_at',
         'reject_at',

@@ -39,7 +39,7 @@ class TypeDocumentController extends Controller
             'singkatan.unique' => "Singkatam sudah digunakan.",
         ]);
 
-        if (!AllServices::isAdmin()) {
+        if (!AllServices::isLoggedUserHasAdminAccess()) {
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
         }
 
@@ -63,7 +63,7 @@ class TypeDocumentController extends Controller
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
 
-        if (!AllServices::isAdmin()) {
+        if (!AllServices::isLoggedUserHasAdminAccess()) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
         }
 
