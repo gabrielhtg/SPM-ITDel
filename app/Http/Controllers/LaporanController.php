@@ -57,6 +57,15 @@ class LaporanController extends Controller
         $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
     
         $roles = RoleModel::all();
+        $id_user = auth()->user()->role;
+        $role = RoleModel::find($id_user);
+        $document = $role->required_to_submit_document;
+        
+       
+        $documentIds = explode(';', $document);
+    
+       
+        $tipe_laporan = TipeLaporan::whereIn('id', $documentIds)->get();
 
 
         // dd($documenthero);
@@ -65,6 +74,7 @@ class LaporanController extends Controller
             'roles' => $roles,
             'active_sidebar' => [5, 2],  
             'laporan'=>$laporan,
+            'tipe_laporan'=>$tipe_laporan,
             
         ];
 

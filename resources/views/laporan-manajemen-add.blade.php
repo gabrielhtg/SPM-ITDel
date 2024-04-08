@@ -69,9 +69,7 @@
                 // dd($isResponsible);
             @endphp
             
-            @if($isResponsible)
-                @include('components.list-document-pending-modal')
-            @endif
+           
             
             @php
             $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role);
@@ -102,7 +100,7 @@
                 <tbody>
                     
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by)
                     <tr style="
                             @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
                             @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
@@ -189,10 +187,6 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
-                                {{-- // jika user sekarang == user yang upload di data Dokumen
-                                // if userSekarang -> id == document->created_by --}}
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             </div>
                         </td>
                         
