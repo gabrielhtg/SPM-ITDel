@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckDocumentActive;
 use App\Http\Middleware\CheckDocumentReplaced;
+use App\Http\Middleware\LaporanMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -39,7 +40,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
-            CheckDocumentReplaced::class
+            CheckDocumentReplaced::class,
             
         ],
 
@@ -70,6 +71,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDocumentActive' => CheckDocumentActive::class,
-        'checkDocumentReplaced'=>CheckDocumentReplaced::class
+        'checkDocumentReplaced'=>CheckDocumentReplaced::class,
     ];
 }

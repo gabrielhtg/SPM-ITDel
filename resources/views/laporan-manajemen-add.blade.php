@@ -26,6 +26,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -84,76 +85,122 @@
                 
 
 
-                <table id="example1" class="table table-bordered table-striped">
-                    <thead>
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
                     <tr>
-
                         <th>Nama</th>
                         <th>Periode</th>
                         <th>Tipe Laporan</th>
-
                         <th>Status</th>
+                        <th>Dibuat Oleh</th>
+                        <th>Diperiksa Oleh</th>
+                        <th>diperiksa Pada</th>
                         <th>Tindakan</th>
-
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
+                    
+                    @foreach ($laporan as $item)
+                    @if(app(AllServices::class)->isAdmin() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    <tr style="
+                            @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
+                            @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
+                            @else background-color: #e8f0fe; /* Warna biru */
+                            @endif
+                            ">
 
-                            <tr>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Miko
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            April
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Laporan Kerja
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            Waiting
-                                        </div>
-
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="d-flex" style="gap: 5px">
-                                        <a href="#" target="_blank" class="btn btn-success"><i
-                                                class="fas fa-eye"></i></a>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
-
-                                        {{-- // jika user sekarang == user yang upload di data Dokumen
-                                        // if userSekarang -> id == document->created_by --}}
-                                            <a href="#"
-                                               class="btn btn-success"><i class="fas fa-edit"></i></a>
-
-                                    </div>
-
-                                </td>
-                            </tr>
-                    </tbody>
-                </table>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    {{$item->nama_laporan}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    April
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    {{$item->tipeLaporan->nama_laporan}}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    @php
+                                    if($item->status === null) {
+                                        echo 'Menunggu';
+                                    } elseif ($item->status === 1) {
+                                        echo 'Disetujui';
+                                    } elseif ($item->status === 0) {
+                                        echo 'Ditolak';
+                                    }
+                                    @endphp
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="info">
+                                    <span>{{ \App\Models\User::find($item->created_by)->name }}
+                                        <span class="badge badge-success"
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->created_by)->role) }}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="info">
+                                    @if($item->direview_oleh !== null)
+                                    <span>{{ \App\Models\User::find($item->direview_oleh)->name }}
+                                        <span class="badge badge-success "
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->direview_oleh)->role) }}</span>
+                                    </span>
+                                    @else
+                                    <span>Belum Diperiksa</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="d-flex align-items-center">
+                                    @php
+                                    if($item->status === null) {
+                                        echo '-';
+                                    } elseif ($item->status === 1) {
+                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
+                                    } elseif ($item->status === 0) {
+                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
+                                    }
+                                    @endphp
+                                </div>
+                            </div>
+                        </td>
+                        
+                        <td>
+                            <div class="d-flex" style="gap: 5px">
+                                <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
+                                {{-- // jika user sekarang == user yang upload di data Dokumen
+                                // if userSekarang -> id == document->created_by --}}
+                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            </div>
+                        </td>
+                        
+                    </tr>
+                    @endif
+                    @endforeach
+                </tbody>
+            </table>
+            
 
                 
 

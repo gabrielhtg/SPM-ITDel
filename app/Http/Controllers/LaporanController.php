@@ -8,6 +8,7 @@ use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use App\Models\Laporan;
 use App\Services\AllServices;
+use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\Validator;
 class LaporanController extends Controller
@@ -15,25 +16,22 @@ class LaporanController extends Controller
     //
     public function getLaporanManagementView()
 {
-    // Ambil semua data laporan
+    
     $laporan = Laporan::all();
 
-    // Hitung jumlah data laporan dengan status null dan user id-nya terdapat dalam laporan->tujuan
+    
     $banyakData = Laporan::whereNull('status')
                          ->where('tujuan', [auth()->user()->role])
                           ->count();
-    // dd($banyakData);
-
-    // Ambil data user yang meng-upload laporan
+   
     $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
 
-    // Ambil data tipe laporan
+
     $tipe_laporan = TipeLaporan::all();
 
-    // Ambil data role
     $roles = RoleModel::all();
 
-    // Data untuk dikirimkan ke view
+   
     $data = [
         'uploadedUsers' => $uploadedUsers,
         'roles' => $roles,
@@ -43,7 +41,7 @@ class LaporanController extends Controller
         'banyakData' => $banyakData,
     ];
 
-    // Tampilkan view 'laporan-manajemen-add' dengan data yang sudah diproses
+    
     return view('laporan-manajemen-add', $data);
 }
 
@@ -122,9 +120,12 @@ class LaporanController extends Controller
     }
     
     public function approve($id)
-    {
+    {   
+        $nowDate = Carbon::now();
         $laporan = Laporan::findOrFail($id);
         $laporan->status = 1; 
+        $laporan->approve_at = $nowDate;
+        $laporan->direview_oleh = auth()->user()->id;
         $laporan->save();
 
         return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetuji!']);
@@ -133,8 +134,11 @@ class LaporanController extends Controller
 
 public function reject($id)
 {
+    $nowDate = Carbon::now();
     $laporan = Laporan::findOrFail($id);
     $laporan->status = 0; 
+    $laporan->reject_at = $nowDate;
+    $laporan->direview_oleh = auth()->user()->id;
     $laporan->save();
 
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
