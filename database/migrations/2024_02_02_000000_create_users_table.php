@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('username', 20)->nullable(false)->unique();
             $table->string('phone', 15);
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('password');
             $table->string('reset_password_token')->nullable();
             $table->string('ip_address', 50)->nullable();

@@ -49,7 +49,7 @@ class ProfileController extends Controller
 
             catch (QueryException $e) {
                 if ($e->errorInfo[1] == 1062) {
-                    return redirect()->route('profile')->with('toastData', ['success' => false, "text" => 'Username sudah pernah digunakan sebelumnya!']);
+                    return redirect()->route('profile')->with('toastData', ['success' => false, "text" => 'Username/Email sudah pernah digunakan sebelumnya!']);
                 }
             }
         }
