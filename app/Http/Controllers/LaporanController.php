@@ -52,31 +52,32 @@ class LaporanController extends Controller
     public function getLaporanManagementReject()
     {
         // Ambil 10 dokumen terbaru
-        $laporan = Laporan::with('tipeLaporan');
+        $laporan = Laporan::all();
 
-        $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
+    $banyakData = Laporan::whereNull('status')
+                         ->where('tujuan', [auth()->user()->role])
+                         ->count();
+
+    $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
+
+    $id_user = auth()->user()->role;
+    $role = RoleModel::find($id_user);
+    $document = $role->required_to_submit_document;
     
-        $roles = RoleModel::all();
-        $id_user = auth()->user()->role;
-        $role = RoleModel::find($id_user);
-        $document = $role->required_to_submit_document;
-        
-       
-        $documentIds = explode(';', $document);
-    
-       
-        $tipe_laporan = TipeLaporan::whereIn('id', $documentIds)->get();
+   
+    $documentIds = explode(';', $document);
 
+   
+    $tipe_laporan = TipeLaporan::whereIn('id', $documentIds)->get();
 
-        // dd($documenthero);
-        $data = [
-            'uploadedUsers' => $uploadedUsers,
-            'roles' => $roles,
-            'active_sidebar' => [5, 2],  
-            'laporan'=>$laporan,
-            'tipe_laporan'=>$tipe_laporan,
-            
-        ];
+    $data = [
+        'uploadedUsers' => $uploadedUsers,
+        'roles' => $role,
+        'active_sidebar' => [5, 2],  
+        'laporan' => $laporan,
+        'tipe_laporan' => $tipe_laporan,
+        'banyakData' => $banyakData,
+    ];
 
         return view('laporan-manajemen-reject', $data);
     }

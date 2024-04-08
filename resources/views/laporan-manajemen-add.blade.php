@@ -187,6 +187,10 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
+                                {{-- // jika user sekarang == user yang upload di data Dokumen
+                                // if userSekarang -> id == document->created_by --}}
+                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
                             </div>
                         </td>
                         
