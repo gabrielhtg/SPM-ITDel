@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('tipe_laporan', function (Blueprint $table) {
             $table->id();
             $table->string('nama_laporan');
-            $table->timestamp('start_date');
+            $table->timestamp('start_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
