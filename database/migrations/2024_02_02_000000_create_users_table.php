@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('online')->nullable();
             $table->string('pending_roles', 20)->nullable();
             $table->boolean('verified');
+            $table->boolean("status")->nullable();
             $table->string('role')->nullable();
             $table->rememberToken();
             $table->timestamps();

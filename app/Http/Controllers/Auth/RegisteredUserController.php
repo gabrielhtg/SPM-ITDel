@@ -57,6 +57,7 @@ class RegisteredUserController extends Controller
                         'email' => $request->email,
                         'phone' => $request->phone,
                         'verified' => true,
+                        'status' =>true,
                         'password' => Hash::make($request->password),
                         'role' => $request->role
                     ]);
@@ -139,6 +140,7 @@ class RegisteredUserController extends Controller
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'verified' => false,
+                    'status' => false,
                     'password' => Hash::make($request->password),
                     'pending_roles' => $request->role
                 ]);
@@ -183,6 +185,7 @@ class RegisteredUserController extends Controller
             $resetObject->update([
                 'verified' => true,
                 'role' => $resetObject->pending_roles,
+                'status' => true,
                 'pending_roles' => null,
                 'created_at' => now()
             ]);
@@ -198,7 +201,7 @@ class RegisteredUserController extends Controller
     public function deleteRegisterRequest(Request $request) {
         $data = User::find($request->id);
 
-        if ($data && $data->status == null) {
+        if ($data && $data->status == false) {
             $data->delete();
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);

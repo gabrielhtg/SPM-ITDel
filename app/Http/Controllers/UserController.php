@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PasswordResetTokenModel;
-use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Models\UserInactiveModel;
@@ -23,7 +21,7 @@ class UserController extends Controller
     public function getUserSettings()
     {
         if (Auth::check()) {
-            $users = User::all();
+            $users = User::where('status', true)->get();
             $roles = RoleModel::all();
             $passwordResetReq = User::where('verified', false)->orderBy('created_at', 'desc')->get();
 
@@ -62,7 +60,7 @@ class UserController extends Controller
             $user = User::find($request->id);
 
             if ($user) {
-                UserInactiveModel::create(
+                $temp = UserInactiveModel::create(
                     [
                         'name' => $user->name,
                         'username' => $user->username,
@@ -73,6 +71,8 @@ class UserController extends Controller
                         'profile_pict' => $user->profile_pict
                     ]
                 );
+
+
 
                 $user->delete();
 
