@@ -27,6 +27,55 @@
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
+
+    <style>
+      .desc-card {
+        font-size: 15px;
+      }
+
+      .see-more {
+        position: absolute; 
+        bottom: 10px; 
+        right:10px;
+      }
+
+      @media (max-width: 1400px) {
+        .title-card {
+          font-size: 13px; /* Ubah ukuran font judul saat lebar layar kurang dari atau sama dengan 576px */
+        }
+        
+        .desc-card {
+          font-size: 10px; /* Ubah ukuran font deskripsi saat lebar layar kurang dari atau sama dengan 576px */
+        }
+
+        .time-card {
+          font-size: 10px;
+        }
+
+        .see-more.btn {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 576px) {
+        .title-card {
+          font-size: 13px;
+        }
+        
+        .desc-card {
+          font-size: 10px; 
+        }
+
+        .time-card {
+          font-size: 10px
+        }
+
+        .see-more.btn {
+          font-size: 10px;
+        }
+      }
+    </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -144,35 +193,46 @@
 
           <div class="row">
 
-            @forelse($guestNews as $e)
+            @forelse($news as $e)
+              @if($e->keterangan_status == 1)
 
-            <div class="col-sm-6 ">
-              <div class="card" style="max-height: 390px; min-height: 390px; position: relative;">
-                <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;" loading="lazy">
-                <div class="card-body" style="padding: 10px; position: relative;">
-                    <h5 class="card-title mb-1">{{ $e->title }}</h5>
-                    <p class="card-text text-secondary mb-1">{{ $e->created_at->format('Y-m-d') }}</p>
-                    <p class="card-text">
-                        @php
-                            $description = $e->description;
-                            // Memeriksa apakah teks mengandung tag <table> atau tag <img>
-                            $containsTable = preg_match('/<table\b[^>]>(.?)<\/table>/s', $description);
-                            $containsImage = preg_match('/<img\b[^>]*>/', $description);
-                        @endphp
-                        @if (!$containsTable && !$containsImage && !empty(trim(strip_tags($e->description))))
-                            {{-- {!! $e->description !!} --}}
-                            @if (str_word_count($e->description) > 10)
-                                {!! substr($e->description, 0, 110) !!} ...
+                <div class="col-sm-6 ">
+                  <div class="card" style="max-height: 390px; min-height: 390px; position: relative;">
+                    <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;" loading="lazy">
+                    <div class="card-body" style="padding: 10px; position: relative;">
+                        <h5 class="title-card card-title mb-1 fw-bold">{{ $e->title }}</h5>
+                        <p class="time-card card-text text-secondary mb-1">
+                          <i>
+                            {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
+                            @if($e->end_date != null)
+                                - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}
                             @else
-                                {!! $e->description !!}
+                                - Sekarang
                             @endif
-                        @endif
-                    </p>
-                    <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">See more ...</a>
+                          </i>
+                        </p>
+                        <p class="desc-card card-text">
+                            @php
+                                $description = $e->description;
+                                // Memeriksa apakah teks mengandung tag <table> atau tag <img>
+                                $containsTable = preg_match('/<table\b[^>]>(.?)<\/table>/s', $description);
+                                $containsImage = preg_match('/<img\b[^>]*>/', $description);
+                            @endphp
+                            @if (!$containsTable && !$containsImage && !empty(trim(strip_tags($e->description))))
+                                {{-- {!! $e->description !!} --}}
+                                @if (str_word_count($e->description) > 10)
+                                    {!! substr($e->description, 0, 110) !!} ...
+                                @else
+                                    {!! $e->description !!}
+                                @endif
+                            @endif
+                        </p>
+                        <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">See more ...</a>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
 
+              @endif
             @empty
 
             @endforelse

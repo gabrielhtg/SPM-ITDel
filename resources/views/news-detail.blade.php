@@ -51,6 +51,15 @@
                 <section class="content" id="main-content">
                     <div class="page-header">
                         <h2>{{ $newsDetail->title }}</h2>
+                        <p class="text-secondary">
+                            Berlaku : 
+                            {{ \Carbon\Carbon::parse($newsDetail->start_date)->format('d/m/Y') }}
+                            @if($newsDetail->end_date != null)
+                                - {{ \Carbon\Carbon::parse($newsDetail->end_date)->format('d/m/Y') }}
+                            @else
+                                - Sekarang
+                            @endif
+                        </p>
                     </div>
 
                     <div class="pengumuman-view">

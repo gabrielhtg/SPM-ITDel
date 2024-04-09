@@ -16,23 +16,34 @@
                     @csrf
                     {{-- input title --}}
                     <div class="form-group mt-1">
-                        <label for="title">Judul News</label>
+                        <label for="title">Judul Berita</label>
                         <input type="text" name="title" id="title" class="form-control" required>
                     </div>
 
                     {{-- input konten --}}
                     <label for="description">Keterangan Berita</label>
-                    <textarea class="summernote" name="description"></textarea>
+                    <textarea class="summernote" name="description" required></textarea>
 
                     {{-- input gambar latar belakang --}}
                     <div class="form-group">
-                        <label for="exampleInputFile">Gambar input</label>
+                        <label for="exampleInputFile">Gambar Berita</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="bgimage" name="bgimage">
+                                <input type="file" class="custom-file-input" id="bgimage" name="bgimage" required>
                                 <label class="custom-file-label" for="bgimage">Choose file</label>
                             </div>
                         </div>
+                    </div>
+
+                    {{-- input time --}}
+                    <div class="form-group">
+                        <label>Tanggal Mulai</label>
+                        <input type="datetime-local" name="start_date" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tanggal Berakhir</label>
+                        <input type="datetime-local" name="end_date" class="form-control" placeholder="Pilih tanggal dan waktu">
                     </div>
                 </form>
             </div>

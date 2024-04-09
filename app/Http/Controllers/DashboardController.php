@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Dashboard;
 use App\Models\HeroDashboard;
+use App\Models\News;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -18,13 +19,15 @@ class DashboardController extends Controller
     {
         $dashboard = Dashboard::all()->sortByDesc('id');
         $herodashboard = HeroDashboard::all()->sortByDesc('id');
+        $news = News::latest()->take(6)->get();
 
         $data = [
             'dashboard' => $dashboard,
-            'herodashboard' => $herodashboard
+            'herodashboard' => $herodashboard,
+            'news' => $news,
         ];
 
-        return view('components.guesslayout', $data);
+        return view('dashboard', $data);
     }
 
     public function guestIntroduction()
@@ -32,7 +35,7 @@ class DashboardController extends Controller
         $dashboard = Dashboard::all()->sortByDesc('id');
         $herodashboard = HeroDashboard::all()->sortByDesc('id');
 
-        return view('components.guesslayout', compact('dashboard','herodashboard'));
+        return view('components.guesslayout', compact('dashboard', 'herodashboard'));
     }
 
     public function getdashboard()
@@ -219,7 +222,6 @@ class DashboardController extends Controller
         $data->save();
 
         return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update news']);
-
     }
 
     public function deleteherosection($id)
@@ -235,5 +237,4 @@ class DashboardController extends Controller
 
         return redirect('dashboatd-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
     }
-
 }

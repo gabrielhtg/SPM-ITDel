@@ -44,7 +44,7 @@
               <h1 class="ml-1 mt-5">Berita AMI IT Del</h1>
             </div>
             {{-- @if(!empty($guestBigNews->gambar)) --}}
-            <table >
+            <table>
               <tr>
                 <th>
                   {{-- nama --}}
@@ -55,26 +55,33 @@
               </tr>
 
               @foreach ($news as $e)
-              <tr >
-                <th style="vertical-align: center;">
-                    <div class="col-5">
-                        <div class="overflow-hidden rounded m-3" style="height: 150px; width: 200px; /* Sesuaikan dengan lebar yang diinginkan */">
-                            <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
+                @if($e->keterangan_status == 1)
+                <tr>
+                    <th style="vertical-align: center;">
+                        <div class="col-5">
+                            <div class="overflow-hidden rounded m-3" style="height: 150px; width: 200px; /* Sesuaikan dengan lebar yang diinginkan */">
+                                <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="img-zoomin img-fluid rounded w-100" style="object-fit: cover;" alt="">
+                            </div>
                         </div>
-                    </div>
-                </th>
-                <th style="vertical-align: center; padding-left: 10px; width: 850px">
-                    <div class="col-7">
-                      
-                        <div class="features-content d-flex flex-column">
-                            <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="h3 font-weight-bold">{{ $e->title }}</a>
-                            <small><i class="">{{ $e->created_at }}</i></small>
+                    </th>
+                    <th style="vertical-align: center; padding-left: 10px; width: 850px">
+                        <div class="col-7">  
+                            <div class="features-content d-flex flex-column">
+                                <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="h3 font-weight-bold" style="width: 600px;">{{ $e->title }}</a>
+                                <small><i class="">
+                                    {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
+                                    @if($e->end_date != null)
+                                        - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}
+                                    @else
+                                        - Sekarang
+                                    @endif
+                                </i></small>
+                            </div>
                         </div>
-                    </div>
-                </th>
-            </tr>
+                    </th>
+                </tr>
+                @endif
               @endforeach
-
             </table>
           </div>
       </div>
