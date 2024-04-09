@@ -81,10 +81,11 @@
                 <tbody>
                     
                     @foreach ($laporan as $item)
+                    
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess() ||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
                     <tr style="
-                            @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
+                            @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
+                            @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">
@@ -113,15 +114,7 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    @php
-                                    if($item->status === null) {
-                                        echo 'Menunggu';
-                                    } elseif ($item->status === 1) {
-                                        echo 'Disetujui';
-                                    } elseif ($item->status === 0) {
-                                        echo 'Ditolak';
-                                    }
-                                    @endphp
+                                    {{$item->status}}
                                 </div>
                             </div>
                         </td>
@@ -152,13 +145,14 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
+                                   
                                     @php
-                                    if($item->status === null) {
+                                    if($item->status == 'Menunggu') {
                                         echo '-';
-                                    } elseif ($item->status === 1) {
-                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y H:i:s');
-                                    } elseif ($item->status === 0) {
-                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y H:i:s');
+                                    } elseif ($item->status == 'Disetujui') {
+                                        echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
+                                    } elseif ($item->status == 'Ditolak') {
+                                        echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp
                                 </div>

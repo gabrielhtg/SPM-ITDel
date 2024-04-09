@@ -101,7 +101,7 @@
                             // dd($isResponsiblenot);
                             @endphp
                         
-                            @if($isResponsiblenot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess()))
+                            @if($isResponsiblenot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)))
                             <li class="nav-item">
                                 <a href="{{ route('LaporanManagementAdd') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">

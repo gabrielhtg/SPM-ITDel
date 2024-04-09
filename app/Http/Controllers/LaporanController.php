@@ -53,7 +53,7 @@ class LaporanController extends Controller
     {
         // Ambil 10 dokumen terbaru
         $laporan = Laporan::all();
-
+        // dd($laporan->status);
     $banyakData = Laporan::whereNull('status')
                          ->where('tujuan', [auth()->user()->role])
                          ->count();
@@ -145,7 +145,7 @@ class LaporanController extends Controller
     {   
         $nowDate = Carbon::now();
         $laporan = Laporan::findOrFail($id);
-        $laporan->status = 1; 
+        $laporan->status = 'Disetujui'; 
         $laporan->approve_at = $nowDate;
         $laporan->direview_oleh = auth()->user()->id;
         $laporan->save();
@@ -158,7 +158,7 @@ public function reject($id)
 {
     $nowDate = Carbon::now();
     $laporan = Laporan::findOrFail($id);
-    $laporan->status = 0; 
+    $laporan->status = 'Ditolak'; 
     $laporan->reject_at = $nowDate;
     $laporan->direview_oleh = auth()->user()->id;
     $laporan->save();

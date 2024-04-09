@@ -35,7 +35,7 @@
                         @endphp
                         @foreach($laporan as $lap)
                         
-                        @if(($lap->status === null) &&(app(AllServices::class)->isUserRole(auth()->user(), $lap->tujuan)) )
+                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isUserRole(auth()->user(), $lap->tujuan)) )
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
