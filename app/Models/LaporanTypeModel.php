@@ -12,5 +12,7 @@ class LaporanTypeModel extends Model
 
     protected $fillable = [
         'nama_laporan',
+        'start_date',
+        'end_date'
     ];
 }

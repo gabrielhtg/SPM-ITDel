@@ -30,7 +30,11 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                        
+                        @endphp
                         @foreach($laporan as $lap)
+                        
                         @if(($lap->status === null) &&(app(AllServices::class)->isUserRole(auth()->user(), $lap->tujuan)) )
                         <tr>
                             <td>

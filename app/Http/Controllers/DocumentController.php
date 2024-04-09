@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentModel;
 use App\Models\DocumentTypeModel;
+use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
@@ -467,9 +468,17 @@ public function updateDocument(Request $request, $id)
         return view('document-replaced-all', $data);
     }
 
-    
+    public function viewLaporanType()
+    {
+        $tipe_laporan = LaporanTypeModel::all();
+        $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
 
-   
+
+        return view('components/view-tipe-laporan', compact('tipe_laporan', 'active_sidebar'));
+    }
+
+
+
 
 
 

@@ -9,11 +9,13 @@ class TipeLaporan extends Model
 {
     use HasFactory;
     protected $table = "tipe_laporan";
- 
-    
+
+
     protected $fillable = [
         'id',
-        'nama_laporan'
+        'nama_laporan',
+        'start_date',
+        'end_date'
     ];
 
 }

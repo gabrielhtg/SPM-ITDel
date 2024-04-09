@@ -39,7 +39,7 @@ class TypeDocumentController extends Controller
             'singkatan.unique' => "Singkatam sudah digunakan.",
         ]);
 
-        if (!AllServices::isAdmin()) {
+        if (!AllServices::isLoggedUserHasAdminAccess()) {
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
         }
 
@@ -59,11 +59,13 @@ class TypeDocumentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
 
-        if (!AllServices::isAdmin()) {
+        if (!AllServices::isLoggedUserHasAdminAccess()) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => 'You are not authorized to add document types.']);
         }
 
@@ -73,10 +75,45 @@ class TypeDocumentController extends Controller
 
         LaporanTypeModel::create([
             'nama_laporan' => $request->nama_laporan,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date,
         ]);
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
     }
+
+    public function editLaporanType(Request $request, $id)
+    {
+        // Validasi data yang diubah
+        $validator = Validator::make($request->all(), [
+            'nama_laporan' => 'required|unique:tipe_laporan,nama_laporan,'.$id,
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ], [
+            'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
+        ]);
+
+        // Cek apakah pengguna memiliki izin untuk mengedit tipe laporan
+        if (!AllServices::isAdmin()) {
+            return redirect()->route('LaporanManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to edit document types.']);
+        }
+
+        // Jika validasi gagal, kembalikan dengan pesan kesalahan
+        if ($validator->fails()) {
+            return redirect()->route('editLaporanForm', $id)->withErrors($validator)->withInput();
+        }
+
+        // Perbarui data tipe laporan
+        $laporan = LaporanTypeModel::find($id);
+        $laporan->nama_laporan = $request->nama_laporan;
+        $laporan->start_date = $request->start_date;
+        $laporan->end_date = $request->end_date;
+        $laporan->save();
+
+        // Redirect kembali ke halaman manajemen tipe laporan dengan pesan sukses
+        return redirect()->route('LaporanManagement')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil diperbarui!']);
+    }
+
 
 
 }

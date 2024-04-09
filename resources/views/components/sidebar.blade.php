@@ -96,20 +96,36 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @php
+                            $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role) ;
+                            // dd($isResponsiblenot);
+                            @endphp
+                        
+                            @if($isResponsiblenot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess()))
                             <li class="nav-item">
                                 <a href="{{ route('LaporanManagementAdd') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Add</p>
+                                    <p>Tambah Laporan</p>
                                 </a>
                             </li>
+                            @endif
+                           
+                            @php
+                                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
+                            
+                            @endphp
+                            
+                            @if($isResponsible)
                             <li class="nav-item">
                                 <a href="{{ route('LaporanManagementReject') }}"
                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Reject</p>
+                                    <p>Periksa Laporan</p>
                                 </a>
                             </li>
+                            @endif
+                            
                         </ul>
                     </li>
                 @endif

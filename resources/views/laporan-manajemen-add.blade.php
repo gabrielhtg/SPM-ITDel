@@ -69,9 +69,7 @@
                 // dd($isResponsible);
             @endphp
             
-            @if($isResponsible)
-                @include('components.list-document-pending-modal')
-            @endif
+           
             
             @php
             $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role);
@@ -102,7 +100,7 @@
                 <tbody>
                     
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by)
                     <tr style="
                             @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
                             @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
@@ -189,12 +187,14 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
-                                {{-- // jika user sekarang == user yang upload di data Dokumen
-                                // if userSekarang -> id == document->created_by --}}
-                                <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle text-light"></i></button>
+                                <button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target="#modal-edit-document" data-id="{{ $item->id }}">
+                                    <i class="fas fa-edit text-light"></i>
+                                </button>
                             </div>
                         </td>
+
+
                         
                     </tr>
                     @endif
@@ -215,6 +215,58 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    <!-- Modal Edit -->
+    <a href="#modal-edit-document" class="btn btn-success mb-3" data-toggle="modal">
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Edit Laporan</span>
+</a>
+
+<div class="modal fade" id="modal-edit-document" tabindex="-1" role="dialog" aria-labelledby="modal-edit-document-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modal-edit-document-label">Tambah Dokumen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="document-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.store') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="document-name">Nama Laporan</label>
+                        <input type="text" class="form-control" id="document-name" name="nama_laporan" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-type">Tipe Laporan</label>
+                        <select class="form-control" id="document-type" name="id_tipelaporan" required>
+                            <option value="">Pilih Tipe Laporan</option>
+                            @foreach($tipe_laporan as $tipe)
+                                <option value="{{ $tipe->id }}">{{ $tipe->nama_laporan }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="revisi">Revisi:</label>
+                        <select class="form-control" id="revisi" name="revisi">
+                            <option value="1">Ya</option>
+                            <option value="0">Tidak</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="document-file">Dokumen</label>
+                        <input type="file" class="form-control-file" id="document-file" name="file" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="document-form">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
     @include('components.footer')
 
     <!-- Control Sidebar -->
@@ -362,6 +414,35 @@
         })
     })
 </script>
+
+<script>
+    $(document).ready(function () {
+        // Handle edit button click
+        $(document).on('click', '.btn-edit', function () {
+            // Example: Get document ID from data attribute
+            var id = $(this).data('id');
+            // Example: You can fetch document data via AJAX based on ID
+            // Once you have the data, you can populate the form fields accordingly
+            // For demonstration purpose, let's assume we're populating a document name field
+            var documentName = "Document " + id;
+            $('#document-name').val(documentName);
+        });
+
+        // Handle save changes button click
+        $('#save-changes-btn').click(function () {
+            // Example: Perform AJAX request to save changes
+            // Serialize form data
+            var formData = $('#edit-document-form').serializeArray();
+            // Example: You can then submit this form data via AJAX
+            console.log(formData); // Example: Output the serialized form data to console
+            // Example: You can perform AJAX request here to save changes
+            // Example: $.ajax({...});
+            // Example: Upon success, you can close the modal
+            $('#modal-edit-document').modal('hide');
+        });
+    });
+</script>
+
 
 
 </body>
