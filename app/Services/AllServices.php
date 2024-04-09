@@ -271,13 +271,13 @@ class AllServices
 
         return false; // Jika tidak ada, kembalikan false
     }
-    public static function isnotResponsible($array): bool
+    public static function isnotAccountable($array): bool
     {
         // Dapatkan semua role dari database
         $roles = RoleModel::find($array);
 
 
-        if($roles->responsible_to===null){
+        if($roles->accountable_to===null){
             return true;
         }
         else{
@@ -285,6 +285,44 @@ class AllServices
         }
 
 
+    }
+    public static function isAccountable($roleId): bool
+    {
+        // Dapatkan role berdasarkan id yang diberikan
+        $role = RoleModel::findOrFail($roleId);
+        
+        // Dapatkan semua role dari database
+        $roles = RoleModel::all();
+        
+        // Iterasi melalui setiap role
+        foreach ($roles as $otherRole) {
+            // Periksa apakah id role yang diberikan termasuk dalam accountable_to suatu role lain
+            if (strpos($otherRole->accountable_to, $roleId) !== false) {
+                return true; 
+            }
+        }
+    
+        return false; 
+    }
+
+   
+    public static function isInformable($roleId): bool
+    {
+        // Dapatkan role berdasarkan id yang diberikan
+        $role = RoleModel::findOrFail($roleId);
+        
+        // Dapatkan semua role dari database
+        $roles = RoleModel::all();
+        
+        // Iterasi melalui setiap role
+        foreach ($roles as $otherRole) {
+            // Periksa apakah id role yang diberikan termasuk dalam informable_to suatu role lain
+            if (strpos($otherRole->informable_to, $roleId) !== false) {
+                return true; 
+            }
+        }
+    
+        return false; 
     }
 
     public static function isThisRoleExistInArray($array, $id): bool

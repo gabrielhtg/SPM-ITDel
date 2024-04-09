@@ -61,18 +61,9 @@
                 @include('components.upload-tipe-laporan')
                 @endif
                 
-              
-                
-                
-                @php
-                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
-                // dd($isResponsible);
-            @endphp
-            
-           
             
             @php
-            $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role);
+            $isResponsiblenot = app(AllServices::class)->isnotAccountable(auth()->user()->role);
             // dd($isResponsible);
         @endphp
         

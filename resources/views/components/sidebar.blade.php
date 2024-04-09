@@ -97,11 +97,11 @@
                         </a>
                         <ul class="nav nav-treeview">
                             @php
-                            $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role) ;
-                            // dd($isResponsiblenot);
+                            $isnot = app(AllServices::class)->isnotAccountable(auth()->user()->role) ;
+                            // dd($isnot);
                             @endphp
                         
-                            @if($isResponsiblenot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)))
+                            @if($isnot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)))
                             <li class="nav-item">
                                 <a href="{{ route('LaporanManagementAdd') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">
@@ -112,8 +112,7 @@
                             @endif
                            
                             @php
-                                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
-                            
+                                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role) || app(AllServices::class)->isAccountable(auth()->user()->role) ||app(AllServices::class)->isInformable(auth()->user()->role);
                             @endphp
                             
                             @if($isResponsible)
