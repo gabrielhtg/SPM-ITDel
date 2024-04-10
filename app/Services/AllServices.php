@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\AccountableModel;
+use App\Models\BawahanModel;
 use App\Models\DocumentModel;
+use App\Models\InformableModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use Illuminate\Support\Carbon;
@@ -242,13 +245,12 @@ class AllServices
      * Method ini digunakan untuk melakukan pengecekan terhadap semua role bawahan yang ada
      * apakah sudah nonaktif semua atau tidak.
      */
-    public static function isAdaBawahanActive ($idBawahan) : bool {
-        $roleBahahan = explode(";", $idBawahan);
+    public static function isAdaBawahanActive ($id) : bool {
 
         $semuaNonaktif = true;
 
-        foreach ($roleBahahan as $e) {
-            if (RoleModel::find($e)->status) {
+        foreach (BawahanModel::where('role', $id)->get() as $e) {
+            if (RoleModel::find($e->bawahan)->status) {
                 $semuaNonaktif = false;
                 break;
             }
@@ -290,39 +292,39 @@ class AllServices
     {
         // Dapatkan role berdasarkan id yang diberikan
         $role = RoleModel::findOrFail($roleId);
-        
+
         // Dapatkan semua role dari database
         $roles = RoleModel::all();
-        
+
         // Iterasi melalui setiap role
         foreach ($roles as $otherRole) {
             // Periksa apakah id role yang diberikan termasuk dalam accountable_to suatu role lain
             if (strpos($otherRole->accountable_to, $roleId) !== false) {
-                return true; 
+                return true;
             }
         }
-    
-        return false; 
+
+        return false;
     }
 
-   
+
     public static function isInformable($roleId): bool
     {
         // Dapatkan role berdasarkan id yang diberikan
         $role = RoleModel::findOrFail($roleId);
-        
+
         // Dapatkan semua role dari database
         $roles = RoleModel::all();
-        
+
         // Iterasi melalui setiap role
         foreach ($roles as $otherRole) {
             // Periksa apakah id role yang diberikan termasuk dalam informable_to suatu role lain
             if (strpos($otherRole->informable_to, $roleId) !== false) {
-                return true; 
+                return true;
             }
         }
-    
-        return false; 
+
+        return false;
     }
 
     public static function isThisRoleExistInArray($array, $id): bool
@@ -363,5 +365,89 @@ class AllServices
         $isAdmin = RoleModel::find(auth()->user()->role);
 
         return $isAdmin->is_admin;
+    }
+
+    public static function getAllInformable($id) : string {
+        $informableTo = InformableModel::where("role", $id)->get();
+
+        $output = '';
+
+        if ($informableTo !== null) {
+            foreach ($informableTo as $e) {
+                $output = $output . RoleModel::find($e->informable_to)->role . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Not Defined Yet!";
+            }
+
+            return substr($output, 0, -2);
+        }
+
+        else {
+            return "Not Defined Yet!";
+        }
+    }
+
+    public static function clearInformableTo($id) : void
+    {
+        $informable = InformableModel::where('role', $id)->get();
+
+        foreach ($informable as $e) {
+            $e->delete();
+        }
+    }
+
+    public static function getAllAccountableTo($id) : string {
+        $accountableTo = AccountableModel::where("role", $id)->get();
+
+        $output = '';
+
+        if ($accountableTo !== null) {
+            foreach ($accountableTo as $e) {
+                $output = $output . RoleModel::find($e->accountable_to)->role . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Not Defined Yet!";
+            }
+
+            return substr($output, 0, -2);
+        }
+
+        else {
+            return "Not Defined Yet!";
+        }
+    }
+
+    public static function clearAccountableTo($id) : void
+    {
+        $accountable = AccountableModel::where('role', $id)->get();
+
+        foreach ($accountable as $e) {
+            $e->delete();
+        }
+    }
+
+    public static function getAllBawahan($id) : string {
+        $bawahan = BawahanModel::where("role", $id)->get();
+
+        $output = '';
+
+        if ($bawahan !== null) {
+            foreach ($bawahan as $e) {
+                $output = $output . RoleModel::find($e->bawahan)->role . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Not Defined Yet!";
+            }
+
+            return substr($output, 0, -2);
+        }
+
+        else {
+            return "Not Defined Yet!";
+        }
     }
 }

@@ -63,9 +63,9 @@
                         <th>
                             Atasan
                         </th>
-{{--                        <th>--}}
-{{--                            Bawahan--}}
-{{--                        </th>--}}
+                        <th>
+                            Bawahan
+                        </th>
                         <th>
                             Responsible To
                         </th>
@@ -99,17 +99,17 @@
                                 <td>
                                     {{ AllServices::convertRole($e->atasan_id) }}
                                 </td>
-{{--                                    <td>--}}
-{{--                                        {{ AllServices::convertRole($e->bawahan) }}--}}
-{{--                                    </td>--}}
+                                <td>
+                                    {{ AllServices::getAllBawahan($e->id) }}
+                                </td>
                                 <td>
                                     {{ AllServices::convertRole($e->responsible_to) }}
                                 </td>
                                 <td>
-                                    {{ AllServices::convertRole($e->accountable_to) }}
+                                    {{ AllServices::getAllAccountableTo($e->id) }}
                                 </td>
                                 <td>
-                                    {{ AllServices::convertRole($e->informable_to) }}
+                                    {{ AllServices::getAllInformable($e->id) }}
                                 </td>
                                 <td>
                                     @if($e->is_admin == true)
@@ -192,6 +192,7 @@
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
                                                     @endforeach
+                                                    <option value="-1">None</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mt-3">
@@ -205,6 +206,7 @@
                                                                 <option value="{{ $role->id }}">{{ $role->role }}</option>
                                                         @endif
                                                     @endforeach
+                                                    <option value="-1">None</option>
                                                 </select>
                                             </div>
 

@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountableModel;
+use App\Models\BawahanModel;
+use App\Models\InformableModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use App\Models\User;
@@ -31,46 +34,45 @@ class RoleController extends Controller
      */
     public function addRole(Request $request)
     {
-        $informableTo = null;
-        $accountableTo = null;
         $laporan = null;
-
-        if ($request->informable_to !== null) {
-            $informableTo = implode(';', $request->informable_to);
-        }
-
-        if ($request->accountable_to !== null) {
-            $accountableTo = implode(';', $request->accountable_to);
-        }
 
         if ($request->wajib_melaporkan !== null) {
             $laporan = implode(";", $request->wajib_melaporkan);
         }
 
         try {
-            RoleModel::create([
+            $newRole = RoleModel::create([
                 'role' => $request->nama_role,
                 'atasan_id' => $request->atasan_role,
                 'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
-                'informable_to' => $informableTo,
                 'status' => true,
-                'accountable_to' => $accountableTo,
                 'is_admin' => $request->is_admin,
                 'required_to_submit_document' => $laporan
             ]);
 
-            if ($request->atasan_role != null) {
-                $atasan = RoleModel::find($request->atasan_role);
-
-                if ($atasan->bawahan == null) {
-                    $atasan->update([
-                        'bawahan' => RoleModel::whereRole($request->nama_role)->first()->id
-                    ]);
-                } else {
-                    $atasan->update([
-                        'bawahan' => $atasan->bawahan . ';' . RoleModel::whereRole($request->nama_role)->first()->id
+            if ($request->informable_to !== null) {
+                foreach ($request->informable_to as $e) {
+                    InformableModel::create([
+                        'role' => $newRole->id,
+                        'informable_to' => $e
                     ]);
                 }
+            }
+
+            if ($request->accountable_to !== null) {
+                foreach ($request->accountable_to as $e) {
+                    AccountableModel::create([
+                        'role' => $newRole->id,
+                        'accountable_to' => $e
+                    ]);
+                }
+            }
+
+            if ($request->atasan_role != null) {
+                BawahanModel::create([
+                    'role' => $request->atasan_role,
+                    'bawahan' => $newRole->id
+                ]);
             }
             return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' berhasil ditambahkan!']);
         } catch (QueryException $e) {
@@ -80,44 +82,6 @@ class RoleController extends Controller
 
             return back()->with('toastData', ['success' => false, 'text' => 'Role ' . $request->nama_role . ' gagal untuk ditambahkan!']);
         }
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
-     *
-     * Method ini digunakan untuk menghapus role.
-     * Jika role yang akan dihapus masih ada user yang aktif dengan user tersebut, maka user harus dinonaktifkan terlebih dahulu
-     */
-    public function removeRole(Request $request)
-    {
-        $localRole = RoleModel::find($request->id);
-        $users = User::all();
-        $newRole = "";
-
-        foreach ($users as $e) {
-            if (AllServices::isUserRole($e, $request->id)) {
-                $roles = explode(";", $e->role);
-                foreach ($roles as $role) {
-                    if ($role == $request->id) {
-                        continue;
-                    }
-
-                    else {
-                        $newRole = $newRole . $role . ';';
-                    }
-                }
-
-                $e->update([
-                    'role' => substr($newRole, 0, -1)
-                ]);
-
-                $newRole = '';
-            }
-        }
-
-        $localRole->delete();
-        return back()->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus role!']);
     }
 
     public function updateStatus (Request $request) {
@@ -131,8 +95,8 @@ class RoleController extends Controller
             }
         }
 
-        if ($role->bawahan !== null) {
-            if (!AllServices::isAdaBawahanActive($role->bawahan)) {
+        if (count(BawahanModel::where('role', $request->id)->get()) !== 0) {
+            if (!AllServices::isAdaBawahanActive($request->id)) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role aktif yang menjadi anggota dari role ini!']);
             }
         }
@@ -143,12 +107,14 @@ class RoleController extends Controller
             }
         }
 
-        foreach ($allRole as $e) {
-            if (AllServices::isThisRoleExistInArray($e->accountable_to, $request->id)) {
+        foreach (AccountableModel::where('accountable_to', $request->id)->get() as $e) {
+            if (RoleModel::find($e->role)->status) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang accountable to role ini!']);
             }
+        }
 
-            if (AllServices::isThisRoleExistInArray($e->informable_to, $request->id)) {
+        foreach (InformableModel::where('informable_to', $request->id)->get() as $e) {
+            if (RoleModel::find($e->role)->status) {
                 return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang informable to role ini!']);
             }
         }
@@ -165,24 +131,30 @@ class RoleController extends Controller
     public function editRole (Request $request){
         $role = RoleModel::find($request->id);
 
-        $informableTo = null;
-        $accountableTo = null;
-        $laporan = null;
-
         if ($request->informable_to !== null) {
-            $informableTo = implode(';', $request->informable_to);
+            AllServices::clearInformableTo($role->id);
 
-            $role->update([
-                'informable_to' => $informableTo,
-            ]);
+            foreach ($request->informable_to as $e) {
+                if ($e != -1) {
+                    InformableModel::create([
+                        'role' => $role->id,
+                        'informable_to' => $e
+                    ]);
+                }
+            }
         }
 
         if ($request->accountable_to !== null) {
-            $accountableTo = implode(';', $request->accountable_to);
+            AllServices::clearAccountableTo($role->id);
 
-            $role->update([
-                'accountable_to'=> $accountableTo,
-            ]);
+            foreach ($request->accountable_to as $e) {
+                if ($e != -1) {
+                    AccountableModel::create([
+                        'role' => $role->id,
+                        'accountable_to' => $e
+                    ]);
+                }
+            }
         }
 
         if ($request->wajib_melaporkan !== null) {
@@ -194,26 +166,13 @@ class RoleController extends Controller
         }
 
         if ($request->atasan_role != null) {
-            $atasanBaru = RoleModel::find($request->atasan_role);
-            $atasanLama = RoleModel::find($role->atasan_id);
 
-            if ($atasanLama != null) {
-                $atasanLama->update([
-                    'bawahan' => AllServices::removeIdFromArray($atasanLama->bawahan, $role->id)
-                ]);
-            }
+            BawahanModel::where("bawahan", $request->id)->first()->delete();
 
-            if ($atasanBaru->bawahan == null) {
-                $atasanBaru->update([
-                    'bawahan' => $role->id
-                ]);
-            }
-
-            else {
-                $atasanBaru->update([
-                    'bawahan' => $atasanBaru->bawahan . ";" . $role->id
-                ]);
-            }
+            BawahanModel::create([
+                'role' => $request->atasan_role,
+                'bawahan' => $request->id
+            ]);
         }
 
         $role->update([

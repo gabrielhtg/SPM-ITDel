@@ -34,7 +34,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="accountable-to">Responsible To</label>
+                        <label for="accountable-to">Accountable To</label>
                         <select id="accountable-to" name="accountable_to[]" multiple="multiple"
                                 class="accountable-to-custom form-control" style="width: 100%">
                             <option></option>
