@@ -26,7 +26,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-    
+
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -56,32 +56,26 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-                
-                @if((app(AllServices::class)->isLoggedUserHasAdminAccess()))
+
+                @if((app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->id)))
                 @include('components.upload-tipe-laporan')
+                    <a href="{{ route('viewLaporanType') }}" class="btn btn-success mb-3">
+                        <i class="fas fa-plus"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
+                    </a>
                 @endif
-                
-              
-                
-                
-                @php
-                $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role);
-                // dd($isResponsible);
-            @endphp
-            
-           
-            
+
+
             @php
-            $isResponsiblenot = app(AllServices::class)->isNotResponsible(auth()->user()->role);
+            $isResponsiblenot = app(AllServices::class)->isnotAccountable(auth()->user()->role);
             // dd($isResponsible);
         @endphp
-        
+
             @if($isResponsiblenot === false)
             @include('components.upload-laporan')
             @endif
-            
-            
-                
+
+
+
 
 
             <table id="example1" class="table table-bordered table-striped">
@@ -98,12 +92,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess() || auth()->user()->id == $item->created_by)
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id == $item->created_by)
                     <tr style="
-                            @if($item->status === 1) background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status === 0) background-color:  #f2dedf /* Warna merah */
+                            @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
+                            @elseif($item->status == 'Ditolak') background-color:  #f2dedf; /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">
@@ -132,15 +126,7 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    @php
-                                    if($item->status === null) {
-                                        echo 'Menunggu';
-                                    } elseif ($item->status === 1) {
-                                        echo 'Disetujui';
-                                    } elseif ($item->status === 0) {
-                                        echo 'Ditolak';
-                                    }
-                                    @endphp
+                                    {{$item->status}}
                                 </div>
                             </div>
                         </td>
@@ -172,18 +158,19 @@
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
                                     @php
-                                    if($item->status === null) {
+                                    if($item->status == 'Menunggu') {
                                         echo '-';
-                                    } elseif ($item->status === 1) {
+                                    } elseif ($item->status == 'Disetujui') {
                                         echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                    } elseif ($item->status === 0) {
+                                    } elseif ($item->status == 'Ditolak') {
                                         echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp
                                 </div>
                             </div>
                         </td>
-                        
+
+
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
@@ -195,18 +182,17 @@
                         </td>
 
 
-                        
                     </tr>
                     @endif
                     @endforeach
                 </tbody>
             </table>
-            
-
-                
 
 
-                
+
+
+
+
 
 
             </div>

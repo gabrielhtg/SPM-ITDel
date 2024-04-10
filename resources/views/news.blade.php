@@ -86,23 +86,37 @@
                                                 <div class="modal-body">
                                                     <form id="form-editNews" method="POST" action="{{ route('updatenews', ['id' => $item->id]) }}" enctype="multipart/form-data">
                                                         @csrf
+
                                                         {{-- input title --}}
                                                         <div class="form-group mt-1">
                                                             <label for="judul">Judul Berita</label>
-                                                            <input type="text" name="title" id="title" class="form-control" value="{{ $item->title }}" required>
+                                                            <input type="text" name="title" id="title" class="form-control" value="{{ $item->title }}">
                                                         </div>
+
                                                         {{-- input konten --}}
-                                                        <label for="summernote">Keterangan News</label>
+                                                        <label for="summernote">Keterangan Berita</label>
                                                         <textarea class="summernote form-control" name="description">{!! $item->description !!}</textarea>
+
                                                         {{-- input file --}}
                                                         <div class="form-group">
-                                                            <label for="file">Gambar News</label>
+                                                            <label for="bgimage">Gambar Berita</label>
                                                             <div class="input-group">
                                                                 <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" id="inputFile" name="bgimage" value="{{ asset('src/gambarnews/'.$item->bgimage) }}">
-                                                                    <label id="inputLabel" class="custom-file-label" for="bgimage">{{ $item->bgimage }}</label>
+                                                                    <input type="file" class="custom-file-input" id="bgimage" name="bgimage">
+                                                                    <label class="custom-file-label" for="bgimage">{{ $item->bgimage }}</label>
                                                                 </div>
                                                             </div>
+                                                        </div>                                                        
+
+                                                        {{-- input time --}}
+                                                        <div class="form-group">
+                                                            <label>Tanggal Mulai</label>
+                                                            <input type="datetime-local" name="start_date" class="form-control" value="{{ $item->start_date }}" required>
+                                                        </div>
+                                                        
+                                                        <div class="form-group">
+                                                            <label>Tanggal Berakhir</label>
+                                                            <input type="datetime-local" name="end_date" class="form-control" value="{{ $item->end_date }}">
                                                         </div>
                                                     </form>
                                                 </div>
@@ -159,9 +173,17 @@
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <!-- Page specific script -->
 
-<script>
+{{-- <script>
     document.getElementById('inputGambar').addEventListener('change', function (e) {
         var fileName = document.getElementById('inputGambar').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script> --}}
+
+<script>
+    document.getElementById('bgimage').addEventListener('change', function(e) {
+        var fileName = document.getElementById('bgimage').files[0].name;
         var nextSibling = e.target.nextElementSibling;
         nextSibling.innerText = fileName;
     });

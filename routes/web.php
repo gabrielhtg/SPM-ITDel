@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
+use App\Http\Middleware\ActiveNews;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,9 +44,9 @@ Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage
 Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 Route::middleware('auth')->group(function () {
 
-//    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    //    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    //    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    //    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
     Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
@@ -57,7 +58,7 @@ Route::middleware('auth')->group(function () {
 
     // about it del
     Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
-    Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout');
+    Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout')->middleware(ActiveNews::class);
     Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
     // Route::get('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
     Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');

@@ -18,30 +18,35 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\HeroDocumentController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Middleware\ActiveNews;
 use Illuminate\Support\Facades\Route;
 
 
 Route::middleware('guest')->group(function () {
-    Route::get('/', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard')
+        ->middleware(ActiveNews::class);
+
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
-                ->name('login');
+        ->name('login');
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
-                ->name('password.request');
+        ->name('password.request');
 
     Route::post('forgot-password', [PasswordResetLinkController::class, 'store'])
-                ->name('password.email');
+        ->name('password.email');
 
     Route::get('reset-password/{token}', [NewPasswordController::class, 'create'])
-                ->name('password.reset');
+        ->name('password.reset');
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
-                ->name('password.store');
+        ->name('password.store');
 
     Route::get('/register', [RegisteredUserController::class, 'getHalamanLogin'])->name('register-page');
 
@@ -49,13 +54,13 @@ Route::middleware('guest')->group(function () {
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
-//    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
+    //    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         $data = [
-            'active_sidebar' => [1,0]
+            'active_sidebar' => [1, 0]
         ];
         return view('dashboard', $data);
     })->name('admin-dashboard');
@@ -99,8 +104,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete-register-request', [RegisteredUserController::class, 'deleteRegisterRequest'])->name('delete-register-request');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
-//            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');.update');
+        //            Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        //    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');.update');
         Route::post('/edit-profile', [ProfileController::class, 'editProfile'])->name('edit-profile');
 
         Route::get('/change-profile-pict', [ProfileController::class, 'changeProfilePict'])->name('change-profile-pict');
@@ -132,7 +137,8 @@ Route::middleware('auth')->group(function () {
         Route::delete('/remove-document', [DocumentController::class, 'removeDocument'])->name('remove-document');
         Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');
         Route::post('upload-laporan-type', [TypeDocumentController::class, 'addLaporanType'])->name('uploadTypeLaporan');
-        Route::post('edit-laporan-type', [TypeDocumentController::class, 'editLaporanType'])->name('editTypeLaporan');
+        Route::post('/edit-type-laporan/{id}', [TypeDocumentController::class, 'editLaporanType'])->name('editTypeLaporan');
+        Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
 
 
 

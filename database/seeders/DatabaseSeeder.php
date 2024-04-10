@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             createRole::class,
             allowedUser::class,
             create_dashboard_introduction::class,
-            create_news::class,
+            // create_news::class,
             Dokumen::class,
             DocType::class,
             HeroDocumentSeeder::class,

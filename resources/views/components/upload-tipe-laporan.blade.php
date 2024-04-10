@@ -23,7 +23,7 @@
 
                     <div class="form-group">
                         <label for="start_date">Tanggal Mulai:</label>
-                        <input type="datetime-local" id="start_date" name="start_date" class="form-control" required>
+                        <input type="datetime-local" id="start_date" name="start_date" class="form-control">
                     </div>
 
                     <div class="form-group">

@@ -14,5 +14,8 @@ class News extends Model
         'title',
         'description',
         'bgimage',
+        'start_date',
+        'end_date',
+        'keterangan_status'
     ];
 }

@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('directory');
             $table->boolean('revisi')->default(false);
             $table->string('tujuan');
-            $table->string('accountable_to');
-            $table->string('informable_to');
-            $table->boolean('status')->nullable();
+            $table->string('accountable_to')->nullable();
+            $table->string('informable_to')->nullable();
+            $table->string('status')->default('Menunggu');
             $table->timestamp('approve_at')->nullable();
             $table->timestamp('reject_at')->nullable();
             $table->timestamps();
