@@ -67,7 +67,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="wajib-melaporkan">Wajib Melaporkan</label>
-                        <select id="wajib-melaporkan" name="wajib_melaporkan[]" class="informable-to-custom form-control"
+                        <select id="wajib-melaporkan" name="wajib_melaporkan[]" class="laporkan-custom form-control"
                                 multiple="multiple" style="width: 100%">
                             <option></option>
                             @foreach($tipe_dokumen as $e)

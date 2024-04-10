@@ -40,7 +40,7 @@
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="input-group">
-                    <input name="username" type="text" class="form-control" placeholder="Nama Pengguna" required autofocus autocomplete="username">
+                    <input name="username" type="text" class="form-control" placeholder="Username" required autofocus autocomplete="username">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -50,7 +50,7 @@
                 <span class="text-danger">{{ $errors->first('username') }}</span>
 
                 <div class="input-group mt-3">
-                    <input type="password" name="password" id="password" class="form-control" placeholder="Kata Sandi" required autocomplete="current-password">
+                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required autocomplete="current-password">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>

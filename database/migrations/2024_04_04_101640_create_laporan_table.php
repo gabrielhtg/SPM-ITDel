@@ -17,8 +17,8 @@ return new class extends Migration
             $table->foreign('id_tipelaporan')->references('id')->on('tipe_laporan');
             $table->unsignedBigInteger('direview_oleh')->nullable();
             $table->foreign('direview_oleh')->references('id')->on('users');
-            $table->unsignedBigInteger('created_by');
-            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id   ')->on('users');
             $table->string('nama_laporan');
             $table->string('directory');
             $table->boolean('revisi')->default(false);

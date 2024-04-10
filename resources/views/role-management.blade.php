@@ -338,6 +338,9 @@
         $('.informable-to-custom').select2({
             placeholder: "Pilih role",
         });
+        $('.laporkan-custom').select2({
+            placeholder: "Pilih tipe laporan",
+        });
     })
 </script>
 </body>
