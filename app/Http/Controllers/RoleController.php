@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\InformableModel;
+use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use App\Models\User;
@@ -39,16 +40,25 @@ class RoleController extends Controller
         if ($request->wajib_melaporkan !== null) {
             $laporan = implode(";", $request->wajib_melaporkan);
         }
-
         try {
             $newRole = RoleModel::create([
                 'role' => $request->nama_role,
                 'atasan_id' => $request->atasan_role,
-                'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
                 'status' => true,
                 'is_admin' => $request->is_admin,
                 'required_to_submit_document' => $laporan
             ]);
+
+            $arrayResponsibleTo = AllServices::getResponsibleTo($request->atasan_role);
+
+            if (count($arrayResponsibleTo) > 0) {
+                foreach ($arrayResponsibleTo as $e) {
+                    ResponsibleModel::create([
+                        'role' => $newRole->id,
+                        'responsible_to' => $e
+                    ]);
+                }
+            }
 
             if ($request->informable_to !== null) {
                 foreach ($request->informable_to as $e) {
@@ -87,7 +97,6 @@ class RoleController extends Controller
     public function updateStatus (Request $request) {
         $role = RoleModel::find($request->id);
         $users = User::all();
-        $allRole = RoleModel::all();
 
         foreach ($users as $user) {
             if (AllServices::isUserRole($user, $request->id)) {
@@ -175,13 +184,27 @@ class RoleController extends Controller
             ]);
         }
 
+        if ($role->atasan_id !== $request->atasan_role) {
+            AllServices::clearResponsibleTo($request->id);
+
+            $arrayResponsibleTo = AllServices::getResponsibleTo($request->atasan_role);
+
+            if (count($arrayResponsibleTo) > 0) {
+                foreach ($arrayResponsibleTo as $e) {
+                    ResponsibleModel::create([
+                        'role' => $request->id,
+                        'responsible_to' => $e
+                    ]);
+                }
+            }
+        }
+
         $role->update([
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
-            'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
+//            'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
             'is_admin' => $request->is_admin,
         ]);
-
 
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
     }

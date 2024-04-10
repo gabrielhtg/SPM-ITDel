@@ -103,7 +103,7 @@
                                     {{ AllServices::getAllBawahan($e->id) }}
                                 </td>
                                 <td>
-                                    {{ AllServices::convertRole($e->responsible_to) }}
+                                    {{ AllServices::getAllResponsible($e->id) }}
                                 </td>
                                 <td>
                                     {{ AllServices::getAllAccountableTo($e->id) }}

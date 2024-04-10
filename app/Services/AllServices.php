@@ -6,6 +6,7 @@ use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\DocumentModel;
 use App\Models\InformableModel;
+use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use Illuminate\Support\Carbon;
@@ -217,10 +218,11 @@ class AllServices
         return false;
     }
 
-    static public function getResponsibleTo ($idAtasan) : ?string {
+    static public function getResponsibleTo ($idAtasan) : array {
         if($idAtasan != null) {
             $nextRole = $idAtasan;
-            $responsibleTo = strval($idAtasan);
+            $responsibleTo = array();
+            $responsibleTo[] = $idAtasan;
 
             while (true) {
                 $visitedRole = RoleModel::find($nextRole);
@@ -230,12 +232,12 @@ class AllServices
                     break;
                 }
 
-                $responsibleTo = $responsibleTo . ';' . $nextRole;
+                $responsibleTo[] = $nextRole;
             }
             return $responsibleTo;
         }
 
-        return null;
+        return [];
     }
 
     /**
@@ -448,6 +450,37 @@ class AllServices
 
         else {
             return "Not Defined Yet!";
+        }
+    }
+
+    public static function getAllResponsible($id) : string {
+        $responsibleTo = ResponsibleModel::where("role", $id)->get();
+
+        $output = '';
+
+        if ($responsibleTo !== null) {
+            foreach ($responsibleTo as $e) {
+                $output = $output . RoleModel::find($e->responsible_to)->role . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Not Defined Yet!";
+            }
+
+            return substr($output, 0, -2);
+        }
+
+        else {
+            return "Not Defined Yet!";
+        }
+    }
+
+    public static function clearResponsibleTo($id) : void
+    {
+        $responsible = ResponsibleModel::where('role', $id)->get();
+
+        foreach ($responsible as $e) {
+            $e->delete();
         }
     }
 }
