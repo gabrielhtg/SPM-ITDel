@@ -59,8 +59,8 @@ class TypeDocumentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan',
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'nullable',
+            'end_date' => 'nullable',
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
@@ -87,20 +87,15 @@ class TypeDocumentController extends Controller
         // Validasi data yang diubah
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan,nama_laporan,'.$id,
-            'start_date' => 'required',
-            'end_date' => 'required',
+            'start_date' => 'nullable',
+            'end_date' => 'nullable',
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
 
-        // Cek apakah pengguna memiliki izin untuk mengedit tipe laporan
-        if (!AllServices::isAdmin()) {
-            return redirect()->route('LaporanManagement')->with('toastData', ['success' => false, 'text' => 'You are not authorized to edit document types.']);
-        }
-
         // Jika validasi gagal, kembalikan dengan pesan kesalahan
         if ($validator->fails()) {
-            return redirect()->route('editLaporanForm', $id)->withErrors($validator)->withInput();
+            return redirect()->route('viewLaporanType', $id)->withErrors($validator)->withInput();
         }
 
         // Perbarui data tipe laporan
@@ -111,9 +106,26 @@ class TypeDocumentController extends Controller
         $laporan->save();
 
         // Redirect kembali ke halaman manajemen tipe laporan dengan pesan sukses
-        return redirect()->route('LaporanManagement')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil diperbarui!']);
+        return redirect()->route('viewLaporanType')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil diperbarui!']);
     }
 
+    public function deleteLaporanType($id)
+    {
+        // Temukan data laporan berdasarkan ID
+        $tipe_laporan = LaporanTypeModel::find($id);
+
+        // Periksa apakah data ditemukan
+        if($tipe_laporan) {
+            // Jika ditemukan, hapus data
+            $tipe_laporan->delete();
+
+            // Redirect kembali dengan pesan sukses
+            return redirect()->route('viewLaporanType')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil dihapus!']);
+        } else {
+            // Jika data tidak ditemukan, redirect kembali dengan pesan error
+            return redirect()->route('viewLaporanType')->with('toastData', ['success' => false, 'text' => 'Tipe laporan tidak ditemukan!']);
+        }
+    }
 
 
 }

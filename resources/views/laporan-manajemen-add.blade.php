@@ -26,7 +26,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-    
+
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -56,23 +56,26 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-                
+
                 @if((app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->id)))
                 @include('components.upload-tipe-laporan')
+                    <a href="{{ route('viewLaporanType') }}" class="btn btn-success mb-3">
+                        <i class="fas fa-plus"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
+                    </a>
                 @endif
-                
-            
+
+
             @php
             $isResponsiblenot = app(AllServices::class)->isnotAccountable(auth()->user()->role);
             // dd($isResponsible);
         @endphp
-        
+
             @if($isResponsiblenot === false)
             @include('components.upload-laporan')
             @endif
-            
-            
-                
+
+
+
 
 
             <table id="example1" class="table table-bordered table-striped">
@@ -89,12 +92,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    
+
                     @foreach ($laporan as $item)
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id == $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status == 'Ditolak') background-color:  #f2dedf /* Warna merah */
+                            @elseif($item->status == 'Ditolak') background-color:  #f2dedf; /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">
@@ -166,8 +169,8 @@
                                 </div>
                             </div>
                         </td>
-                        
-                        
+
+
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
@@ -179,18 +182,17 @@
                         </td>
 
 
-                        
                     </tr>
                     @endif
                     @endforeach
                 </tbody>
             </table>
-            
-
-                
 
 
-                
+
+
+
+
 
 
             </div>

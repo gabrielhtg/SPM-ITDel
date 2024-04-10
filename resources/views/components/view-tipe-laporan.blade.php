@@ -56,72 +56,98 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-
-
+                <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-success mb-3">
+                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Kembali</span>
+                </a>
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Tipe Dokmen</th>
+                        <th>Tipe Dokumen</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Berakhir</th>
                     </tr>
                     </thead>
                     <tbody>
-
                     @foreach($tipe_laporan as $e)
-                        @if(app(AllServices::class)->isAdmin() || auth()->user()->id == $item->created_by||(app(AllServices::class)->isUserRole(auth()->user(), $item->tujuan)))
-                            <tr style="background-color: #ffffff;">
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            {{ $e->nama_laporan }}
-                                        </div>
+                        <tr>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{ $e->nama_laporan }}
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            {{ $e->start_date }}
-                                        </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{ $e->start_date }}
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            {{ $e->end_date }}
-                                        </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{ $e->end_date }}
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="d-flex" style="gap: 5px">
-                                        <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                        <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle fa-inverse"></i></button>
-                                        {{-- // jika user sekarang == user yang upload di data Dokumen
-                                        // if userSekarang -> id == document->created_by --}}
-                                        <a href="#" class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                    </div>
-                                </td>
-
-                            </tr>
-                        @endif
+                                </div>
+                            </td>
+                            <td>
+                                <div class="d-flex" style="gap: 5px">
+                                    <a data-target="#modal-edit-{{ $e->id }}" class="btn btn-success" data-toggle="modal"><i class="fas fa-edit"></i></a>
+                                    <form method="POST" action="{{ route('deleteTypeLaporan', ['id' => $e->id]) }}" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
                     @endforeach
                     </tbody>
                 </table>
-
-
-
-
-
-
-
-
             </div>
             <!-- /.card-body -->
         </div>
-        <!-- /.content -->
-    </div>
+        <!-- /.card -->
+    @foreach($tipe_laporan as $e)
+        <!-- Modal Edit -->
+        <div class="modal fade" id="modal-edit-{{ $e->id }}">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Edit Tipe Laporan</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Form untuk mengedit data -->
+                        <form method="POST" action="{{ route('editTypeLaporan', ['id' => $e->id]) }}">
+                            @csrf
+                            <!-- Input fields untuk mengedit -->
+                            <div class="form-group">
+                                <label for="edit_nama_laporan">Nama Laporan:</label>
+                                <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $e->nama_laporan }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_start_date">Tanggal Mulai:</label>
+                                <input type="datetime-local" id="edit_start_date" name="start_date" class="form-control" value="{{ $e->start_date }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="edit_end_date">Tanggal Berakhir:</label>
+                                <input type="datetime-local" id="edit_end_date" name="end_date" class="form-control" value="{{ $e->end_date }}">
+                            </div>
+                            <!-- Button untuk menyimpan perubahan -->
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
     <!-- /.content-wrapper -->
     @include('components.footer')
 
@@ -206,23 +232,6 @@
     });
 </script>
 <script>
-    $(function () {
-        // Summernote
-        $('#summernote').summernote({
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-
     $(document).ready(function () {
         $('.select2').select2({
             placeholder: "Search Document Type",
@@ -230,7 +239,6 @@
             minimumInputLength: 1 // Minimum characters to start searching
         });
     });
-
 </script>
 <script>
     $(function () {
@@ -251,26 +259,7 @@
         });
     });
 </script>
-<script>
-    $(function () {
-        // Summernote
-        $('.summernote').summernote({
-            minHeight: 230,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-</script>
-
+</div>
 
 </body>
 </html>
