@@ -81,12 +81,9 @@
                     <tbody>
                         
                         @foreach ($laporan as $item)
-                        {{-- @php
                         
-                        dd(app(AllServices::class)->isAccountable(auth()->user()->role));
-                        @endphp --}}
                         
-                        @if((app(AllServices::class)->isUserRole(auth()->user(), $item->responsible_to)|| app(AllServices::class)->isUserRole(auth()->user(), $item->informable_to)))
+                        @if((app(AllServices::class)->isUserRole(auth()->user(), $item->responsible_to)|| app(AllServices::class)->isUserRole(auth()->user(), $item->informable_to)||(app(AllServices::class)->isUserRole(auth()->user(), $item->accountable_to))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
                                 @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */
