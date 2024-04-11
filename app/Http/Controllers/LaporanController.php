@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Models\JenisLaporan;
 use App\Models\Laporan;
 use App\Services\AllServices;
 use Illuminate\Support\Carbon;
@@ -29,7 +30,8 @@ class LaporanController extends Controller
     $documentIds = explode(';', $document);
 
    
-    $tipe_laporan = TipeLaporan::whereIn('id', $documentIds)->get();
+    $tipe_laporan = JenisLaporan::whereIn('id_tipelaporan', $documentIds)->get();
+    
 
     $data = [
         'uploadedUsers' => $uploadedUsers,
@@ -65,7 +67,7 @@ class LaporanController extends Controller
                 $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
                 $document = $role->required_to_submit_document;
                 $documentIds = explode(';', $document);
-                $tipe_laporan = TipeLaporan::whereIn('id', $documentIds)->get();
+                $tipe_laporan = TipeLaporan::all();
 
                 $data = [
                     'uploadedUsers' => $uploadedUsers,

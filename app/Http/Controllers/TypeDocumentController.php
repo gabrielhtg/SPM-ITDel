@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Models\DocumentTypeModel;
 use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
+use App\Models\JenisLaporan;
+use App\Models\TipeLaporan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\AllServices;
@@ -59,8 +61,6 @@ class TypeDocumentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan',
-            'start_date' => 'nullable',
-            'end_date' => 'nullable',
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
@@ -75,8 +75,7 @@ class TypeDocumentController extends Controller
 
         LaporanTypeModel::create([
             'nama_laporan' => $request->nama_laporan,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date,
+           
         ]);
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
@@ -87,8 +86,7 @@ class TypeDocumentController extends Controller
         // Validasi data yang diubah
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan,nama_laporan,'.$id,
-            'start_date' => 'nullable',
-            'end_date' => 'nullable',
+           
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
@@ -101,8 +99,6 @@ class TypeDocumentController extends Controller
         // Perbarui data tipe laporan
         $laporan = LaporanTypeModel::find($id);
         $laporan->nama_laporan = $request->nama_laporan;
-        $laporan->start_date = $request->start_date;
-        $laporan->end_date = $request->end_date;
         $laporan->save();
 
         // Redirect kembali ke halaman manajemen tipe laporan dengan pesan sukses
@@ -126,6 +122,102 @@ class TypeDocumentController extends Controller
             return redirect()->route('viewLaporanType')->with('toastData', ['success' => false, 'text' => 'Tipe laporan tidak ditemukan!']);
         }
     }
+
+
+
+    public function addLaporanJenis(Request $request)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after:start_date',
+    ], [
+        'nama.required' => 'Nama laporan harus diisi.',
+        'start_date.required' => 'Tanggal mulai harus diisi.',
+        'start_date.date' => 'Tanggal mulai harus berupa tanggal.',
+        'end_date.required' => 'Tanggal selesai harus diisi.',
+        'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
+        'end_date.after' => 'Tanggal selesai harus setelah tanggal mulai.',
+    ]);
+
+    // Cek apakah pengguna memiliki akses admin
+    // if (!AllServices::isLoggedUserHasAdminAccess()) {
+    //     return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => 'Anda tidak diizinkan menambahkan jenis laporan.']);
+    // }
+
+    // Jika validasi gagal
+    if ($validator->fails()) {
+        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+    }
+
+    // Dapatkan nama tipe laporan berdasarkan id_tipelaporan
+    $tipe_laporan = TipeLaporan::find($request->id_tipelaporan);
+    $nama_tipe = $tipe_laporan->nama_laporan;
+
+    // Gabungkan nama tipe laporan dengan nama jenis laporan dari form
+    $nama_laporan = $nama_tipe . ' (' . $request->input('nama') . ')';
+
+    // Simpan data jenis laporan
+    JenisLaporan::create([
+        'id_tipelaporan' => $request->id_tipelaporan,
+        'nama' => $nama_laporan,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+    ]);
+
+    return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
+}
+
+    
+public function updateLaporanJenis(Request $request, $id)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama' => 'required',
+        'start_date' => 'required|date',
+        'end_date' => 'required|date|after:start_date',
+    ], [
+        'nama.required' => 'Nama laporan harus diisi.',
+        'start_date.required' => 'Tanggal mulai harus diisi.',
+        'start_date.date' => 'Tanggal mulai harus berupa tanggal.',
+        'end_date.required' => 'Tanggal selesai harus diisi.',
+        'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
+        'end_date.after' => 'Tanggal selesai harus setelah tanggal mulai.',
+    ]);
+
+    // Jika validasi gagal
+    if ($validator->fails()) {
+        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+    }
+
+    // Ambil data jenis laporan berdasarkan ID
+    $jenisLaporan = JenisLaporan::find($id);
+
+    // Jika data jenis laporan tidak ditemukan
+    if (!$jenisLaporan) {
+        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => 'Jenis laporan tidak ditemukan.']);
+    }
+
+    // Dapatkan nama tipe laporan berdasarkan id_tipelaporan
+    $tipe_laporan = TipeLaporan::find($request->id_tipelaporan);
+    $nama_tipe = $tipe_laporan->nama_laporan;
+
+    // Gabungkan nama tipe laporan dengan nama jenis laporan dari form
+    $nama_laporan = $nama_tipe . ' (' . $request->input('nama') . ')';
+
+    // Update data jenis laporan
+    $jenisLaporan->update([
+        'id_tipelaporan' => $request->id_tipelaporan,
+        'nama' => $nama_laporan,
+        'start_date' => $request->start_date,
+        'end_date' => $request->end_date,
+    ]);
+
+    return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => true, 'text' => 'Jenis laporan berhasil diupdate!']);
+}
+
+
 
 
 }

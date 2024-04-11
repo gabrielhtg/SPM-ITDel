@@ -23,7 +23,7 @@
                         <tr>
                             <th>Nama Dokumen</th>
                             <th>Periode</th>
-                            <th>Tipe Laporan</th>
+                            <th>Jenis Laporan</th>
                             <th>Pengirim</th>
                             <th>Aksi</th>
                             
@@ -52,7 +52,7 @@
                                 </div>
                             </td>
                             <td>
-                                {{$lap->tipeLaporan->nama_laporan}}
+                                {{$lap->JenisLaporan->nama}}
                             </td>
                             <td>
                                 <div class="user-panel d-flex">

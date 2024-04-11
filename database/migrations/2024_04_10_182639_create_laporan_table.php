@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('laporan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_tipelaporan');
-            $table->foreign('id_tipelaporan')->references('id')->on('tipe_laporan');
+            $table->foreign('id_tipelaporan')->references('id')->on('jenis_laporan');
             $table->unsignedBigInteger('direview_oleh')->nullable();
             $table->foreign('direview_oleh')->references('id')->on('users');
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
             $table->string('nama_laporan');
             $table->string('directory');

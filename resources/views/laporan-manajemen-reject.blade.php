@@ -63,14 +63,17 @@
                 
                 @if($isResponsible)
                     @include('components.list-document-pending-modal')
+                    @include('components.upload-jenis-laporan')
                 @endif
+
+                
     
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Periode</th>
                             <th>Tipe Laporan</th>
+                            <th>Jenis Laporan</th>
                             <th>Status</th>
                             <th>Dibuat Oleh</th>
                             <th>Diperiksa Oleh</th>
@@ -101,14 +104,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        April
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{$item->tipeLaporan->nama_laporan}}
+                                        {{$item->JenisLaporan->nama}}
                                     </div>
                                 </div>
                             </td>

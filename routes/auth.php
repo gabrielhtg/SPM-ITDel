@@ -139,6 +139,7 @@ Route::middleware('auth')->group(function () {
         Route::post('upload-laporan-type', [TypeDocumentController::class, 'addLaporanType'])->name('uploadTypeLaporan');
         Route::post('/edit-type-laporan/{id}', [TypeDocumentController::class, 'editLaporanType'])->name('editTypeLaporan');
         Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
+        Route::post('upload-laporan-jenis', [TypeDocumentController::class, 'addLaporanJenis'])->name('uploadJenisLaporan');
 
 
 

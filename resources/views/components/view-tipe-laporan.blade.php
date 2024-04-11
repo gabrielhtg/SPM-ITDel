@@ -56,16 +56,16 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-success mb-3">
-                    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Kembali</span>
+                <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-primary mb-3">
+                    <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
                 </a>
+                
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Tipe Dokumen</th>
-                        <th>Tanggal Mulai</th>
-                        <th>Tanggal Berakhir</th>
+                        <th>Tipe Laporan</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -75,20 +75,6 @@
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
                                         {{ $e->nama_laporan }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->start_date }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->end_date }}
                                     </div>
                                 </div>
                             </td>

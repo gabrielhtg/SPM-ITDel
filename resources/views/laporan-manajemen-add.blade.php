@@ -59,9 +59,10 @@
 
                 @if((app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->id)))
                 @include('components.upload-tipe-laporan')
-                    <a href="{{ route('viewLaporanType') }}" class="btn btn-success mb-3">
-                        <i class="fas fa-plus"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
-                    </a>
+                <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
+                    <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
+                </a>
+                
                 @endif
 
 
@@ -82,8 +83,7 @@
                 <thead>
                     <tr>
                         <th>Nama</th>
-                        <th>Periode</th>
-                        <th>Tipe Laporan</th>
+                        <th>Jenis Laporan</th>
                         <th>Status</th>
                         <th>Dibuat Oleh</th>
                         <th>Diperiksa Oleh</th>
@@ -112,14 +112,7 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    April
-                                </div>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="user-panel d-flex">
-                                <div class="d-flex align-items-center">
-                                    {{$item->tipeLaporan->nama_laporan}}
+                                    {{$item->jenisLaporan->nama}}
                                 </div>
                             </div>
                         </td>

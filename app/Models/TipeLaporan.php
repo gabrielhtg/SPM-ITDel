@@ -14,8 +14,8 @@ class TipeLaporan extends Model
     protected $fillable = [
         'id',
         'nama_laporan',
-        'start_date',
-        'end_date'
+        // 'start_date',
+        // 'end_date'
     ];
 
 }
