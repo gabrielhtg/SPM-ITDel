@@ -34,8 +34,7 @@
                         
                         @endphp
                         @foreach($laporan as $lap)
-                        
-                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isUserRole(auth()->user(), $lap->accountable_to)) )
+                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($lap->created_by))) )
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">

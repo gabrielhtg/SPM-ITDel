@@ -96,12 +96,9 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            @php
-                            $isnot = app(AllServices::class)->isnotAccountable(auth()->user()->role) ;
-                            // dd($isnot);
-                            @endphp
+                           
                         
-                            @if($isnot === false ||(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)))
+                            @if(app(AllServices::class)->haveAccountable(auth()->user()->role)  ||(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)))
                             <li class="nav-item">
                                 <a href="{{ route('LaporanManagementAdd') }}"
                                    class="nav-link {{ $active_sidebar[1] == 1 ? 'active' : '' }}">

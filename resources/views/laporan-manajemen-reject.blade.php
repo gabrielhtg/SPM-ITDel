@@ -61,6 +61,7 @@
                    
                 @endphp
                 
+                
                 @if($isResponsible)
                     @include('components.list-document-pending-modal')
                     @include('components.upload-jenis-laporan')
@@ -72,7 +73,6 @@
                     <thead>
                         <tr>
                             <th>Nama</th>
-                            <th>Tipe Laporan</th>
                             <th>Jenis Laporan</th>
                             <th>Status</th>
                             <th>Dibuat Oleh</th>
@@ -82,11 +82,13 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+                       
                         @foreach ($laporan as $item)
-                        
-                        
-                        @if((app(AllServices::class)->isUserRole(auth()->user(), $item->responsible_to)|| app(AllServices::class)->isUserRole(auth()->user(), $item->informable_to)||(app(AllServices::class)->isUserRole(auth()->user(), $item->accountable_to))))
+                        {{-- @php
+                        dd((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))));
+                        dd((app(AllServices::class)->getRoleName(auth()->user()->role))===(app(AllServices::class)->getAllResponsible(app(AllServices::class)->getUserRoleById(5))));
+                        @endphp --}}
+                        @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
                                 @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */

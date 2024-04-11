@@ -26,6 +26,9 @@ class LogPengumpulanLaporan
         if ($response->getStatusCode() === 200) {
             
             $laporan = Laporan::where('status', 'Disetujui')->get();
+           
+            // $id_tipe_laporan= $laporan->id_tipelaporan;
+
 
             
             foreach ($laporan as $item) {

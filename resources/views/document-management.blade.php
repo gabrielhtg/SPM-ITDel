@@ -37,6 +37,10 @@
 
     <!-- Main Sidebar Container -->
     @include("components.sidebar")
+    {{-- @php
+    $isResponsible = app(AllServices::class)->isAccountable(auth()->user()->role);
+    dd($isResponsible);
+@endphp --}}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">

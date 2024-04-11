@@ -66,12 +66,9 @@
                 @endif
 
 
-            @php
-            $isResponsiblenot = app(AllServices::class)->isnotAccountable(auth()->user()->role);
-            // dd($isResponsible);
-        @endphp
+           
 
-            @if($isResponsiblenot === false)
+            @if(app(AllServices::class)->haveAccountable(auth()->user()->role) )
             @include('components.upload-laporan')
             @endif
 

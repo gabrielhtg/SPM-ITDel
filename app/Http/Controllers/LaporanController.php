@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AccountableModel;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\RoleModel;
@@ -48,42 +49,46 @@ class LaporanController extends Controller
 
     
 
-    public function getLaporanManagementReject()
-    {
-        
-        if (auth()->check()) {
-            $id_user = auth()->user()->role;
-            $role = RoleModel::find($id_user);
-            if ($role) {
-                
-                $laporan = Laporan::all();
-                $banyakData = Laporan::where('status', "Menunggu")
-                    ->where(function($query) use ($role) {
-                        
-                        $query->where('accountable_to', 'like', '%' . $role->id . '%');
-                    })
-                    ->count();
-                    // dd($banyakData);
-                $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
-                $document = $role->required_to_submit_document;
-                $documentIds = explode(';', $document);
-                $tipe_laporan = TipeLaporan::all();
+public function getLaporanManagementReject()
+{
+    if (auth()->check()) {
+        $userId = auth()->user()->role;
+        $role = RoleModel::find($userId);
 
-                $data = [
-                    'uploadedUsers' => $uploadedUsers,
-                    'roles' => $role,
-                    'active_sidebar' => [5, 2],  
-                    'laporan' => $laporan,
-                    'tipe_laporan' => $tipe_laporan,
-                    'banyakData' => $banyakData,
-                ];
-
+        if ($role) {
+            $laporan= Laporan::all();
+            $banyakData = 0; // Inisialisasi variabel banyakData
             
-                return view('laporan-manajemen-reject', $data);
-            }
+            foreach($laporan as $item){
+                if(($item->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))){
+                    $banyakData++; // Update nilai banyakData
+                }
+            };
+            
+        
+            $uploadedUsers = User::whereIn('id', $laporan->pluck('created_by'))->get();
+            $tipe_laporan = TipeLaporan::all();
+            // dd($accountableModel);
+            // dd($banyakData);
+
+            $data = [
+                'uploadedUsers' => $uploadedUsers,
+                'roles' => $role,
+                'active_sidebar' => [5, 2],  
+                'laporan' => $laporan,
+                'tipe_laporan' => $tipe_laporan,
+                'banyakData' => $banyakData,
+            ];
+
+            return view('laporan-manajemen-reject', $data);
         }
-        return redirect()->route('login')->with('error', 'Anda harus login untuk mengakses halaman ini');
     }
+
+    return redirect()->route('login')->with('error', 'Anda harus login untuk mengakses halaman ini');
+}
+
+
+
 
     public function addLaporan(Request $request)
     {
@@ -117,15 +122,12 @@ class LaporanController extends Controller
         $id_user = auth()->user()->role;
         $role = RoleModel::find($id_user);
        
-        $id_atasan = $role->atasan_id;
-        $allservice = new AllServices();
-        $tujuan = $allservice->getResponsibleTo($id_atasan);
+        
+       
         
         
      
-        $accountable_to=$role->accountable_to;
-        // dd($accountable_to);
-        $informable_to=$role->informable_to;
+      
        
         
        
@@ -135,9 +137,6 @@ class LaporanController extends Controller
             'directory' => $file ? '/src/documents/'.$fileName : null,
             'created_by' => auth()->user()->id,
             'revisi' => $request->revisi ?? false,
-            'tujuan' => $tujuan,
-            'accountable_to'=>$accountable_to,
-            'informable_to'=>$informable_to,
         ]);
        
     
