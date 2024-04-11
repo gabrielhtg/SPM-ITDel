@@ -42,7 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
             CheckDocumentReplaced::class,
-            LogPengumpulanLaporan::class,
+         
             
         ],
 
@@ -74,6 +74,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDocumentActive' => CheckDocumentActive::class,
         'checkDocumentReplaced'=>CheckDocumentReplaced::class,
-        'logPengumpulanLaporan'=>LogPengumpulanLaporan::class,
+        
     ];
 }

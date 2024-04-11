@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use App\Models\JenisLaporan;
+use App\Models\LogLaporan;
 use App\Models\Laporan;
 use App\Services\AllServices;
 use Illuminate\Support\Carbon;
@@ -147,13 +148,32 @@ public function getLaporanManagementReject()
     {   
         $nowDate = Carbon::now();
         $laporan = Laporan::findOrFail($id);
+        $tipeLaporan = TipeLaporan::findOrFail($laporan->id_tipelaporan);
+    
+        // Update status laporan
         $laporan->status = 'Disetujui'; 
         $laporan->approve_at = $nowDate;
         $laporan->direview_oleh = auth()->user()->id;
         $laporan->save();
-
-        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetuji!']);
+    
+        // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
+        $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $tipeLaporan->start_date);
+        $carbonCreateDate = Carbon::createFromFormat('Y-m-d H:i:s', $laporan->created_at);
+        
+        // Tentukan status berdasarkan perbandingan tanggal
+        $status = $carbonCreateDate->greaterThan($carbonStartDate) ? 'Terlambat' : 'Tepat Waktu';
+    
+        // Buat log laporan dengan status yang ditentukan
+        LogLaporan::create([
+            'id_jenis_laporan' => $laporan->id_tipelaporan,
+            'upload_by' => $laporan->created_by,
+            'status' => $status,
+        ]);
+    
+        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
     }
+    
+
 
 
 public function reject($id)
