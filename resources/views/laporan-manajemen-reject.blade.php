@@ -64,7 +64,7 @@
                 
                 @if($isResponsible)
                     @include('components.list-document-pending-modal')
-                    @include('components.upload-jenis-laporan')
+                    
                 @endif
 
                 

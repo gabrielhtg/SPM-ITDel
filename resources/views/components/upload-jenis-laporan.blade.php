@@ -18,7 +18,7 @@
                         <label for="document-type">Tipe Laporan</label>
                         <select class="form-control" id="id_tipelaporan" name="id_tipelaporan" required>
                             <option value="">Pilih Tipe Laporan</option>
-                            @foreach($tipe_laporan as $tipe)
+                            @foreach($type_laporan as $tipe)
                                 <option value="{{ $tipe->id }}">{{ $tipe->nama_laporan }}</option>
                             @endforeach
                         </select>
