@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('id_tipelaporan')->references('id')->on('tipe_laporan');
             $table->string('nama');
             $table->timestamp('start_date');
-            $table->timestamp('end_date');
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }

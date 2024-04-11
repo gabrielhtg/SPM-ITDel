@@ -62,7 +62,7 @@
                 <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
                     <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
                 </a>
-                
+                @include('components.upload-jenis-laporan')
                 @endif
 
 
@@ -71,6 +71,8 @@
             @if(app(AllServices::class)->haveAccountable(auth()->user()->role) )
             @include('components.upload-laporan')
             @endif
+
+           
 
 
 
