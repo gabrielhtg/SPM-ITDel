@@ -23,7 +23,7 @@
                         <tr>
                             <th>Nama Dokumen</th>
                             <th>Periode</th>
-                            <th>Tipe Laporan</th>
+                            <th>Jenis Laporan</th>
                             <th>Pengirim</th>
                             <th>Aksi</th>
                             
@@ -34,8 +34,7 @@
                         
                         @endphp
                         @foreach($laporan as $lap)
-                        
-                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isUserRole(auth()->user(), $lap->accountable_to)) )
+                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($lap->created_by))) )
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
@@ -52,7 +51,7 @@
                                 </div>
                             </td>
                             <td>
-                                {{$lap->tipeLaporan->nama_laporan}}
+                                {{$lap->JenisLaporan->nama}}
                             </td>
                             <td>
                                 <div class="user-panel d-flex">

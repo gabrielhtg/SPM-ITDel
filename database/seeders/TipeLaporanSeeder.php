@@ -16,8 +16,9 @@ class TipeLaporanSeeder extends Seeder
     {
         // Buat contoh data tipe laporan
         $tipe_laporans = [
-            ['nama_laporan' => 'Laporan Harian'],
             ['nama_laporan' => 'Laporan Bulanan'],
+            ['nama_laporan' => 'Laporan TriWulan'],
+            ['nama_laporan' => 'Laporan Semesteran'],
             ['nama_laporan' => 'Laporan Tahunan'],
             // Tambahkan data lainnya sesuai kebutuhan
         ];

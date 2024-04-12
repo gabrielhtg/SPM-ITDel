@@ -26,7 +26,6 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -46,7 +45,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Log Laporan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -56,84 +55,40 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-primary mb-3">
-                    <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
-                </a>
-                
+
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Tipe Laporan</th>
-                        <th>Aksi</th>
+                        <th class="text-center">Jenis Dokumen</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($tipe_laporan as $e)
+                    
+                        @foreach($jenis_laporan as $item)
                         <tr>
                             <td>
-                                <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->nama_laporan }}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="d-flex" style="gap: 5px">
-                                    <a data-target="#modal-edit-{{ $e->id }}" class="btn btn-success" data-toggle="modal"><i class="fas fa-edit"></i></a>
-                                    <form method="POST" action="{{ route('deleteTypeLaporan', ['id' => $e->id]) }}" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                <div class="user-panel d-flex justify-content-center align-items-center">
+                                    <a href="{{ route('LogLaporanContinue', ['id' => $item->id]) }}">
+                                        {{ $item->nama_laporan }}
+                                    </a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
+                    
+                    
+                    
+                    
+                    
                     </tbody>
                 </table>
+
             </div>
             <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-    @foreach($tipe_laporan as $e)
-        <!-- Modal Edit -->
-        <div class="modal fade" id="modal-edit-{{ $e->id }}">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Tipe Laporan</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form untuk mengedit data -->
-                        <form method="POST" action="{{ route('editTypeLaporan', ['id' => $e->id]) }}">
-                            @csrf
-                            <!-- Input fields untuk mengedit -->
-                            <div class="form-group">
-                                <label for="edit_nama_laporan">Nama Laporan:</label>
-                                <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $e->nama_laporan }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_start_date">Tanggal Mulai:</label>
-                                <input type="datetime-local" id="edit_start_date" name="start_date" class="form-control" value="{{ $e->start_date }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_end_date">Tanggal Berakhir:</label>
-                                <input type="datetime-local" id="edit_end_date" name="end_date" class="form-control" value="{{ $e->end_date }}">
-                            </div>
-                            <!-- Button untuk menyimpan perubahan -->
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
-
+        <!-- /.content -->
+    </div>
     <!-- /.content-wrapper -->
     @include('components.footer')
 
@@ -184,7 +139,7 @@
         @if(session('toastData')['success'])
         Swal.fire({
             icon: 'success',
-            title: 'Success',
+            title: 'Sukses',
             text: '{!! session('toastData')['text'] !!}',
             toast: true,
             showConfirmButton: false,
@@ -204,11 +159,11 @@
         @endif
         @endif
 
-        @if (!$errors->isEmpty())
+        @if(session('toastData') != null)
         Swal.fire({
             icon: 'error',
             title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
+            text: 'Gagal edit hero! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
             toast: true,
             showConfirmButton: false,
             position: 'top-end',
@@ -218,13 +173,31 @@
     });
 </script>
 <script>
+    $(function () {
+        // Summernote
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+
     $(document).ready(function () {
         $('.select2').select2({
-            placeholder: "Search Document Type",
+            placeholder: "Cari Tipe Dokumen",
             allowClear: true,
             minimumInputLength: 1 // Minimum characters to start searching
         });
     });
+
 </script>
 <script>
     $(function () {
@@ -245,7 +218,26 @@
         });
     });
 </script>
-</div>
+<script>
+    $(function () {
+        // Summernote
+        $('.summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+</script>
+
 
 </body>
 </html>

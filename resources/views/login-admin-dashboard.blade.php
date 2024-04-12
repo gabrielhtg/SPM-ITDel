@@ -50,6 +50,37 @@
             <!-- /.content -->
         </div>
 
+        <!-- Modal -->
+        <div class="modal fade" id="personModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+                        <button type="button" class="btn btn-close" data-dismiss="modal" aria-label="Close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+                        <div id="modal-content">
+                            <img id="modal-image" src="" alt="" style="max-width: 100%; height: auto;">
+                            <p id="modal-name"></p>
+                            <p id="modal-role"></p> 
+                            <p id="modal-responsible"></p> 
+                            <p id="modal-informable"></p> 
+                            <p id="modal-accountable"></p> 
+                        </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         @include('components.footer')
 
         <!-- Control Sidebar -->
@@ -123,14 +154,40 @@
             siblingSpacing: 20,
             direction: 'top',
             nodeTemplate: (content) =>
-                `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
-              <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-              <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-             </div>`,
+                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
+                    <div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
+                        <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
+                        <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+                    </div>
+                </a>`,
+
             canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
         };
         const tree = new ApexTree(document.getElementById('svg-tree'), options);
         tree.render(data);
+
+        // Handle click event for node
+        document.querySelectorAll('.node-link').forEach(link =>{
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+                const name = this.dataset.name;
+                const image = this.dataset.images;
+                const role = this.dataset.role;
+                const responsible = this.dataset.responsible;
+                const informable = this.dataset.informable;
+                const accountable = this.dataset.accountable;
+
+                // Open modal
+                $('#personModal').modal('show');
+                $('#modal-name').text(name);
+                $('#modal-image').attr('src', image);
+                $('#modal-role').text(`Role: ${role}`);
+                $('#modal-responsible').text(`Responsible to: ${responsible}`);
+                $('#modal-informable').text(`Informable to: ${informable}`);
+                $('#modal-accountable').text(`Accountable to: ${accountable}`);
+            });
+        });
+
     </script>
 </body>
 </html>

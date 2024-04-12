@@ -24,4 +24,6 @@ class RoleModel extends Model
         'is_admin',
         'required_to_submit_document'
     ];
+
+    
 }

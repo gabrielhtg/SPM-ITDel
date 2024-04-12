@@ -9,6 +9,7 @@ use App\Models\InformableModel;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Models\User;
 use Illuminate\Support\Carbon;
 
 
@@ -260,73 +261,49 @@ class AllServices
 
         return $semuaNonaktif;
     }
-    public static function isResponsible($array): bool
+    public static function isResponsible($roleId): bool
+    {
+       // Dapatkan role berdasarkan id yang diberikan
+       $accountable = ResponsibleModel::where('responsible_to', 'LIKE', "%$roleId%")->first();
+    
+        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
+        return $accountable !== null;
+    }
+    public static function isnotAccountable($roleId): bool
     {
         // Dapatkan semua role dari database
-        $roles = RoleModel::all();
-
-        // Iterasi melalui setiap role
-        foreach($roles as $role) {
-            // Periksa apakah nilai dalam $array ada di dalam kolom responsible_to dari role saat ini
-            if (strpos($role->responsible_to, $array) !== false) {
-                return true; // Jika ada, kembalikan true
-            }
-        }
-
-        return false; // Jika tidak ada, kembalikan false
+        $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
+    
+        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
+        return $accountable !== null;
     }
-    public static function isnotAccountable($array): bool
+    
+        public static function isAccountable($roleId): bool
     {
-        // Dapatkan semua role dari database
-        $roles = RoleModel::find($array);
-
-
-        if($roles->accountable_to===null){
-            return true;
-        }
-        else{
-            return false;
-        }
-
-
+        // Cari accountable model yang memiliki role yang sesuai
+        $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
+        
+        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
+        return $accountable !== null;
     }
-    public static function isAccountable($roleId): bool
+    public static function haveAccountable($roleId): bool
     {
-        // Dapatkan role berdasarkan id yang diberikan
-        $role = RoleModel::findOrFail($roleId);
-
-        // Dapatkan semua role dari database
-        $roles = RoleModel::all();
-
-        // Iterasi melalui setiap role
-        foreach ($roles as $otherRole) {
-            // Periksa apakah id role yang diberikan termasuk dalam accountable_to suatu role lain
-            if (strpos($otherRole->accountable_to, $roleId) !== false) {
-                return true;
-            }
-        }
-
-        return false;
+        // Cari accountable model yang memiliki role yang sesuai
+        $accountable = AccountableModel::where('role', 'LIKE', "%$roleId%")->first();
+        
+        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
+        return $accountable !== null;
     }
+
+    
 
 
     public static function isInformable($roleId): bool
     {
-        // Dapatkan role berdasarkan id yang diberikan
-        $role = RoleModel::findOrFail($roleId);
-
-        // Dapatkan semua role dari database
-        $roles = RoleModel::all();
-
-        // Iterasi melalui setiap role
-        foreach ($roles as $otherRole) {
-            // Periksa apakah id role yang diberikan termasuk dalam informable_to suatu role lain
-            if (strpos($otherRole->informable_to, $roleId) !== false) {
-                return true;
-            }
-        }
-
-        return false;
+        $accountable = InformableModel::where('informable_to', 'LIKE', "%$roleId%")->first();
+    
+        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
+        return $accountable !== null;
     }
 
     public static function isThisRoleExistInArray($array, $id): bool
@@ -483,4 +460,63 @@ class AllServices
             $e->delete();
         }
     }
+
+    public static function getRoleName($id): string
+    {
+        $role = RoleModel::find($id);
+
+        return $role ? $role->role : '';
+    }
+
+    public static function isAccountableToRole($id, $roleId): bool
+{
+    // Ambil nama peran berdasarkan ID
+    $roleName = self::getRoleName($id);
+
+    // Ambil daftar accountable_to untuk peran yang diberikan
+    $accountableTo = self::getAllAccountableTo($roleId);
+
+    // Periksa apakah roleName terdapat dalam daftar accountableTo
+    return strpos($accountableTo, $roleName) !== false;
+}
+public static function isResponsibleToRole($id, $roleId): bool
+{
+    // Ambil nama peran berdasarkan ID
+    $roleName = self::getRoleName($id);
+
+    // Ambil daftar accountable_to untuk peran yang diberikan
+    $responsible = self::getAllResponsible($roleId);
+
+    // Periksa apakah roleName terdapat dalam daftar accountableTo
+    return strpos($responsible, $roleName) !== false;
+}
+
+public static function isInformableToRole($id, $roleId): bool
+{
+    // Ambil nama peran berdasarkan ID
+    $roleName = self::getRoleName($id);
+
+    // Ambil daftar accountable_to untuk peran yang diberikan
+    $informable = self::getAllInformable($roleId);
+
+    // Periksa apakah roleName terdapat dalam daftar accountableTo
+    return strpos($informable, $roleName) !== false;
+}
+    
+
+
+public function getUserRoleById($userId)
+    {
+        // Cari user berdasarkan ID
+        $user = User::find($userId);
+
+        // Jika user ditemukan, kembalikan rolenya
+        if ($user) {
+            return $user->role;
+        }
+
+        // Jika user tidak ditemukan, kembalikan null
+        return null;
+    }
+
 }

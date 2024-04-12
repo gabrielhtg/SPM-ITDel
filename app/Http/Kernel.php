@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\CheckDocumentActive;
 use App\Http\Middleware\CheckDocumentReplaced;
 use App\Http\Middleware\LaporanMiddleware;
+use App\Http\Middleware\LogPengumpulanLaporan;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -41,6 +42,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
             CheckDocumentReplaced::class,
+         
             
         ],
 
@@ -72,5 +74,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDocumentActive' => CheckDocumentActive::class,
         'checkDocumentReplaced'=>CheckDocumentReplaced::class,
+        
     ];
 }

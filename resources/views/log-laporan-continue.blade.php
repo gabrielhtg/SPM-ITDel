@@ -46,7 +46,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Log Laporan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -56,85 +56,55 @@
         <!-- Main content -->
         <div class="card">
             <div class="card-body">
-                <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-primary mb-3">
+                <a href="{{ url()->previous() }}" class="btn btn-primary mb-3">
                     <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
                 </a>
                 
 
+
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Tipe Laporan</th>
-                        <th>Aksi</th>
+                        <th>Nama</th>
+                        <th>Status</th>
+                        
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($tipe_laporan as $e)
+                    <tr>
+
+                        @foreach($log as $item)
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
-                                    <div class="d-flex align-items-center">
-                                        {{ $e->nama_laporan }}
+                                    <div class="info">
+                                    <span> {{ \App\Models\User::find($item->upload_by)->name }} <span
+                                            class="badge badge-success"
+                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->upload_by)->role) }}</span></span>
+
                                     </div>
                                 </div>
                             </td>
                             <td>
-                                <div class="d-flex" style="gap: 5px">
-                                    <a data-target="#modal-edit-{{ $e->id }}" class="btn btn-success" data-toggle="modal"><i class="fas fa-edit"></i></a>
-                                    <form method="POST" action="{{ route('deleteTypeLaporan', ['id' => $e->id]) }}" style="display: inline-block;">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{ $item->status }}
+                                    </div>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
+                    
+                    </tr>
                     </tbody>
                 </table>
             </div>
             <!-- /.card-body -->
         </div>
-        <!-- /.card -->
-    @foreach($tipe_laporan as $e)
-        <!-- Modal Edit -->
-        <div class="modal fade" id="modal-edit-{{ $e->id }}">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Edit Tipe Laporan</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <!-- Form untuk mengedit data -->
-                        <form method="POST" action="{{ route('editTypeLaporan', ['id' => $e->id]) }}">
-                            @csrf
-                            <!-- Input fields untuk mengedit -->
-                            <div class="form-group">
-                                <label for="edit_nama_laporan">Nama Laporan:</label>
-                                <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $e->nama_laporan }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_start_date">Tanggal Mulai:</label>
-                                <input type="datetime-local" id="edit_start_date" name="start_date" class="form-control" value="{{ $e->start_date }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_end_date">Tanggal Berakhir:</label>
-                                <input type="datetime-local" id="edit_end_date" name="end_date" class="form-control" value="{{ $e->end_date }}">
-                            </div>
-                            <!-- Button untuk menyimpan perubahan -->
-                            <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endforeach
+        <!-- /.content -->
+    </div>
 
-    <!-- /.content-wrapper -->
     @include('components.footer')
 
     <!-- Control Sidebar -->
@@ -218,6 +188,23 @@
     });
 </script>
 <script>
+    $(function () {
+        // Summernote
+        $('#summernote').summernote({
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+
     $(document).ready(function () {
         $('.select2').select2({
             placeholder: "Search Document Type",
@@ -225,6 +212,7 @@
             minimumInputLength: 1 // Minimum characters to start searching
         });
     });
+
 </script>
 <script>
     $(function () {
@@ -245,7 +233,55 @@
         });
     });
 </script>
-</div>
+<script>
+    $(function () {
+        // Summernote
+        $('.summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
+        })
+    })
+</script>
+
+<script>
+    $(document).ready(function () {
+        // Handle edit button click
+        $(document).on('click', '.btn-edit', function () {
+            // Example: Get document ID from data attribute
+            var id = $(this).data('id');
+            // Example: You can fetch document data via AJAX based on ID
+            // Once you have the data, you can populate the form fields accordingly
+            // For demonstration purpose, let's assume we're populating a document name field
+            var documentName = "Document " + id;
+            $('#document-name').val(documentName);
+        });
+
+        // Handle save changes button click
+        $('#save-changes-btn').click(function () {
+            // Example: Perform AJAX request to save changes
+            // Serialize form data
+            var formData = $('#edit-document-form').serializeArray();
+            // Example: You can then submit this form data via AJAX
+            console.log(formData); // Example: Output the serialized form data to console
+            // Example: You can perform AJAX request here to save changes
+            // Example: $.ajax({...});
+            // Example: Upon success, you can close the modal
+            $('#modal-edit-document').modal('hide');
+        });
+    });
+</script>
+
+
 
 </body>
 </html>

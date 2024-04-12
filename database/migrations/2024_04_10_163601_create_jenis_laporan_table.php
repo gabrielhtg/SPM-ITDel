@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('tipe_laporan', function (Blueprint $table) {
+        Schema::create('jenis_laporan', function (Blueprint $table) {
             $table->id();
-            $table->string('nama_laporan');
-            // $table->timestamp('start_date')->nullable();
-            // $table->timestamp('end_date')->nullable();
+            $table->unsignedBigInteger('id_tipelaporan');
+            $table->foreign('id_tipelaporan')->references('id')->on('tipe_laporan');
+            $table->string('nama');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date')->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('tipe_laporan');
+        Schema::dropIfExists('jenis_laporan');
     }
 };
