@@ -126,27 +126,6 @@ class AllServices
     }
 
     /**
-     * @param $status
-     * @return string
-     *
-     * Method ini berfungsi untuk mengonversikan status user apakah dia masih aktif
-     * atau tidak aktif lagi dan akan mengembalikan string.
-     */
-    static public function convertStatus($status) {
-        if ($status !== null) {
-            if ($status == true) {
-                return "Active";
-            }
-
-            else {
-                return "Inactive";
-            }
-        }
-
-        return "Inactive";
-    }
-
-    /**
      * @return bool
      *
      * Ini adalah fungsi yang memiliki parameter role untuk
@@ -219,6 +198,12 @@ class AllServices
         return false;
     }
 
+    /**
+     * @param $idAtasan
+     * @return array
+     *
+     * Method ini digunakan untuk mendapatkan role dengan $idAtasan Responsible ke role apa saja
+     */
     static public function getResponsibleTo ($idAtasan) : array {
         if($idAtasan != null) {
             $nextRole = $idAtasan;
@@ -265,7 +250,7 @@ class AllServices
     {
        // Dapatkan role berdasarkan id yang diberikan
        $accountable = ResponsibleModel::where('responsible_to', 'LIKE', "%$roleId%")->first();
-    
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
@@ -273,16 +258,16 @@ class AllServices
     {
         // Dapatkan semua role dari database
         $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
-    
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
-    
+
         public static function isAccountable($roleId): bool
     {
         // Cari accountable model yang memiliki role yang sesuai
         $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
-        
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
@@ -290,18 +275,18 @@ class AllServices
     {
         // Cari accountable model yang memiliki role yang sesuai
         $accountable = AccountableModel::where('role', 'LIKE', "%$roleId%")->first();
-        
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
 
-    
+
 
 
     public static function isInformable($roleId): bool
     {
         $accountable = InformableModel::where('informable_to', 'LIKE', "%$roleId%")->first();
-    
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
@@ -357,14 +342,14 @@ class AllServices
             }
 
             if (substr($output, 0, -2) === '') {
-                return "Not Defined Yet!";
+                return "Belum Didefinisikan";
             }
 
             return substr($output, 0, -2);
         }
 
         else {
-            return "Not Defined Yet!";
+            return "Belum Didefinisikan";
         }
     }
 
@@ -388,14 +373,14 @@ class AllServices
             }
 
             if (substr($output, 0, -2) === '') {
-                return "Not Defined Yet!";
+                return "Belum Didefinisikan";
             }
 
             return substr($output, 0, -2);
         }
 
         else {
-            return "Not Defined Yet!";
+            return "Belum Didefinisikan";
         }
     }
 
@@ -419,14 +404,14 @@ class AllServices
             }
 
             if (substr($output, 0, -2) === '') {
-                return "Not Defined Yet!";
+                return "Belum Didefinisikan";
             }
 
             return substr($output, 0, -2);
         }
 
         else {
-            return "Not Defined Yet!";
+            return "Belum Didefinisikan";
         }
     }
 
@@ -441,14 +426,14 @@ class AllServices
             }
 
             if (substr($output, 0, -2) === '') {
-                return "Not Defined Yet!";
+                return "Belum Didefinisikan";
             }
 
             return substr($output, 0, -2);
         }
 
         else {
-            return "Not Defined Yet!";
+            return "Belum Didefinisikan";
         }
     }
 
@@ -502,7 +487,7 @@ public static function isInformableToRole($id, $roleId): bool
     // Periksa apakah roleName terdapat dalam daftar accountableTo
     return strpos($informable, $roleName) !== false;
 }
-    
+
 
 
 public function getUserRoleById($userId)
