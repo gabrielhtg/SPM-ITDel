@@ -297,9 +297,9 @@
             icon: 'success',
             title: 'Success',
             text: '{!! session('toastData')['text'] !!}',
-            toast: true,
+            // toast: true,
             showConfirmButton: false,
-            position: 'top-end',
+            // position: 'top-end',
             timer: 3000
         })
         @else
@@ -307,24 +307,12 @@
             icon: 'error',
             title: 'Failed',
             text: '{!! session('toastData')['text'] !!}',
-            toast: true,
+            // toast: true,
             showConfirmButton: false,
-            position: 'top-end',
+            // position: 'top-end',
             timer: 5000
         })
         @endif
-        @endif
-
-        @if (!$errors->isEmpty())
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Gagal menambahkan user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
         @endif
     });
 </script>

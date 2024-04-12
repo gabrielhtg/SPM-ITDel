@@ -202,7 +202,6 @@ class RoleController extends Controller
         $role->update([
             'role' => $request->nama_role,
             'atasan_id'=>$request->atasan_role,
-//            'responsible_to' => AllServices::getResponsibleTo($request->atasan_role),
             'is_admin' => $request->is_admin,
         ]);
 
