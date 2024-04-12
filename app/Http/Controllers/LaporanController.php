@@ -211,6 +211,56 @@ public function reject($id)
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
 }
 
+public function update(Request $request, $id)
+{
+    // Validasi input
+    $validator = Validator::make($request->all(), [
+        'nama_laporan' => 'required|max:255',
+        'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:30720',
+        'id_tipelaporan' => 'required',
+    ], [
+        'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
+        'id_tipelaporan.required' => 'Pilih tipe laporan.',
+        'nama_laporan.required' => 'Nama laporan harus diisi.',
+        'nama_laporan.max' => 'Nama laporan tidak boleh melebihi 255 karakter.',
+    ]);
+
+    // Jika validasi gagal, kembalikan ke halaman edit dengan pesan error
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput();
+    }
+
+    // Temukan laporan yang akan disunting
+    $laporan = Laporan::findOrFail($id);
+
+    // Proses unggah file jika ada
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $fileExtension = $file->getClientOriginalExtension();
+        $fileName = uniqid('laporan_').'.'.$fileExtension;
+
+        // Simpan file di folder public/src/documents
+        $file->move(public_path('src/documents'), $fileName);
+
+        // Hapus file lama jika ada
+        if ($laporan->directory) {
+            // Gunakan fungsi unlink untuk menghapus file dari sistem file
+            unlink(public_path($laporan->directory));
+        }
+
+        // Update direktori baru pada laporan
+        $laporan->directory = '/src/documents/'.$fileName;
+    }
+
+    // Update data laporan dengan data baru dari formulir
+    $laporan->nama_laporan = $request->nama_laporan;
+    $laporan->id_tipelaporan = $request->id_tipelaporan;
+    $laporan->revisi = $request->revisi ?? false;
+    $laporan->save();
+
+    // Redirect kembali ke halaman manajemen laporan dengan pesan sukses
+    return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil disunting!']);
+}
 
 
 

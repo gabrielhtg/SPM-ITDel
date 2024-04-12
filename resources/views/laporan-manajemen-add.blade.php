@@ -166,10 +166,11 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-document"><i class="fas fa-info-circle text-light"></i></button>
-                                <button type="button" class="btn btn-success btn-edit" data-toggle="modal" data-target="#modal-edit-document" data-id="{{ $item->id }}">
-                                    <i class="fas fa-edit text-light"></i>
-                                </button>
+                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-laporan"><i class="fas fa-info-circle text-light"></i></button>
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan">
+    <i class="fas fa-edit"></i> </button>
+
+
                             </div>
                         </td>
 
@@ -194,55 +195,71 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- Modal Edit -->
-    <a href="#modal-edit-document" class="btn btn-success mb-3" data-toggle="modal">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Edit Laporan</span>
-</a>
-
-<div class="modal fade" id="modal-edit-document" tabindex="-1" role="dialog" aria-labelledby="modal-edit-document-label" aria-hidden="true">
+    <div class="modal fade" id="modal-edit-laporan" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-edit-document-label">Tambah Dokumen</h5>
+                <h5 class="modal-title" id="modal-edit-laporan-label">Edit Laporan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form id="document-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.store') }}">
+                <form id="laporan-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
                     @csrf
+                    @method('PUT')
                     <div class="form-group">
-                        <label for="document-name">Nama Laporan</label>
-                        <input type="text" class="form-control" id="document-name" name="nama_laporan" required>
+                        <label for="laporan-name">Nama Laporan</label>
+                        <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
                     </div>
                     <div class="form-group">
-                        <label for="document-type">Tipe Laporan</label>
-                        <select class="form-control" id="document-type" name="id_tipelaporan" required>
+                        <label for="laporan-type">Tipe Laporan</label>
+                        <select class="form-control" id="laporan-type" name="id_tipelaporan" required>
                             <option value="">Pilih Tipe Laporan</option>
                             @foreach($tipe_laporan as $tipe)
-                                <option value="{{ $tipe->id }}">{{ $tipe->nama_laporan }}</option>
+                                <option value="{{ $tipe->id }}" {{ $item->jenisLaporan->nama == $tipe->nama ? 'selected' : '' }}>
+                                    {{ $tipe->nama }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label for="revisi">Revisi:</label>
                         <select class="form-control" id="revisi" name="revisi">
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
+                            <option value="1" {{ $item->revisi == 1 ? 'selected' : '' }}>Ya</option>
+                            <option value="0" {{ $item->revisi == 0 ? 'selected' : '' }}>Tidak</option>
                         </select>
                     </div>
+
                     <div class="form-group">
-                        <label for="document-file">Dokumen</label>
-                        <input type="file" class="form-control-file" id="document-file" name="file" required>
+                        <label for="laporan-file">Dokumen</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="laporan-file" name="file" required>
+                                <label class="custom-file-label" for="laporan-file">
+                                    @if($item->directory)
+                                        {{ basename($item->directory) }}
+                                    @else
+                                        Pilih file
+                                    @endif
+                                </label>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Submit</button> 
                     </div>
                 </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="document-form">Submit</button>
             </div>
         </div>
     </div>
 </div>
+
 
 
     @include('components.footer')
