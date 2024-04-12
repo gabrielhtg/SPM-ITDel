@@ -70,7 +70,7 @@
                             <td>
                                 <div class="user-panel d-flex justify-content-center align-items-center">
                                     <a href="{{ route('LogLaporanContinue', ['id' => $item->id]) }}">
-                                        {{ $item->nama_laporan }}
+                                        {{ $item->nama }}
                                     </a>
                                 </div>
                             </td>

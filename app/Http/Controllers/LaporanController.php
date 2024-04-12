@@ -52,10 +52,10 @@ class LaporanController extends Controller
 
 public function getLogLaporanView()
 {   
-    $tipe_laporan = TipeLaporan::all();
+    $tipe_laporan = JenisLaporan::all();
   
     $data = [
-        'active_sidebar' => [5, 2],
+        'active_sidebar' => [5, 3],
         'jenis_laporan' => $tipe_laporan,
     ];
     return view('log-laporan-view', $data);
@@ -65,7 +65,7 @@ public function getLogLaporanView()
     public function getLogLaporanContinue($id){
         $log = LogLaporan::where('id_jenis_laporan',$id)->get();
         $data = [
-            'active_sidebar' => [5, 2],
+            'active_sidebar' => [5, 3],
             'log'=>$log
         ];
         return view('log-laporan-continue', $data);
