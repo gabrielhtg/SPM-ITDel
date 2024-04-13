@@ -76,7 +76,7 @@
                             Informable To
                         </th>
                         <th>
-                            Admin Access
+                            Akses Admin
                         </th>
                         <th>
                             Wajib Melaporkan
@@ -113,9 +113,9 @@
                                 </td>
                                 <td>
                                     @if($e->is_admin == true)
-                                        Yes
+                                        Ya
                                     @else
-                                        No
+                                        Tidak
                                     @endif
                                 </td>
                                 <td>
