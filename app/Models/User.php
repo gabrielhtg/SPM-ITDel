@@ -63,4 +63,9 @@ class User extends Authenticatable
     protected $attributes = [
         'last_login_at' => null,
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(RoleModel::class, 'role');
+    }
 }
