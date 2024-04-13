@@ -48,9 +48,6 @@ class RoleTreeController extends Controller
 
             $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
 
-//            dump($arrayRoleBawahan);
-//            sleep(10);
-
             $tree->setChildren([]);
 
             if ($arrayRoleBawahan !== null) {
