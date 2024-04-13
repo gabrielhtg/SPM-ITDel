@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BawahanModel;
 use App\Models\RoleModel;
 use App\Models\RoleTree;
 use App\Models\TreeData;
 use App\Models\User;
+use App\Services\AllServices;
 use Illuminate\Http\Request;
 
 class RoleTreeController extends Controller
@@ -44,15 +46,18 @@ class RoleTreeController extends Controller
                 $tree->setData(new TreeData($user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), $user->name));
             }
 
-            $arrayRoleBawahan = explode(";", $node->bawahan);
+            $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
+
+//            dump($arrayRoleBawahan);
+//            sleep(10);
 
             $tree->setChildren([]);
 
             if ($arrayRoleBawahan !== null) {
                 foreach ($arrayRoleBawahan as $roleBawahan) {
                     if ($roleBawahan) {
-                        if (count(User::where('role', $roleBawahan)->get())) {
-                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan)));
+                        if (count(User::where('role', $roleBawahan->bawahan)->get())) {
+                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan)));
                         }
                     }
                 }

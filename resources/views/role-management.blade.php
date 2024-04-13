@@ -112,7 +112,7 @@
                                     {{ AllServices::getAllInformable($e->id) }}
                                 </td>
                                 <td>
-                                    @if($e->is_admin == true)
+                                    @if($e->is_admin)
                                         Ya
                                     @else
                                         Tidak
