@@ -46,10 +46,22 @@ class RoleTreeController extends Controller
             $allService = new AllServices();
 
             foreach ($users as $user) {
-                $roleId = $allService->convertRole($user->role);
+                $roleId = $allService::convertRole($user->role);
+                $responsibleId = $allService::getAllResponsible($user->role);
+                $accountableId = $allService::getAllAccountableTo($user->role);
+                $informableId = $allService::getAllInformable($user->role);
 
                 $tree->setId($user->id);
-                $tree->setData(new TreeData($user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), $user->name, $roleId));
+                $tree->setData(
+                    new TreeData(
+                        $user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), 
+                        $user->name, 
+                        $roleId,
+                        $responsibleId,
+                        $accountableId,
+                        $informableId
+                    )
+                );
             }
 
             $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
