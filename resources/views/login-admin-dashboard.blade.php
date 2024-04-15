@@ -54,16 +54,12 @@
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-            <div class="card vh-100" >
-                <div class="card-body d-flex justify-content-center">
+            <div class="card vh-100" style="margin-bottom: 50px">
                     <div id="svg-tree" class="w-100"></div>
-                </div>
-                <!-- /.card-body -->
             </div>
-            <!-- /.content -->
+        </div>
+        <div>
+            @include('components.footer')
         </div>
 
         <!-- Modal -->
@@ -97,7 +93,7 @@
         </div>
 
 
-        @include('components.footer')
+        
 
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
@@ -108,54 +104,16 @@
 
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-    <script>
-        $(function () {
-            @if(session('toastData') != null)
-            @if(session('toastData')['success'])
-            Swal.fire({
-                icon: 'success',
-                title: 'Success',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 3000
-            })
-            @else
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: '{!! session('toastData')['text'] !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
-            @endif
-
-            @if (!$errors->isEmpty())
-            Swal.fire({
-                icon: 'error',
-                title: 'Failed',
-                text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-                toast: true,
-                showConfirmButton: false,
-                position: 'top-end',
-                timer: 5000
-            })
-            @endif
-        });
-    </script>
+    
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <!-- Bootstrap 4 -->
     <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- AdminLTE App -->
-    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-
+    {{-- <script src="{{ asset("dist/js/adminlte.min.js") }}"></script> --}}
+    
     <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
+    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 
     <script>
         const data = {!! $tree !!};
@@ -180,7 +138,7 @@
                     </div>
                 </a>`,
 
-            canvasStyle: 'border: 1px solid black;background: #fff;',
+            canvasStyle: 'background: #fff;',
         };
         const tree = new ApexTree(document.getElementById('svg-tree'), options);
         tree.render(data);
@@ -232,81 +190,6 @@
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <!-- Page specific script -->
 
-{{-- <script>
-    document.getElementById('inputGambar').addEventListener('change', function (e) {
-        var fileName = document.getElementById('inputGambar').files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script> --}}
-
-<script>
-    document.getElementById('bgimage').addEventListener('change', function(e) {
-        var fileName = document.getElementById('bgimage').files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script>
-
-<script>
-    $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
-        })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if (!$errors->isEmpty())
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-    });
-</script>
-{{-- 
-<script>
-    $(function () {
-        // Summernote
-        $('.summernote').summernote({
-            minHeight: 230,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-</script> --}}
 <script>
     $(function () {
         // Summernote
