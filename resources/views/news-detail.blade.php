@@ -66,13 +66,13 @@
                     </div>
                     <div class="card-body d-flex flex-column ">
                         <img src="{{ asset('src/gambarnews/'.$newsDetail->bgimage) }}" alt="gambar tidak ditemukan" class="img-fluid align-self-center rounded" style="width: 500px;">
-                        <p>{!! $newsDetail->description !!}</p>
-                        <strong>Recommendations</strong>
-                        <div>
+                        <p class="text-break">{!! $newsDetail->description !!}</p>
+                        {{-- <strong>Recommendations</strong> --}}
+                        {{-- <div>
                             <a href="https://fontawesome.com/">Font Awesome</a><br>
                             <a href="https://useiconic.com/open/">Iconic Icons</a><br>
                             <a href="https://ionicons.com/">Ion Icons</a><br>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
     </div>
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="content-wrapper">
+    {{-- <div class="content-wrapper">
         <!-- Content Header (Page header) -->
         <div class="content-header">
             <div class="container-fluid">
@@ -91,10 +91,10 @@
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
-        <!-- /.content-header -->
+        <!-- /.content-header --> --}}
 
         <!-- Main content -->
-        <div class="card">
+        {{-- <div class="card">
             <div class="card card-primary card-outline">
                 <div class="card-header">
                 <h3 class="card-title">Icons</h3>
@@ -108,7 +108,7 @@
                 <a href="https://ionicons.com/">Ion Icons</a><br>
                 </div>
                 </div>
-                </div>
+                </div> --}}
             {{-- <div class="card-body">
                 <section>
                     <h1>{{ $newsDetail->title }}</h1>
