@@ -15,6 +15,7 @@ class RoleTreeController extends Controller
     public function indexlogindashboard(Request $request)
     {
         $tree = new RoleTree(null, null, null);
+        $allService = new AllServices();
 
         // Bagian ini untuk mendapatkan user puncak
         foreach (RoleModel::all() as $e) {
@@ -24,26 +25,32 @@ class RoleTreeController extends Controller
             }
         }
 
+        $arrayResponsibleTo = [];
+
         if (!empty($rolePuncak)) {
-            $this->bentukTree($tree, $rolePuncak);
+            $this->bentukTree($tree, $rolePuncak, $arrayResponsibleTo);
         }
 
+        
         $data = [
             'tree' => stripslashes(json_encode($tree)),
-            'active_sidebar' => [0, 0]
+            'active_sidebar' => [0, 0],
+            'arrayResponsibleTo' => $arrayResponsibleTo
         ];
 
         return view('login-admin-dashboard', $data);
     }
 
-    private function bentukTree(RoleTree $tree, $node)
+    private function bentukTree(RoleTree $tree, $node, $arrayResponsibleTo)
     {
-        if ($node != null) {
+        if ($node != null) {            
             $users = User::where('role', $node->id)->get();
-
+            
             foreach ($users as $user) {
                 $tree->setId($user->id);
-                $tree->setData(new TreeData($user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), $user->name));
+                $arrayResponsibleTo = AllServices::convertRole($user->role);
+                // dd($arrayResponsibleTo);
+                $tree->setData(new TreeData($user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), $user->name, $arrayResponsibleTo));
             }
 
             $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
@@ -54,7 +61,7 @@ class RoleTreeController extends Controller
                 foreach ($arrayRoleBawahan as $roleBawahan) {
                     if ($roleBawahan) {
                         if (count(User::where('role', $roleBawahan->bawahan)->get())) {
-                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan)));
+                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan),$arrayResponsibleTo));
                         }
                     }
                 }

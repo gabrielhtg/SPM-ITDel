@@ -156,15 +156,17 @@
     <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
+
     <script>
         const data = {!! $tree !!};
+        const arrayResponsibleTo = {!! json_encode($arrayResponsibleTo) !!};
         const options = {
             contentKey: 'data',
             width: '100%',
-            height: '800px',
-            nodeWidth: 150,
+            height: '650px',
+            nodeWidth: 150, 
             nodeHeight: 100,
-            fontColor: '#000',
+            fontColor: '#fff',
             borderColor: '#333',
             childrenSpacing: 50,
             siblingSpacing: 20,
@@ -174,11 +176,11 @@
                     <div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
                         <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
                         <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-                        
+                        <div style="font-weight: bold; font-size: 14px">${content.arrayResponsibleTo}</div>
                     </div>
                 </a>`,
 
-            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
+            canvasStyle: 'border: 1px solid black;background: #fff;',
         };
         const tree = new ApexTree(document.getElementById('svg-tree'), options);
         tree.render(data);
