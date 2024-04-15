@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\RoleModel;
 use App\Models\User;
+use App\Services\AllServices;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Application;
@@ -24,7 +25,7 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         $data = [
-            'active_sidebar' => [0,0],
+            'active_sidebar' => [0, 0],
             'roles' => RoleModel::all()
         ];
         return view('profile.edit', $data);
@@ -45,16 +46,12 @@ class ProfileController extends Controller
                 ]);
 
                 return redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Profil berubah!']);
-            }
-
-            catch (QueryException $e) {
+            } catch (QueryException $e) {
                 if ($e->errorInfo[1] == 1062) {
                     return redirect()->route('profile')->with('toastData', ['success' => false, "text" => 'Username/Email sudah pernah digunakan sebelumnya!']);
                 }
             }
-        }
-
-        else {
+        } else {
             $user->update([
                 'username' => $request->username,
                 'name' => $request->name,
@@ -110,7 +107,7 @@ class ProfileController extends Controller
     public function changeProfilePict(): \Illuminate\Contracts\View\View|Application|Factory|\Illuminate\Contracts\Foundation\Application
     {
         $data = [
-            'active_sidebar' => [0,0]
+            'active_sidebar' => [0, 0]
         ];
 
         return \view('profile.change-profile-pict', $data);
@@ -132,7 +129,8 @@ class ProfileController extends Controller
         }
     }
 
-    public function changePassword(Request $request) {
+    public function changePassword(Request $request)
+    {
         $request->validate([
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -142,9 +140,7 @@ class ProfileController extends Controller
                 'password' => Hash::make($request->password),
             ]);
             return \redirect()->route('profile')->with('toastData', ['success' => true, 'text' => "Berhasil mengubah kata sandi!"]);
-        }
-
-        else {
+        } else {
             return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Gagal mengubah kata sandi"]);
         }
 

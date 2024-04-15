@@ -15,7 +15,8 @@ use Illuminate\Http\Request;
 
 class RoleController extends Controller
 {
-    public function getHalamanRoleManagement() {
+    public function getHalamanRoleManagement()
+    {
 
 
         $data = [
@@ -94,7 +95,8 @@ class RoleController extends Controller
         }
     }
 
-    public function updateStatus (Request $request) {
+    public function updateStatus(Request $request)
+    {
         $role = RoleModel::find($request->id);
         $users = User::all();
 
@@ -137,7 +139,8 @@ class RoleController extends Controller
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil mengganti status role!']);
     }
 
-    public function editRole (Request $request){
+    public function editRole(Request $request)
+    {
         $role = RoleModel::find($request->id);
 
         if ($request->informable_to !== null) {
@@ -176,7 +179,12 @@ class RoleController extends Controller
 
         if ($request->atasan_role != null) {
 
-            BawahanModel::where("bawahan", $request->id)->first()->delete();
+
+            $temp = BawahanModel::where("bawahan", $request->id)->first();
+
+            if ($temp !== null) {
+                $temp->delete();
+            }
 
             BawahanModel::create([
                 'role' => $request->atasan_role,
@@ -201,7 +209,7 @@ class RoleController extends Controller
 
         $role->update([
             'role' => $request->nama_role,
-            'atasan_id'=>$request->atasan_role,
+            'atasan_id' => $request->atasan_role,
             'is_admin' => $request->is_admin,
         ]);
 

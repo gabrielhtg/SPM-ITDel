@@ -173,10 +173,10 @@
             direction: 'top',
             nodeTemplate: (content) =>
                 `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
-                    <div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
+                    <div style='display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100%;'>
                         <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
                         <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-                        <div style="font-weight: bold; font-size: 14px">${content.arrayResponsibleTo}</div>
+                        <div style="font-weight: bold; font-size: 14px">${content.role}</div>
                     </div>
                 </a>`,
 

@@ -18,6 +18,7 @@ class Laporan extends Model
         'directory',
         'revisi',
         'status',
+        'cek_revisi',
         'approve_at',
         'reject_at',
     ];
@@ -26,6 +27,10 @@ class Laporan extends Model
     public function tipeLaporan()
     {
         return $this->belongsTo(TipeLaporan::class, 'id_tipelaporan');
+    }
+
+    public function namaLaporan(){
+        return $this->belongsTo(Laporan::class,'nama_laporan');
     }
 
     public function jenisLaporan(){

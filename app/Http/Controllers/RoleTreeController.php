@@ -31,7 +31,8 @@ class RoleTreeController extends Controller
             $this->bentukTree($tree, $rolePuncak, $arrayResponsibleTo);
         }
 
-        
+        // dd($tree);
+
         $data = [
             'tree' => stripslashes(json_encode($tree)),
             'active_sidebar' => [0, 0],
@@ -45,12 +46,26 @@ class RoleTreeController extends Controller
     {
         if ($node != null) {            
             $users = User::where('role', $node->id)->get();
-            
+
+            $allService = new AllServices();
+
             foreach ($users as $user) {
+                $roleId = $allService::convertRole($user->role);
+                $responsibleId = $allService::getAllResponsible($user->role);
+                $accountableId = $allService::getAllAccountableTo($user->role);
+                $informableId = $allService::getAllInformable($user->role);
+
                 $tree->setId($user->id);
-                $arrayResponsibleTo = AllServices::convertRole($user->role);
-                // dd($arrayResponsibleTo);
-                $tree->setData(new TreeData($user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), $user->name, $arrayResponsibleTo));
+                $tree->setData(
+                    new TreeData(
+                        $user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), 
+                        $user->name, 
+                        $roleId,
+                        $responsibleId,
+                        $accountableId,
+                        $informableId
+                    )
+                );
             }
 
             $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();

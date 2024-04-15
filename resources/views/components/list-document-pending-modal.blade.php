@@ -25,6 +25,7 @@
                             <th>Periode</th>
                             <th>Jenis Laporan</th>
                             <th>Pengirim</th>
+                            <th>Revisi</th>
                             <th>Aksi</th>
                             
                         </tr>
@@ -60,6 +61,22 @@
                                             class="badge badge-success"
                                             style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($lap->created_by)->role) }}</span></span>
 
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        @php
+                                        if($item->revisi == 1) {
+                                            $allServices = new \App\Services\AllServices();
+                                            $namaLaporan = $allServices->getNamaLaporanById($lap->cek_revisi);
+                                            echo $namaLaporan;
+                                        }
+                                        else if($item->revisi == 0){
+                                            echo "Tidak";
+                                        }
+                                        @endphp
                                     </div>
                                 </div>
                             </td>

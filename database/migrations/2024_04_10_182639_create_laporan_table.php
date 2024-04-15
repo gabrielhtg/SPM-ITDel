@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('directory');
             $table->boolean('revisi')->default(false);
             $table->string('status')->default('Menunggu');
+            $table->string('cek_revisi')->nullable();
             $table->timestamp('approve_at')->nullable();
             $table->timestamp('reject_at')->nullable();
             $table->timestamps();
