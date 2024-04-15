@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
 </head>
-<body class=" bg-dark">
+<body class="bg-dark">
     
 
     <div style="margin-bottom:100px;">

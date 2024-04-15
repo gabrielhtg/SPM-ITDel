@@ -31,6 +31,54 @@
     <!-- Main Sidebar Container -->
     @include("components.sidebar")
 
+    <div class="content-wrapper" style="min-height: 2488.31px;">
+
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1>News</h1>
+                    </div>
+                    <div class="col-sm-6">
+                        <ol class="breadcrumb float-sm-right">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active">News</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="content">
+            <div class="container-fluid">
+                <div class="card card-primary card-outline">
+                    <div class="card-header">
+                        <h3 class="text-bold">{{ $newsDetail->title }}</h3>
+                        <p class="text-secondary">
+                            Berlaku : 
+                            {{ \Carbon\Carbon::parse($newsDetail->start_date)->format('d/m/Y') }}
+                            @if($newsDetail->end_date != null)
+                                - {{ \Carbon\Carbon::parse($newsDetail->end_date)->format('d/m/Y') }}
+                            @else
+                                - Sekarang
+                            @endif
+                        </p>
+                    </div>
+                    <div class="card-body d-flex flex-column ">
+                        <img src="{{ asset('src/gambarnews/'.$newsDetail->bgimage) }}" alt="gambar tidak ditemukan" class="img-fluid align-self-center rounded" style="width: 500px;">
+                        <p>{!! $newsDetail->description !!}</p>
+                        <strong>Recommendations</strong>
+                        <div>
+                            <a href="https://fontawesome.com/">Font Awesome</a><br>
+                            <a href="https://useiconic.com/open/">Iconic Icons</a><br>
+                            <a href="https://ionicons.com/">Ion Icons</a><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>        
+    </div>
+
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -47,7 +95,24 @@
 
         <!-- Main content -->
         <div class="card">
-            <div class="card-body">
+            <div class="card card-primary card-outline">
+                <div class="card-header">
+                <h3 class="card-title">Icons</h3>
+                </div> 
+                <div class="card-body">
+                <p>You can use any font library you like with AdminLTE 3.</p>
+                <strong>Recommendations</strong>
+                <div>
+                <a href="https://fontawesome.com/">Font Awesome</a><br>
+                <a href="https://useiconic.com/open/">Iconic Icons</a><br>
+                <a href="https://ionicons.com/">Ion Icons</a><br>
+                </div>
+                </div>
+                </div>
+            {{-- <div class="card-body">
+                <section>
+                    <h1>{{ $newsDetail->title }}</h1>
+                </section>
                 <section class="content" id="main-content">
                     <div class="page-header">
                         <h2>{{ $newsDetail->title }}</h2>
@@ -98,7 +163,7 @@
                         </div>
                     </div>
                 </section>
-            </div>
+            </div> --}}
             <!-- /.card-body -->
         </div>
         <!-- /.content -->

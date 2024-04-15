@@ -158,37 +158,66 @@
                 $('#personModal').modal('show');
                 $('#modal-name').text(name);
                 $('#modal-image').attr('src', image);
-                $('#modal-role').text(`Role: ${role}`);
-                $('#modal-responsible').text(`Responsible to: ${responsible}`);
-                $('#modal-informable').text(`Informable to: ${informable}`);
-                $('#modal-accountable').text(`Accountable to: ${accountable}`);
+                $('#modal-role').text(Role: ${role});
+                $('#modal-responsible').text(Responsible to: ${responsible});
+                $('#modal-informable').text(Informable to: ${informable});
+                $('#modal-accountable').text(Accountable to: ${accountable});
             });
         });
 
     </script>
 
 
-<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
-<!-- Bootstrap 4 -->
-<script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
-<!-- DataTables  & Plugins -->
-<script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
-<script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/dataTables.buttons.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.bootstrap4.min.js") }}"></script>
-<script src="{{ asset("plugins/jszip/jszip.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/pdfmake.min.js") }}"></script>
-<script src="{{ asset("plugins/pdfmake/vfs_fonts.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.html5.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.print.min.js") }}"></script>
-<script src="{{ asset("plugins/datatables-buttons/js/buttons.colVis.min.js") }}"></script>
-<script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<!-- AdminLTE App -->
-<script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+
 <!-- Page specific script -->
+
+<script>
+    document.getElementById('bgimage').addEventListener('change', function(e) {
+        var fileName = document.getElementById('bgimage').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script>
+
+<script>
+    $(function () {
+        @if(session('toastData') != null)
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+        @endif
+
+        @if (!$errors->isEmpty())
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+    });
+</script>
 
 <script>
     $(function () {
