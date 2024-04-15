@@ -11,7 +11,6 @@
 
     <!-- Sidebar -->
     <div class="sidebar">
-
         <!-- SidebarSearch Form -->
         <div class="form-inline mt-3 mb-3">
             <div class="input-group" data-widget="sidebar-search">
@@ -69,8 +68,8 @@
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Pengaturan Pengguna
+                                <i class="fas fa-angle-left right"></i>
                             </p>
-                            <i class="fas fa-angle-left right"></i>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
@@ -83,9 +82,9 @@
                             <li class="nav-item">
                                 <a href="{{ route('user-settings-inactive') }}"
                                     class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
                                     <p>Pengguna Tidak Aktif</p>
                                 </a>
-                                <i class="far fa-circle nav-icon"></i>
                             </li>
                         </ul>
                     </li>
@@ -93,12 +92,12 @@
 
                 @if (Auth::check() && auth()->user()->role != null)
                     <li class="nav-item {{ $active_sidebar[0] == 5 ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link w-100 {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Laporan Dokumen
+                                <i class="fas fa-angle-left right"></i>
                             </p>
-                            <i class="fas fa-angle-left right"></i>
                         </a>
                         <ul class="nav nav-treeview">
 
@@ -133,7 +132,7 @@
 
                             <li class="nav-item">
                                 <a href="{{ route('LogLaporanview') }}"
-                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                    class="nav-link {{ $active_sidebar[1] == 3 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Log Laporan</p>
                                 </a>
