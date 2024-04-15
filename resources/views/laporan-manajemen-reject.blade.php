@@ -78,6 +78,7 @@
                             <th>Dibuat Oleh</th>
                             <th>Diperiksa Oleh</th>
                             <th>diperiksa Pada</th>
+                            <th>Revisi</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -152,6 +153,22 @@
                                             echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
                                         } elseif ($item->status == 'Ditolak') {
                                             echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
+                                        }
+                                        @endphp
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        @php
+                                        if($item->revisi == 1) {
+                                            $allServices = new \App\Services\AllServices();
+                                            $namaLaporan = $allServices->getNamaLaporanById($item->cek_revisi);
+                                            echo $namaLaporan;
+                                        }
+                                        else if($item->revisi == 0){
+                                            echo "Tidak";
                                         }
                                         @endphp
                                     </div>

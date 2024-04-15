@@ -119,6 +119,7 @@ public function getLaporanManagementReject()
         $validator = Validator::make($request->all(), [
             'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:30720',
             'id_tipelaporan' => 'required',
+            'cek_revisi'=>'nullable',
 
         ], [
             'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
@@ -146,16 +147,9 @@ public function getLaporanManagementReject()
         $role = RoleModel::find($id_user);
 
 
-
-
-
-
-
-
-
-
         Laporan::create([
             'id_tipelaporan' => $request->id_tipelaporan,
+            'cek_revisi'=>$request->cek_revisi,
             'nama_laporan' => $request->nama_laporan,
             'directory' => $file ? '/src/documents/'.$fileName : null,
             'created_by' => auth()->user()->id,

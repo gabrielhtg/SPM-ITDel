@@ -9,6 +9,7 @@ use App\Models\InformableModel;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Models\Laporan;
 use App\Models\User;
 use Illuminate\Support\Carbon;
 
@@ -503,5 +504,34 @@ public function getUserRoleById($userId)
         // Jika user tidak ditemukan, kembalikan null
         return null;
     }
+    public function isLaporanIdInCekLaporan($laporanId)
+    {
+        // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
+        $cekLaporan = Laporan::where('cek_revisi', $laporanId)
+                             ->where('status', 'Disetujui')
+                             ->first();
+        
+        // Jika ada, return false
+        if ($cekLaporan) {
+            return false;
+        }
+        
+        // Jika tidak ada, return true
+        return true;
+    }
+    public function getNamaLaporanById($laporanId)
+    {
+        // Cari laporan berdasarkan ID
+        $laporan = Laporan::find($laporanId);
+        
+        // Jika laporan ditemukan, kembalikan nama laporannya
+        if ($laporan) {
+            return $laporan->nama_laporan;
+        }
+        
+        // Jika laporan tidak ditemukan, kembalikan null
+        return null;
+    }
+    
 
 }

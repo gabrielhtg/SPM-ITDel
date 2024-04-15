@@ -27,15 +27,32 @@
                             @endforeach
                         </select>
                     </div>
-                  
-                    
                     <div class="form-group">
-                        <label for="revisi">Revisi:</label>
-                        <select class="form-control" id="revisi" name="revisi">
-                            <option value="1">Ya</option>
-                            <option value="0">Tidak</option>
+                        <label for="revisi">Revisi:</label><br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="revisiCheckbox" name="revisi" value="1">
+                            <label class="form-check-label" for="revisiCheckbox">Ya</label>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group" id="merevisi-laporan" style="display: none;">
+                        <label for="menganntikan">Merevisi Laporan:</label>
+                        <select class="form-control" id="menganntikan" name="cek_revisi">
+                            @php
+                            $allServices = new \App\Services\AllServices();
+                          
+                            @endphp
+                            @foreach ($laporan as $item)
+                            @php
+                                @if(auth()->user()->id == $item->created_by && $item->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($item->id))
+                                    <option value="{{$item->id}}">{{$item->nama_laporan}}</option>
+                                @endif
+                            @endforeach
                         </select>
                     </div>
+                    
+                    
                     <div class="form-group">
                         <label for="document-file">Dokumen</label>
                         <input type="file" class="form-control-file" id="document-file" name="file" required>
@@ -49,3 +66,25 @@
         </div>
     </div>
 </div>
+
+
+
+
+<script>
+    // Dapatkan elemen checkbox
+    var checkbox = document.getElementById('revisiCheckbox');
+
+    // Dapatkan elemen yang akan dimunculkan atau disembunyikan
+    var merevisiLaporan = document.getElementById('merevisi-laporan');
+
+    // Tambahkan event listener untuk memantau perubahan pada checkbox
+    checkbox.addEventListener('change', function() {
+        // Jika checkbox dicentang, maka munculkan elemen
+        if (checkbox.checked) {
+            merevisiLaporan.style.display = 'block';
+        } else {
+            // Jika checkbox tidak dicentang, sembunyikan elemen
+            merevisiLaporan.style.display = 'none';
+        }
+    });
+</script>
