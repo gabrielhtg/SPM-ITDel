@@ -95,7 +95,7 @@
                     <li class="nav-item {{ $active_sidebar[0] == 5 ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link w-100 {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
-                            <p class=" bg-blue">
+                            <p>
                                 Laporan Dokumen
                             </p>
                             <i class="fas fa-angle-left right"></i>
