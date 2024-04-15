@@ -61,7 +61,7 @@ class RegisteredUserController extends Controller
                         'password' => Hash::make($request->password),
                         'role' => $request->role
                     ]);
-                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully created user!']);
+                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }
                 catch (QueryException $e) {
                     if ($e->errorInfo[1] == 1062) {
@@ -72,11 +72,11 @@ class RegisteredUserController extends Controller
             }
 
             else {
-                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Failed. User exist!']);
+                return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Gagal. User sudah terdaftar sebelumnya.']);
             }
         }
 
-        return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Creating user ' . $request->name . ' is not permitted']);
+        return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Menambahkan user ' . $request->name . ' tidak diizinkan']);
     }
 
     public function sendRegisterInvitationLink(Request $request)
