@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Laporan Berkala</title>
 
     {{-- @php
     dd($documenthero);
@@ -50,7 +50,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Manajemen Laporan Berkala</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -70,13 +70,13 @@
                 @endif
 
 
-           
+
 
             @if(app(AllServices::class)->haveAccountable(auth()->user()->role) )
             @include('components.upload-laporan')
             @endif
 
-           
+
 
 
 
@@ -120,7 +120,7 @@
                             </div>
                         </td>
                         <td>
-                        
+
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
                                     {{$item->status}}
@@ -186,9 +186,10 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-laporan"><i class="fas fa-info-circle text-light"></i></button>
+                                @if($item->status=="Menunggu")
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
+                                @endif
 
 
                             </div>
@@ -196,7 +197,7 @@
 
 
                     </tr>
-               
+
 
                     <div class="modal fade" id="modal-edit-laporan{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
@@ -224,8 +225,8 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        
-                                        @if($item->status=="Menunggu")
+
+
                                             <div class="form-group">
                                                 <label for="edit-revisi">Revisi:</label><br>
                                                 <div class="form-check form-check-inline">
@@ -247,9 +248,9 @@
                                                     @endforeach
                                                 </select>
                                             </div>
-                                        
-                                        @endif
-                                        
+
+
+
                                         <div class="form-group">
                                             <label for="laporan-file">Dokumen</label>
                                             <div class="input-group">
@@ -267,7 +268,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button> 
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
@@ -517,8 +518,8 @@
             });
         })
     </script>
-     
-    
+
+
 
 
 </body>

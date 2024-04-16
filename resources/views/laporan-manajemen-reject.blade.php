@@ -78,7 +78,7 @@
                             <th>Dibuat Oleh</th>
                             <th>Diperiksa Oleh</th>
                             <th>diperiksa Pada</th>
-                            <th>Revisi</th>
+                             <th>Revisi</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -174,14 +174,15 @@
                                     </div>
                                 </div>
                             </td>
-                            
-                            
                             <td>
                                 <div class="d-flex" style="gap: 5px">
-                                    <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
+                                        <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    @else
+                                        Tidak Ada Aksi
+                                    @endif
                                 </div>
-                            </td>
-                            
+                            </td>                            
                         </tr>
                         @endif
                         @endforeach
@@ -315,6 +316,33 @@
             //Initialize Select2 Elements
             $('.select2').select2()
         })
+    </script>
+     <script>
+        $(function() {
+            @if (session('toastData') != null)
+                @if (session('toastData')['success'])
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: '{!! session('toastData')['text'] !!}',
+                        // toast: true,
+                        showConfirmButton: false,
+                        // position: 'top-end',
+                        timer: 3000
+                    })
+                @else
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: '{!! session('toastData')['text'] !!}',
+                        // toast: true,
+                        showConfirmButton: false,
+                        // position: 'top-end',
+                        timer: 5000
+                    })
+                @endif
+            @endif
+        });
     </script>
     <script>
         $(function () {
