@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Models\UserInactiveModel;
+use App\Services\AllServices;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -40,7 +41,7 @@ class UserController extends Controller
 
     public function getUserSettingsInactive()
     {
-        if (Auth::check()) {
+        if (AllServices::isLoggedUserHasAdminAccess()) {
             $users_inactive = UserInactiveModel::all();
 
             $data = [
@@ -102,7 +103,18 @@ class UserController extends Controller
         return view('user-detail', $data);
     }
 
-//    public function indexlogindashboard(Request $request)
+    public function getUserDetailInactive(Request $request)
+    {
+        $user = UserInactiveModel::find($request->user_id);
+        $data = [
+            'user' => $user,
+            'active_sidebar' => [0, 0]
+        ];
+
+        return view('user-detail-inactive', $data);
+    }
+
+    //    public function indexlogindashboard(Request $request)
 //    {
 //        $user = User::find($request->user_id);
 //        $roles = RoleModel::find(2);
