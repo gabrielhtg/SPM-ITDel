@@ -22,7 +22,6 @@
                     <thead>
                         <tr>
                             <th>Nama Dokumen</th>
-                            <th>Periode</th>
                             <th>Jenis Laporan</th>
                             <th>Pengirim</th>
                             <th>Revisi</th>
@@ -41,13 +40,6 @@
                                 <div class="user-panel d-flex">
                                     <div class="info">
                                         <span class="d-block"> {{$lap->nama_laporan}} </span>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                        <span class="d-block">Periode</span>
                                     </div>
                                 </div>
                             </td>

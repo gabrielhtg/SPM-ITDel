@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Users Settings</title>
+        <title>Laporan Berkala</title>
     
         {{-- @php
         dd($documenthero);
@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Document Management</h1>
+                            <h1 class="m-0">Laporan Berkala</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
