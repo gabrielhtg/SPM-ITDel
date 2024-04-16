@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
         Route::post('upload-document-type', [TypeDocumentController::class, 'addDocumentType'])->name('uploadTypeDocument');
         Route::post('upload-laporan-type', [TypeDocumentController::class, 'addLaporanType'])->name('uploadTypeLaporan');
         Route::post('/edit-type-laporan/{id}', [TypeDocumentController::class, 'editLaporanType'])->name('editTypeLaporan');
+        Route::post('/edit-jenis-laporan/{id}', [TypeDocumentController::class, 'updateLaporanJenis'])->name('editJenisLaporan');
         Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
         Route::post('upload-laporan-jenis', [TypeDocumentController::class, 'addLaporanJenis'])->name('uploadJenisLaporan');
 
@@ -150,7 +151,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit-role', [RoleController::class, 'editRole'])->name('editRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
-        
+
     });
 });
-    

@@ -63,10 +63,13 @@
 
                 @if((app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->id)))
                 @include('components.upload-tipe-laporan')
-                <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
-                    <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
-                </a>
+                    <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
+                        <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
+                    </a>
                 @include('components.upload-jenis-laporan')
+                    <a href="{{ route('viewLaporanJenis') }}" class="btn btn-primary mb-3">
+                        <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Jenis Laporan</span>
+                    </a>
                 @endif
 
 
