@@ -185,7 +185,9 @@
 
                         <td>
                             <div class="d-flex" style="gap: 5px">
-                                <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
+                                    <i class="fas fa-eye"></i>
+                                </a>
                                 @if($item->status=="Menunggu")
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>

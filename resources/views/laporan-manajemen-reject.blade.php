@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Users Settings</title>
+        <title>Laporan Berkala</title>
     
         {{-- @php
         dd($documenthero);
@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Document Management</h1>
+                            <h1 class="m-0">Periksa Laporan Berkala</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -177,7 +177,9 @@
                             <td>
                                 <div class="d-flex" style="gap: 5px">
                                     @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
-                                        <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     @else
                                         Tidak Ada Aksi
                                     @endif
