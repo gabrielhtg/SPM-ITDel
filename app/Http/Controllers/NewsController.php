@@ -117,7 +117,7 @@ class NewsController extends Controller
             // Simpan data pengumuman ke dalam database
             $news = News::create([
                 'title' => $request->title,
-                'description' => $request->description,
+                'description' => $description,
                 'bgimage' => $gambarnews,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
@@ -244,6 +244,8 @@ class NewsController extends Controller
             // Memeriksa apakah HTML yang dimuat valid atau tidak
             if (@$dom->loadHTML($news->description)) {
                 $images = $dom->getElementsByTagName('img');
+
+                // dd($news->description);
 
                 foreach ($images as $key => $img) {
 

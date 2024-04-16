@@ -41,8 +41,8 @@
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                    <li class="breadcrumb-item active">News</li>
+                                    {{-- <li class="breadcrumb-item"><a href="#">Home</a></li> --}}
+                                    {{-- <li class="breadcrumb-item active">News</li> --}}
                                 </ol>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                                 </p>
                             </div>
                             <div class="card-body d-flex flex-column ">
-                                <img src="{{ asset('src/gambarnews/'.$newsDetail->bgimage) }}" alt="gambar tidak ditemukan" class="img-fluid align-self-center rounded" style="width: 500px;">
+                                <img src="{{ asset('src/gambarnews/'.$newsDetail->bgimage) }}" alt="gambar tidak ditemukan" class="img-fluid align-self-center rounded" style="width: 100%;">
                                 <p class="text-break">{!! $newsDetail->description !!}</p>
                             </div>
                         </div>
