@@ -102,6 +102,7 @@
                                         app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) ||
                                         app(AllServices::class)->isAllView($e->id) ||
                                         (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
+                                        || (strpos($e->give_access_to, '0') !== false)
                                     )
                                 )
                             )

@@ -186,9 +186,10 @@
                         <td>
                             <div class="d-flex" style="gap: 5px">
                                 <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                
+                                @if($item->status=="Menunggu")
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
+                                @endif
 
 
                             </div>
@@ -225,7 +226,7 @@
                                             </select>
                                         </div>
                                         
-                                        @if($item->status=="Menunggu")
+                                       
                                             <div class="form-group">
                                                 <label for="edit-revisi">Revisi:</label><br>
                                                 <div class="form-check form-check-inline">
@@ -248,7 +249,7 @@
                                                 </select>
                                             </div>
                                         
-                                        @endif
+                                    
                                         
                                         <div class="form-group">
                                             <label for="laporan-file">Dokumen</label>
