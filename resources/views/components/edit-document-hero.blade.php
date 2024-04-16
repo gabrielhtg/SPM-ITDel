@@ -29,11 +29,12 @@
                         <label for="exampleInputFile">Unggah Walpaper</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="file" name="imagehero">
-                                <label class="custom-file-label" for="file">Pilih File</label>
+                                <input type="file" class="custom-file-input" id="file" name="imagehero" onchange="displayFileName()">
+                                <label class="custom-file-label" for="file" id="file-label">Pilih File</label>
                             </div>
                         </div>
                     </div>
+
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                         <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
@@ -43,3 +44,16 @@
         </div>
     </div>
 </div>
+
+<script>
+function displayFileName() {
+    // Mendapatkan input file
+    var input = document.getElementById('file');
+    // Mendapatkan label
+    var label = document.getElementById('file-label');
+    // Mendapatkan nama file yang dipilih
+    var fileName = input.files[0].name;
+    // Menampilkan nama file dalam label
+    label.innerHTML = fileName;
+}
+</script>

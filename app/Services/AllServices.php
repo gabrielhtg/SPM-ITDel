@@ -532,6 +532,26 @@ public function getUserRoleById($userId)
         // Jika laporan tidak ditemukan, kembalikan null
         return null;
     }
+
+    public function countWaitingLaporan($userId)
+    {
+        // Mengambil semua data laporan
+        $laporan = Laporan::all();
+        
+        // Inisialisasi variabel untuk menghitung banyak data
+        $banyakData = 0;
+
+        // Iterasi setiap laporan
+        foreach ($laporan as $item) {
+            // Periksa apakah status laporan adalah 'Menunggu' dan user mempunyai akses ke laporan ini
+            if ($item->status === 'Menunggu' && $this->isAccountableToRole(auth()->user()->role, $this->getUserRoleById($item->created_by))) {
+                $banyakData++;
+            }
+        }
+
+        // Mengembalikan jumlah data yang memenuhi kondisi
+        return $banyakData;
+    }
     
 
 }

@@ -21,11 +21,12 @@
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -101,6 +102,7 @@
                                         app(AllServices::class)->isUserRole(auth()->user(), $e->give_access_to) ||
                                         app(AllServices::class)->isAllView($e->id) ||
                                         (app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to) && $e->keterangan_status==1)
+                                        || (strpos($e->give_access_to, '0') !== false)
                                     )
                                 )
                             )
@@ -434,41 +436,29 @@
     });
 </script>
 <script>
-    $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Sukses',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
-        })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if(session('toastData') != null)
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Gagal edit hero! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
+    $(function() {
+        @if (session('toastData') != null)
+            @if (session('toastData')['success'])
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 3000
+                })
+            @else
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 5000
+                })
+            @endif
         @endif
     });
 </script>

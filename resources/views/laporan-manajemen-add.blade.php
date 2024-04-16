@@ -5,17 +5,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Laporan Berkala</title>
 
     {{-- @php
     dd($documenthero);
     @endphp --}}
 
     <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
-          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- DataTables -->
     <link rel="stylesheet" href="{{ asset("plugins/datatables-bs4/css/dataTables.bootstrap4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
@@ -26,6 +29,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
@@ -46,7 +50,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Manajemen Laporan Berkala</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -66,13 +70,13 @@
                 @endif
 
 
-           
+
 
             @if(app(AllServices::class)->haveAccountable(auth()->user()->role) )
             @include('components.upload-laporan')
             @endif
 
-           
+
 
 
 
@@ -92,9 +96,8 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach ($laporan as $item)
-                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id == $item->created_by)
+                    @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id === $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
                             @elseif($item->status == 'Ditolak') background-color:  #f2dedf; /* Warna merah */
@@ -117,6 +120,7 @@
                             </div>
                         </td>
                         <td>
+
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
                                     {{$item->status}}
@@ -178,14 +182,16 @@
                                 </div>
                             </div>
                         </td>
-                        
-
 
                         <td>
                             <div class="d-flex" style="gap: 5px">
-                                <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
-                                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal-detail-laporan"><i class="fas fa-info-circle text-light"></i></button>
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan"><i class="fas fa-edit"></i> </button>
+                                <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                                @if($item->status=="Menunggu")
+                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
+                                <i class="fas fa-edit"></i> </button>
+                                @endif
 
 
                             </div>
@@ -193,8 +199,9 @@
 
 
                     </tr>
-                    @endif
-                    <div class="modal fade" id="modal-edit-laporan" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
+
+
+                    <div class="modal fade" id="modal-edit-laporan{{$item->id}}" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -211,31 +218,46 @@
                                             <label for="laporan-name">Nama Laporan</label>
                                             <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
                                         </div>
-                                        <div class="form-group">
-                                            <label for="laporan-type">Tipe Laporan</label>
-                                            <select class="form-control" id="laporan-type" name="id_tipelaporan" required>
-                                                <option value="">Pilih Tipe Laporan</option>
+                                        <div class="form-group mt-3">
+                                            <label for="edit-tipe-laporan{{ $item->id }}">Tipe Laporan</label>
+                                            <select id="edit-tipe-laporan{{ $item->id }}" name="id_tipelaporan" class="edit-tipe-laporan-custom form-control" style="width: 100%">
+                                                <option></option>
                                                 @foreach($tipe_laporan as $tipe)
-                                                    <option value="{{ $tipe->id }}" {{ $item->jenisLaporan->nama == $tipe->nama ? 'selected' : '' }}>
-                                                        {{ $tipe->nama }}
-                                                    </option>
+                                                    <option value="{{ $tipe->id }}" @if($tipe->id == $item->id_tipelaporan) selected @endif>{{ $tipe->nama }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
-                    
-                                        <div class="form-group">
-                                            <label for="revisi">Revisi:</label>
-                                            <select class="form-control" id="revisi" name="revisi">
-                                                <option value="1" {{ $item->revisi == 1 ? 'selected' : '' }}>Ya</option>
-                                                <option value="0" {{ $item->revisi == 0 ? 'selected' : '' }}>Tidak</option>
-                                            </select>
-                                        </div>
-                    
+
+
+                                            <div class="form-group">
+                                                <label for="edit-revisi">Revisi:</label><br>
+                                                <div class="form-check form-check-inline">
+                                                    <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox{{ $item->id }}" name="revisi" value="1" {{ $item->revisi == 1 ? 'checked' : '' }}>
+                                                    <label class="form-check-label" for="edit-revisiCheckbox{{ $item->id }}">Ya</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group mt-3" style="display: none">
+                                                <label for="edit-menggantikan{{ $item->id }}">Merevisi Laporan:</label>
+                                                <select id="edit-menggantikan{{ $item->id }}" name="cek_revisi" class="edit-menggantikan form-control" style="width: 100%">
+                                                    <option></option>
+                                                    @php
+                                                    $allServices = new \App\Services\AllServices();
+                                                    @endphp
+                                                    @foreach ($laporan as $lap)
+                                                        @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
+                                                            <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+
+
                                         <div class="form-group">
                                             <label for="laporan-file">Dokumen</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="laporan-file" name="file" required>
+                                                    <input type="file" class="custom-file-input" id="laporan-file" name="file">
                                                     <label class="custom-file-label" for="laporan-file">
                                                         @if($item->directory)
                                                             {{ basename($item->directory) }}
@@ -245,22 +267,28 @@
                                                     </label>
                                                 </div>
                                             </div>
-                                            
                                         </div>
-                    
-                    
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button> 
+                                            <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @endif
                     @endforeach
                 </tbody>
             </table>
+
+
+
+
+
+
+
+
             </div>
             <!-- /.card-body -->
         </div>
@@ -268,7 +296,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- Modal Edit -->
-   
+
 
 
 
@@ -317,40 +345,47 @@
 </script>
 <script>
     $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
+        // Summernote
+        $('.summernote').summernote({
+            minHeight: 230,
+            toolbar: [
+                ['style', ['style']],
+                ['font', ['bold', 'underline', 'clear']],
+                ['fontname', ['fontname']],
+                ['color', ['color']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link']],
+                ['view', ['fullscreen', 'codeview', 'help']],
+            ],
+            disableDragAndDrop: true,
         })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if (!$errors->isEmpty())
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
+    })
+</script>
+<script>
+    $(function() {
+        @if (session('toastData') != null)
+            @if (session('toastData')['success'])
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 3000
+                })
+            @else
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 5000
+                })
+            @endif
         @endif
     });
 </script>
@@ -447,6 +482,45 @@
         });
     });
 </script>
+
+<script>
+    // Script JavaScript untuk menangani perubahan checkbox revisi
+    document.addEventListener("DOMContentLoaded", function() {
+        @foreach ($laporan as $item)
+           @if($item->status=="Menunggu")
+           var checkbox{{ $item->id }} = document.getElementById("edit-revisiCheckbox{{ $item->id }}");
+            var merevisiLaporan{{ $item->id }} = document.getElementById("edit-menggantikan{{ $item->id }}").parentNode;
+
+            checkbox{{ $item->id }}.addEventListener('change', function() {
+                if (checkbox{{ $item->id }}.checked) {
+                    merevisiLaporan{{ $item->id }}.style.display = 'block';
+                } else {
+                    merevisiLaporan{{ $item->id }}.style.display = 'none';
+                }
+            });
+            @endif
+        @endforeach
+
+    });
+</script>
+<script>
+        $(function() {
+            //Initialize Select2 Elements
+            $('.tipe-laporan-custom').select2({
+                placeholder: "Pilih Tipe Laporan",
+            });
+            $('.menggantikan-to-custom').select2({
+                placeholder: "Pilih Revisi",
+            });
+            $('.edit-tipe-laporan-custom').select2({
+                placeholder: "Pilih Tipe Laporan",
+            });
+            $('.edit-menggantikan').select2({
+                placeholder: "Pilih Revisi",
+            });
+        })
+    </script>
+
 
 
 

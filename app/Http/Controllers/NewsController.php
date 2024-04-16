@@ -103,8 +103,11 @@ class NewsController extends Controller
 
         // Periksa apakah ada file gambar yang diunggah
         if ($request->hasFile('bgimage')) {
-            // Mendapatkan nama file asli
-            $gambarnews = $request->file('bgimage')->getClientOriginalName();
+            // Mendapatkan nama file
+            $gambarnews = 'image_' . microtime() . '.png';
+
+            // dd($gambarnews);
+            // sleep(10);
 
             // Pindahkan file gambar ke direktori yang ditentukan
             $request->file('bgimage')->move(public_path('src/gambarnews'), $gambarnews);
@@ -114,7 +117,7 @@ class NewsController extends Controller
             // Simpan data pengumuman ke dalam database
             $news = News::create([
                 'title' => $request->title,
-                'description' => $request->description,
+                'description' => $description,
                 'bgimage' => $gambarnews,
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
@@ -242,6 +245,8 @@ class NewsController extends Controller
             if (@$dom->loadHTML($news->description)) {
                 $images = $dom->getElementsByTagName('img');
 
+                // dd($news->description);
+
                 foreach ($images as $key => $img) {
 
                     $src = $img->getAttribute('src');
@@ -277,24 +282,11 @@ class NewsController extends Controller
             return redirect()->route('news')->with('error', 'Pengumuman tidak ditemukan.');
         }
 
-        // Mendapatkan ukuran file
-        $filePath = public_path('src/gambarnews') . '/' . $newsdetail->gambar;
-
-        $fileSize = filesize($filePath); // Ukuran file dalam byte
-        $fileSizeInKB = $fileSize / 1024; // Konversi ke kilobyte
-        $fileSizeInMB = $fileSizeInKB / 1024; // Konversi ke megabyte
-
-        // Membatasi jumlah desimal menjadi 2
-        $fileSizeInKB = number_format($fileSizeInKB, 2);
-        $fileSizeInMB = number_format($fileSizeInMB, 2);
-
         $loggedInUserName = auth()->user()->name;
 
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
         return view('news-detail', [
             'newsDetail' =>  $newsdetail,
-            'fileSizeInKB' => $fileSizeInKB,
-            'fileSizeInMB' => $fileSizeInMB,
             'loggedInUserName' => $loggedInUserName,
             'active_sidebar' => [2, 0]
         ]);

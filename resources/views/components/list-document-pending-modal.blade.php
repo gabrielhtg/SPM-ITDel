@@ -68,12 +68,12 @@
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
                                         @php
-                                        if($item->revisi == 1) {
+                                        if($lap->revisi == 1) {
                                             $allServices = new \App\Services\AllServices();
                                             $namaLaporan = $allServices->getNamaLaporanById($lap->cek_revisi);
                                             echo $namaLaporan;
                                         }
-                                        else if($item->revisi == 0){
+                                        else if($lap->revisi == 0){
                                             echo "Tidak";
                                         }
                                         @endphp

@@ -5,7 +5,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Users Settings</title>
+        <title>Laporan Berkala</title>
     
         {{-- @php
         dd($documenthero);
@@ -21,12 +21,12 @@
         <link rel="stylesheet" href="{{ asset("plugins/datatables-responsive/css/responsive.bootstrap4.min.css") }}">
         <link rel="stylesheet" href="{{ asset("plugins/datatables-buttons/css/buttons.bootstrap4.min.css") }}">
         <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+
         <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
         <!-- SummerNote -->
         <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
         <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-        
+        <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
         {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
@@ -46,7 +46,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Document Management</h1>
+                            <h1 class="m-0">Periksa Laporan Berkala</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -78,7 +78,7 @@
                             <th>Dibuat Oleh</th>
                             <th>Diperiksa Oleh</th>
                             <th>diperiksa Pada</th>
-                            <th>Revisi</th>
+                             <th>Revisi</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -174,14 +174,17 @@
                                     </div>
                                 </div>
                             </td>
-                            
-                            
                             <td>
                                 <div class="d-flex" style="gap: 5px">
-                                    <a href="#" target="_blank" class="btn btn-success"><i class="fas fa-eye"></i></a>
+                                    @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
+                                    <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+                                    @else
+                                        Tidak Ada Aksi
+                                    @endif
                                 </div>
-                            </td>
-                            
+                            </td>                            
                         </tr>
                         @endif
                         @endforeach
@@ -315,6 +318,33 @@
             //Initialize Select2 Elements
             $('.select2').select2()
         })
+    </script>
+     <script>
+        $(function() {
+            @if (session('toastData') != null)
+                @if (session('toastData')['success'])
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: '{!! session('toastData')['text'] !!}',
+                        // toast: true,
+                        showConfirmButton: false,
+                        // position: 'top-end',
+                        timer: 3000
+                    })
+                @else
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed',
+                        text: '{!! session('toastData')['text'] !!}',
+                        // toast: true,
+                        showConfirmButton: false,
+                        // position: 'top-end',
+                        timer: 5000
+                    })
+                @endif
+            @endif
+        });
     </script>
     <script>
         $(function () {

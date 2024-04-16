@@ -212,6 +212,7 @@ public function update(Request $request, $id)
         'nama_laporan' => 'required|max:255',
         'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:30720',
         'id_tipelaporan' => 'required',
+        'cek_revisi'=>'nullable',
     ], [
         'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
         'id_tipelaporan.required' => 'Pilih tipe laporan.',
@@ -249,6 +250,8 @@ public function update(Request $request, $id)
     // Update data laporan dengan data baru dari formulir
     $laporan->nama_laporan = $request->nama_laporan;
     $laporan->id_tipelaporan = $request->id_tipelaporan;
+    $laporan->cek_revisi= $request->cek_revisi;
+    
     $laporan->revisi = $request->revisi ?? false;
     $laporan->save();
 

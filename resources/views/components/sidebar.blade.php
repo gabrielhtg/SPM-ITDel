@@ -79,13 +79,15 @@
                                     <p>Pengguna Aktif</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ route('user-settings-inactive') }}"
-                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Pengguna Tidak Aktif</p>
-                                </a>
-                            </li>
+                            @if (AllServices::isLoggedUserHasAdminAccess())
+                                <li class="nav-item">
+                                    <a href="{{ route('user-settings-inactive') }}"
+                                        class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Pengguna Tidak Aktif</p>
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </li>
                 @endif
@@ -95,7 +97,7 @@
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
-                                Laporan Dokumen
+                                Laporan Berkala
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
@@ -126,8 +128,18 @@
                                         class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Periksa Laporan</p>
+                                        @php
+                                            $banyakData = app(\App\Services\AllServices::class)->countWaitingLaporan(
+                                                auth()->user()->id,
+                                            );
+                                        @endphp
+                                        @if ($banyakData > 0)
+                                            <span class="badge badge-primary"
+                                                style="margin-left: 5px">{{ $banyakData }}</span>
+                                        @endif
                                     </a>
                                 </li>
+
                             @endif
 
                             <li class="nav-item">
