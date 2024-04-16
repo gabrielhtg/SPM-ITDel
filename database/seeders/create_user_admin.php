@@ -41,9 +41,9 @@ class create_user_admin extends Seeder
                 'verified' => true,
                 'role' => 1,
                 'created_at' => now(),
-                'profile_pict' => 'src/img/profil_gabriel.png',
+                'profile_pict' => null,
             ],
-//            [
+            //            [
 //                'name' => 'David Vincent Gurning',
 //                'email' => 'ifs21001@students.del.ac.id',
 //                'username' => 'Davidgrng',

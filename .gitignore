@@ -19,3 +19,6 @@ yarn-error.log
 /.vscode
 /public/src/img/profile_pict
 /public/src/documents
+/public/src/gambarnews
+/public/src/newsimg
+/public/src/documents
