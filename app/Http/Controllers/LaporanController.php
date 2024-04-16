@@ -35,6 +35,7 @@ class LaporanController extends Controller
 
     $tipe_laporan = JenisLaporan::whereIn('id_tipelaporan', $documentIds)->get();
     $type_laporan =TipeLaporan::all();
+    $jenis_laporan =JenisLaporan::all();
 
 
     $data = [
@@ -44,6 +45,7 @@ class LaporanController extends Controller
         'laporan' => $laporan,
         'tipe_laporan' => $tipe_laporan,
         'type_laporan'=>$type_laporan,
+        'jenis_laporan'=>$jenis_laporan,
 
     ];
 
@@ -51,9 +53,9 @@ class LaporanController extends Controller
 }
 
 public function getLogLaporanView()
-{   
+{
     $tipe_laporan = JenisLaporan::all();
-  
+
     $data = [
         'active_sidebar' => [5, 3],
         'jenis_laporan' => $tipe_laporan,
@@ -161,13 +163,13 @@ public function getLaporanManagementReject()
     }
 
     public function approve($id)
-{   
+{
     $nowDate = Carbon::now();
     $laporan = Laporan::findOrFail($id);
     $tipeLaporan = TipeLaporan::findOrFail($laporan->id_tipelaporan);
 
     // Update status laporan
-    $laporan->status = 'Disetujui'; 
+    $laporan->status = 'Disetujui';
     $laporan->approve_at = $nowDate;
     $laporan->direview_oleh = auth()->user()->id;
     $laporan->save();
@@ -175,7 +177,7 @@ public function getLaporanManagementReject()
     // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
     $carbonStartDate = $tipeLaporan->start_date;
     $carbonCreateDate =  $laporan->created_at;
-    
+
     // Tentukan status berdasarkan perbandingan tanggal
     $status = $carbonCreateDate->greaterThan($carbonStartDate) ? 'Terlambat' : 'Tepat Waktu';
 
@@ -189,7 +191,7 @@ public function getLaporanManagementReject()
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
 }
 
-    
+
 
 
 
@@ -251,7 +253,7 @@ public function update(Request $request, $id)
     $laporan->nama_laporan = $request->nama_laporan;
     $laporan->id_tipelaporan = $request->id_tipelaporan;
     $laporan->cek_revisi= $request->cek_revisi;
-    
+
     $laporan->revisi = $request->revisi ?? false;
     $laporan->save();
 

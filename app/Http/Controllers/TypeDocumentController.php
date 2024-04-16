@@ -75,7 +75,7 @@ class TypeDocumentController extends Controller
 
         LaporanTypeModel::create([
             'nama_laporan' => $request->nama_laporan,
-           
+
         ]);
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
@@ -86,7 +86,7 @@ class TypeDocumentController extends Controller
         // Validasi data yang diubah
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan,nama_laporan,'.$id,
-           
+
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
@@ -169,7 +169,7 @@ class TypeDocumentController extends Controller
     return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
 }
 
-    
+
 public function updateLaporanJenis(Request $request, $id)
 {
     // Validasi input

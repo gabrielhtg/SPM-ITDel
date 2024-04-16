@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentModel;
 use App\Models\DocumentTypeModel;
+use App\Models\JenisLaporan;
 use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
+use App\Models\TipeLaporan;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -308,7 +310,7 @@ public function updateDocument(Request $request, $id)
         ],
     ], [
         'name.required' => 'Nama dokumen harus diisi.',
-      
+
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
@@ -467,13 +469,29 @@ public function updateDocument(Request $request, $id)
         return view('document-replaced-all', $data);
     }
 
-    public function viewLaporanType()
+    public function getviewLaporanType()
     {
         $tipe_laporan = LaporanTypeModel::all();
         $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
 
 
         return view('components/view-tipe-laporan', compact('tipe_laporan', 'active_sidebar'));
+    }
+
+    public function viewLaporanJenis()
+    {
+        $jenis_laporan = JenisLaporan::all();
+        $type_laporan =TipeLaporan::all();
+        $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
+
+        $data = [
+            'type_laporan'=>$type_laporan,
+            'jenis_laporan'=>$jenis_laporan,
+
+        ];
+
+
+        return view('components/view-jenis-laporan',$data, compact( 'active_sidebar'));
     }
 
 
