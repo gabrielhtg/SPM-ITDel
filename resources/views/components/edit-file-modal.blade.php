@@ -87,18 +87,22 @@
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
+                                                     
                                                         @foreach($documents as $type)
-                                                            @php
-                                                                $isReplaced = App\Models\DocumentModel::where('menggantikan_dokumen', $type->id)->exists();
-                                                                $selected = is_array($document->menggantikan_dokumen) && in_array($type->id, $document->menggantikan_dokumen);
-                                                                $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
-                                                            @endphp
-                                                            <option value="{{ $type->id }}" @if($type->tipe_dokumen == $type->id || $selected) selected @endif>
-                                                                {{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}
-                                                            </option>
-                                                        @endforeach
+                                                        @php            
+                                                        $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
+                                                        $selected = is_array($document->menggantikan_dokumen) && in_array($type->id, $document->menggantikan_dokumen) ? 'selected' : '';
+                                                        @endphp
+                                                        @if($document->menggantikan_dokumen == $type->id)
+                                                        <option value="{{ $type->id }}" selected>{{ $document->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>
+                                                        @else
+                                                        <option value="{{ $type->id }}" >{{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}</option>
+                                                        @endif
+                                                    @endforeach
                                                     </select>
                                                 </div>
+                                                
+                                                
                                                 
                                                 
 

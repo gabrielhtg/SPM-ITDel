@@ -114,14 +114,6 @@
                                 <label for="edit_nama_laporan">Nama Laporan:</label>
                                 <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $e->nama_laporan }}">
                             </div>
-                            <div class="form-group">
-                                <label for="edit_start_date">Tanggal Mulai:</label>
-                                <input type="datetime-local" id="edit_start_date" name="start_date" class="form-control" value="{{ $e->start_date }}">
-                            </div>
-                            <div class="form-group">
-                                <label for="edit_end_date">Tanggal Berakhir:</label>
-                                <input type="datetime-local" id="edit_end_date" name="end_date" class="form-control" value="{{ $e->end_date }}">
-                            </div>
                             <!-- Button untuk menyimpan perubahan -->
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

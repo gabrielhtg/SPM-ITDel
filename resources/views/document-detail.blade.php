@@ -169,7 +169,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
-                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Dokumen Sejenis</h3>
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Dokumen Berelasi</h3>
                                     </div>
                                     <div class="card-body flex-grow-1">
                                         <!-- Isi similar document -->
