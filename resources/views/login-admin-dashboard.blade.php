@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="{{ asset("plugins/daterangepicker/daterangepicker.css") }}">
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
-    <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom1.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -64,7 +64,7 @@
 
         <!-- Modal -->
         <div class="modal fade" id="personModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg"> <!-- Menambahkan kelas modal-lg untuk membuat modal lebih besar -->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel">Details</h5>
@@ -72,25 +72,21 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-
                     <div class="modal-body">
                         <div id="modal-content">
-                            <img id="modal-image" src="" alt="" style="max-width: 100%; height: auto;">
-                            <p id="modal-name"></p>
-                            <p id="modal-role"></p> 
-                            <p id="modal-responsible"></p> 
-                            <p id="modal-informable"></p> 
-                            <p id="modal-accountable"></p> 
+                            <p id="modal-role">Role: </p> <!-- Mengisi dengan data -->
+                            <p id="modal-responsible">Responsible: </p> <!-- Mengisi dengan data -->
+                            <p id="modal-informable">Informable: </p> <!-- Mengisi dengan data -->
+                            <p id="modal-accountable">Accountable: </p> <!-- Mengisi dengan data -->
                         </div>
                     </div>
-
-
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+        
 
 
         
@@ -113,30 +109,29 @@
     {{-- <script src="{{ asset("dist/js/adminlte.min.js") }}"></script> --}}
     
     <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
-    <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
+    {{-- <script src="{{ asset("dist/js/adminlte.min.js") }}"></script> --}}
 
     <script>
         const data = {!! $tree !!};
         const arrayResponsibleTo = {!! json_encode($arrayResponsibleTo) !!};
         const options = {
             contentKey: 'data',
-            width: '100%',
-            height: '650px',
-            nodeWidth: 150, 
-            nodeHeight: 100,
+            width: '100%',  
+            height: '680px',
+            nodeWidth: 120, 
+            nodeHeight: 40,
             fontColor: '#fff',
-            borderColor: '#333',
+            borderColor: '#fff',
             childrenSpacing: 50,
             siblingSpacing: 20,
             direction: 'top',
             nodeTemplate: (content) =>
-                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
-                    <div style='display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100%;'>
-                        <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-                        <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-                        <div style="font-weight: bold; font-size: 14px">${content.role}</div>
-                    </div>
-                </a>`,
+            `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
+                <div class="node-content">
+                    <div class="role">${content.role}</div>
+                </div>
+            </a>`,
+
 
             canvasStyle: 'background: #fff;',
         };
@@ -147,7 +142,7 @@
         document.querySelectorAll('.node-link').forEach(link =>{
             link.addEventListener('click', function(event) {
                 event.preventDefault();
-                const name = this.dataset.name;
+                // const name = this.dataset.name;
                 const image = this.dataset.images;
                 const role = this.dataset.role;
                 const responsible = this.dataset.responsible;
@@ -156,7 +151,7 @@
 
                 // Open modal
                 $('#personModal').modal('show');
-                $('#modal-name').text(name);
+                // $('#modal-name').text(`name: ${name}`);
                 $('#modal-image').attr('src', image);
                 $('#modal-role').text(`Role: ${role}`);
                 $('#modal-responsible').text(`Responsible to: ${responsible}`);
@@ -168,6 +163,9 @@
     </script>
 
 
+
+<!-- Page specific script -->
+<!-- jQuery -->
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
@@ -188,7 +186,53 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-<!-- Page specific script -->
+<script>
+    document.getElementById('bgimage').addEventListener('change', function(e) {
+        var fileName = document.getElementById('bgimage').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script>
+
+<script>
+    $(function () {
+        @if(session('toastData') != null)
+        @if(session('toastData')['success'])
+        Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 3000
+        })
+        @else
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: '{!! session('toastData')['text'] !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+        @endif
+
+        @if (!$errors->isEmpty())
+        Swal.fire({
+            icon: 'error',
+            title: 'Failed',
+            text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+            toast: true,
+            showConfirmButton: false,
+            position: 'top-end',
+            timer: 5000
+        })
+        @endif
+    });
+</script>
 
 <script>
     $(function () {

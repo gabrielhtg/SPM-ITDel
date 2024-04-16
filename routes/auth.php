@@ -58,12 +58,7 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        $data = [
-            'active_sidebar' => [1, 0]
-        ];
-        return view('dashboard', $data);
-    })->name('admin-dashboard');
+    Route::get('/dashboard', [RoleTreeController::class, 'indexlogindashboard'])->name('indexlogindashboard');
 
     Route::middleware('checkDocumentActive')->group(function () {
         Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
@@ -155,6 +150,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit-role', [RoleController::class, 'editRole'])->name('editRole');
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
-        Route::get('/dashboarduser', [RoleTreeController::class, 'indexlogindashboard'])->name('indexlogindashboard');
+        
     });
 });
+    

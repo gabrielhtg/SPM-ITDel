@@ -78,11 +78,11 @@
                                                                         @csrf
                                                                         <div class="form-group mt-1">
                                                                             <label for="title">Judul Besar</label>
-                                                                            <input type="text" name="judulhero" id="judulhero" class="form-control" required>
+                                                                            <input type="text" name="judulhero" id="judulhero" value="{!! $e->judulhero !!}" class="form-control" required>
                                                                         </div>
                                                     
                                                                         <label for="summernote">Keterangan Tambahan</label>
-                                                                        <textarea class="summernote" name="tambahanhero"></textarea>
+                                                                        <textarea class="summernote" name="tambahanhero">{!! $e->tambahanhero !!}</textarea>
                                                     
                                                                         <div class="form-group">
                                                                             <label for="exampleInputFile">Foto Hero</label>

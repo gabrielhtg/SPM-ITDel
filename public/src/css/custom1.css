@@ -1,0 +1,73 @@
+/* Custom CSS for modal */
+.modal-content {
+    border-radius: 20px; /* Membuat sudut modal membulat */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1); /* Efek bayangan untuk modal */
+    background-color: #fff; /* Warna latar belakang modal */
+}
+
+.modal-header {
+    background-color: #5c5f63; /* Warna latar belakang header */
+    border-bottom: none; /* Menghilangkan garis bawah header */
+}
+
+.modal-title {
+    color: #fff; /* Warna teks judul */
+    font-family: "Arial", sans-serif; /* Gaya font judul */
+}
+
+.modal-body {
+    padding: 20px; /* Padding di dalam modal */
+    font-family: "Roboto", sans-serif; /* Gaya font isi modal */
+    color: #333; /* Warna teks isi modal */
+}
+
+.modal-footer {
+    border-top: none; /* Menghilangkan border atas footer */
+    background-color: #f0f0f0; /* Warna latar belakang footer */
+}
+
+.btn-secondary {
+    background-color: #888; /* Warna tombol Close */
+    color: #fff; /* Warna teks tombol Close */
+}
+
+.btn-secondary:hover {
+    background-color: #666; /* Warna tombol Close saat dihover */
+}
+
+/* -------------------------------------------------------------------------- */
+/* Custom CSS for node-link */
+.node-link {
+    text-decoration: none; /* Menghilangkan garis bawah */
+    color: #000000; /* Warna teks */
+}
+
+.node-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #ffffff; /* Warna latar belakang */
+    border: 1.2px solid #000000; /* Tepi dengan border */
+    border-radius: 10px; /* Membuat sudut membulat */
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 0px;
+    padding: 5px;
+    box-shadow: 0px 4px 10px rgba(255, 255, 255, 0); /* Efek bayangan */
+    transition: background-color 0.3s, transform 0.3s; /* Transisi warna latar belakang dan transformasi */
+}
+
+.node-content:hover {
+    background-color: #afb0b1; /* Warna latar belakang saat dihover */
+    transform: scale(1.05); /* Efek zoom saat dihover */
+}
+
+.role {
+    font-weight: bold;
+    font-size: 8px;
+    text-align: center;
+    font-family: "Roboto", sans-serif; /* Gaya font */
+    color: #000000; /* Warna teks */
+    text-transform: uppercase; /* Mengubah teks menjadi huruf kapital */
+}
