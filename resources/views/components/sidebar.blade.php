@@ -121,13 +121,20 @@
                             @endphp
 
                             @if ($isResponsible)
-                                <li class="nav-item">
-                                    <a href="{{ route('LaporanManagementReject') }}"
-                                        class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Periksa Laporan</p>
-                                    </a>
-                                </li>
+                            <li class="nav-item">
+                                <a href="{{ route('LaporanManagementReject') }}"
+                                    class="nav-link {{ $active_sidebar[1] == 2 ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Periksa Laporan</p>
+                                    @php
+                                        $banyakData = app(\App\Services\AllServices::class)->countWaitingLaporan(auth()->user()->id);
+                                    @endphp
+                                    @if($banyakData > 0)
+                                        <span class="badge badge-primary" style="margin-left: 5px">{{ $banyakData }}</span>
+                                    @endif
+                                </a>
+                            </li>
+                            
                             @endif
 
                             <li class="nav-item">
