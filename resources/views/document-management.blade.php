@@ -435,41 +435,29 @@
     });
 </script>
 <script>
-    $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Sukses',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
-        })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if(session('toastData') != null)
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Gagal edit hero! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
+    $(function() {
+        @if (session('toastData') != null)
+            @if (session('toastData')['success'])
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 3000
+                })
+            @else
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 5000
+                })
+            @endif
         @endif
     });
 </script>

@@ -288,8 +288,7 @@ public function updateDocument(Request $request, $id)
     $validator = Validator::make($request->all(), [
         'name' => 'required',
         'nomor_dokumen' => [
-            'required',
-            Rule::unique('documents')->ignore($id),
+            'required'
         ],
         'start_date' => ['required', 'date', $request->input('end_date') ? 'before:end_date' : ''],
         'tipe_dokumen' => 'required',
@@ -309,7 +308,7 @@ public function updateDocument(Request $request, $id)
         ],
     ], [
         'name.required' => 'Nama dokumen harus diisi.',
-        'nomor_dokumen.unique' => 'Nomor dokumen sudah digunakan.',
+      
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
