@@ -175,6 +175,91 @@
 
                     </tr>
                     @endif
+                    <div class="modal fade" id="modal-edit-laporan" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="modal-edit-laporan-label">Edit Laporan</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form id="laporan-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
+                                        @csrf
+                                        @method('PUT')
+                                        <div class="form-group">
+                                            <label for="laporan-name">Nama Laporan</label>
+                                            <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
+                                        </div>
+                                        <div class="form-group mt-3">
+                                            <label for="edit-tipe-laporan">Tipe Laporan</label>
+                                            <select id="edit-tipe-laporan" name="id_tipelaporan" 
+                                                    class="edit-tipe-laporan-custom form-control" style="width: 100%">
+                                                <option></option>
+                                                @foreach($tipe_laporan as $tipe)
+                                                    <option value="{{ $tipe->id }}">{{ $tipe->nama}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                    
+                                    
+                    
+                                        <div class="form-group">
+                                            <label for="revisi">Revisi:</label><br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox" name="edit-revisi" value="1">
+                                                <label class="form-check-label" for="revisiCheckbox">Ya</label>
+                                            </div>
+                                        </div>
+                                <div class="form-group mt-3">
+                                            <label for="edit-menggantikan">Merevisi Laporan:</label>
+                                            <select id="edit-menggantikan" name="cek_revisi" 
+                                                    class="edit-menggantikan" style="width: 100%">
+                                                <option></option>
+                                                @php
+                                                $allServices = new \App\Services\AllServices();
+                                              
+                                                @endphp
+                                                @foreach ($laporan as $item)
+                                                @php
+                                                    @if(auth()->user()->id == $item->created_by && $item->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($item->id))
+                                                        <option value="{{$item->id}}">{{$item->nama_laporan}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
+                    
+                                        <div class="form-group">
+                                            <label for="laporan-file">Dokumen</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input" id="laporan-file" name="file" required>
+                                                    <label class="custom-file-label" for="laporan-file">
+                                                        @if($item->directory)
+                                                            {{ basename($item->directory) }}
+                                                        @else
+                                                            Pilih file
+                                                        @endif
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                    
+                    
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <button type="submit" class="btn btn-primary">Submit</button> 
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    
                     @endforeach
                 </tbody>
             </table>
@@ -193,91 +278,7 @@
     </div>
     <!-- /.content-wrapper -->
     <!-- Modal Edit -->
-    <div class="modal fade" id="modal-edit-laporan" tabindex="-1" role="dialog" aria-labelledby="modal-edit-laporan-label" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="modal-edit-laporan-label">Edit Laporan</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form id="laporan-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group">
-                        <label for="laporan-name">Nama Laporan</label>
-                        <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
-                    </div>
-                    <div class="form-group mt-3">
-                        <label for="edit-tipe-laporan">Tipe Laporan</label>
-                        <select id="edit-tipe-laporan" name="id_tipelaporan" 
-                                class="edit-tipe-laporan-custom form-control" style="width: 100%">
-                            <option></option>
-                            @foreach($tipe_laporan as $tipe)
-                                <option value="{{ $tipe->id }}">{{ $tipe->nama}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                
-
-                    <div class="form-group">
-                        <label for="revisi">Revisi:</label><br>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox" name="edit-revisi" value="1">
-                            <label class="form-check-label" for="revisiCheckbox">Ya</label>
-                        </div>
-                    </div>
-			<div class="form-group mt-3">
-                        <label for="edit-menggantikan">Merevisi Laporan:</label>
-                        <select id="edit-menggantikan" name="cek_revisi" 
-                                class="edit-menggantikan" style="width: 100%">
-                            <option></option>
-                            @php
-                            $allServices = new \App\Services\AllServices();
-                          
-                            @endphp
-                            @foreach ($laporan as $item)
-                            @php
-                                @if(auth()->user()->id == $item->created_by && $item->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($item->id))
-                                    <option value="{{$item->id}}">{{$item->nama_laporan}}</option>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="laporan-file">Dokumen</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="laporan-file" name="file" required>
-                                <label class="custom-file-label" for="laporan-file">
-                                    @if($item->directory)
-                                        {{ basename($item->directory) }}
-                                    @else
-                                        Pilih file
-                                    @endif
-                                </label>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button> 
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
+    
     @include('components.footer')
 
     <!-- Control Sidebar -->
