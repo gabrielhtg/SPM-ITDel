@@ -97,7 +97,7 @@
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
-                                Laporan Dokumen
+                                Laporan Berkala
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
