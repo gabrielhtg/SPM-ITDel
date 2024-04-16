@@ -239,9 +239,8 @@
                                                     <label for="wajib-melaporkan{{ $e->id }}">Wajib
                                                         Melaporkan</label>
                                                     <select id="wajib-melaporkan{{ $e->id }}"
-                                                        name="wajib_melaporkan[]"
-                                                        class="informable-to-custom form-control" multiple="multiple"
-                                                        style="width: 100%">
+                                                        name="wajib_melaporkan[]" class="laporkan-custom form-control"
+                                                        multiple="multiple" style="width: 100%">
                                                         <option></option>
                                                         @foreach ($tipe_dokumen as $laporan)
                                                             <option value="{{ $laporan->id }}">
