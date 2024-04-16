@@ -61,8 +61,8 @@
                         <label for="document-file">Dokumen</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" name="file" class="custom-file-input" id="document-file">
-                                <label class="custom-file-label" for="document-file">Pilih file</label>
+                                <input type="file" name="file" class="custom-file-input" id="document-file" onchange="displayFileName()">
+                                <label class="custom-file-label" for="document-file" id="file-label">Pilih file</label>
                             </div>
                         </div>
                     </div>
@@ -90,4 +90,16 @@
             }
         });
     });
+</script>
+<script>
+function displayFileName() {
+    // Mendapatkan input file
+    var input = document.getElementById('document-file');
+    // Mendapatkan label
+    var label = document.getElementById('file-label');
+    // Mendapatkan nama file yang dipilih
+    var fileName = input.files[0].name;
+    // Menampilkan nama file dalam label
+    label.innerHTML = fileName;
+}
 </script>
