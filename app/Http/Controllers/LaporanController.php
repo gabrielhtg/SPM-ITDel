@@ -33,7 +33,8 @@ class LaporanController extends Controller
     $documentIds = explode(';', $document);
 
 
-    $tipe_laporan = JenisLaporan::whereIn('id_tipelaporan', $documentIds)->get();
+    $tipe_laporan = app(AllServices::class)->getJenisLaporanWithoutLog(auth()->user()->id);
+   
     $type_laporan =TipeLaporan::all();
     $jenis_laporan =JenisLaporan::all();
 

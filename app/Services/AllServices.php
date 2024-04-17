@@ -9,6 +9,8 @@ use App\Models\InformableModel;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Models\LogLaporan;
+use App\Models\JenisLaporan;
 use App\Models\Laporan;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -551,6 +553,19 @@ public function getUserRoleById($userId)
 
         // Mengembalikan jumlah data yang memenuhi kondisi
         return $banyakData;
+    }
+
+    public function getJenisLaporanWithoutLog($userId)
+    {
+        // Mendapatkan ID laporan yang diunggah oleh user saat ini
+        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
+            ->pluck('id_jenis_laporan');
+
+        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini
+        $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
+            ->get();
+
+        return $jenisLaporan;
     }
     
 
