@@ -54,19 +54,6 @@ class CheckDocumentActive
             }
         }
 
-        foreach ($allDocuments as $document) {
-            $keterangan_berlaku = $document->keterangan_berlaku;
-//            $carbonEndDate =  $document->end_date;
-            if ($keterangan_berlaku !== null) {
-                if ($keterangan_berlaku == 1) {
-                    $document->update([
-                        'keterangan_status' => false,
-                        'end_date'=>now()
-
-                    ]);
-                }
-            }
-        }
 
         if (auth()->check()) {
 

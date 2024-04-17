@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Users Settings</title>
+    <title>Log Laporan</title>
 
     {{-- @php
     dd($documenthero);
@@ -57,21 +57,24 @@
         <div class="card">
             <div class="card-body">
 
-
+                <a href="{{ route('LogLaporanview') }}" class="btn btn-primary mb-3">
+                    <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
+                </a>
+                
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th class="text-center">Jenis Dokumen</th>
+                        <th class="text-center">Kategori Jenis Laporan</th>
                     </tr>
                     </thead>
                     <tbody>
 
-                        @foreach($tipe_laporan as $item)
+                        @foreach($jenis_laporan as $item)
                         <tr>
                             <td>
                                 <div class="user-panel d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('getJenisLaporanView', ['id' => $item->id]) }}">
-                                        {{ $item->nama_laporan }}
+                                    <a href="{{ route('LogLaporanContinue', ['id' => $item->id]) }}">
+                                        {{ $item->nama }}
                                     </a>
                                 </div>
                             </td>

@@ -54,13 +54,23 @@ class LaporanController extends Controller
 
 public function getLogLaporanView()
 {
-    $tipe_laporan = JenisLaporan::all();
+    $tipe_laporan = TipeLaporan::all();
 
     $data = [
         'active_sidebar' => [5, 3],
-        'jenis_laporan' => $tipe_laporan,
+        'tipe_laporan' => $tipe_laporan,
     ];
     return view('log-laporan-view', $data);
+}
+public function getJenisLaporanView($id)
+{
+    $jenis_laporan = JenisLaporan::where('id_tipelaporan',$id)->get();
+
+    $data = [
+        'active_sidebar' => [5, 3],
+        'jenis_laporan' => $jenis_laporan,
+    ];
+    return view('laporan-jenis', $data);
 }
 
 
@@ -166,8 +176,9 @@ public function getLaporanManagementReject()
 {
     $nowDate = Carbon::now();
     $laporan = Laporan::findOrFail($id);
-    $tipeLaporan = TipeLaporan::findOrFail($laporan->id_tipelaporan);
-
+    $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
+    $create_at = $laporan->created_at;
+    $approve_at=$laporan->approve_at;
     // Update status laporan
     $laporan->status = 'Disetujui';
     $laporan->approve_at = $nowDate;
@@ -177,7 +188,7 @@ public function getLaporanManagementReject()
     // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
     $carbonStartDate = $tipeLaporan->start_date;
     $carbonCreateDate =  $laporan->created_at;
-
+    
     // Tentukan status berdasarkan perbandingan tanggal
     $status = $carbonCreateDate->greaterThan($carbonStartDate) ? 'Terlambat' : 'Tepat Waktu';
 
@@ -186,6 +197,8 @@ public function getLaporanManagementReject()
         'id_jenis_laporan' => $laporan->id_tipelaporan,
         'upload_by' => $laporan->created_by,
         'status' => $status,
+        'approve_at'=>$approve_at,
+        'create_at'=>$create_at,
     ]);
 
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);

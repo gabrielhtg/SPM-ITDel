@@ -18,6 +18,7 @@ use App\Models\User;
 use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
 
 class DocumentController extends Controller
 {
@@ -310,7 +311,6 @@ public function updateDocument(Request $request, $id)
         ],
     ], [
         'name.required' => 'Nama dokumen harus diisi.',
-
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
@@ -360,7 +360,15 @@ public function updateDocument(Request $request, $id)
         $document->directory = '/src/documents/' . $filename;
     }
 
-    $document->keterangan_berlaku = $request->keterangan_berlaku;
+    // Update keterangan_status jika ada perubahan
+    if ($request->has('keterangan_status')) {
+        $document->keterangan_status = $request->keterangan_status;
+        if ($request->keterangan_status == false) {
+            $document->end_date = Carbon::now();
+        }
+    }
+
+    // Lanjutkan dengan penanganan atribut lainnya
     $document->name = $request->name;
     $document->nomor_dokumen = $request->nomor_dokumen;
     $document->deskripsi = $request->deskripsi;
@@ -387,18 +395,11 @@ public function updateDocument(Request $request, $id)
         }
     }
 
-    // Update keterangan_status based on start_date and end_date
-    $currentDateTime = now();
-    if ($request->start_date <= $currentDateTime && (!$request->end_date || $request->end_date >= $currentDateTime)) {
-        $document->keterangan_status = true;
-    } else {
-        $document->keterangan_status = false;
-    }
-
     // Simpan perubahan ke database
     $document->save();
     return redirect()->route('documentManagement', $id)->with('toastData', ['success' => true, 'text' => 'File berhasil diperbarui!']);
-    }
+}
+
 
 
     public function removeDocument(Request $request)

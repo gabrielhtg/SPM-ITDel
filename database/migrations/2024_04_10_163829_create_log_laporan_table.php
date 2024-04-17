@@ -18,6 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('upload_by');
             $table->foreign('upload_by')->references('id')->on('users');
             $table->string('status')->nullable();
+            $table->timestamp('create_at');
+            $table->timestamp('approve_at');
             $table->timestamps();
         });
     }

@@ -65,9 +65,12 @@
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr>
-                        <th>Nama</th>
-                        <th>Status</th>
+                    <tr> 
+                        <th>Unit/Prodi/Fakultas
+                        <th>Pemberi Laporan</th>
+                        <th>Dikumpulkan Pada</th>
+                        <th>Diperiksa Pada</th>
+                        <th>Keterangan</th>
                         
                     </tr>
                     </thead>
@@ -78,18 +81,37 @@
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
+                                    {{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->upload_by)->role) }}
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
                                     <div class="info">
-                                    <span> {{ \App\Models\User::find($item->upload_by)->name }} <span
-                                            class="badge badge-success"
-                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->upload_by)->role) }}</span></span>
-
+                                    <span> {{ \App\Models\User::find($item->upload_by)->name }} 
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{ $item->status }}
+                                        {{\Carbon\Carbon::parse($item->create_at )->format('d/m/Y')}}
+                                     
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        {{\Carbon\Carbon::parse($item->approve_at )->format('d/m/Y')}}
+                                     
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                       {{$item->status}}
+                                     
                                     </div>
                                 </div>
                             </td>

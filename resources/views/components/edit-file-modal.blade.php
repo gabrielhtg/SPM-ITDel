@@ -63,10 +63,10 @@
                                                 @if($document->keterangan_status == 1)
                                                     <div class="form-group">
                                                         <label>Status:</label>
-                                                        <select name="keterangan_berlaku" class="form-control" required>
+                                                        <select name="keterangan_status" class="form-control" required>
                                                             <option value="" disabled>Pilih Status</option>
-                                                            <option value="0" selected>Berlaku</option>
-                                                            <option value="1">Tidak Berlaku</option>
+                                                            <option value="1" selected>Berlaku</option>
+                                                            <option value="0">Tidak Berlaku</option>
                                                         </select>
                                                     </div>
                                                 @endif
