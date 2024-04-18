@@ -95,14 +95,8 @@
                                         </button>
                                     </form>
 
-                                    <!-- Form for rejecting -->
-                                    <form action="{{ route('laporan.reject', ['id' => $lap->id]) }}" method="POST" style="display: inline;">
-                                        @csrf
-                                        @method('PUT')
-                                        <button type="submit" class="btn btn-danger" >
-                                            <i class="fas fa-times" style="font-size: 14px;"></i>
-                                        </button>
-                                    </form>
+                                    @include('components.komentar')
+                                    
                                 </div>
                             </td>
                         </tr>
@@ -118,3 +112,4 @@
         </div>
     </div>
 </div>
+

@@ -195,6 +195,9 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
+                                    <i class="fas fa-comment"></i>
+                                </button>
 
 
                             </div>
@@ -275,6 +278,34 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+                        <div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Tempat untuk menampilkan isi komentar -->
+                                        <div id="commentContent">
+                                            {{$item->komentar}}
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     @endif
                     @endforeach
                 </tbody>

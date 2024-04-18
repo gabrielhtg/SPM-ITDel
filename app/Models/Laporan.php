@@ -21,6 +21,7 @@ class Laporan extends Model
         'cek_revisi',
         'approve_at',
         'reject_at',
+        'komentar',
     ];
 
     // Relasi dengan tabel tipe_laporan

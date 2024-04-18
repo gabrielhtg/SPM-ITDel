@@ -14,6 +14,7 @@ use App\Models\Laporan;
 use App\Services\AllServices;
 use Illuminate\Support\Carbon;
 
+
 use Illuminate\Support\Facades\Validator;
 class LaporanController extends Controller
 {
@@ -209,17 +210,28 @@ public function getLaporanManagementReject()
 
 
 
-public function reject($id)
-{
-    $nowDate = Carbon::now();
-    $laporan = Laporan::findOrFail($id);
-    $laporan->status = 'Ditolak';
-    $laporan->reject_at = $nowDate;
-    $laporan->direview_oleh = auth()->user()->id;
-    $laporan->save();
+public function reject(Request $request,$id)
+{   
+    $validator = Validator::make($request->all(), [
+            'komentar' => 'required' 
+        ]);
 
-    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
-}
+        // Periksa jika validasi gagal
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput(); 
+        }
+
+        $nowDate = Carbon::now();
+        $laporan = Laporan::findOrFail($id);
+        $laporan->status = 'Ditolak';
+        $laporan->reject_at = $nowDate;
+        $laporan->direview_oleh = auth()->user()->id;
+        $laporan->komentar = $request->komentar; 
+        $laporan->save();
+
+        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
+    }
+
 
 public function update(Request $request, $id)
 {
