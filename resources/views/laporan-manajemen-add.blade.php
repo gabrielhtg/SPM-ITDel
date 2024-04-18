@@ -214,12 +214,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="laporan-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
+                                    <form id="laporan-form{{$item->id}}" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group">
                                             <label for="laporan-name">Nama Laporan</label>
-                                            <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
+                                            <input type="text" id="edit_nama_laporan{{$item->id}}" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
                                         </div>
                                         <div class="form-group mt-3">
                                             <label for="edit-tipe-laporan{{ $item->id }}">Tipe Laporan</label>
@@ -230,38 +230,33 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
-
-                                            <div class="form-group">
-                                                <label for="edit-revisi">Revisi:</label><br>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox{{ $item->id }}" name="revisi" value="1" {{ $item->revisi == 1 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="edit-revisiCheckbox{{ $item->id }}">Ya</label>
-                                                </div>
+                                        <div class="form-group">
+                                            <label for="edit-revisiCheckbox{{ $item->id }}">Revisi:</label><br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox{{ $item->id }}" name="revisi" value="1" {{ $item->revisi == 1 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="edit-revisiCheckbox{{ $item->id }}">Ya</label>
                                             </div>
-                                            <div class="form-group mt-3" style="display: none">
-                                                <label for="edit-menggantikan{{ $item->id }}">Merevisi Laporan:</label>
-                                                <select id="edit-menggantikan{{ $item->id }}" name="cek_revisi" class="edit-menggantikan form-control" style="width: 100%">
-                                                    <option></option>
-                                                    @php
-                                                    $allServices = new \App\Services\AllServices();
-                                                    @endphp
-                                                    @foreach ($laporan as $lap)
-                                                        @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
-                                                            <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-
-
+                                        </div>
+                                        <div class="form-group mt-3" style="display: none;">
+                                            <label for="edit-menggantikan{{ $item->id }}">Merevisi Laporan:</label>
+                                            <select id="edit-menggantikan{{ $item->id }}" name="cek_revisi" class="edit-menggantikan form-control" style="width: 100%">
+                                                <option></option>
+                                                @php
+                                                $allServices = new \App\Services\AllServices();
+                                                @endphp
+                                                @foreach ($laporan as $lap)
+                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
+                                                        <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="form-group">
                                             <label for="laporan-file">Dokumen</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="laporan-file" name="file">
-                                                    <label class="custom-file-label" for="laporan-file">
+                                                    <input type="file" class="custom-file-input" id="edit-laporan-file{{$item->id}}" name="file">
+                                                    <label class="custom-file-label" for="edit-laporan-file{{$item->id}}">
                                                         @if($item->directory)
                                                             {{ basename($item->directory) }}
                                                         @else
@@ -271,12 +266,12 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -497,8 +492,10 @@
             checkbox{{ $item->id }}.addEventListener('change', function() {
                 if (checkbox{{ $item->id }}.checked) {
                     merevisiLaporan{{ $item->id }}.style.display = 'block';
+                    document.getElementById("edit-menggantikan{{ $item->id }}").setAttribute('required', 'required');
                 } else {
                     merevisiLaporan{{ $item->id }}.style.display = 'none';
+                    document.getElementById("edit-menggantikan{{ $item->id }}").removeAttribute('required');
                 }
             });
             @endif
