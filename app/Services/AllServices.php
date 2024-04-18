@@ -512,12 +512,12 @@ public function getUserRoleById($userId)
         $cekLaporan = Laporan::where('cek_revisi', $laporanId)
                              ->where('status', 'Disetujui')
                              ->first();
-        
+
         // Jika ada, return false
         if ($cekLaporan) {
             return false;
         }
-        
+
         // Jika tidak ada, return true
         return true;
     }
@@ -525,12 +525,12 @@ public function getUserRoleById($userId)
     {
         // Cari laporan berdasarkan ID
         $laporan = Laporan::find($laporanId);
-        
+
         // Jika laporan ditemukan, kembalikan nama laporannya
         if ($laporan) {
             return $laporan->nama_laporan;
         }
-        
+
         // Jika laporan tidak ditemukan, kembalikan null
         return null;
     }
@@ -539,7 +539,7 @@ public function getUserRoleById($userId)
     {
         // Mengambil semua data laporan
         $laporan = Laporan::all();
-        
+
         // Inisialisasi variabel untuk menghitung banyak data
         $banyakData = 0;
 
@@ -567,6 +567,21 @@ public function getUserRoleById($userId)
 
         return $jenisLaporan;
     }
-    
+
+    public static function isExistAsBahawan($idRole, $idBawahan)
+    {
+        $role = BawahanModel::where("role", $idRole)->get();
+
+        if ($role !== null) {
+            foreach ($role as $e) {
+                if ($e->bawahan == $idBawahan) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
 
 }
