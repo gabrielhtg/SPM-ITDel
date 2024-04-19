@@ -46,7 +46,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Jenis Laporan</h1>
+                        <h1 class="m-0">Kategori Tipe Laporan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -64,7 +64,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Jenis Laporan</th>
+                        <th>Kategori Tipe Laporan</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Aksi</th>
@@ -130,7 +130,7 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Edit Jenis Laporan</h4>
+                            <h4 class="modal-title">Edit Kategori Tipe Laporan</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -149,7 +149,7 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label for="edit_nama">Jenis Laporan:</label>
+                                    <label for="edit_nama">Kategori Tipe Laporan:</label>
                                     <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $value_dalam_kurung }}" required>
                                 </div>
                                 <div class="form-group">
