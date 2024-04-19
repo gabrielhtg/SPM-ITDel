@@ -188,7 +188,7 @@ public function getLaporanManagementReject()
     $laporan->save();
 
     // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
-    $carbonStartDate = $tipeLaporan->start_date;
+    $carbonStartDate = $tipeLaporan->end_date;
     $carbonCreateDate =  $laporan->created_at;
     
     // Tentukan status berdasarkan perbandingan tanggal
