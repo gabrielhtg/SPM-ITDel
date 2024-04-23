@@ -59,24 +59,22 @@
                 <a href="{{ url()->previous() }}" class="btn btn-primary mb-3">
                     <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
                 </a>
-                
+
 
 
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
-                    <tr> 
+                    <tr>
                         <th>Unit/Prodi/Fakultas
                         <th>Pemberi Laporan</th>
                         <th>Dikumpulkan Pada</th>
                         <th>Diperiksa Pada</th>
                         <th>Keterangan</th>
-                        
+
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-
                         @foreach($log as $item)
                         <tr>
                             <td>
@@ -87,7 +85,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                    <span> {{ \App\Models\User::find($item->upload_by)->name }} 
+                                    <span> {{ \App\Models\User::find($item->upload_by)->name }}
                                     </div>
                                 </div>
                             </td>
@@ -95,7 +93,7 @@
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
                                         {{\Carbon\Carbon::parse($item->create_at )->format('d/m/Y')}}
-                                     
+
                                     </div>
                                 </div>
                             </td>
@@ -103,7 +101,7 @@
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
                                         {{\Carbon\Carbon::parse($item->approve_at )->format('d/m/Y')}}
-                                     
+
                                     </div>
                                 </div>
                             </td>
@@ -111,14 +109,12 @@
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
                                        {{$item->status}}
-                                     
+
                                     </div>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-                    
-                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -166,7 +162,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[0, "desc"]]
+            "order": [[3, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
