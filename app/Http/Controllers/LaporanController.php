@@ -271,7 +271,7 @@ public function update(Request $request, $id)
             unlink(public_path($laporan->directory));
         }
 
-        // Update direktori baru pada laporan
+        // Update dici baru pada laporan
         $laporan->directory = '/src/documents/'.$fileName;
     }
 
