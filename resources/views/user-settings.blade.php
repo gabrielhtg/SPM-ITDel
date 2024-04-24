@@ -68,8 +68,10 @@
                                 <th>Nama Pengguna</th>
                                 <th>Alamat Email</th>
                                 <th>Role</th>
-                                <th>Alamat IP</th>
-                                <th>No. Telepon</th>
+                                @if(AllServices::isLoggedUserHasAdminAccess())
+                                    <th>Alamat IP</th>
+                                    <th>No. Telepon</th>
+                                @endif
                                 <th>Aksi</th>
                             </tr>
                         </thead>
@@ -127,21 +129,23 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
-                                            <div class="user-panel d-flex">
-                                                @if ($e->ip_address !== null)
-                                                    {{ $e->ip_address }}
-                                                @else
-                                                    -
-                                                @endif
-                                            </div>
-                                        </td>
+                                        @if(AllServices::isLoggedUserHasAdminAccess())
+                                            <td>
+                                                <div class="user-panel d-flex">
+                                                    @if ($e->ip_address !== null)
+                                                        {{ $e->ip_address }}
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="user-panel d-flex">
+                                                    {{ $e->phone }}
+                                                </div>
+                                            </td>
+                                        @endif
 
-                                        <td>
-                                            <div class="user-panel d-flex">
-                                                {{ $e->phone }}
-                                            </div>
-                                        </td>
 
                                         <td>
                                             <div class="d-flex" style="gap: 10px">
