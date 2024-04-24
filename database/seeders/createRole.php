@@ -65,24 +65,9 @@ class createRole extends Seeder
             //   ['role' => 'Dosen S1IF'],
             //   ['role' => 'Dosen S1SI'],
             ['role' => 'Admin', 'status' => true, 'is_admin' => true],
+            ['role' => 'Rektor', 'status' => true, 'is_admin' => false],
+            ['role' => 'Dekan', 'status' => true, 'is_admin' => false],
+            ['role' => 'Kaprodi', 'status' => true, 'is_admin' => false],
         ]);
-
-        // Membuat Roles
-        $rektor = Role::create(['name' => 'Rektor']);
-        $dekan = Role::create(['name' => 'Dekan']);
-        $kaprodi = Role::create(['name' => 'Kaprodi']);
-
-        // Menambahkan relasi
-        // Misal kita asumsikan ada relasi informable antar role
-        $dekan->informable()->attach($rektor);
-        $kaprodi->informable()->attach($rektor);
-        $kaprodi->informable()->attach($dekan);
-
-        // Menambahkan responsible dan accountable dengan cara yang sama
-        $dekan->responsible()->attach($rektor);
-        $dekan->accountable()->attach($rektor);
-        
-        $kaprodi->responsible()->attach([$rektor->id, $dekan->id]);
-        $kaprodi->accountable()->attach([$rektor->id, $dekan->id]);
     }
 }

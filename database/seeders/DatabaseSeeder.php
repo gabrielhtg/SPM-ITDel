@@ -30,6 +30,10 @@ class DatabaseSeeder extends Seeder
             DocType::class,
             HeroDocumentSeeder::class,
             TipeLaporanSeeder::class,
+            accountableSeeder::class,
+            informableSeeder::class,
+            responsibleSeeder::class,
+            bawahanSeeder::class,
         ]);
     }
 }
