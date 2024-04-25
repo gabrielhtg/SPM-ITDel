@@ -84,7 +84,7 @@
                                         <td>
                                             <div class="user-panel d-flex">
                                                 <div class="d-flex align-items-center">
-                                                    @if ($e->profile_pict == null)
+                                                     @if ($e->profile_pict == null)
                                                         <img src="{{ asset('src/img/default-profile-pict.png') }}"
                                                             class="img-circle custom-border" alt="User Image">
                                                     @else
@@ -255,19 +255,20 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "buttons": [{
-                    extend: 'pdf',
-                    filename: 'User Settings Data',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        },
-                        columns: [
-                            0, 1, 2, 3, 4, 5
-                        ]
+            @@if(AllServices::isLoggedUserHasAdminAccess())
+                "buttons": [{
+                extend: 'pdf',
+                filename: 'User Settings Data',
+                exportOptions: {
+                    modifier: {
+                        page: 'current'
                     },
-                    orientation: "landscape"
+                    columns: [
+                        0, 1, 2, 3, 4, 5
+                    ]
                 },
+                orientation: "landscape"
+            },
                 {
                     extend: 'excel',
                     filename: 'User Settings Data',
@@ -299,6 +300,7 @@
                     ]
                 },
             ],
+            @endif
             "pageLength": 10,
             "select": true
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
