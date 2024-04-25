@@ -255,7 +255,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            @@if(AllServices::isLoggedUserHasAdminAccess())
+            @if(AllServices::isLoggedUserHasAdminAccess())
                 "buttons": [{
                 extend: 'pdf',
                 filename: 'User Settings Data',
