@@ -1,5 +1,5 @@
 <a href="#modal-successlaporan1" class="btn btn-success mb-3" data-toggle="modal">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Kategori  Laporan</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Kategori Tipe Laporan</span>
 </a>
 
 <div class="modal fade" id="modal-successlaporan1">

@@ -61,7 +61,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th class="text-center">Jenis Dokumen</th>
+                        <th class="text-center">Tipe Laporan</th>
                     </tr>
                     </thead>
                     <tbody>

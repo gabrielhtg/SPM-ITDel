@@ -361,14 +361,11 @@ public function updateDocument(Request $request, $id)
     }
 
     // Update keterangan_status jika ada perubahan
-    if ($request->has('keterangan_status')) {
-        $document->keterangan_status = $request->keterangan_status;
-        if ($request->keterangan_status == false) {
-            $document->end_date = Carbon::now();
-        }
-    }
+  
 
     // Lanjutkan dengan penanganan atribut lainnya
+   
+    $document->keterangan_status = $request->keterangan_status;
     $document->name = $request->name;
     $document->nomor_dokumen = $request->nomor_dokumen;
     $document->deskripsi = $request->deskripsi;
@@ -376,6 +373,11 @@ public function updateDocument(Request $request, $id)
     $document->tipe_dokumen = $request->tipe_dokumen;
     $document->start_date = $request->start_date;
     $document->end_date = $request->end_date;
+    if ($request->keterangan_status==0) {
+        $document->keterangan_status = false;
+        $document->end_date = Carbon::now();
+       
+    }
     $document->give_access_to = implode(';', $request->input('give_access_to', []));
     $document->give_edit_access_to = implode(';', $request->input('give_edit_access_to', []));
     $document->can_see_by = $request->can_see_by ?? $document->can_see_by;

@@ -14,7 +14,7 @@ use App\Models\JenisLaporan;
 use App\Models\Laporan;
 use App\Models\User;
 use Illuminate\Support\Carbon;
-
+use App\Models\DocumentTypeModel;
 
 class AllServices
 {
@@ -582,6 +582,65 @@ public function getUserRoleById($userId)
 
         return false;
     }
+
+    public function getDocumentNameAndTypeById($id)
+    {
+        // Cari dokumen berdasarkan ID
+        $document = DocumentModel::find($id);
+    
+        // Pastikan dokumen ditemukan
+        if ($document) {
+            // Temukan tipe dokumen berdasarkan ID yang ada pada dokumen
+            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+            
+            // Pastikan tipe dokumen ditemukan
+            if ($tipe) {
+                // Gabungkan nama dokumen dengan jenis dokumen
+                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+                
+                // Kembalikan hasil gabungan
+                return $print;
+            }
+        }
+    
+        // Jika dokumen atau tipe dokumen tidak ditemukan, kembalikan null
+        return null;
+    }
+
+    public function getDocumentNameAndType()
+{
+    // Ambil semua dokumen
+    $documents = DocumentModel::all();
+    $results = [];
+
+    foreach ($documents as $document) {
+        // Periksa apakah dokumen dengan ID tersebut ada dalam atribut "menggantikan_dokumen"
+        if (!$this->isReplacementDocument($document->id)) {
+            // Ambil tipe dokumen berdasarkan ID yang ada pada dokumen
+            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+            
+            // Jika tipe dokumen ditemukan, lanjutkan
+            if ($tipe) {
+                // Gabungkan nama dokumen dengan jenis dokumen
+                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+                
+                // Tambahkan hasil gabungan ke dalam array dengan ID dokumen sebagai kunci
+                $results[$document->id] = $print;
+            }
+        }
+    }
+
+    // Kembalikan array hasil gabungan
+    return $results;
+}
+
+
+    // Metode untuk mengecek apakah sebuah dokumen adalah dokumen pengganti
+    private function isReplacementDocument($documentId)
+    {
+        return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
+    }
+    
 
 
 }
