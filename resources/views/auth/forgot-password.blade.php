@@ -30,7 +30,7 @@
 {{--            @endif--}}
 
             @if(session('toastData') == null || !array_key_exists('msg', session('toastData')))
-                <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+                <p class="login-box-msg">Anda hanya selangkah lagi menuju kata sandi baru Anda, pulihkan kata sandi Anda sekarang.</p>
             @else
                 <div class="alert alert-success" role="alert">
                     {{ session('toastData')['msg'] }}
@@ -51,7 +51,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Reset Password</button>
+                        <button type="submit" class="btn btn-primary btn-block">Reset Kata Sandi</button>
                     </div>
                     <!-- /.col -->
                 </div>
