@@ -249,14 +249,26 @@ class AllServices
 
         return $semuaNonaktif;
     }
-    public static function isResponsible($roleId): bool
+    public static function isResponsible($roleIds): bool
     {
-       // Dapatkan role berdasarkan id yang diberikan
-       $accountable = ResponsibleModel::where('responsible_to', 'LIKE', "%$roleId%")->first();
-
-        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
-        return $accountable !== null;
+        // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
+        $roleIdsArray = explode(';', $roleIds);
+    
+        // Lakukan pencarian responsible model untuk setiap role
+        foreach ($roleIdsArray as $roleId) {
+            // Cari responsible model yang memiliki role yang sesuai
+            $responsible = ResponsibleModel::where('responsible_to', 'LIKE', "%$roleId%")->first();
+    
+            // Jika responsible model ditemukan untuk setidaknya satu role, maka responsible
+            if ($responsible !== null) {
+                return true;
+            }
+        }
+    
+        // Jika tidak ada responsible model yang sesuai untuk semua role, maka tidak responsible
+        return false;
     }
+    
     public static function isnotAccountable($roleId): bool
     {
         // Dapatkan semua role dari database
@@ -266,14 +278,26 @@ class AllServices
         return $accountable !== null;
     }
 
-        public static function isAccountable($roleId): bool
+    public static function isAccountable($roleIds): bool
     {
-        // Cari accountable model yang memiliki role yang sesuai
-        $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
-
-        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
-        return $accountable !== null;
+        // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
+        $roleIdsArray = explode(';', $roleIds);
+    
+        // Lakukan pencarian accountable model untuk setiap role
+        foreach ($roleIdsArray as $roleId) {
+            // Cari accountable model yang memiliki role yang sesuai
+            $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
+    
+            // Jika accountable model ditemukan, maka role accountable
+            if ($accountable !== null) {
+                return true;
+            }
+        }
+    
+        // Jika tidak ada accountable model yang sesuai untuk semua role, maka tidak accountable
+        return false;
     }
+    
     public static function haveAccountable($roleId): bool
     {
         // Cari accountable model yang memiliki role yang sesuai
@@ -286,13 +310,23 @@ class AllServices
 
 
 
-    public static function isInformable($roleId): bool
-    {
-        $accountable = InformableModel::where('informable_to', 'LIKE', "%$roleId%")->first();
+    public static function isInformable($roleIds): bool
+{
+    // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
+    $roleIdsArray = explode(';', $roleIds);
 
-        // Jika tidak ada accountable model yang sesuai, maka tidak accountable
-        return $accountable !== null;
-    }
+    // Dapatkan informable model yang memiliki setidaknya satu dari role yang diberikan
+    $informable = InformableModel::where(function ($query) use ($roleIdsArray) {
+        foreach ($roleIdsArray as $roleId) {
+            $query->orWhere('informable_to', 'LIKE', "%$roleId%");
+        }
+    })->first();
+
+    // Jika tidak ada informable model yang sesuai, maka tidak informable
+    return $informable !== null;
+}
+
+    
 
     public static function isThisRoleExistInArray($array, $id): bool
     {
