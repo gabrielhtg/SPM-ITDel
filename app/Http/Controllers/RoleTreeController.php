@@ -42,42 +42,58 @@ class RoleTreeController extends Controller
         return view('login-admin-dashboard', $data);
     }
 
-    private function bentukTree(RoleTree $tree, $node, $arrayResponsibleTo)
+    private function bentukTree(RoleTree $tree, $node, &$arrayResponsibleTo)
     {
-        if ($node != null) {            
+        if ($node != null) {
+            // Fetching users with the specific role
             $users = User::where('role', $node->id)->get();
 
+            // Initialize AllServices class
             $allService = new AllServices();
 
-            foreach ($users as $user) {
-                $roleId = $allService::convertRole($user->role);
-                $responsibleId = $allService::getAllResponsible($user->role);
-                $accountableId = $allService::getAllAccountableTo($user->role);
-                $informableId = $allService::getAllInformable($user->role);
+            // Determine the responsible, accountable, and informable relationships
+            $roleId = $allService->convertRole($node->id);
+            $responsibleId = $allService->getAllResponsible($node->id);
+            $accountableId = $allService->getAllAccountableTo($node->id);
+            $informableId = $allService->getAllInformable($node->id);
 
-                $tree->setId($user->id);
-                $tree->setData(
-                    new TreeData(
-                        $user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), 
-                        $user->name, 
+            // Set the node data with the provided information
+            $tree->setId($node->id);
+            $tree->setData(new TreeData(
+                asset('src/img/default-profile-pict.png'),
+                $node->role,
+                $roleId,
+                $responsibleId,
+                $accountableId,
+                $informableId
+            ));
+
+            // If there are users assigned to this role, include them
+            if ($users->isNotEmpty()) {
+                foreach ($users as $user) {
+                    $tree->setData(new TreeData(
+                        $user->profile_pict ? asset($user->profile_pict) : asset("src/img/default-profile-pict.png"),
+                        $user->name,
                         $roleId,
                         $responsibleId,
                         $accountableId,
                         $informableId
-                    )
-                );
+                    ));
+                }
             }
 
-            $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
+            // Fetching subroles (bawahan)
+            $arrayRoleBawahan = BawahanModel::where('role', $node->id)->get();
 
+            // Initialize children
             $tree->setChildren([]);
 
+            // Recursive function to handle child roles
             if ($arrayRoleBawahan !== null) {
                 foreach ($arrayRoleBawahan as $roleBawahan) {
                     if ($roleBawahan) {
-                        if (count(User::where('role', $roleBawahan->bawahan)->get())) {
-                            $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan),$arrayResponsibleTo));
-                        }
+                        // Recursively create child nodes
+                        $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan), $arrayResponsibleTo));
                     }
                 }
             }
@@ -85,5 +101,6 @@ class RoleTreeController extends Controller
 
         return $tree;
     }
+
 
 }
