@@ -173,9 +173,6 @@
                   </div>
                 </div>
               </div>
-
-
-
             </div>
             @empty
             <p>No data available.</p>
