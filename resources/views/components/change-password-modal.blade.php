@@ -22,7 +22,6 @@
                             </div>
                         </div>
                     </div>
-                    <span class="text-danger">{{ $errors->first('current_password') }}</span>
 
                     <div class="input-group mt-3">
                         <input type="password" name="password" class="form-control" placeholder="Kata Sandi Baru" required autofocus>

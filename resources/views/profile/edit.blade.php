@@ -152,27 +152,27 @@
     <script>
         $(function() {
             @if (session('toastData') != null)
-                @if (session('toastData')['success'])
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: '{!! session('toastData')['text'] !!}',
-                        toast: true,
-                        showConfirmButton: false,
-                        position: 'top-end',
-                        timer: 3000
-                    })
-                @else
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed',
-                        text: '{!! session('toastData')['text'] !!}',
-                        toast: true,
-                        showConfirmButton: false,
-                        position: 'top-end',
-                        timer: 5000
-                    })
-                @endif
+            @if (session('toastData')['success'])
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{!! session('toastData')['text'] !!}',
+                // toast: true,
+                showConfirmButton: false,
+                // position: 'top-end',
+                timer: 3000
+            })
+            @else
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: '{!! session('toastData')['text'] !!}',
+                // toast: true,
+                showConfirmButton: false,
+                // position: 'top-end',
+                timer: 5000
+            })
+            @endif
             @endif
         });
     </script>

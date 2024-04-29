@@ -129,11 +129,11 @@ class ProfileController extends Controller
         }
     }
 
-    public function changePassword(Request $request)
+    public function changePassword(Request $request): RedirectResponse
     {
-        $request->validate([
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        ]);
+        if (strlen($request->password) < 8) {
+            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Gagal mengubah kata sandi. Password minimal 8 karakter!"]);
+        }
 
         if (Hash::check($request->current_password, \auth()->user()->password)) {
             \auth()->user()->update([
@@ -141,7 +141,7 @@ class ProfileController extends Controller
             ]);
             return \redirect()->route('profile')->with('toastData', ['success' => true, 'text' => "Berhasil mengubah kata sandi!"]);
         } else {
-            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Gagal mengubah kata sandi"]);
+            return \redirect()->route('profile')->with('toastData', ['success' => false, 'text' => "Gagal mengubah kata sandi. Pastikan memasukkan password lama dengan benar!"]);
         }
 
     }
