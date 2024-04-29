@@ -9,10 +9,12 @@ use App\Models\InformableModel;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Models\LogLaporan;
+use App\Models\JenisLaporan;
 use App\Models\Laporan;
 use App\Models\User;
 use Illuminate\Support\Carbon;
-
+use App\Models\DocumentTypeModel;
 
 class AllServices
 {
@@ -510,12 +512,12 @@ public function getUserRoleById($userId)
         $cekLaporan = Laporan::where('cek_revisi', $laporanId)
                              ->where('status', 'Disetujui')
                              ->first();
-        
+
         // Jika ada, return false
         if ($cekLaporan) {
             return false;
         }
-        
+
         // Jika tidak ada, return true
         return true;
     }
@@ -523,12 +525,12 @@ public function getUserRoleById($userId)
     {
         // Cari laporan berdasarkan ID
         $laporan = Laporan::find($laporanId);
-        
+
         // Jika laporan ditemukan, kembalikan nama laporannya
         if ($laporan) {
             return $laporan->nama_laporan;
         }
-        
+
         // Jika laporan tidak ditemukan, kembalikan null
         return null;
     }
@@ -537,7 +539,7 @@ public function getUserRoleById($userId)
     {
         // Mengambil semua data laporan
         $laporan = Laporan::all();
-        
+
         // Inisialisasi variabel untuk menghitung banyak data
         $banyakData = 0;
 
@@ -552,6 +554,93 @@ public function getUserRoleById($userId)
         // Mengembalikan jumlah data yang memenuhi kondisi
         return $banyakData;
     }
+
+    public function getJenisLaporanWithoutLog($userId)
+    {
+        // Mendapatkan ID laporan yang diunggah oleh user saat ini
+        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
+            ->pluck('id_jenis_laporan');
+
+        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini
+        $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
+            ->get();
+
+        return $jenisLaporan;
+    }
+
+    public static function isExistAsBahawan($idRole, $idBawahan)
+    {
+        $role = BawahanModel::where("role", $idRole)->get();
+
+        if ($role !== null) {
+            foreach ($role as $e) {
+                if ($e->bawahan == $idBawahan) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    public function getDocumentNameAndTypeById($id)
+    {
+        // Cari dokumen berdasarkan ID
+        $document = DocumentModel::find($id);
     
+        // Pastikan dokumen ditemukan
+        if ($document) {
+            // Temukan tipe dokumen berdasarkan ID yang ada pada dokumen
+            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+            
+            // Pastikan tipe dokumen ditemukan
+            if ($tipe) {
+                // Gabungkan nama dokumen dengan jenis dokumen
+                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+                
+                // Kembalikan hasil gabungan
+                return $print;
+            }
+        }
+    
+        // Jika dokumen atau tipe dokumen tidak ditemukan, kembalikan null
+        return null;
+    }
+
+    public function getDocumentNameAndType()
+{
+    // Ambil semua dokumen
+    $documents = DocumentModel::all();
+    $results = [];
+
+    foreach ($documents as $document) {
+        // Periksa apakah dokumen dengan ID tersebut ada dalam atribut "menggantikan_dokumen"
+        if (!$this->isReplacementDocument($document->id)) {
+            // Ambil tipe dokumen berdasarkan ID yang ada pada dokumen
+            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+            
+            // Jika tipe dokumen ditemukan, lanjutkan
+            if ($tipe) {
+                // Gabungkan nama dokumen dengan jenis dokumen
+                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+                
+                // Tambahkan hasil gabungan ke dalam array dengan ID dokumen sebagai kunci
+                $results[$document->id] = $print;
+            }
+        }
+    }
+
+    // Kembalikan array hasil gabungan
+    return $results;
+}
+
+
+    // Metode untuk mengecek apakah sebuah dokumen adalah dokumen pengganti
+    private function isReplacementDocument($documentId)
+    {
+        return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
+    }
+    
+
 
 }

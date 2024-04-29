@@ -27,10 +27,11 @@ Route::get('/document-management-all', [\App\Http\Controllers\DocumentController
 Route::get('/document-replaced-all/{id}', [\App\Http\Controllers\DocumentController::class, 'getDocumentDetailReplaced'])->name('documentReplaced');
 Route::get('/laporan-management-add', [\App\Http\Controllers\LaporanController::class, 'getLaporanManagementView'])->name('LaporanManagementAdd');
 Route::get('/laporan-management-reject', [\App\Http\Controllers\LaporanController::class, 'getLaporanManagementReject'])->name('LaporanManagementReject');
-Route::get('view-laporan-type', [\App\Http\Controllers\DocumentController::class, 'viewLaporanType'])->name('viewLaporanType');
+Route::get('view-laporan-type', [\App\Http\Controllers\DocumentController::class, 'getviewLaporanType'])->name('viewLaporanType');
+Route::get('view-laporan-jenis', [\App\Http\Controllers\DocumentController::class, 'viewLaporanJenis'])->name('viewLaporanJenis');
 Route::get('/log-laporan', [\App\Http\Controllers\LaporanController::class, 'getLogLaporanView'])->name('LogLaporanview');
 Route::get('/log-laporan-continue/{id}', [\App\Http\Controllers\LaporanController::class, 'getLogLaporanContinue'])->name('LogLaporanContinue');
-
+Route::get('/jenis-laporan/{id}', [\App\Http\Controllers\LaporanController::class, 'getJenisLaporanView'])->name('getJenisLaporanView');
 Route::put('/laporan/{id}/approve', [\App\Http\Controllers\LaporanController::class, 'approve'])->name('laporan.approve');
 Route::put('/laporan/{id}/reject', [\App\Http\Controllers\LaporanController::class, 'reject'])->name('laporan.reject');
 Route::put('/laporan/update/{id}', [\App\Http\Controllers\LaporanController::class, 'update'])->name('laporan.update');

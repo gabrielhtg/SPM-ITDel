@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\DocumentModel;
 use App\Models\DocumentTypeModel;
+use App\Models\JenisLaporan;
 use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
+use App\Models\TipeLaporan;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +18,7 @@ use App\Models\User;
 use Symfony\Component\HttpFoundation\File\Exception\IniSizeFileException;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Carbon;
 
 class DocumentController extends Controller
 {
@@ -308,7 +311,6 @@ public function updateDocument(Request $request, $id)
         ],
     ], [
         'name.required' => 'Nama dokumen harus diisi.',
-      
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
@@ -358,7 +360,12 @@ public function updateDocument(Request $request, $id)
         $document->directory = '/src/documents/' . $filename;
     }
 
-    $document->keterangan_berlaku = $request->keterangan_berlaku;
+    // Update keterangan_status jika ada perubahan
+  
+
+    // Lanjutkan dengan penanganan atribut lainnya
+   
+    $document->keterangan_status = $request->keterangan_status;
     $document->name = $request->name;
     $document->nomor_dokumen = $request->nomor_dokumen;
     $document->deskripsi = $request->deskripsi;
@@ -366,6 +373,11 @@ public function updateDocument(Request $request, $id)
     $document->tipe_dokumen = $request->tipe_dokumen;
     $document->start_date = $request->start_date;
     $document->end_date = $request->end_date;
+    if ($request->keterangan_status==0) {
+        $document->keterangan_status = false;
+        $document->end_date = Carbon::now();
+       
+    }
     $document->give_access_to = implode(';', $request->input('give_access_to', []));
     $document->give_edit_access_to = implode(';', $request->input('give_edit_access_to', []));
     $document->can_see_by = $request->can_see_by ?? $document->can_see_by;
@@ -385,18 +397,11 @@ public function updateDocument(Request $request, $id)
         }
     }
 
-    // Update keterangan_status based on start_date and end_date
-    $currentDateTime = now();
-    if ($request->start_date <= $currentDateTime && (!$request->end_date || $request->end_date >= $currentDateTime)) {
-        $document->keterangan_status = true;
-    } else {
-        $document->keterangan_status = false;
-    }
-
     // Simpan perubahan ke database
     $document->save();
     return redirect()->route('documentManagement', $id)->with('toastData', ['success' => true, 'text' => 'File berhasil diperbarui!']);
-    }
+}
+
 
 
     public function removeDocument(Request $request)
@@ -467,13 +472,29 @@ public function updateDocument(Request $request, $id)
         return view('document-replaced-all', $data);
     }
 
-    public function viewLaporanType()
+    public function getviewLaporanType()
     {
         $tipe_laporan = LaporanTypeModel::all();
         $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
 
 
         return view('components/view-tipe-laporan', compact('tipe_laporan', 'active_sidebar'));
+    }
+
+    public function viewLaporanJenis()
+    {
+        $jenis_laporan = JenisLaporan::all();
+        $type_laporan =TipeLaporan::all();
+        $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
+
+        $data = [
+            'type_laporan'=>$type_laporan,
+            'jenis_laporan'=>$jenis_laporan,
+
+        ];
+
+
+        return view('components/view-jenis-laporan',$data, compact( 'active_sidebar'));
     }
 
 

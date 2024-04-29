@@ -63,10 +63,10 @@
                                                 @if($document->keterangan_status == 1)
                                                     <div class="form-group">
                                                         <label>Status:</label>
-                                                        <select name="keterangan_berlaku" class="form-control" required>
+                                                        <select name="keterangan_status" class="form-control" required>
                                                             <option value="" disabled>Pilih Status</option>
-                                                            <option value="0" selected>Berlaku</option>
-                                                            <option value="1">Tidak Berlaku</option>
+                                                            <option value="1" selected>Berlaku</option>
+                                                            <option value="0">Tidak Berlaku</option>
                                                         </select>
                                                     </div>
                                                 @endif
@@ -84,22 +84,38 @@
                                                 {{-- @php
                                                 dd($document->menggantikan_dokumen);
                                                 @endphp --}}
+                                                {{-- <div class="form-group">
+                                                    <label>Menggantikan Dokumen:</label>
+                                                    <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
+                                                       
+                                                        @php
+                                                            $name = app(AllServices::class)->getDocumentNameAndTypeById($document->menggantikan_dokumen);
+                                                        @endphp
+                                                        <option selected>{{ $name }}</option>
+                                                    </select>
+                                                </div> --}}
+                                              
+                                                
+                                                
+                                                
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
-                                                        @foreach($documents as $type)
-                                                            @php
-                                                             
-                                                        
-                                                                $temp = $jenis_dokumen->where('id', $type->tipe_dokumen)->first();
-                                                            @endphp
-                                                            <option value="{{ $type->id }}" @if($document->tipe_dokumen == $type->id) selected @endif>
-                                                                {{ $type->name }} {{ $temp ? '('.$temp->jenis_dokumen.')' : '' }}
-                                                            </option>
+                                                        @php
+                                                        $name = app(AllServices::class)->getDocumentNameAndTypeById($document->menggantikan_dokumen);
+                                                    @endphp
+                                                    <option value="{{$document->menggantikan_dokumen}}" selected>{{ $name }}</option>
+                                                        @php
+                                                            // Ambil daftar nama dan jenis dokumen untuk semua dokumen
+                                                            $documentNamesAndTypes = app(AllServices::class)->getDocumentNameAndType();
+                                                        @endphp
+                                                        @foreach($documentNamesAndTypes as $id => $name)
+                                                            <option value="{{ $id }}">{{ $name }}</option>
                                                         @endforeach
                                                     </select>
+                                                   
+                                                    </select>
                                                 </div>
-                                                
                                                 
 
                                                 <div class="form-group">

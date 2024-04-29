@@ -180,8 +180,10 @@
                                                                     <option value="{{ $role->id }}" selected>
                                                                         {{ $role->role }}</option>
                                                                 @else
-                                                                    <option value="{{ $role->id }}">
-                                                                        {{ $role->role }}</option>
+                                                                    @if(!AllServices::isExistAsBahawan($e->id, $role->id))
+                                                                        <option value="{{ $role->id }}">
+                                                                            {{ $role->role }}</option>
+                                                                    @endif
                                                                 @endif
                                                             @endif
                                                         @endforeach

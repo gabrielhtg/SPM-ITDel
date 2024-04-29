@@ -25,7 +25,7 @@
     <!-- SummerNote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("plugins/select2/css/select2.min.css") }}">
-    
+
     <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
     {{--    <link rel="stylesheet" href="{{ asset("plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css") }}">--}}
 </head>
@@ -61,27 +61,27 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th class="text-center">Jenis Dokumen</th>
+                        <th class="text-center">Tipe Laporan</th>
                     </tr>
                     </thead>
                     <tbody>
-                    
-                        @foreach($jenis_laporan as $item)
+
+                        @foreach($tipe_laporan as $item)
                         <tr>
                             <td>
                                 <div class="user-panel d-flex justify-content-center align-items-center">
-                                    <a href="{{ route('LogLaporanContinue', ['id' => $item->id]) }}">
-                                        {{ $item->nama }}
+                                    <a href="{{ route('getJenisLaporanView', ['id' => $item->id]) }}">
+                                        {{ $item->nama_laporan }}
                                     </a>
                                 </div>
                             </td>
                         </tr>
                     @endforeach
-                    
-                    
-                    
-                    
-                    
+
+
+
+
+
                     </tbody>
                 </table>
 
@@ -130,7 +130,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[4, "desc"]]
+            "order": [[0, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

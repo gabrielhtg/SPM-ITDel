@@ -15,6 +15,8 @@ class LogLaporan extends Model
         'id_jenis_laporan',
         'upload_by',
         'status',
+        'create_at',
+        'approve_at',
     ];
 
     // Definisikan relasi ke tabel tipe_laporan

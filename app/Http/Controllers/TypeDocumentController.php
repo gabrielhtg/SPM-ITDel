@@ -75,7 +75,7 @@ class TypeDocumentController extends Controller
 
         LaporanTypeModel::create([
             'nama_laporan' => $request->nama_laporan,
-           
+
         ]);
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
@@ -86,7 +86,7 @@ class TypeDocumentController extends Controller
         // Validasi data yang diubah
         $validator = Validator::make($request->all(), [
             'nama_laporan' => 'required|unique:tipe_laporan,nama_laporan,'.$id,
-           
+
         ], [
             'nama_laporan.unique' => "Tipe dokumen sudah digunakan.",
         ]);
@@ -148,7 +148,7 @@ class TypeDocumentController extends Controller
 
     // Jika validasi gagal
     if ($validator->fails()) {
-        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+        return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
     }
 
     // Dapatkan nama tipe laporan berdasarkan id_tipelaporan
@@ -166,10 +166,10 @@ class TypeDocumentController extends Controller
         'end_date' => $request->end_date,
     ]);
 
-    return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
+    return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
 }
 
-    
+
 public function updateLaporanJenis(Request $request, $id)
 {
     // Validasi input
@@ -188,7 +188,7 @@ public function updateLaporanJenis(Request $request, $id)
 
     // Jika validasi gagal
     if ($validator->fails()) {
-        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
+        return redirect()->route('viewLaporanJenis')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
     }
 
     // Ambil data jenis laporan berdasarkan ID
@@ -196,7 +196,7 @@ public function updateLaporanJenis(Request $request, $id)
 
     // Jika data jenis laporan tidak ditemukan
     if (!$jenisLaporan) {
-        return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => false, 'text' => 'Jenis laporan tidak ditemukan.']);
+        return redirect()->route('viewLaporanJenis')->with('toastData', ['success' => false, 'text' => 'Jenis laporan tidak ditemukan.']);
     }
 
     // Dapatkan nama tipe laporan berdasarkan id_tipelaporan
@@ -214,7 +214,7 @@ public function updateLaporanJenis(Request $request, $id)
         'end_date' => $request->end_date,
     ]);
 
-    return redirect()->route('LaporanManagementReject')->with('toastData', ['success' => true, 'text' => 'Jenis laporan berhasil diupdate!']);
+    return redirect()->route('viewLaporanJenis')->with('toastData', ['success' => true, 'text' => 'Jenis laporan berhasil diupdate!']);
 }
 
 

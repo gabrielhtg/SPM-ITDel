@@ -14,6 +14,7 @@ use App\Models\Laporan;
 use App\Services\AllServices;
 use Illuminate\Support\Carbon;
 
+
 use Illuminate\Support\Facades\Validator;
 class LaporanController extends Controller
 {
@@ -33,8 +34,10 @@ class LaporanController extends Controller
     $documentIds = explode(';', $document);
 
 
-    $tipe_laporan = JenisLaporan::whereIn('id_tipelaporan', $documentIds)->get();
+    $tipe_laporan = app(AllServices::class)->getJenisLaporanWithoutLog(auth()->user()->id);
+   
     $type_laporan =TipeLaporan::all();
+    $jenis_laporan =JenisLaporan::all();
 
 
     $data = [
@@ -44,6 +47,7 @@ class LaporanController extends Controller
         'laporan' => $laporan,
         'tipe_laporan' => $tipe_laporan,
         'type_laporan'=>$type_laporan,
+        'jenis_laporan'=>$jenis_laporan,
 
     ];
 
@@ -51,14 +55,24 @@ class LaporanController extends Controller
 }
 
 public function getLogLaporanView()
-{   
-    $tipe_laporan = JenisLaporan::all();
-  
+{
+    $tipe_laporan = TipeLaporan::all();
+
     $data = [
         'active_sidebar' => [5, 3],
-        'jenis_laporan' => $tipe_laporan,
+        'tipe_laporan' => $tipe_laporan,
     ];
     return view('log-laporan-view', $data);
+}
+public function getJenisLaporanView($id)
+{
+    $jenis_laporan = JenisLaporan::where('id_tipelaporan',$id)->get();
+
+    $data = [
+        'active_sidebar' => [5, 3],
+        'jenis_laporan' => $jenis_laporan,
+    ];
+    return view('laporan-jenis', $data);
 }
 
 
@@ -161,19 +175,20 @@ public function getLaporanManagementReject()
     }
 
     public function approve($id)
-{   
+{
     $nowDate = Carbon::now();
     $laporan = Laporan::findOrFail($id);
-    $tipeLaporan = TipeLaporan::findOrFail($laporan->id_tipelaporan);
-
+    $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
+    $create_at = $laporan->created_at;
+    $approve_at=$laporan->approve_at;
     // Update status laporan
-    $laporan->status = 'Disetujui'; 
+    $laporan->status = 'Disetujui';
     $laporan->approve_at = $nowDate;
     $laporan->direview_oleh = auth()->user()->id;
     $laporan->save();
 
     // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
-    $carbonStartDate = $tipeLaporan->start_date;
+    $carbonStartDate = $tipeLaporan->end_date;
     $carbonCreateDate =  $laporan->created_at;
     
     // Tentukan status berdasarkan perbandingan tanggal
@@ -184,26 +199,39 @@ public function getLaporanManagementReject()
         'id_jenis_laporan' => $laporan->id_tipelaporan,
         'upload_by' => $laporan->created_by,
         'status' => $status,
+        'approve_at'=>$approve_at,
+        'create_at'=>$create_at,
     ]);
 
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
 }
 
-    
 
 
 
-public function reject($id)
-{
-    $nowDate = Carbon::now();
-    $laporan = Laporan::findOrFail($id);
-    $laporan->status = 'Ditolak';
-    $laporan->reject_at = $nowDate;
-    $laporan->direview_oleh = auth()->user()->id;
-    $laporan->save();
 
-    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
-}
+public function reject(Request $request,$id)
+{   
+    $validator = Validator::make($request->all(), [
+            'komentar' => 'required' 
+        ]);
+
+        // Periksa jika validasi gagal
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput(); 
+        }
+
+        $nowDate = Carbon::now();
+        $laporan = Laporan::findOrFail($id);
+        $laporan->status = 'Ditolak';
+        $laporan->reject_at = $nowDate;
+        $laporan->direview_oleh = auth()->user()->id;
+        $laporan->komentar = $request->komentar; 
+        $laporan->save();
+
+        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
+    }
+
 
 public function update(Request $request, $id)
 {
@@ -243,7 +271,7 @@ public function update(Request $request, $id)
             unlink(public_path($laporan->directory));
         }
 
-        // Update direktori baru pada laporan
+        // Update dici baru pada laporan
         $laporan->directory = '/src/documents/'.$fileName;
     }
 
@@ -251,7 +279,7 @@ public function update(Request $request, $id)
     $laporan->nama_laporan = $request->nama_laporan;
     $laporan->id_tipelaporan = $request->id_tipelaporan;
     $laporan->cek_revisi= $request->cek_revisi;
-    
+
     $laporan->revisi = $request->revisi ?? false;
     $laporan->save();
 

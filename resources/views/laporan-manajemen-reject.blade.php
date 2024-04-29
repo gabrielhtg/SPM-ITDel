@@ -66,6 +66,7 @@
                     @include('components.list-document-pending-modal')
                     
                 @endif
+                
 
                 
     
@@ -346,6 +347,7 @@
             @endif
         });
     </script>
+    
     <script>
         $(function () {
             //Initialize Select2 Elements

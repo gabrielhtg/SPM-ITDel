@@ -46,7 +46,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Document Management</h1>
+                        <h1 class="m-0">Tipe Laporan</h1>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
@@ -59,7 +59,7 @@
                 <a href="{{ route('LaporanManagementAdd') }}" class="btn btn-primary mb-3">
                     <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
                 </a>
-                
+
 
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
@@ -83,8 +83,6 @@
                                     <a data-target="#modal-edit-{{ $e->id }}" class="btn btn-success" data-toggle="modal"><i class="fas fa-edit"></i></a>
                                     <form method="POST" action="{{ route('deleteTypeLaporan', ['id' => $e->id]) }}" style="display: inline-block;">
                                         @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </div>
                             </td>
@@ -114,7 +112,7 @@
                                 <label for="edit_nama_laporan">Nama Laporan:</label>
                                 <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $e->nama_laporan }}">
                             </div>
-                        
+
                             <div class="d-flex justify-content-between">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="submit" class="btn btn-primary">Save Changes</button>
@@ -125,6 +123,7 @@
             </div>
         </div>
     @endforeach
+    </div>
 
     <!-- /.content-wrapper -->
     @include('components.footer')
@@ -171,41 +170,29 @@
     });
 </script>
 <script>
-    $(function () {
-        @if(session('toastData') != null)
-        @if(session('toastData')['success'])
-        Swal.fire({
-            icon: 'success',
-            title: 'Success',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 3000
-        })
-        @else
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: '{!! session('toastData')['text'] !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
-        @endif
-        @endif
-
-        @if (!$errors->isEmpty())
-        Swal.fire({
-            icon: 'error',
-            title: 'Failed',
-            text: 'Failed to add user! {!! $errors->first('name') !!}{!! $errors->first('email') !!}{!! $errors->first('password') !!}',
-            toast: true,
-            showConfirmButton: false,
-            position: 'top-end',
-            timer: 5000
-        })
+    $(function() {
+        @if (session('toastData') != null)
+            @if (session('toastData')['success'])
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 3000
+                })
+            @else
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Failed',
+                    text: '{!! session('toastData')['text'] !!}',
+                    // toast: true,
+                    showConfirmButton: false,
+                    // position: 'top-end',
+                    timer: 5000
+                })
+            @endif
         @endif
     });
 </script>

@@ -63,10 +63,13 @@
 
                 @if((app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->id)))
                 @include('components.upload-tipe-laporan')
-                <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
-                    <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
-                </a>
+                    <a href="{{ route('viewLaporanType') }}" class="btn btn-primary mb-3">
+                        <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Tipe Laporan</span>
+                    </a>
                 @include('components.upload-jenis-laporan')
+                    <a href="{{ route('viewLaporanJenis') }}" class="btn btn-primary mb-3">
+                        <i class="far fa-eye"></i> <span style="margin-left: 5px">Lihat Kategori Tipe Laporan</span>
+                    </a>
                 @endif
 
 
@@ -192,6 +195,11 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
+                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Ditolak"))
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
+                                    <i class="fas fa-comment"></i>
+                                </button>
+                                @endif
 
 
                             </div>
@@ -211,12 +219,12 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form id="laporan-form" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
+                                    <form id="laporan-form{{$item->id}}" enctype="multipart/form-data" method="POST" action="{{ route('laporan.update', ['id' => $item->id]) }}">
                                         @csrf
                                         @method('PUT')
                                         <div class="form-group">
                                             <label for="laporan-name">Nama Laporan</label>
-                                            <input type="text" id="edit_nama_laporan" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
+                                            <input type="text" id="edit_nama_laporan{{$item->id}}" name="nama_laporan" class="form-control" value="{{ $item->nama_laporan }}">
                                         </div>
                                         <div class="form-group mt-3">
                                             <label for="edit-tipe-laporan{{ $item->id }}">Tipe Laporan</label>
@@ -227,38 +235,33 @@
                                                 @endforeach
                                             </select>
                                         </div>
-
-
-                                            <div class="form-group">
-                                                <label for="edit-revisi">Revisi:</label><br>
-                                                <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox{{ $item->id }}" name="revisi" value="1" {{ $item->revisi == 1 ? 'checked' : '' }}>
-                                                    <label class="form-check-label" for="edit-revisiCheckbox{{ $item->id }}">Ya</label>
-                                                </div>
+                                        <div class="form-group">
+                                            <label for="edit-revisiCheckbox{{ $item->id }}">Revisi:</label><br>
+                                            <div class="form-check form-check-inline">
+                                                <input class="form-check-input" type="checkbox" id="edit-revisiCheckbox{{ $item->id }}" name="revisi" value="1" {{ $item->revisi == 1 ? 'checked' : '' }}>
+                                                <label class="form-check-label" for="edit-revisiCheckbox{{ $item->id }}">Ya</label>
                                             </div>
-                                            <div class="form-group mt-3" style="display: none">
-                                                <label for="edit-menggantikan{{ $item->id }}">Merevisi Laporan:</label>
-                                                <select id="edit-menggantikan{{ $item->id }}" name="cek_revisi" class="edit-menggantikan form-control" style="width: 100%">
-                                                    <option></option>
-                                                    @php
-                                                    $allServices = new \App\Services\AllServices();
-                                                    @endphp
-                                                    @foreach ($laporan as $lap)
-                                                        @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
-                                                            <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
-                                                        @endif
-                                                    @endforeach
-                                                </select>
-                                            </div>
-
-
-
+                                        </div>
+                                        <div class="form-group mt-3" style="display: none;">
+                                            <label for="edit-menggantikan{{ $item->id }}">Merevisi Laporan:</label>
+                                            <select id="edit-menggantikan{{ $item->id }}" name="cek_revisi" class="edit-menggantikan form-control" style="width: 100%">
+                                                <option></option>
+                                                @php
+                                                $allServices = new \App\Services\AllServices();
+                                                @endphp
+                                                @foreach ($laporan as $lap)
+                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
+                                                        <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                        </div>
                                         <div class="form-group">
                                             <label for="laporan-file">Dokumen</label>
                                             <div class="input-group">
                                                 <div class="custom-file">
-                                                    <input type="file" class="custom-file-input" id="laporan-file" name="file">
-                                                    <label class="custom-file-label" for="laporan-file">
+                                                    <input type="file" class="custom-file-input" id="edit-laporan-file{{$item->id}}" name="file">
+                                                    <label class="custom-file-label" for="edit-laporan-file{{$item->id}}">
                                                         @if($item->directory)
                                                             {{ basename($item->directory) }}
                                                         @else
@@ -268,15 +271,43 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </form>
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+
+
+                    <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+                            <div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- Tempat untuk menampilkan isi komentar -->
+                                            <div id="commentContent">
+                                                {{$item->komentar}}
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                     @endif
                     @endforeach
                 </tbody>
@@ -494,8 +525,10 @@
             checkbox{{ $item->id }}.addEventListener('change', function() {
                 if (checkbox{{ $item->id }}.checked) {
                     merevisiLaporan{{ $item->id }}.style.display = 'block';
+                    document.getElementById("edit-menggantikan{{ $item->id }}").setAttribute('required', 'required');
                 } else {
                     merevisiLaporan{{ $item->id }}.style.display = 'none';
+                    document.getElementById("edit-menggantikan{{ $item->id }}").removeAttribute('required');
                 }
             });
             @endif

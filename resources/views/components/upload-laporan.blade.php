@@ -3,6 +3,7 @@
 </a>
 
 <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="modal-add-laporan">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
         <div class="modal-content">
@@ -58,10 +59,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="document-file">Dokumen</label>
+                        <label for="document-file">Laporan</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" name="file" class="custom-file-input" id="document-file" onchange="displayFileName()">
+                                <input type="file" name="file" class="custom-file-input" id="document-file" onchange="displayFileName()" required>
                                 <label class="custom-file-label" for="document-file" id="file-label">Pilih file</label>
                             </div>
                         </div>
@@ -85,21 +86,22 @@
         checkbox.addEventListener('change', function() {
             if (checkbox.checked) {
                 merevisiLaporan.style.display = 'block';
+                document.getElementById('menggantikan').setAttribute('required', 'required');
             } else {
                 merevisiLaporan.style.display = 'none';
+                document.getElementById('menggantikan').removeAttribute('required');
             }
         });
     });
-</script>
-<script>
-function displayFileName() {
-    // Mendapatkan input file
-    var input = document.getElementById('document-file');
-    // Mendapatkan label
-    var label = document.getElementById('file-label');
-    // Mendapatkan nama file yang dipilih
-    var fileName = input.files[0].name;
-    // Menampilkan nama file dalam label
-    label.innerHTML = fileName;
-}
+
+    function displayFileName() {
+        // Mendapatkan input file
+        var input = document.getElementById('document-file');
+        // Mendapatkan label
+        var label = document.getElementById('file-label');
+        // Mendapatkan nama file yang dipilih
+        var fileName = input.files[0].name;
+        // Menampilkan nama file dalam label
+        label.innerHTML = fileName;
+    }
 </script>

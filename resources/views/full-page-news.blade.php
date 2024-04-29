@@ -64,10 +64,10 @@
                             </div>
                         </div>
                     </th>
-                    <th style="vertical-align: center; padding-left: 10px; width: 850px">
+                    <th style="vertical-align: center; padding-left: 10px; width: 1000px">
                         <div class="col-7">  
                             <div class="features-content d-flex flex-column">
-                                <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="h3 font-weight-bold" style="width: 600px;">{{ $e->title }}</a>
+                                <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="h3 font-weight-bold" style="width: 1000px;">{{ $e->title }}</a>
                                 <small><i class="">
                                     {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
                                     @if($e->end_date != null)
