@@ -14,12 +14,15 @@ class HeroDocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'titlehero' => 'required|string|max:40',
             'descriptionhero' => 'required|string|max:100',
-            'imagehero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
+            'imagehero' => 'nullable|file|image|mimes:jpeg,png,jpg|max:10240', // Menambahkan rule 'image'
         ], [
             'descriptionhero.max' => 'Deskripsi tidak boleh melebihi 100 karakter.',
             'titlehero.max' => 'Judul tidak boleh melebihi 40 karakter.',
+            'imagehero.image' => 'File harus berupa gambar.', // Pesan error kustom untuk file non-gambar
+            'imagehero.mimes' => 'File harus berformat jpeg, png, atau jpg.',
+            'imagehero.max' => 'Ukuran file tidak boleh lebih dari 10 MB.',
         ]);
-
+        
         // Jika validasi gagal, kembali dengan pesan error
         if ($validator->fails()) {
             return redirect()->route('documentManagement')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
