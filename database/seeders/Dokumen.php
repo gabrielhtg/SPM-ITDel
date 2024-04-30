@@ -13,7 +13,7 @@ class Dokumen extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             // Pilih ID dokumen yang akan digantikan secara acak
             $replacementDocumentId = rand(1, $i);
 
