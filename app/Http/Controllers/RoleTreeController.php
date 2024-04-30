@@ -42,7 +42,7 @@ class RoleTreeController extends Controller
         return view('login-admin-dashboard', $data);
     }
 
-    private function bentukTree(RoleTree $tree, $node, &$arrayResponsibleTo)
+    private function bentukTree(RoleTree $tree, $node, &$arrayResponsibleTo): RoleTree
     {
         if ($node != null) {
             // Fetching users with the specific role

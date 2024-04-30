@@ -52,7 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-                        @if (AllServices::isCurrentRole('Admin'))
+                        @if (AllServices::isLoggedUserHasAdminAccess())
                             @include('components.add-user-manually-modal')
                             <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
                                 Daftar Pengguna yang Diizinkan
