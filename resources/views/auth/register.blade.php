@@ -22,7 +22,7 @@
         </div>
         <div class="card-body">
 
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Daftarkan keanggotaan baru</p>
 
             <form method="POST" action="{{ route('self-register') }}">
                 @csrf
