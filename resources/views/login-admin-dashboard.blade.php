@@ -161,106 +161,37 @@
 
     <script>
         const data2 = {
-                id: 'ms',
-                data: {
-                    imageURL: 'https://i.pravatar.cc/300?img=68',
-                    name: 'Margret Swanson',
-                },
-                options: {
-                    nodeBGColor: '#cdb4db',
-                    nodeBGColorHover: '#cdb4db',
-                },
-                children: [
-                    {
-                        id: 'mh',
-                        data: {
-                            imageURL: 'https://i.pravatar.cc/300?img=69',
-                            name: 'Mark Hudson',
-                        },
-                        options: {
-                            nodeBGColor: '#ffafcc',
-                            nodeBGColorHover: '#ffafcc',
-                        },
-                        children: [
-                            {
-                                id: 'kb',
-                                data: {
-                                    imageURL: 'https://i.pravatar.cc/300?img=65',
-                                    name: 'Karyn Borbas',
-                                },
-                                options: {
-                                    nodeBGColor: '#f8ad9d',
-                                    nodeBGColorHover: '#f8ad9d',
-                                },
-                            },
-                            {
-                                id: 'cr',
-                                data: {
-                                    imageURL: 'https://i.pravatar.cc/300?img=60',
-                                    name: 'Chris Rup',
-                                },
-                                options: {
-                                    nodeBGColor: '#c9cba3',
-                                    nodeBGColorHover: '#c9cba3',
-                                },
-                            },
-                        ],
-                    },
-                    {
-                        id: 'cs',
-                        data: {
-                            imageURL: 'https://i.pravatar.cc/300?img=59',
-                            name: 'Chris Lysek',
-                        },
-                        options: {
-                            nodeBGColor: '#00afb9',
-                            nodeBGColorHover: '#00afb9',
-                        },
-                        children: [
-                            {
-                                id: 'Noah_Chandler',
-                                data: {
-                                    imageURL: 'https://i.pravatar.cc/300?img=57',
-                                    name: 'Noah Chandler',
-                                },
-                                options: {
-                                    nodeBGColor: '#84a59d',
-                                    nodeBGColorHover: '#84a59d',
-                                },
-                            },
-                            {
-                                id: 'Felix_Wagner',
-                                data: {
-                                    imageURL: 'https://i.pravatar.cc/300?img=52',
-                                    name: 'Felix Wagner',
-                                },
-                                options: {
-                                    nodeBGColor: '#0081a7',
-                                    nodeBGColorHover: '#0081a7',
-                                },
-                            },
-                        ],
-                    },
-                ],
-            };
+            id: 2,
+            data: {
+                imageURL: "http://localhost:8000/src/img/default-profile-pict.png",
+                name: "Tesalonika Aprisda Sitopu",
+                role: "Senat",
+                responsible: "Belum Didefinisikan",
+                accountable: "Belum Didefinisikan",
+                informable: "Belum Didefinisikan"
+            },
+            children: []
+        };
         const options2 = {
             contentKey: 'data',
-            width: 800,
-            height: 600,
-            nodeWidth: 150,
-            nodeHeight: 100,
+            width: '100%',
+            height: '680px',
+            nodeWidth: 120,
+            nodeHeight: 40,
             fontColor: '#fff',
-            borderColor: '#333',
+            borderColor: '#fff',
             childrenSpacing: 50,
             siblingSpacing: 20,
             direction: 'top',
             nodeTemplate: (content) =>
-                `<div style='display: flex;flex-direction: column;gap: 10px;justify-content: center;align-items: center;height: 100%;'>
-          <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-          <div style="font-weight: bold; font-family: Arial; font-size: 14px">${content.name}</div>
-         </div>`,
-            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
-            enableToolbar: true,
+                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
+                <div class="node-content">
+                    <div class="role">${content.role}</div>
+                </div>
+            </a>`,
+
+
+            canvasStyle: 'background: #fff;',
         };
         const tree2 = new ApexTree(document.getElementById('svg-tree2'), options2);
         tree2.render(data2);
