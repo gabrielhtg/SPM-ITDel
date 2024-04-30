@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="edit_nama">Kategori Tipe Laporan:</label>
-                                    <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $value_dalam_kurung }}" required>
+                                    <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $e->nama}}" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="edit_start_date">Tanggal Mulai:</label>

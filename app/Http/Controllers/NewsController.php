@@ -83,6 +83,7 @@ class NewsController extends Controller
 
     public function store(Request $request)
     {
+        // { Menyimpan deskripsi berita }
         $description = $request->description;
 
         $dom = new DOMDocument();
@@ -101,20 +102,13 @@ class NewsController extends Controller
 
         $description = $dom->saveHTML();
 
-        // Periksa apakah ada file gambar yang diunggah
+        // { Menyimpan gambar background berita }
         if ($request->hasFile('bgimage')) {
-            // Mendapatkan nama file
+            
             $gambarnews = 'image_' . microtime() . '.png';
 
-            // dd($gambarnews);
-            // sleep(10);
-
-            // Pindahkan file gambar ke direktori yang ditentukan
             $request->file('bgimage')->move(public_path('src/gambarnews'), $gambarnews);
 
-            // dd($request->start_date, $request->end_date);
-
-            // Simpan data pengumuman ke dalam database
             $news = News::create([
                 'title' => $request->title,
                 'description' => $description,
@@ -124,7 +118,7 @@ class NewsController extends Controller
                 'keterangan_status' => true,
             ]);
 
-            // Update keterangan_status based on start_date and end_date
+            // { Update keterangan_status based on start_date and end_date } 
             $currentDateTime = now();
             if ($request->start_date <= $currentDateTime && (!$request->end_date || $request->end_date >= $currentDateTime)) {
                 $news->keterangan_status = true;
@@ -171,10 +165,8 @@ class NewsController extends Controller
         if (!empty($description)) {
             $dom->loadHTML($description, 9);
 
-            // Mengambil semua elemen gambar dari deskripsi
             $images = $dom->getElementsByTagName('img');
 
-            // Inisialisasi array untuk menyimpan nama file gambar baru
             $newImageNames = [];
 
             // Melakukan iterasi untuk setiap gambar
@@ -185,7 +177,6 @@ class NewsController extends Controller
                     $image_name = "/src/newsimg/" . time() . $key . '.png';
                     file_put_contents(public_path() . $image_name, $data);
 
-                    // Menyimpan nama file gambar baru
                     $newImageNames[] = $image_name;
 
                     $img->removeAttribute('src');
@@ -197,10 +188,8 @@ class NewsController extends Controller
                 }
             }
 
-            // Menyimpan kembali deskripsi yang telah diubah
             $description = $dom->saveHTML();
 
-            // Hapus gambar lama yang tidak ada dalam deskripsi yang baru
             $oldImages = glob(public_path('src/newsimg/*'));
             foreach ($oldImages as $oldImage) {
                 $oldImageName = basename($oldImage);

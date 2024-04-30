@@ -34,6 +34,7 @@
                 </div>
                 <span class="text-danger">{{ $errors->first('email') }}</span>
 
+
                 <div class="input-group mt-3">
                     <input type="password" name="password" class="form-control" placeholder="Password">
                     <div class="input-group-append">
