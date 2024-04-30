@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SPM IT Del</title>
-
+    <title>Profile  </title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -152,27 +152,27 @@
     <script>
         $(function() {
             @if (session('toastData') != null)
-                @if (session('toastData')['success'])
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: '{!! session('toastData')['text'] !!}',
-                        toast: true,
-                        showConfirmButton: false,
-                        position: 'top-end',
-                        timer: 3000
-                    })
-                @else
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Failed',
-                        text: '{!! session('toastData')['text'] !!}',
-                        toast: true,
-                        showConfirmButton: false,
-                        position: 'top-end',
-                        timer: 5000
-                    })
-                @endif
+            @if (session('toastData')['success'])
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: '{!! session('toastData')['text'] !!}',
+                // toast: true,
+                showConfirmButton: false,
+                // position: 'top-end',
+                timer: 3000
+            })
+            @else
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed',
+                text: '{!! session('toastData')['text'] !!}',
+                // toast: true,
+                showConfirmButton: false,
+                // position: 'top-end',
+                timer: 5000
+            })
+            @endif
             @endif
         });
     </script>

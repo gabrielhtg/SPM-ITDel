@@ -93,7 +93,7 @@
                         <th>Status</th>
                         <th>Dibuat Oleh</th>
                         <th>Diperiksa Oleh</th>
-                        <th>diperiksa Pada</th>
+                        <th>Diperiksa Pada</th>
                         <th>Revisi</th>
                         <th>Tindakan</th>
                     </tr>
