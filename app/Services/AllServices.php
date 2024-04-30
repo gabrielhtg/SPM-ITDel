@@ -207,11 +207,11 @@ class AllServices
      *
      * Method ini digunakan untuk mendapatkan role dengan $idAtasan Responsible ke role apa saja
      */
-    static public function getResponsibleTo ($idAtasan) : array {
+    static public function getAccountableTo ($idAtasan) : array {
         if($idAtasan != null) {
             $nextRole = $idAtasan;
-            $responsibleTo = array();
-            $responsibleTo[] = $idAtasan;
+            $accountableTo = array();
+            $accountableTo[] = $idAtasan;
 
             while (true) {
                 $visitedRole = RoleModel::find($nextRole);
@@ -221,9 +221,9 @@ class AllServices
                     break;
                 }
 
-                $responsibleTo[] = $nextRole;
+                $accountableTo[] = $nextRole;
             }
-            return $responsibleTo;
+            return $accountableTo;
         }
 
         return [];
@@ -253,22 +253,22 @@ class AllServices
     {
         // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
         $roleIdsArray = explode(';', $roleIds);
-    
+
         // Lakukan pencarian responsible model untuk setiap role
         foreach ($roleIdsArray as $roleId) {
             // Cari responsible model yang memiliki role yang sesuai
             $responsible = ResponsibleModel::where('responsible_to', 'LIKE', "%$roleId%")->first();
-    
+
             // Jika responsible model ditemukan untuk setidaknya satu role, maka responsible
             if ($responsible !== null) {
                 return true;
             }
         }
-    
+
         // Jika tidak ada responsible model yang sesuai untuk semua role, maka tidak responsible
         return false;
     }
-    
+
     public static function isnotAccountable($roleId): bool
     {
         // Dapatkan semua role dari database
@@ -282,22 +282,22 @@ class AllServices
     {
         // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
         $roleIdsArray = explode(';', $roleIds);
-    
+
         // Lakukan pencarian accountable model untuk setiap role
         foreach ($roleIdsArray as $roleId) {
             // Cari accountable model yang memiliki role yang sesuai
             $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
-    
+
             // Jika accountable model ditemukan, maka role accountable
             if ($accountable !== null) {
                 return true;
             }
         }
-    
+
         // Jika tidak ada accountable model yang sesuai untuk semua role, maka tidak accountable
         return false;
     }
-    
+
     public static function haveAccountable($roleId): bool
     {
         // Cari accountable model yang memiliki role yang sesuai
@@ -326,7 +326,7 @@ class AllServices
     return $informable !== null;
 }
 
-    
+
 
     public static function isThisRoleExistInArray($array, $id): bool
     {
@@ -621,22 +621,22 @@ public function getUserRoleById($userId)
     {
         // Cari dokumen berdasarkan ID
         $document = DocumentModel::find($id);
-    
+
         // Pastikan dokumen ditemukan
         if ($document) {
             // Temukan tipe dokumen berdasarkan ID yang ada pada dokumen
             $tipe = DocumentTypeModel::find($document->tipe_dokumen);
-            
+
             // Pastikan tipe dokumen ditemukan
             if ($tipe) {
                 // Gabungkan nama dokumen dengan jenis dokumen
                 $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
-                
+
                 // Kembalikan hasil gabungan
                 return $print;
             }
         }
-    
+
         // Jika dokumen atau tipe dokumen tidak ditemukan, kembalikan null
         return null;
     }
@@ -652,12 +652,12 @@ public function getUserRoleById($userId)
         if (!$this->isReplacementDocument($document->id)) {
             // Ambil tipe dokumen berdasarkan ID yang ada pada dokumen
             $tipe = DocumentTypeModel::find($document->tipe_dokumen);
-            
+
             // Jika tipe dokumen ditemukan, lanjutkan
             if ($tipe) {
                 // Gabungkan nama dokumen dengan jenis dokumen
                 $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
-                
+
                 // Tambahkan hasil gabungan ke dalam array dengan ID dokumen sebagai kunci
                 $results[$document->id] = $print;
             }
@@ -674,80 +674,80 @@ public function getUserRoleById($userId)
     {
         return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
     }
-    
+
     public static function isAccountableToRoleLaporan($id, $roleId): bool
     {
         // Pisahkan string $id menjadi array berdasarkan delimiter ";"
         $idArray = explode(';', $id);
-    
+
         // Lakukan pencarian untuk setiap nilai dalam array $idArray
         foreach ($idArray as $singleId) {
             // Ambil nama peran berdasarkan singleId
             $roleName = self::getRoleName($singleId);
-    
+
             // Ambil daftar accountable_to untuk peran yang diberikan
             $accountableTo = self::getAllAccountableTo($roleId);
-    
+
             // Periksa apakah roleName terdapat dalam daftar accountableTo
             if (strpos($accountableTo, $roleName) !== false) {
                 // Jika ada yang memenuhi syarat, kembalikan true
                 return true;
             }
         }
-    
+
         // Jika tidak ada yang memenuhi syarat, kembalikan false
         return false;
     }
-    
+
 
     public static function isResponsibleToRoleLaporan($id, $roleId): bool
     {
         // Pisahkan string $id menjadi array berdasarkan delimiter ";"
         $idArray = explode(';', $id);
-    
+
         // Lakukan pencarian untuk setiap nilai dalam array $idArray
         foreach ($idArray as $singleId) {
             // Ambil nama peran berdasarkan singleId
             $roleName = self::getRoleName($singleId);
-    
+
             // Ambil daftar responsible_to untuk peran yang diberikan
             $responsible = self::getAllResponsible($roleId);
-    
+
             // Periksa apakah roleName terdapat dalam daftar responsible
             if (strpos($responsible, $roleName) !== false) {
                 // Jika ada yang memenuhi syarat, kembalikan true
                 return true;
             }
         }
-    
+
         // Jika tidak ada yang memenuhi syarat, kembalikan false
         return false;
     }
-    
+
     public static function isInformableToRoleLaporan($id, $roleId): bool
     {
         // Pisahkan string $id menjadi array berdasarkan delimiter ";"
         $idArray = explode(';', $id);
-    
+
         // Lakukan pencarian untuk setiap nilai dalam array $idArray
         foreach ($idArray as $singleId) {
             // Ambil nama peran berdasarkan singleId
             $roleName = self::getRoleName($singleId);
-    
+
             // Ambil daftar informable_to untuk peran yang diberikan
             $informable = self::getAllInformable($roleId);
-    
+
             // Periksa apakah roleName terdapat dalam daftar informable
             if (strpos($informable, $roleName) !== false) {
                 // Jika ada yang memenuhi syarat, kembalikan true
                 return true;
             }
         }
-    
+
         // Jika tidak ada yang memenuhi syarat, kembalikan false
         return false;
     }
-    
+
 
 
 

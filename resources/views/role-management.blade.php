@@ -67,10 +67,10 @@
                                     Bawahan
                                 </th>
                                 <th>
-                                    Responsible To
+                                    Accountable To
                                 </th>
                                 <th>
-                                    Accountable To
+                                    Responsible To
                                 </th>
                                 <th>
                                     Informable To
@@ -103,10 +103,10 @@
                                             {{ AllServices::getAllBawahan($e->id) }}
                                         </td>
                                         <td>
-                                            {{ AllServices::getAllResponsible($e->id) }}
+                                            {{ AllServices::getAllAccountableTo($e->id) }}
                                         </td>
                                         <td>
-                                            {{ AllServices::getAllAccountableTo($e->id) }}
+                                            {{ AllServices::getAllResponsible($e->id) }}
                                         </td>
                                         <td>
                                             {{ AllServices::getAllInformable($e->id) }}
@@ -190,11 +190,10 @@
                                                     </select>
                                                 </div>
                                                 <div class="form-group mt-3">
-                                                    <label for="accountable-to{{ $e->id }}">Accountable
-                                                        To</label>
-                                                    <select id="accountable-to{{ $e->id }}"
-                                                        name="accountable_to[]" multiple="multiple"
-                                                        class="accountable-to-custom form-control" style="width: 100%">
+                                                    <label for="responsible-to{{ $e->id }}">Responsible To</label>
+                                                    <select id="responsible-to{{ $e->id }}"
+                                                        name="responsible[]" multiple="multiple"
+                                                        class="responsible-to-custom form-control" style="width: 100%">
                                                         <option></option>
                                                         @foreach ($roles as $role)
                                                             @if ($role->role !== 'Admin' && $role->id !== $e->id && $role->status)
@@ -333,7 +332,7 @@
             $('.atasan-role-custom').select2({
                 placeholder: "Pilih role",
             });
-            $('.accountable-to-custom').select2({
+            $('.responsible-to-custom').select2({
                 placeholder: "Pilih role",
             });
             $('.informable-to-custom').select2({

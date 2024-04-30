@@ -34,7 +34,7 @@ class RoleController extends Controller
      *
      * Method ini digunakan untuk menambahkan role baru
      */
-    public function addRole(Request $request)
+    public function addRole(Request $request): \Illuminate\Http\RedirectResponse
     {
         $laporan = null;
 
@@ -50,13 +50,13 @@ class RoleController extends Controller
                 'required_to_submit_document' => $laporan
             ]);
 
-            $arrayResponsibleTo = AllServices::getResponsibleTo($request->atasan_role);
+            $arrayAccountableTo = AllServices::getAccountableTo($request->atasan_role);
 
-            if (count($arrayResponsibleTo) > 0) {
-                foreach ($arrayResponsibleTo as $e) {
-                    ResponsibleModel::create([
+            if (count($arrayAccountableTo) > 0) {
+                foreach ($arrayAccountableTo as $e) {
+                    AccountableModel::create([
                         'role' => $newRole->id,
-                        'responsible_to' => $e
+                        'accountable_to' => $e
                     ]);
                 }
             }
@@ -70,11 +70,11 @@ class RoleController extends Controller
                 }
             }
 
-            if ($request->accountable_to !== null) {
-                foreach ($request->accountable_to as $e) {
-                    AccountableModel::create([
+            if ($request->responsible_to !== null) {
+                foreach ($request->responsible_to as $e) {
+                    ResponsibleModel::create([
                         'role' => $newRole->id,
-                        'accountable_to' => $e
+                        'responsible_to' => $e
                     ]);
                 }
             }
@@ -118,9 +118,9 @@ class RoleController extends Controller
             }
         }
 
-        foreach (AccountableModel::where('accountable_to', $request->id)->get() as $e) {
+        foreach (ResponsibleModel::where('responsible_to', $request->id)->get() as $e) {
             if (RoleModel::find($e->role)->status) {
-                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang accountable to role ini!']);
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang responsible to role ini!']);
             }
         }
 
@@ -156,14 +156,14 @@ class RoleController extends Controller
             }
         }
 
-        if ($request->accountable_to !== null) {
-            AllServices::clearAccountableTo($role->id);
+        if ($request->responsible_to !== null) {
+            AllServices::clearResponsibleTo($role->id);
 
-            foreach ($request->accountable_to as $e) {
+            foreach ($request->responsible_to as $e) {
                 if ($e != -1) {
-                    AccountableModel::create([
+                    ResponsibleModel::create([
                         'role' => $role->id,
-                        'accountable_to' => $e
+                        'responsible_to' => $e
                     ]);
                 }
             }
@@ -193,15 +193,15 @@ class RoleController extends Controller
         }
 
         if ($role->atasan_id !== $request->atasan_role) {
-            AllServices::clearResponsibleTo($request->id);
+            AllServices::clearAccountableTo($request->id);
 
-            $arrayResponsibleTo = AllServices::getResponsibleTo($request->atasan_role);
+            $arrayAccountableTo = AllServices::getAccountableTo($request->atasan_role);
 
-            if (count($arrayResponsibleTo) > 0) {
-                foreach ($arrayResponsibleTo as $e) {
-                    ResponsibleModel::create([
+            if (count($arrayAccountableTo) > 0) {
+                foreach ($arrayAccountableTo as $e) {
+                    AccountableModel::create([
                         'role' => $request->id,
-                        'responsible_to' => $e
+                        'accountable_to' => $e
                     ]);
                 }
             }

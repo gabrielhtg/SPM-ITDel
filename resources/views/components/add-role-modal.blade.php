@@ -34,9 +34,9 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="accountable-to">Accountable To</label>
-                        <select id="accountable-to" name="accountable_to[]" multiple="multiple"
-                                class="accountable-to-custom form-control" style="width: 100%">
+                        <label for="responsible-to">Responsible To</label>
+                        <select id="responsible-to" name="responsible[]" multiple="multiple"
+                                class="responsible-to-custom form-control" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
                                 @if($e->role !== "Admin")
