@@ -30,7 +30,7 @@ class Dokumen extends Seeder
                 'nomor_dokumen' => 'DOC00' . ($i + 1),
                 'deskripsi' => 'Deskripsi dokumen ' . ($i + 1),
                 'directory' => '/src/documents/dokumen_' . ($i + 1) . '.pdf',
-                'give_access_to' => '1;2;3',
+                'give_access_to' => '0;1;2;3',
                 'give_edit_access_to' => '1;2;3',
                 'created_by' => '1',
                 'menggantikan_dokumen' => $replacementDocumentId,
