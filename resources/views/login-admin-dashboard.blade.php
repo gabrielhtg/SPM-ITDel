@@ -159,43 +159,7 @@
 
     </script>
 
-    <script>
-        const data2 = {
-            id: 2,
-            data: {
-                imageURL: "http://localhost:8000/src/img/default-profile-pict.png",
-                name: "Tesalonika Aprisda Sitopu",
-                role: "Senat",
-                responsible: "Belum Didefinisikan",
-                accountable: "Belum Didefinisikan",
-                informable: "Belum Didefinisikan"
-            },
-            children: []
-        };
-        const options2 = {
-            contentKey: 'data',
-            width: '100%',
-            height: '680px',
-            nodeWidth: 120,
-            nodeHeight: 40,
-            fontColor: '#fff',
-            borderColor: '#fff',
-            childrenSpacing: 50,
-            siblingSpacing: 20,
-            direction: 'top',
-            nodeTemplate: (content) =>
-                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
-                <div class="node-content">
-                    <div class="role">${content.role}</div>
-                </div>
-            </a>`,
 
-
-            canvasStyle: 'background: #fff;',
-        };
-        const tree2 = new ApexTree(document.getElementById('svg-tree2'), options2);
-        tree2.render(data2);
-    </script>
 
 <!-- Page specific script -->
 <!-- jQuery -->
