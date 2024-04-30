@@ -224,7 +224,7 @@
                                 @endif
                             @endif
                         </p>
-                        <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">See more ...</a>
+                        <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">Lihat detail ...</a>
                     </div>
                   </div>
                 </div>
@@ -237,7 +237,7 @@
           </div>
 
           <div class="text-end">
-            <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">View All News</a>
+            <a type="button" class="btn btn-primary" href="{{ route('newspage') }}">Lihat Semua Berita</a>
           </div>
 
         </div>
