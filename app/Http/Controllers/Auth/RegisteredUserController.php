@@ -155,7 +155,7 @@ class RegisteredUserController extends Controller
         }
 
         else {
-            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Permintaan Pendaftaran Tidak Diizinkan']);
         }
     }
 
