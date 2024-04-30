@@ -68,6 +68,13 @@ class createRole extends Seeder
             ['role' => 'Rektor', 'status' => true, 'is_admin' => false],
             ['role' => 'Dekan', 'status' => true, 'is_admin' => false],
             ['role' => 'Kaprodi', 'status' => true, 'is_admin' => false],
+            ['role' => 'SPM', 'status' => true, 'is_admin' => false],
+            ['role' => 'WR 1', 'status' => true, 'is_admin' => false],
+            ['role' => 'WR 2', 'status' => true, 'is_admin' => false],
+            ['role' => 'WR 3', 'status' => true, 'is_admin' => false],
+            ['role' => 'BAAK', 'status' => true, 'is_admin' => false],
+            ['role' => 'PPKHA', 'status' => true, 'is_admin' => false],
+            ['role' => 'UPT Kantin', 'status' => true, 'is_admin' => false],
         ]);
     }
 }
