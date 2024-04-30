@@ -26,6 +26,7 @@
     <!-- summernote -->
     <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
+    <link rel="stylesheet" href="{{ asset("src/css/custom1.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
 
     <style>
@@ -134,7 +135,9 @@
           <h1 id="keteranganContainer" class="mb-3">{{ $item->juduldashboard }}</h1>
             {{-- <hr class="mx-2" style="border-top: 3px solid black; width: 15%;"> --}}
             <div class="p-3 rounded border custom-font-size">
+              <div class="textketerangan">
                 {!! $item->keterangandashboard !!}
+              </div>
               <div class="row mt-5 justify-content-center">
                 <div class="col-md-3">
                   <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
