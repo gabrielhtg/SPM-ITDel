@@ -97,7 +97,7 @@ public function getLaporanManagementReject()
             $banyakData = 0; // Inisialisasi variabel banyakData
 
             foreach($laporan as $item){
-                if(($item->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))){
+                if(($item->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))){
                     $banyakData++; // Update nilai banyakData
                 }
             };

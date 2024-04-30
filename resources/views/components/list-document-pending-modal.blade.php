@@ -35,12 +35,13 @@
                         
                         @endphp
                         @foreach($laporan as $lap)
-                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($lap->created_by))) )
+                        @if(($lap->status ==='Menunggu')&&(app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($lap->created_by))) )
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
                                         <span class="d-block"> {{$lap->nama_laporan}} </span>
+                                      
                                     </div>
                                 </div>
                             </td>

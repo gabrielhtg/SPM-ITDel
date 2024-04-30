@@ -86,11 +86,8 @@
                     <tbody>
                        
                         @foreach ($laporan as $item)
-                        {{-- @php
-                        dd((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))));
-                        dd((app(AllServices::class)->getRoleName(auth()->user()->role))===(app(AllServices::class)->getAllResponsible(app(AllServices::class)->getUserRoleById(5))));
-                        @endphp --}}
-                        @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
+                        
+                        @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
                                 @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */
@@ -177,7 +174,7 @@
                             </td>
                             <td>
                                 <div class="d-flex" style="gap: 5px">
-                                    @if((app(AllServices::class)->isAccountableToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRole(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
+                                    @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                                     <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
                                         <i class="fas fa-eye"></i>
                                     </a>

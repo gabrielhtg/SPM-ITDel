@@ -580,7 +580,7 @@ public function getUserRoleById($userId)
         // Iterasi setiap laporan
         foreach ($laporan as $item) {
             // Periksa apakah status laporan adalah 'Menunggu' dan user mempunyai akses ke laporan ini
-            if ($item->status === 'Menunggu' && $this->isAccountableToRole(auth()->user()->role, $this->getUserRoleById($item->created_by))) {
+            if ($item->status === 'Menunggu' && $this->isAccountableToRoleLaporan(auth()->user()->role, $this->getUserRoleById($item->created_by))) {
                 $banyakData++;
             }
         }
@@ -675,6 +675,80 @@ public function getUserRoleById($userId)
         return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
     }
     
+    public static function isAccountableToRoleLaporan($id, $roleId): bool
+    {
+        // Pisahkan string $id menjadi array berdasarkan delimiter ";"
+        $idArray = explode(';', $id);
+    
+        // Lakukan pencarian untuk setiap nilai dalam array $idArray
+        foreach ($idArray as $singleId) {
+            // Ambil nama peran berdasarkan singleId
+            $roleName = self::getRoleName($singleId);
+    
+            // Ambil daftar accountable_to untuk peran yang diberikan
+            $accountableTo = self::getAllAccountableTo($roleId);
+    
+            // Periksa apakah roleName terdapat dalam daftar accountableTo
+            if (strpos($accountableTo, $roleName) !== false) {
+                // Jika ada yang memenuhi syarat, kembalikan true
+                return true;
+            }
+        }
+    
+        // Jika tidak ada yang memenuhi syarat, kembalikan false
+        return false;
+    }
+    
+
+    public static function isResponsibleToRoleLaporan($id, $roleId): bool
+    {
+        // Pisahkan string $id menjadi array berdasarkan delimiter ";"
+        $idArray = explode(';', $id);
+    
+        // Lakukan pencarian untuk setiap nilai dalam array $idArray
+        foreach ($idArray as $singleId) {
+            // Ambil nama peran berdasarkan singleId
+            $roleName = self::getRoleName($singleId);
+    
+            // Ambil daftar responsible_to untuk peran yang diberikan
+            $responsible = self::getAllResponsible($roleId);
+    
+            // Periksa apakah roleName terdapat dalam daftar responsible
+            if (strpos($responsible, $roleName) !== false) {
+                // Jika ada yang memenuhi syarat, kembalikan true
+                return true;
+            }
+        }
+    
+        // Jika tidak ada yang memenuhi syarat, kembalikan false
+        return false;
+    }
+    
+    public static function isInformableToRoleLaporan($id, $roleId): bool
+    {
+        // Pisahkan string $id menjadi array berdasarkan delimiter ";"
+        $idArray = explode(';', $id);
+    
+        // Lakukan pencarian untuk setiap nilai dalam array $idArray
+        foreach ($idArray as $singleId) {
+            // Ambil nama peran berdasarkan singleId
+            $roleName = self::getRoleName($singleId);
+    
+            // Ambil daftar informable_to untuk peran yang diberikan
+            $informable = self::getAllInformable($roleId);
+    
+            // Periksa apakah roleName terdapat dalam daftar informable
+            if (strpos($informable, $roleName) !== false) {
+                // Jika ada yang memenuhi syarat, kembalikan true
+                return true;
+            }
+        }
+    
+        // Jika tidak ada yang memenuhi syarat, kembalikan false
+        return false;
+    }
+    
+
 
 
 }
