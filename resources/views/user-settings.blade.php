@@ -5,8 +5,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pengaturan Pengguna</title>
-
+    <title>Pengaturan Pengguna Aktif</title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -52,7 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-                        @if (AllServices::isCurrentRole('Admin'))
+                        @if (AllServices::isLoggedUserHasAdminAccess())
                             @include('components.add-user-manually-modal')
                             <a href='{{ route('list-allowed-user') }}' class="btn btn-success">
                                 Daftar Pengguna yang Diizinkan

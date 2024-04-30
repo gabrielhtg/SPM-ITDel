@@ -6,11 +6,11 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Laporan Berkala</title>
-    
+
         {{-- @php
         dd($documenthero);
         @endphp --}}
-    
+
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet"
               href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -31,14 +31,14 @@
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
-    
+
         <!-- Navbar -->
         @include("components.navbar")
         <!-- /.navbar -->
-    
+
         <!-- Main Sidebar Container -->
         @include("components.sidebar")
-    
+
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
             <!-- Content Header (Page header) -->
@@ -52,24 +52,24 @@
                 </div><!-- /.container-fluid -->
             </div>
             <!-- /.content-header -->
-    
+
             <!-- Main content -->
             <div class="card">
                 <div class="card-body">
                     @php
                     $isResponsible = app(AllServices::class)->isAccountable(auth()->user()->role);
-                   
+
                 @endphp
-                
-                
+
+
                 @if($isResponsible)
                     @include('components.list-document-pending-modal')
-                    
-                @endif
-                
 
-                
-    
+                @endif
+
+
+
+
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -78,13 +78,13 @@
                             <th>Status</th>
                             <th>Dibuat Oleh</th>
                             <th>Diperiksa Oleh</th>
-                            <th>diperiksa Pada</th>
+                            <th>Diperiksa Pada</th>
                              <th>Revisi</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
                     <tbody>
-                       
+
                         @foreach ($laporan as $item)
                         
                         @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
@@ -94,7 +94,7 @@
                                 @else background-color: #e8f0fe; /* Warna biru */
                                 @endif
                                 ">
-    
+
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
@@ -143,7 +143,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                       
+
                                         @php
                                         if($item->status == 'Menunggu') {
                                             echo '-';
@@ -182,20 +182,20 @@
                                         Tidak Ada Aksi
                                     @endif
                                 </div>
-                            </td>                            
+                            </td>
                         </tr>
                         @endif
                         @endforeach
                     </tbody>
                 </table>
-                
-    
-                    
-    
-    
-                    
-    
-    
+
+
+
+
+
+
+
+
                 </div>
                 <!-- /.card-body -->
             </div>
@@ -203,7 +203,7 @@
         </div>
         <!-- /.content-wrapper -->
         @include('components.footer')
-    
+
         <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
@@ -211,7 +211,7 @@
         <!-- /.control-sidebar -->
     </div>
     <!-- ./wrapper -->
-    
+
     <!-- jQuery -->
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
     <!-- Bootstrap 4 -->
@@ -270,7 +270,7 @@
             })
             @endif
             @endif
-    
+
             @if (!$errors->isEmpty())
             Swal.fire({
                 icon: 'error',
@@ -301,7 +301,7 @@
                 disableDragAndDrop: true,
             })
         })
-    
+
         $(document).ready(function () {
             $('.select2').select2({
                 placeholder: "Search Document Type",
@@ -309,7 +309,7 @@
                 minimumInputLength: 1 // Minimum characters to start searching
             });
         });
-    
+
     </script>
     <script>
         $(function () {
@@ -344,12 +344,12 @@
             @endif
         });
     </script>
-    
+
     <script>
         $(function () {
             //Initialize Select2 Elements
             $('.select2').select2();
-    
+
             // Mendapatkan opsi yang dipilih dari modal dan menetapkannya kembali saat modal dibuka
             $('.modal').on('show.bs.modal', function () {
                 var modalId = $(this).attr('id');
@@ -377,8 +377,7 @@
             })
         })
     </script>
-    
-    
+
+
     </body>
     </html>
-    

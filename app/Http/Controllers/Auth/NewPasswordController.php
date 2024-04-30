@@ -54,7 +54,7 @@ class NewPasswordController extends Controller
             'reset_password_token' => null
         ]);
 
-        return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Password changed successfully']);
+        return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Kata Sandi berhasil diganti']);
 
 //        $status = Password::reset(
 //            $request->only('email', 'password', 'password_confirmation'),

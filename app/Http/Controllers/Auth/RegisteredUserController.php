@@ -145,7 +145,7 @@ class RegisteredUserController extends Controller
                     'pending_roles' => $request->role
                 ]);
 
-                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Register Request Sent']);
+                return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
             }
             catch (QueryException $e) {
                 if ($e->errorInfo[1] == 1062) {
@@ -155,7 +155,7 @@ class RegisteredUserController extends Controller
         }
 
         else {
-            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Register Request Not Allowed']);
+            return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Permintaan Pendaftaran Tidak Diizinkan']);
         }
     }
 
@@ -189,10 +189,10 @@ class RegisteredUserController extends Controller
                 'pending_roles' => null,
                 'created_at' => now()
             ]);
-            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Success to accept request!"]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {
-            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Failed to accept request! Email not found!"]);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Gagal menerima permintaan! Email tidak ditemukan!"]);
         }
 
 
@@ -204,7 +204,7 @@ class RegisteredUserController extends Controller
         if ($data && $data->status == false) {
             $data->delete();
 
-            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 
         else if ($data && $data->status != null) {
@@ -213,11 +213,11 @@ class RegisteredUserController extends Controller
                 'pending_roles' => null
             ]);
 
-            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Successfully deleted!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 
         else {
-            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Failed to delete!']);
+            return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Gagal menghapus!']);
         }
     }
 }

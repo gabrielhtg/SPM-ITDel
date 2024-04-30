@@ -4,7 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SPM IT Del</title>
+    <title>User Detail</title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
+
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"

@@ -58,7 +58,7 @@ class PasswordResetLinkController extends Controller
 
             Mail::to($request->email)->send(new ResetPasswordMail($resetToken));
 
-            return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Request updated!', 'msg' => 'Check your email for password reset token!']);
+            return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Permintaan diperbaharui!', 'msg' => 'Periksa email anda untuk token reset password!']);
         } else {
             return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
         }

@@ -15,7 +15,6 @@ class RoleTreeController extends Controller
     public function indexlogindashboard(Request $request)
     {
         $tree = new RoleTree(null, null, null);
-        $allService = new AllServices();
 
         // Bagian ini untuk mendapatkan user puncak
         foreach (RoleModel::all() as $e) {
@@ -42,7 +41,7 @@ class RoleTreeController extends Controller
         return view('login-admin-dashboard', $data);
     }
 
-    private function bentukTree(RoleTree $tree, $node, &$arrayResponsibleTo)
+    private function bentukTree(RoleTree $tree, $node, &$arrayResponsibleTo): RoleTree
     {
         if ($node != null) {
             // Fetching users with the specific role

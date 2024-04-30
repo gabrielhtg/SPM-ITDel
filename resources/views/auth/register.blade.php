@@ -1,10 +1,11 @@
 @php use App\Services\AllServices; @endphp
-        <!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SPM Registration Page</title>
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -22,7 +23,7 @@
         </div>
         <div class="card-body">
 
-            <p class="login-box-msg">Register a new membership</p>
+            <p class="login-box-msg">Daftarkan keanggotaan baru</p>
 
             <form method="POST" action="{{ route('self-register') }}">
                 @csrf

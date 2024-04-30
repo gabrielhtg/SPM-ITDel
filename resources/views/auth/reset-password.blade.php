@@ -21,7 +21,7 @@
             <a href="{{ route('dashboard') }}" class="h1"><b>AMI</b> IT Del</a>
         </div>
         <div class="card-body">
-            <p class="login-box-msg">You are only one step a way from your new password, recover your password now.</p>
+            <p class="login-box-msg">Anda hanya selangkah lagi menuju kata sandi baru Anda, pulihkan kata sandi Anda sekarang.</p>
             <form action="{{ route('password.store') }}" method="post">
                 @csrf
                 <div class="input-group">
@@ -58,7 +58,7 @@
 
                 <div class="row mt-3">
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary btn-block">Change password</button>
+                        <button type="submit" class="btn btn-primary btn-block">Ganti Kata Sandi</button>
                     </div>
                     <!-- /.col -->
                 </div>
