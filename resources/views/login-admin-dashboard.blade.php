@@ -55,7 +55,7 @@
                 </div><!-- /.container-fluid -->
             </div>
             <div class="card vh-100" style="margin-bottom: 50px">
-{{--                    <div id="svg-tree" class="w-100"></div>--}}
+                    <div id="svg-tree" class="w-100"></div>
                     <div id="svg-tree2" class="w-100"></div>
             </div>
         </div>
@@ -160,7 +160,7 @@
     </script>
 
     <script>
-        const data = {
+        const data2 = {
                 id: 'ms',
                 data: {
                     imageURL: 'https://i.pravatar.cc/300?img=68',
@@ -243,7 +243,7 @@
                     },
                 ],
             };
-        const options = {
+        const options2 = {
             contentKey: 'data',
             width: 800,
             height: 600,
@@ -262,8 +262,8 @@
             canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
             enableToolbar: true,
         };
-        const tree = new ApexTree(document.getElementById('svg-tree2'), options);
-        tree.render(data);
+        const tree2 = new ApexTree(document.getElementById('svg-tree2'), options2);
+        tree2.render(data2);
     </script>
 
 <!-- Page specific script -->

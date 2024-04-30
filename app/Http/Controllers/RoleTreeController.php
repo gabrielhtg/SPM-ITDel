@@ -15,7 +15,6 @@ class RoleTreeController extends Controller
     public function indexlogindashboard(Request $request)
     {
         $tree = new RoleTree(null, null, null);
-        $allService = new AllServices();
 
         // Bagian ini untuk mendapatkan user puncak
         foreach (RoleModel::all() as $e) {
