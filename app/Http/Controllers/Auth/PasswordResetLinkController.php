@@ -56,7 +56,9 @@ class PasswordResetLinkController extends Controller
                 'reset_password_token' => $resetToken
             ]);
 
-            Mail::to($request->email)->send(new ResetPasswordMail($resetToken));
+            $url = $request->url;
+
+            Mail::to($request->email)->send(new ResetPasswordMail($resetToken, $url));
 
             return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Permintaan diperbaharui!', 'msg' => 'Periksa email anda untuk token reset password!']);
         } else {

@@ -15,13 +15,15 @@ class ResetPasswordMail extends Mailable
     use Queueable, SerializesModels;
 
     private $passwordResetToken;
+    private $url;
 
     /**
      * Create a new message instance.
      */
-    public function __construct($resetToken)
+    public function __construct($resetToken, $url)
     {
         $this->passwordResetToken = $resetToken;
+        $this->url = $url;
     }
 
     /**
@@ -43,7 +45,8 @@ class ResetPasswordMail extends Mailable
         return new Content(
             view: 'Mail.reset-password-mail',
             with: [
-                'token' => $this->passwordResetToken
+                'token' => $this->passwordResetToken,
+                'url' => $this->url,
             ],
         );
     }

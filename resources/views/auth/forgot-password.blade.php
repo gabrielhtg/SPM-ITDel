@@ -51,6 +51,8 @@
                 </div>
                 <span class="text-danger">{{ $errors->first('email') }}</span>
 
+                <input type="hidden" name="url" value="{{ \Illuminate\Support\Facades\Request::root() }}">
+
                 <div class="row mt-3">
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary btn-block">Reset Kata Sandi</button>
