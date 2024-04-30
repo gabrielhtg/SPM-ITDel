@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             informableSeeder::class,
             responsibleSeeder::class,
             bawahanSeeder::class,
+            KategoriLaporanSeeder::class,
            
         ]);
     }
