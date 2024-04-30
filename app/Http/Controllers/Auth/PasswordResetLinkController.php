@@ -60,7 +60,7 @@ class PasswordResetLinkController extends Controller
 
             return redirect()->route('password.email')->with('toastData', ['success' => true, 'text' => 'Permintaan diperbaharui!', 'msg' => 'Periksa email anda untuk token reset password!']);
         } else {
-            return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Whoopss!! User not found.']);
+            return redirect()->route('password.email')->with('toastData', ['success' => false, 'text' => 'Aduh!! Pengguna tidak ditemukan.']);
         }
     }
 }

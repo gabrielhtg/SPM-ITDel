@@ -93,7 +93,7 @@ class RegisteredUserController extends Controller
                     'role' => $request->role
                 ]);
                 Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
-                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'The invitation was resent']);
+                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Undangan telah dikirim ulang']);
             }
 
             else {
@@ -109,10 +109,10 @@ class RegisteredUserController extends Controller
 
             }
 
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Invitation sent!"]);
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Undangan terkirim!"]);
         }
         catch (QueryException $e) {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "An error occurred."]);
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Terjadi kesalahan."]);
         }
     }
 
@@ -164,18 +164,18 @@ class RegisteredUserController extends Controller
 
         if ($data) {
             $data->delete();
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted the invitation link.']);
+            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus tautan undangan.']);
         }
 
         else {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Failed to delete invitation link. Invitation link not found!']);
+            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => 'Gagal menghapus tautan undangan. Tautan undangan tidak ditemukan!']);
         }
     }
 
     public function clearInvitation () {
         RegisterInvitationModel::truncate();
 
-        return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Successfully deleted all data!']);
+        return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus semua data!']);
     }
 
     public function acceptRegisterRequest(Request $request) {
