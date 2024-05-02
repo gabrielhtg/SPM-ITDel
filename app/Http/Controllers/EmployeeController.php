@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\employee;
+use App\Models\Employee;
 use App\Models\RoleModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -20,5 +20,15 @@ class EmployeeController extends Controller
         ];
 
         return view('employee', $data);
+    }
+
+    public function addEmployee (Request $request)  {
+
+        Employee::create([
+            'name' => $request->name,
+            'role' => $request->role
+        ]);
+
+        return back()->with('toastData', ['success' => true, 'text' => 'Employee ' . $request->nama_role . ' berhasil ditambahkan!']);
     }
 }

@@ -65,6 +65,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
         Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
         Route::get('/employee', [EmployeeController::class, 'getEmployeePage'])->name('employee');
+        Route::post('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add-employee');
 
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');
