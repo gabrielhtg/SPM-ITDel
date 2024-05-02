@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/employee', [EmployeeController::class, 'getEmployeePage'])->name('employee');
         Route::post('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add-employee');
         Route::delete('/remove-employee', [EmployeeController::class, 'removeEmployee'])->name('remove-employee');
+        Route::post('/edit-employee', [EmployeeController::class, 'editEmployee'])->name('edit-employee');
 
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');

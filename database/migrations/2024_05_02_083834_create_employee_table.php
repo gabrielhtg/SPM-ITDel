@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('employee', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('role')->nullable();
             $table->foreign('role')->references('id')->on('roles');
             $table->timestamps();

@@ -49,10 +49,11 @@ class RegisteredUserController extends Controller
         $data = AllowedUserModel::where('email', $request->email)->first();
         $user = User::where('username', $request->username)->first();
 
+
         if ($data !== null) {
             if (!$user) {
                 try {
-                    User::create([
+                    $userId = User::create([
                         'name' => $request->name,
                         'username' => $request->username,
                         'email' => $request->email,
@@ -61,8 +62,10 @@ class RegisteredUserController extends Controller
                         'status' =>true,
                         'password' => Hash::make($request->password),
                         'role' => $request->role
-                    ]);
+                    ])->id;
+
                     Employee::create([
+                        'user_id' => $userId,
                         'name' => $request->name,
                         'role' => $request->id
                     ]);

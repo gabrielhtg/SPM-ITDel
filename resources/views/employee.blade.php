@@ -99,7 +99,7 @@
                                                 </button>
 
                                                 <button type="button" class="btn btn-warning" data-toggle="modal"
-                                                        data-target="#modal-delete-{{ $e->id }}">
+                                                        data-target="#modal-edit-{{ $e->id }}">
                                                     {{--                                            <i class="fas fa-trash"></i> --}}
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                                         <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
@@ -132,26 +132,100 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="form-delete-{{ $e->id }}" method="POST"
-                                action="{{ route('remove-employee') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $e->id }}">
-                            </form>
+                            @if($e->user_id !== null)
+                                <p>
+                                    Kamu tidak bisa melakukan aksi ini disini karena {{$e->name}} adalah User Aktif.
+                                    Lakukan aksi kamu di <a href="/user-settings-active">Penguna Aktif</a>.
+                                </p>
+                            @else
+                                <form id="form-delete-{{ $e->id }}" method="POST"
+                                      action="{{ route('remove-employee') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
+                                </form>
 
-                            <p>
-                                Apakah anda yakin akan remove employee {{ $e->name }}?
-                            </p>
+                                <p>
+                                    Apakah anda yakin akan remove employee {{ $e->name }}?
+                                </p>
+                            @endif
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" form="form-delete-{{ $e->id }}"
-                                class="btn btn-danger">Remove</button>
+                            @if($e->user_id === null)
+                                <button type="submit" form="form-delete-{{ $e->id }}"
+                                        class="btn btn-danger">Remove</button>
+                            @endif
+
                         </div>
                     </div>
                     <!-- /.modal-content -->
                 </div>
                 <!-- /.modal-dialog -->
+            </div>
+
+            <div class="modal fade" id="modal-edit-{{ $e->id }}">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Edit Employee</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            @if($e->user_id !== null)
+                                <p>
+                                    Kamu tidak bisa melakukan aksi ini disini karena {{$e->name}} adalah User Aktif.
+                                    Lakukan aksi kamu di <a href="/user-settings-active">Penguna Aktif</a>.
+                                </p>
+                            @else
+                                <form id="form-edit-{{ $e->id }}" method="POST"
+                                      action="{{ route('edit-employee') }}">
+                                    @csrf
+                                    <div class="row">
+                                        <div class="col">
+                                            <div class="input-group">
+                                                <input type="text" name="name" class="form-control" placeholder="Nama Lengkap" value="{{ $e->name }}" required>
+                                                <div class="input-group-append">
+                                                    <div class="input-group-text">
+                                                        <span class="fas fa-user"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="text-danger">{{ $errors->first('name') }}</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-3 bg-white">
+                                        <div class="col">
+                                            <div class="input-group w-100">
+                                                <select name="role" class="form-control select2" style="width: 100%" required>
+                                                    <option></option>
+                                                    @foreach($roles as $role)
+                                                        @if($role->status)
+                                                            <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
+                                </form>
+                            @endif
+
+                        </div>
+                        <div class="modal-footer justify-content-between">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            @if($e->user_id === null)
+                                <button type="submit" form="form-edit-{{ $e->id }}"
+                                        class="btn btn-primary">Save</button>
+                            @endif
+                        </div>
+                    </div>
+                </div>
             </div>
         @endforeach
         <!-- /.content-wrapper -->
@@ -181,7 +255,6 @@
     <script src="{{ asset('plugins/pdfmake/vfs_fonts.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
@@ -230,12 +303,6 @@
                             0, 1, 2, 3, 4, 5
                         ]
                     },
-                },
-                {
-                    extend: 'colvis',
-                    columns: [
-                        0, 1, 2, 3, 4, 5
-                    ]
                 },
             ],
             @endif
