@@ -103,7 +103,7 @@
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id === $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status == 'Ditolak') background-color:  #f2dedf; /* Warna merah */
+                            @elseif($item->status == 'Revisi') background-color:  #f2dedf; /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">
@@ -162,7 +162,7 @@
                                         echo '-';
                                     } elseif ($item->status == 'Disetujui') {
                                         echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                    } elseif ($item->status == 'Ditolak') {
+                                    } elseif ($item->status == 'Revisi') {
                                         echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp
@@ -195,7 +195,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
-                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Ditolak"))
+                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Revisi"))
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
                                     <i class="fas fa-comment"></i>
                                 </button>
@@ -250,7 +250,7 @@
                                                 $allServices = new \App\Services\AllServices();
                                                 @endphp
                                                 @foreach ($laporan as $lap)
-                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
+                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Revisi" && $allServices->isLaporanIdInCekLaporan($lap->id))
                                                         <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
                                                     @endif
                                                 @endforeach
