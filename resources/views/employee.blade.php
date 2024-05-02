@@ -266,46 +266,6 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            @if(AllServices::isLoggedUserHasAdminAccess())
-                "buttons": [{
-                extend: 'pdf',
-                filename: 'User Settings Data',
-                exportOptions: {
-                    modifier: {
-                        page: 'current'
-                    },
-                    columns: [
-                        0, 1, 2, 3, 4, 5
-                    ]
-                },
-                orientation: "landscape"
-            },
-                {
-                    extend: 'excel',
-                    filename: 'User Settings Data',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        },
-                        columns: [
-                            0, 1, 2, 3, 4, 5
-                        ]
-                    },
-                },
-                {
-                    extend: 'print',
-                    filename: 'User Settings Data',
-                    exportOptions: {
-                        modifier: {
-                            page: 'current'
-                        },
-                        columns: [
-                            0, 1, 2, 3, 4, 5
-                        ]
-                    },
-                },
-            ],
-            @endif
             "pageLength": 10,
             "select": true
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
