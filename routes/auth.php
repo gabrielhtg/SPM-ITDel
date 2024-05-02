@@ -10,6 +10,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleTreeController;
 use App\Http\Controllers\TypeDocumentController;
@@ -63,6 +64,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('checkDocumentActive')->group(function () {
         Route::get('/user-settings-active', [UserController::class, 'getUserSettings'])->name('user-settings-active');
         Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
+        Route::get('/employee', [EmployeeController::class, 'getEmployeePage'])->name('employee');
 
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');

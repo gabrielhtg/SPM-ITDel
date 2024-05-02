@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             allowedUser::class,
             create_dashboard_introduction::class,
             NewsSeeder::class,
-            Dokumen::class,
+//            Dokumen::class,
             DocType::class,
             HeroDocumentSeeder::class,
             TipeLaporanSeeder::class,
