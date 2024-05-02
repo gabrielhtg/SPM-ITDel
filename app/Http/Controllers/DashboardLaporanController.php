@@ -12,4 +12,10 @@ class DashboardLaporanController extends Controller
 
         return view('components.dashboard-laporan', compact('active_sidebar'));
     }
+    public function getDashboardLaporanContinue()
+    {
+        $active_sidebar = [0, 1]; // atau sesuai dengan kebutuhan Anda
+
+        return view('components.dashboard-laporan-continue', compact('active_sidebar'));
+    }
 }
