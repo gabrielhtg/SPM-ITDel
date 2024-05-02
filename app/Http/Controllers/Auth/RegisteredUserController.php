@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
 use App\Models\AllowedUserModel;
+use App\Models\Employee;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
@@ -60,6 +61,10 @@ class RegisteredUserController extends Controller
                         'status' =>true,
                         'password' => Hash::make($request->password),
                         'role' => $request->role
+                    ]);
+                    Employee::create([
+                        'name' => $request->name,
+                        'role' => $request->id
                     ]);
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }

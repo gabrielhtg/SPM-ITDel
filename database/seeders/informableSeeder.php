@@ -14,10 +14,10 @@ class informableSeeder extends Seeder
     public function run(): void
     {
         DB::table('informable')->insert([
-            ["role"=>3,"informable_to" => 2],
-            ["role"=>4,"informable_to" => 3],
-            ["role"=>4,"informable_to" => 2],
-            ["role"=>5,"informable_to" => 2],
-            ]); 
+//            ["role"=>3,"informable_to" => 2],
+//            ["role"=>4,"informable_to" => 3],
+//            ["role"=>4,"informable_to" => 2],
+//            ["role"=>5,"informable_to" => 2],
+            ]);
     }
 }
