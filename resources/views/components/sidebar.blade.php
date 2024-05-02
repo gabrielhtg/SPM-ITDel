@@ -31,9 +31,20 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
 
+                     <li class="nav-item">
+                     <a href="{{ route('dashboard-laporan') }}" class="nav-link {{ $active_sidebar[1] ?? 0 ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+
+
+
                 <li class="nav-item">
                     <a href="{{ route('indexlogindashboard') }}"
-                        class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
+                        class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Admin Dashboard
