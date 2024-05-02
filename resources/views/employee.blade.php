@@ -97,6 +97,7 @@
                                                             d="M8.256 14a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
                                                     </svg>
                                                 </button>
+
                                                 <button type="button" class="btn btn-warning" data-toggle="modal"
                                                         data-target="#modal-delete-{{ $e->id }}">
                                                     {{--                                            <i class="fas fa-trash"></i> --}}
@@ -125,27 +126,27 @@
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title">Nonaktifkan Akun</h4>
+                            <h4 class="modal-title">Hapus Employee</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <form id="form-delete-{{ $e->id }}" method="POST"
-                                action="{{ route('remove-user') }}">
+                                action="{{ route('remove-employee') }}">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="id" value="{{ $e->id }}">
                             </form>
 
                             <p>
-                                Apakah anda yakin akan menonaktifkan akun {{ $e->name }}?
+                                Apakah anda yakin akan remove employee {{ $e->name }}?
                             </p>
                         </div>
                         <div class="modal-footer justify-content-between">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                             <button type="submit" form="form-delete-{{ $e->id }}"
-                                class="btn btn-danger">Nonaktifkan</button>
+                                class="btn btn-danger">Remove</button>
                         </div>
                     </div>
                     <!-- /.modal-content -->

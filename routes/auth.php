@@ -66,6 +66,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/user-settings-inactive', [UserController::class, 'getUserSettingsInactive'])->name('user-settings-inactive');
         Route::get('/employee', [EmployeeController::class, 'getEmployeePage'])->name('employee');
         Route::post('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add-employee');
+        Route::delete('/remove-employee', [EmployeeController::class, 'removeEmployee'])->name('remove-employee');
 
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');

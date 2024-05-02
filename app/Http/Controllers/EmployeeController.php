@@ -31,4 +31,10 @@ class EmployeeController extends Controller
 
         return back()->with('toastData', ['success' => true, 'text' => 'Employee ' . $request->nama_role . ' berhasil ditambahkan!']);
     }
+
+    public function removeEmployee (Request $request)  {
+        Employee::find($request->id)->delete();
+
+        return back()->with('toastData', ['success' => true, 'text' => 'Employee ' . $request->nama_role . ' berhasil dihapus!']);
+    }
 }
