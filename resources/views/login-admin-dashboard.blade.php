@@ -7,8 +7,6 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard Admin</title>
-
-    <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -33,8 +31,6 @@
     <link rel="stylesheet" href="{{ asset("src/css/custom1.css") }}">
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/custom.css") }}">
-    <!-- SummerNote -->
-    {{-- <link rel="stylesheet" href="{{ asset("plugins/summernote/summernote-bs4.min.css") }}"> --}}
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -93,11 +89,8 @@
             </div>
         </div>
 
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
         </aside>
-        <!-- /.control-sidebar -->
     </div>
 
     <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
@@ -113,29 +106,30 @@
     <script src="https://cdn.jsdelivr.net/npm/apextree"></script>
     {{-- <script src="{{ asset("dist/js/adminlte.min.js") }}"></script> --}}
 
+   
     <script>
         const data = {!! $tree !!};
-        const arrayResponsibleTo = {!! json_encode($arrayResponsibleTo) !!};
         const options = {
             contentKey: 'data',
             width: '100%',
-            height: '680px',
-            nodeWidth: 120,
-            nodeHeight: 40,
-            fontColor: '#fff',
-            borderColor: '#fff',
+            height: '800px',
+            nodeWidth: 150,
+            nodeHeight: 100,
+            fontColor: '#000',
+            borderColor: '#333',
             childrenSpacing: 50,
             siblingSpacing: 20,
             direction: 'top',
             nodeTemplate: (content) =>
-            `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
-                <div class="node-content">
-                    <div class="role">${content.role}</div>
-                </div>
-            </a>`,
+                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
+                    <div style='display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100%;'>
+                        <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
+                        <div style="font-weight: bold; font-size: 14px">${content.name}</div>
+                        <div style="font-weight: bold; font-size: 14px">${content.role}</div>
+                    </div>
+                </a>`,
 
-
-            canvasStyle: 'background: #fff;',
+            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
         };
         const tree = new ApexTree(document.getElementById('svg-tree'), options);
         tree.render(data);
@@ -144,7 +138,7 @@
         document.querySelectorAll('.node-link').forEach(link =>{
             link.addEventListener('click', function(event) {
                 event.preventDefault();
-                // const name = this.dataset.name;
+                const name = this.dataset.name;
                 const image = this.dataset.images;
                 const role = this.dataset.role;
                 const responsible = this.dataset.responsible;
@@ -153,7 +147,7 @@
 
                 // Open modal
                 $('#personModal').modal('show');
-                // $('#modal-name').text(`name: ${name}`);
+                $('#modal-name').text(name);
                 $('#modal-image').attr('src', image);
                 $('#modal-role').text(`Role: ${role}`);
                 $('#modal-responsible').text(`Responsible to: ${responsible}`);
@@ -164,10 +158,6 @@
 
     </script>
 
-
-
-<!-- Page specific script -->
-<!-- jQuery -->
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
@@ -188,13 +178,7 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
-<script>
-    document.getElementById('bgimage').addEventListener('change', function(e) {
-        var fileName = document.getElementById('bgimage').files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script>
+
 
 <script>
     $(function () {
@@ -233,6 +217,14 @@
             timer: 5000
         })
         @endif
+    });
+</script>
+
+<script>
+    document.getElementById('bgimage').addEventListener('change', function(e) {
+        var fileName = document.getElementById('bgimage').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
     });
 </script>
 
