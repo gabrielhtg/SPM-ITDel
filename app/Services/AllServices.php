@@ -747,6 +747,29 @@ public function getUserRoleById($userId)
         // Jika tidak ada yang memenuhi syarat, kembalikan false
         return false;
     }
+    public function getPendingLaporanNotifications()
+    {
+        // Ambil semua laporan dengan status "Menunggu"
+        $laporan = Laporan::where('status', 'Menunggu')->get();
+    
+        // Buat array untuk menyimpan notifikasi
+        $notifications = [];
+    
+        // Loop melalui setiap laporan dan buat notifikasi untuk setiap laporan
+        foreach ($laporan as $lap) {
+            // Buat teks notifikasi
+            $notificationText = $lap->createdByUser->name . ' Mengirimkan Laporan Untuk Diperiksa';
+    
+            // Tambahkan notifikasi ke dalam array
+            $notifications[] = [
+                'laporan' => $lap,
+                'notification_text' => $notificationText,
+            ];
+        }
+    
+        return $notifications;
+    }
+    
 
 
 

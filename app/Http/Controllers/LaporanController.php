@@ -210,27 +210,44 @@ public function getLaporanManagementReject()
 
 
 
-public function reject(Request $request,$id)
+public function reject(Request $request, $id)
 {   
     $validator = Validator::make($request->all(), [
-            'komentar' => 'required' 
-        ]);
+        'komentar' => 'required',
+        'file' => 'required', // Pastikan file_catatan diperlukan
+    ]);
 
-        // Periksa jika validasi gagal
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator)->withInput(); 
-        }
-
-        $nowDate = Carbon::now();
-        $laporan = Laporan::findOrFail($id);
-        $laporan->status = 'Ditolak';
-        $laporan->reject_at = $nowDate;
-        $laporan->direview_oleh = auth()->user()->id;
-        $laporan->komentar = $request->komentar; 
-        $laporan->save();
-
-        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
+    // Periksa jika validasi gagal
+    if ($validator->fails()) {
+        return redirect()->back()->withErrors($validator)->withInput(); 
     }
+
+    $laporan = Laporan::findOrFail($id);
+    $laporan->status = 'Ditolak';
+    $laporan->reject_at = now();
+    $laporan->direview_oleh = auth()->user()->id;
+    $laporan->komentar = $request->komentar; 
+
+    // Proses file yang diunggah
+    if ($request->hasFile('file')) {
+        $file = $request->file('file');
+        $fileExtension = $file->getClientOriginalExtension();
+        $fileName = uniqid('laporan_').'.'.$fileExtension;
+
+        // Simpan file di folder public/src/documents
+        $file->move(public_path('src/documents'), $fileName);
+
+        // Atur nilai file_catatan
+        $laporan->file_catatan ='/src/documents/'.$fileName;
+    }
+
+    $laporan->save();
+
+    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
+}
+
+
+
 
 
 public function update(Request $request, $id)

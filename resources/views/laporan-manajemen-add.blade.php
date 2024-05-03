@@ -154,6 +154,7 @@
                                 </div>
                             </div>
                         </td>
+                        
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
@@ -286,27 +287,40 @@
 
 
 <!-- Modal -->
-                            <div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Tempat untuk menampilkan isi komentar -->
-                                            <div id="commentContent">
-                                                {{$item->komentar}}
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Tempat untuk menampilkan isi komentar -->
+                <div id="commentContent">
+                    {{$item->komentar}}
+                </div>
+                <!-- Tautan untuk melihat file komentar dalam tab baru -->
+                <div>
+                   
+                    @if($item->file_catatan)
+                        <a href="{{ asset($item->file_catatan) }}" target="_blank" class="btn btn-success">
+                            <i class="fas fa-eye"></i> Lihat File
+                        </a>
+                    @else
+                        <span class="text-muted">Tidak ada file komentar.</span>
+                    @endif
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
                     @endif
                     @endforeach

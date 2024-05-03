@@ -27,6 +27,7 @@ return new class extends Migration
             $table->timestamp('approve_at')->nullable();
             $table->timestamp('reject_at')->nullable();
             $table->text('komentar')->nullable();
+            $table->string('file_catatan')->nullable();
             $table->timestamps();
         });
     }
