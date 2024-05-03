@@ -227,7 +227,7 @@
                                 @endif
                             @endif
                         </p>
-                        <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">Lihat detail ...</a>
+                        <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">Lihat Detail</a>
                     </div>
                   </div>
                 </div>

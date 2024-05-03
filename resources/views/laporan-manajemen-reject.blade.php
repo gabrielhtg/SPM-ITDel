@@ -86,11 +86,11 @@
                     <tbody>
 
                         @foreach ($laporan as $item)
-                        
+
                         @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                                @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */
+                                @elseif($item->status === 'Revisi') background-color:  #f2dedf /* Warna merah */
                                 @else background-color: #e8f0fe; /* Warna biru */
                                 @endif
                                 ">
@@ -149,7 +149,7 @@
                                             echo '-';
                                         } elseif ($item->status == 'Disetujui') {
                                             echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                        } elseif ($item->status == 'Ditolak') {
+                                        } elseif ($item->status == 'Revisi') {
                                             echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                         }
                                         @endphp

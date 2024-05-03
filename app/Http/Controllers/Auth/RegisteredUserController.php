@@ -67,7 +67,7 @@ class RegisteredUserController extends Controller
                     Employee::create([
                         'user_id' => $userId,
                         'name' => $request->name,
-                        'role' => $request->id
+                        'role' => $request->role
                     ]);
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }

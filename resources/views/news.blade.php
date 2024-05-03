@@ -66,9 +66,41 @@
                                             <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-update-news-{{$item->id}}">
                                                 Update
                                             </button>
-                                            <button type="button" class="btn btn-danger">
-                                                <a href="{{ route('deletenews', ['id' => $item->id]) }}" style="color: black">Delete</a>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">
+                                                {{-- <a href="{{ route('deletenews', ['id' => $item->id]) }}" style="color: black">Delete</a> --}}Delete
                                             </button>
+                                            
+                                            {{-- Pesan Konfirmasi --}}
+                                            <div class="modal fade" id="modal-delete-{{ $item->id }}">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h4 class="modal-title">Konfirmasi Penghapusan</h4>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <form id="form-delete-{{ $item->id }}" method="POST" action="{{ route('deletenews', ['id' => $item->id]) }}">
+                                                                @csrf
+                                                                @method('GET')
+                                                                <input type="hidden" name="id" value="{{ $item->id }}">
+                                                            </form>
+                                            
+                                                            <p>
+                                                                Apakah Anda yakin ingin menghapus data {{ $item->title }}?
+                                                            </p>
+                                                        </div>
+                                                        <div class="modal-footer justify-content-between">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                            <button type="submit" form="form-delete-{{ $item->id }}" class="btn btn-danger">Hapus</button>
+                                                        </div>
+                                                    </div>
+                                                    <!-- /.modal-content -->
+                                                </div>
+                                                <!-- /.modal-dialog -->
+                                            </div>
+
                                         </div>
                                     </div>
                             

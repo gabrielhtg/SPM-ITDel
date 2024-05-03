@@ -4,6 +4,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
+use App\Http\Controllers\DashboardLaporanController;
 use App\Http\Middleware\ActiveNews;
 use Illuminate\Support\Facades\Route;
 
@@ -35,6 +36,10 @@ Route::get('/jenis-laporan/{id}', [\App\Http\Controllers\LaporanController::clas
 Route::put('/laporan/{id}/approve', [\App\Http\Controllers\LaporanController::class, 'approve'])->name('laporan.approve');
 Route::put('/laporan/{id}/reject', [\App\Http\Controllers\LaporanController::class, 'reject'])->name('laporan.reject');
 Route::put('/laporan/update/{id}', [\App\Http\Controllers\LaporanController::class, 'update'])->name('laporan.update');
+Route::get('/dashboard-laporan', [\App\Http\Controllers\DashboardLaporanController::class, 'index'])->name('dashboard-laporan');
+Route::get('/dashboard-laporan-continue', [\App\Http\Controllers\DashboardLaporanController::class, 'getDashboardLaporanContinue'])->name('getDashboardlaporanContinue');
+
+
 
 
 
