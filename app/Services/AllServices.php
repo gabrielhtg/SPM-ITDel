@@ -777,9 +777,5 @@ public function getUserRoleById($userId)
     
         return $notifications;
     }
-    
-
-
-
 
 }

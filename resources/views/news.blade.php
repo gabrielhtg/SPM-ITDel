@@ -116,7 +116,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form id="form-editNews" method="POST" action="{{ route('updatenews', ['id' => $item->id]) }}" enctype="multipart/form-data">
+                                                    <form id="form-editNews-{{ $item->id }}" method="POST" action="{{ route('updatenews', ['id' => $item->id]) }}" enctype="multipart/form-data">
                                                         @csrf
 
                                                         {{-- input title --}}
@@ -154,7 +154,7 @@
                                                 </div>
                                                 <div class="modal-footer justify-content-between">
                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" form="form-editNews" class="btn btn-primary">Update News</button>
+                                                    <button type="submit" form="form-editNews-{{ $item->id }}" class="btn btn-primary">Update News</button>
                                                 </div>
                                             </div>
                                         </div>
