@@ -103,7 +103,7 @@
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id === $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status == 'Revisi') background-color:  #f2dedf; /* Warna merah */
+                            @elseif($item->status == 'Ditolak') background-color:  #f2dedf; /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">

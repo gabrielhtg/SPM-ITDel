@@ -30,11 +30,8 @@ class LaporanController extends Controller
     $role = RoleModel::find($id_user);
     $document = $role->required_to_submit_document;
 
-
-    $documentIds = explode(';', $document);
-
-
     $tipe_laporan = app(AllServices::class)->getJenisLaporanWithoutLog(auth()->user()->id);
+   
    
     $type_laporan =TipeLaporan::all();
     $jenis_laporan =JenisLaporan::all();

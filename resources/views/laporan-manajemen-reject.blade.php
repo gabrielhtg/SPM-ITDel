@@ -90,7 +90,7 @@
                         @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                                @elseif($item->status === 'Revisi') background-color:  #f2dedf /* Warna merah */
+                                @elseif($item->status === 'Ditolak') background-color:  #f2dedf /* Warna merah */
                                 @else background-color: #e8f0fe; /* Warna biru */
                                 @endif
                                 ">

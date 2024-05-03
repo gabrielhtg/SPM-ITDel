@@ -594,13 +594,21 @@ public function getUserRoleById($userId)
         // Mendapatkan ID laporan yang diunggah oleh user saat ini
         $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
             ->pluck('id_jenis_laporan');
-
-        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini
+         
+        $idrole = auth()->user()->role;
+        $idsubmit = RoleModel::where('id', $idrole)->first();
+    
+        // Pisahkan string menjadi array
+        $requiredIds = explode(';', $idsubmit->required_to_submit_document);
+    
+        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
-            ->get();
-
+                       ->whereIn('id_tipelaporan', $requiredIds)
+                       ->get();
+    
         return $jenisLaporan;
     }
+    
 
     public static function isExistAsBahawan($idRole, $idBawahan)
     {
