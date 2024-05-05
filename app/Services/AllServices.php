@@ -784,7 +784,7 @@ class AllServices
 
     public static function getAllNotifications()
     {
-        return NotificationModel::all();
+        return NotificationModel::all()->sortByDesc('created_at');
     }
 
     public static function getNotificationTime($time): string

@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleTreeController;
 use App\Http\Controllers\TypeDocumentController;
@@ -157,5 +158,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
 
+        Route::post('/open-notification', [NotificationController::class, 'getNotifications'])->name('openNotification');
     });
 });

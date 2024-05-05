@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Models\UserInactiveModel;
@@ -29,6 +30,7 @@ class UserController extends Controller
             $data = [
                 'roles' => $roles,
                 'users' => $users,
+                'pending_action' => $passwordResetReq,
                 'pending_action' => $passwordResetReq,
                 'active_sidebar' => [4, 1]
             ];
@@ -61,19 +63,7 @@ class UserController extends Controller
             $user = User::find($request->id);
 
             if ($user) {
-                $temp = UserInactiveModel::create(
-                    [
-                        'name' => $user->name,
-                        'username' => $user->username,
-                        'phone' => $user->phone,
-                        'email' => $user->email,
-                        'ends_on' => now(),
-                        'role' => $user->role,
-                        'profile_pict' => $user->profile_pict
-                    ]
-                );
-
-
+                Employee::where('user_id', $user->id)->delete();
 
                 $user->delete();
 
