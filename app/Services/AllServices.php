@@ -364,9 +364,13 @@ class AllServices
      */
     public static function isLoggedUserHasAdminAccess(): bool
     {
-        $isAdmin = RoleModel::find(auth()->user()->role);
+        foreach (explode(";",auth()->user()->role) as  $e) {
+            if (RoleModel::find($e)->is_admin) {
+                return true;
+            }
+        }
 
-        return $isAdmin->is_admin;
+        return false;
     }
 
     public static function clearInformableTo($id): void
