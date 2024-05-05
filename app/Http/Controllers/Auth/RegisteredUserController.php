@@ -143,7 +143,7 @@ class RegisteredUserController extends Controller
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 ]);
 
-                $userId = User::create([
+                User::create([
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
@@ -154,11 +154,7 @@ class RegisteredUserController extends Controller
                     'pending_roles' => $request->role
                 ])->id;
 
-                Employee::create([
-                    'user_id' => $userId,
-                    'name' => $request->name,
-                    'role' => $request->role,
-                ]);
+
 
                 NotificationModel::create([
                     'message' => "Permintaan register dari " .  $request->name . ".",
@@ -211,6 +207,13 @@ class RegisteredUserController extends Controller
                 'pending_roles' => null,
                 'created_at' => now()
             ]);
+
+            Employee::create([
+                'user_id' => $resetObject->id,
+                'name' => $resetObject->name,
+                'role' => $resetObject->role,
+            ]);
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {

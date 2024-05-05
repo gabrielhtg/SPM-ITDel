@@ -782,13 +782,51 @@ class AllServices
 
     public static function countNotClickedNotification (): int
     {
-//        return count(NotificationModel::where('to', $id)->get());
-        return count(NotificationModel::where('clicked', false)->get());
+        $notifications = NotificationModel::all();
+        $temp = 0;
+
+        for ($i = 1; $i <= 5; $i++) {
+            if ((count($notifications) - $i) > -1) {
+                if ($notifications[count($notifications) - $i]->to == auth()->user()->id) {
+                    if (!$notifications[count($notifications) - $i]->clicked) {
+                        $temp++;
+                    }
+                }
+
+                if (self::isLoggedUserHasAdminAccess() == $notifications[count($notifications) - $i]->admin_only) {
+                    if (!$notifications[count($notifications) - $i]->clicked) {
+                        $temp++;
+                    }
+                }
+            }
+        }
+
+        return $temp;
     }
 
     public static function getAllNotifications()
     {
         return NotificationModel::all()->sortByDesc('created_at');
+    }
+
+    public static function getNotifications(): array
+    {
+        $notifications = NotificationModel::all();
+        $temp = [];
+
+        for ($i = 1; $i <= 5; $i++) {
+            if ((count($notifications) - $i) > -1) {
+                if ($notifications[count($notifications) - $i]->to == auth()->user()->id) {
+                    $temp[] = $notifications[count($notifications) - $i];
+                }
+
+                if (self::isLoggedUserHasAdminAccess() == $notifications[count($notifications) - $i]->admin_only) {
+                    $temp[] = $notifications[count($notifications) - $i];
+                }
+            }
+        }
+
+        return $temp;
     }
 
     public static function getNotificationTime($time): string
