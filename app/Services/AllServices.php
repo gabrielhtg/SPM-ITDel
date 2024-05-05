@@ -364,9 +364,13 @@ class AllServices
      */
     public static function isLoggedUserHasAdminAccess(): bool
     {
-        $isAdmin = RoleModel::find(auth()->user()->role);
+        foreach (explode(";",auth()->user()->role) as  $e) {
+            if (RoleModel::find($e)->is_admin) {
+                return true;
+            }
+        }
 
-        return $isAdmin->is_admin;
+        return false;
     }
 
     public static function clearInformableTo($id): void
@@ -783,12 +787,12 @@ class AllServices
     public static function countNotClickedNotification (): int
     {
 //        return count(NotificationModel::where('to', $id)->get());
-        return count(NotificationModel::all());
+        return count(NotificationModel::where('clicked', false)->get());
     }
 
     public static function getAllNotifications()
     {
-        return NotificationModel::all();
+        return NotificationModel::all()->sortByDesc('created_at');
     }
 
     public static function getNotificationTime($time): string

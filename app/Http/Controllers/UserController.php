@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Employee;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Models\UserInactiveModel;
 use App\Services\AllServices;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +19,7 @@ class UserController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
      *
      * Mendapatkan halaman user settings yang active usernya
      */
@@ -39,7 +43,7 @@ class UserController extends Controller
         }
     }
 
-    public function getUserSettingsInactive()
+    public function getUserSettingsInactive(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         if (AllServices::isLoggedUserHasAdminAccess()) {
             $users_inactive = UserInactiveModel::all();
@@ -61,19 +65,7 @@ class UserController extends Controller
             $user = User::find($request->id);
 
             if ($user) {
-                $temp = UserInactiveModel::create(
-                    [
-                        'name' => $user->name,
-                        'username' => $user->username,
-                        'phone' => $user->phone,
-                        'email' => $user->email,
-                        'ends_on' => now(),
-                        'role' => $user->role,
-                        'profile_pict' => $user->profile_pict
-                    ]
-                );
-
-
+                Employee::where('user_id', $user->id)->delete();
 
                 $user->delete();
 
@@ -88,7 +80,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      *
      * Fungsi ini digunakan untuk mendapatkan detail user melalui page user-detail
      */

@@ -41,26 +41,29 @@
                     @endif
                 </a>
                 <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right" >
-                    <span class="dropdown-item dropdown-header">{{ $banyakUnreadNotification }} Unread Notifications</span>
+                    <span class="dropdown-header">{{ $banyakUnreadNotification }} Unread Notifications</span>
                     <div class="dropdown-divider"></div>
-                    <form action="">
                         @foreach($notifications as $notification)
-                            <div class="d-flex dropdown-item w-100">
+                        <form action="{{ route('openNotification') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="id" value="{{ $notification->id }}">
+                            <button type="submit" class="d-flex dropdown-item w-100">
                                @if($notification->clicked)
-                                   <i class="fas fa-exclamation-circle mt-1 mr-2"></i>
-                                   <div>
-                                       {{ $notification->message }}
-                                   </div>
+                                    <i class="far fa-circle nav-icon mr-2 mt-1"></i>
+                                    <div class="w-100 d-flex flex-column" style="white-space: normal">
+                                        {{ $notification->message }}
+                                        <span class="text-muted text-sm">{{ AllServices::getNotificationTime($notification->created_at) }}</span>
+                                    </div>
                                @else
                                    <i class="fas fa-exclamation-circle mt-1 mr-2"></i>
-                                <div>
+                                <div class="w-100 d-flex flex-column" style="white-space: normal">
                                     <strong>{{ $notification->message }}</strong>
-                                    <span class="float-right text-muted text-sm">{{ AllServices::getNotificationTime($notification->created_at) }}</span>
+                                    <span class="text-muted text-sm">{{ AllServices::getNotificationTime($notification->created_at) }}</span>
                                 </div>
                                @endif
-                            </div>
+                            </button>
+                        </form>
                         @endforeach
-                    </form>
                     <div class="dropdown-divider"></div>
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>

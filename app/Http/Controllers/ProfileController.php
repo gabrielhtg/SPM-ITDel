@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\NotificationModel;
 use App\Models\RoleModel;
 use App\Models\User;
 use App\Services\AllServices;
@@ -22,7 +23,7 @@ class ProfileController extends Controller
     /**
      * Display the user's profile form.
      */
-    public function edit(Request $request): View
+    public function edit(): View
     {
         $data = [
             'active_sidebar' => [0, 0],
@@ -59,6 +60,13 @@ class ProfileController extends Controller
                 'phone' => $request->phone,
                 'pending_roles' => $roles,
                 'verified' => false
+            ]);
+
+            NotificationModel::create([
+                'message' => "Permintaan ganti role dari " .  $request->name . ".",
+                'ref_link' => "user-settings-active",
+                'admin_only' => true,
+                'clicked' => false,
             ]);
 
             return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Tunggu hingga admin menyetujui perubahan Anda!']);
