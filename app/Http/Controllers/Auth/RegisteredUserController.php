@@ -142,7 +142,7 @@ class RegisteredUserController extends Controller
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 ]);
 
-                User::create([
+                $userId = User::create([
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
@@ -151,6 +151,12 @@ class RegisteredUserController extends Controller
                     'status' => false,
                     'password' => Hash::make($request->password),
                     'pending_roles' => $request->role
+                ])->id;
+
+                Employee::create([
+                    'user_id' => $userId,
+                    'name' => $request->name,
+                    'role' => $request->role
                 ]);
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
