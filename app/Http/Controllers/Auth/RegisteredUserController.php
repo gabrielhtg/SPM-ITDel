@@ -154,14 +154,16 @@ class RegisteredUserController extends Controller
                     'pending_roles' => $request->role
                 ])->id;
 
+                $admins = RoleModel::where('is_admin', true)->get();
 
-
-                NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'admin_only' => true,
-                    'clicked' => false,
-                ]);
+                foreach ($admins as $admin) {
+                    NotificationModel::create([
+                        'message' => "Permintaan register dari " .  $request->name . ".",
+                        'ref_link' => "user-settings-active",
+                        'to' => $admin->id,
+                        'clicked' => false,
+                    ]);
+                }
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
             }

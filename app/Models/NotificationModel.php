@@ -14,8 +14,8 @@ class NotificationModel extends Model
     protected $fillable = [
         'message',
         'ref_link',
-        'admin_only',
         'created_at',
+        'to',
         'clicked'
     ];
 }
