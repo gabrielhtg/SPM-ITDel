@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string("message")->nullable(false);
             $table->string("ref_link")->nullable();
             $table->boolean("admin_only")->nullable();
-            $table->bigInteger("to")->nullable();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean("clicked")->nullable();
+            $table->unsignedBigInteger("to")->nullable();
+            $table->foreign('to')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

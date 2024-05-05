@@ -5,16 +5,18 @@ namespace App\Services;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\DocumentModel;
+use App\Models\DocumentTypeModel;
 use App\Models\InformableModel;
+use App\Models\JenisLaporan;
+use App\Models\Laporan;
+use App\Models\LogLaporan;
+use App\Models\NotificationModel;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
-use App\Models\LogLaporan;
-use App\Models\JenisLaporan;
-use App\Models\Laporan;
 use App\Models\User;
+use ErrorException;
 use Illuminate\Support\Carbon;
-use App\Models\DocumentTypeModel;
 
 class AllServices
 {
@@ -26,7 +28,7 @@ class AllServices
      * Method ini juga dapat digunakan untuk mengonversikan role ke dalam string apabila id role
      * tersebut berada dalam format id;id
      */
-    static public function convertRole ($role): string
+    static public function convertRole($role): string
     {
         if ($role) {
             $roles = explode(";", $role);
@@ -47,9 +49,7 @@ class AllServices
             }
 
             return $output;
-        }
-
-        else {
+        } else {
             return "Belum Didefinisikan";
         }
     }
@@ -60,7 +60,7 @@ class AllServices
      *
      * Method ini digunakan untuk mengonversi array id laporan yang ada menjadi nama aslinya
      */
-    static public function convertDokumenLaporan ($laporan): string
+    static public function convertDokumenLaporan($laporan): string
     {
         if ($laporan !== null) {
             $currentLaporan = explode(";", $laporan);
@@ -81,9 +81,7 @@ class AllServices
             }
 
             return $output;
-        }
-
-        else {
+        } else {
             return "Belum Didefinisikan";
         }
     }
@@ -96,7 +94,7 @@ class AllServices
      * Method ini berfungsi untuk mengonversikan waktu ke format
      * seperti berikut ini Fri, 08 Mar 2024
      */
-    static public function convertTime ($time): string
+    static public function convertTime($time): string
     {
         $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
 
@@ -110,7 +108,8 @@ class AllServices
      * Method ini berfungsi untuk menampilkan sudah berapa lama si user ini login.
      * Cara kerjanya adalah dengan megurangkan waktu sekarang dengan last login at
      */
-    static public function getLastLogin ($time) : string {
+    static public function getLastLogin($time): string
+    {
         $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
 
         $diffInMinutes = $carbonObject->diffInMinutes(Carbon::now());
@@ -124,7 +123,7 @@ class AllServices
             return "$diffInHours hrs, $diffInMinutes mnts ago";
         } else {
             $diffInHours = $diffInHours % 24;
-            return "$diffInDays days, $diffInHours mnts ago";
+            return "$diffInDays days, $diffInHours hrs ago";
         }
     }
 
@@ -136,24 +135,25 @@ class AllServices
      * yang memiliki role sesuai dengan apa yang dimasukkan pada
      * parameter.
      */
-    static public function isCurrentRole ($role): bool
+    static public function isCurrentRole($role): bool
     {
         $roles = explode(";", auth()->user()->role);
 
         foreach ($roles as $e) {
-           try {
-               if (strtolower(RoleModel::find($e)->role) == strtolower($role)) {
-                   return true;
-               }
-           } catch (\ErrorException $e) {
-               return false;
-           }
+            try {
+                if (strtolower(RoleModel::find($e)->role) == strtolower($role)) {
+                    return true;
+                }
+            } catch (ErrorException $e) {
+                return false;
+            }
         }
 
         return false;
     }
 
-    static public function isRoleExist($role) : bool {
+    static public function isRoleExist($role): bool
+    {
         $rolemodel = RoleModel::whereRaw('LOWER(role) = ?', strtolower($role))->first();
 
         if ($rolemodel != null) {
@@ -163,7 +163,7 @@ class AllServices
         return false;
     }
 
-    static public function isUserRole ($user, $expectedRole): bool
+    static public function isUserRole($user, $expectedRole): bool
     {
         $roles = explode(";", $user->role);
         $expectedRoles = explode(";", $expectedRole);
@@ -177,7 +177,8 @@ class AllServices
         return false;
     }
 
-    static public function dokumenchange($id) {
+    static public function dokumenchange($id)
+    {
         if ($id) {
             $document = DocumentModel::find($id); // Mengambil dokumen berdasarkan ID
             if ($document) {
@@ -191,8 +192,7 @@ class AllServices
     }
 
 
-
-    static public function isAllView ($id) : bool
+    static public function isAllView($id): bool
     {
 
         if (DocumentModel::find($id)->give_access_to == 0) {
@@ -207,8 +207,9 @@ class AllServices
      *
      * Method ini digunakan untuk mendapatkan role dengan $idAtasan Responsible ke role apa saja
      */
-    static public function getAccountableTo ($idAtasan) : array {
-        if($idAtasan != null) {
+    static public function getAccountableTo($idAtasan): array
+    {
+        if ($idAtasan != null) {
             $nextRole = $idAtasan;
             $accountableTo = array();
             $accountableTo[] = $idAtasan;
@@ -236,7 +237,8 @@ class AllServices
      * Method ini digunakan untuk melakukan pengecekan terhadap semua role bawahan yang ada
      * apakah sudah nonaktif semua atau tidak.
      */
-    public static function isAdaBawahanActive ($id) : bool {
+    public static function isAdaBawahanActive($id): bool
+    {
 
         $semuaNonaktif = true;
 
@@ -249,6 +251,7 @@ class AllServices
 
         return $semuaNonaktif;
     }
+
     public static function isResponsible($roleIds): bool
     {
         // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
@@ -308,24 +311,21 @@ class AllServices
     }
 
 
-
-
     public static function isInformable($roleIds): bool
-{
-    // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
-    $roleIdsArray = explode(';', $roleIds);
+    {
+        // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
+        $roleIdsArray = explode(';', $roleIds);
 
-    // Dapatkan informable model yang memiliki setidaknya satu dari role yang diberikan
-    $informable = InformableModel::where(function ($query) use ($roleIdsArray) {
-        foreach ($roleIdsArray as $roleId) {
-            $query->orWhere('informable_to', 'LIKE', "%$roleId%");
-        }
-    })->first();
+        // Dapatkan informable model yang memiliki setidaknya satu dari role yang diberikan
+        $informable = InformableModel::where(function ($query) use ($roleIdsArray) {
+            foreach ($roleIdsArray as $roleId) {
+                $query->orWhere('informable_to', 'LIKE', "%$roleId%");
+            }
+        })->first();
 
-    // Jika tidak ada informable model yang sesuai, maka tidak informable
-    return $informable !== null;
-}
-
+        // Jika tidak ada informable model yang sesuai, maka tidak informable
+        return $informable !== null;
+    }
 
 
     public static function isThisRoleExistInArray($array, $id): bool
@@ -362,35 +362,14 @@ class AllServices
      *
      * Method ini digunakan untuk mengecek apakah user yang sedang login sekarang adalah seorang admin atau tidak
      */
-    public static  function isLoggedUserHasAdminAccess () : bool {
+    public static function isLoggedUserHasAdminAccess(): bool
+    {
         $isAdmin = RoleModel::find(auth()->user()->role);
 
         return $isAdmin->is_admin;
     }
 
-    public static function getAllInformable($id) : string {
-        $informableTo = InformableModel::where("role", $id)->get();
-
-        $output = '';
-
-        if ($informableTo !== null) {
-            foreach ($informableTo as $e) {
-                $output = $output . RoleModel::find($e->informable_to)->role . ', ';
-            }
-
-            if (substr($output, 0, -2) === '') {
-                return "Belum Didefinisikan";
-            }
-
-            return substr($output, 0, -2);
-        }
-
-        else {
-            return "Belum Didefinisikan";
-        }
-    }
-
-    public static function clearInformableTo($id) : void
+    public static function clearInformableTo($id): void
     {
         $informable = InformableModel::where('role', $id)->get();
 
@@ -399,29 +378,7 @@ class AllServices
         }
     }
 
-    public static function getAllAccountableTo($id) : string {
-        $accountableTo = AccountableModel::where("role", $id)->get();
-
-        $output = '';
-
-        if ($accountableTo !== null) {
-            foreach ($accountableTo as $e) {
-                $output = $output . RoleModel::find($e->accountable_to)->role . ', ';
-            }
-
-            if (substr($output, 0, -2) === '') {
-                return "Belum Didefinisikan";
-            }
-
-            return substr($output, 0, -2);
-        }
-
-        else {
-            return "Belum Didefinisikan";
-        }
-    }
-
-    public static function clearAccountableTo($id) : void
+    public static function clearAccountableTo($id): void
     {
         $accountable = AccountableModel::where('role', $id)->get();
 
@@ -430,7 +387,8 @@ class AllServices
         }
     }
 
-    public static function getAllBawahan($id) : string {
+    public static function getAllBawahan($id): string
+    {
         $bawahan = BawahanModel::where("role", $id)->get();
 
         $output = '';
@@ -445,14 +403,74 @@ class AllServices
             }
 
             return substr($output, 0, -2);
-        }
-
-        else {
+        } else {
             return "Belum Didefinisikan";
         }
     }
 
-    public static function getAllResponsible($id) : string {
+    public static function clearResponsibleTo($id): void
+    {
+        $responsible = ResponsibleModel::where('role', $id)->get();
+
+        foreach ($responsible as $e) {
+            $e->delete();
+        }
+    }
+
+    public static function isAccountableToRole($id, $roleId): bool
+    {
+        // Ambil nama peran berdasarkan ID
+        $roleName = self::getRoleName($id);
+
+        // Ambil daftar accountable_to untuk peran yang diberikan
+        $accountableTo = self::getAllAccountableTo($roleId);
+
+        // Periksa apakah roleName terdapat dalam daftar accountableTo
+        return strpos($accountableTo, $roleName) !== false;
+    }
+
+    public static function getRoleName($id): string
+    {
+        $role = RoleModel::find($id);
+
+        return $role ? $role->role : '';
+    }
+
+    public static function getAllAccountableTo($id): string
+    {
+        $accountableTo = AccountableModel::where("role", $id)->get();
+
+        $output = '';
+
+        if ($accountableTo !== null) {
+            foreach ($accountableTo as $e) {
+                $output = $output . RoleModel::find($e->accountable_to)->role . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Belum Didefinisikan";
+            }
+
+            return substr($output, 0, -2);
+        } else {
+            return "Belum Didefinisikan";
+        }
+    }
+
+    public static function isResponsibleToRole($id, $roleId): bool
+    {
+        // Ambil nama peran berdasarkan ID
+        $roleName = self::getRoleName($id);
+
+        // Ambil daftar accountable_to untuk peran yang diberikan
+        $responsible = self::getAllResponsible($roleId);
+
+        // Periksa apakah roleName terdapat dalam daftar accountableTo
+        return strpos($responsible, $roleName) !== false;
+    }
+
+    public static function getAllResponsible($id): string
+    {
         $responsibleTo = ResponsibleModel::where("role", $id)->get();
 
         $output = '';
@@ -467,148 +485,43 @@ class AllServices
             }
 
             return substr($output, 0, -2);
-        }
-
-        else {
+        } else {
             return "Belum Didefinisikan";
         }
     }
 
-    public static function clearResponsibleTo($id) : void
+    public static function isInformableToRole($id, $roleId): bool
     {
-        $responsible = ResponsibleModel::where('role', $id)->get();
+        // Ambil nama peran berdasarkan ID
+        $roleName = self::getRoleName($id);
 
-        foreach ($responsible as $e) {
-            $e->delete();
-        }
+        // Ambil daftar accountable_to untuk peran yang diberikan
+        $informable = self::getAllInformable($roleId);
+
+        // Periksa apakah roleName terdapat dalam daftar accountableTo
+        return strpos($informable, $roleName) !== false;
     }
 
-    public static function getRoleName($id): string
+    public static function getAllInformable($id): string
     {
-        $role = RoleModel::find($id);
+        $informableTo = InformableModel::where("role", $id)->get();
 
-        return $role ? $role->role : '';
-    }
+        $output = '';
 
-    public static function isAccountableToRole($id, $roleId): bool
-{
-    // Ambil nama peran berdasarkan ID
-    $roleName = self::getRoleName($id);
-
-    // Ambil daftar accountable_to untuk peran yang diberikan
-    $accountableTo = self::getAllAccountableTo($roleId);
-
-    // Periksa apakah roleName terdapat dalam daftar accountableTo
-    return strpos($accountableTo, $roleName) !== false;
-}
-public static function isResponsibleToRole($id, $roleId): bool
-{
-    // Ambil nama peran berdasarkan ID
-    $roleName = self::getRoleName($id);
-
-    // Ambil daftar accountable_to untuk peran yang diberikan
-    $responsible = self::getAllResponsible($roleId);
-
-    // Periksa apakah roleName terdapat dalam daftar accountableTo
-    return strpos($responsible, $roleName) !== false;
-}
-
-public static function isInformableToRole($id, $roleId): bool
-{
-    // Ambil nama peran berdasarkan ID
-    $roleName = self::getRoleName($id);
-
-    // Ambil daftar accountable_to untuk peran yang diberikan
-    $informable = self::getAllInformable($roleId);
-
-    // Periksa apakah roleName terdapat dalam daftar accountableTo
-    return strpos($informable, $roleName) !== false;
-}
-
-
-
-public function getUserRoleById($userId)
-    {
-        // Cari user berdasarkan ID
-        $user = User::find($userId);
-
-        // Jika user ditemukan, kembalikan rolenya
-        if ($user) {
-            return $user->role;
-        }
-
-        // Jika user tidak ditemukan, kembalikan null
-        return null;
-    }
-    public function isLaporanIdInCekLaporan($laporanId)
-    {
-        // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
-        $cekLaporan = Laporan::where('cek_revisi', $laporanId)
-                             ->where('status', 'Disetujui')
-                             ->first();
-
-        // Jika ada, return false
-        if ($cekLaporan) {
-            return false;
-        }
-
-        // Jika tidak ada, return true
-        return true;
-    }
-    public function getNamaLaporanById($laporanId)
-    {
-        // Cari laporan berdasarkan ID
-        $laporan = Laporan::find($laporanId);
-
-        // Jika laporan ditemukan, kembalikan nama laporannya
-        if ($laporan) {
-            return $laporan->nama_laporan;
-        }
-
-        // Jika laporan tidak ditemukan, kembalikan null
-        return null;
-    }
-
-    public function countWaitingLaporan($userId)
-    {
-        // Mengambil semua data laporan
-        $laporan = Laporan::all();
-
-        // Inisialisasi variabel untuk menghitung banyak data
-        $banyakData = 0;
-
-        // Iterasi setiap laporan
-        foreach ($laporan as $item) {
-            // Periksa apakah status laporan adalah 'Menunggu' dan user mempunyai akses ke laporan ini
-            if ($item->status === 'Menunggu' && $this->isAccountableToRoleLaporan(auth()->user()->role, $this->getUserRoleById($item->created_by))) {
-                $banyakData++;
+        if ($informableTo !== null) {
+            foreach ($informableTo as $e) {
+                $output = $output . RoleModel::find($e->informable_to)->role . ', ';
             }
+
+            if (substr($output, 0, -2) === '') {
+                return "Belum Didefinisikan";
+            }
+
+            return substr($output, 0, -2);
+        } else {
+            return "Belum Didefinisikan";
         }
-
-        // Mengembalikan jumlah data yang memenuhi kondisi
-        return $banyakData;
     }
-
-    public function getJenisLaporanWithoutLog($userId)
-    {
-        // Mendapatkan ID laporan yang diunggah oleh user saat ini
-        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
-            ->pluck('id_jenis_laporan');
-         
-        $idrole = auth()->user()->role;
-        $idsubmit = RoleModel::where('id', $idrole)->first();
-    
-        // Pisahkan string menjadi array
-        $requiredIds = explode(';', $idsubmit->required_to_submit_document);
-    
-        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
-        $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
-                       ->whereIn('id_tipelaporan', $requiredIds)
-                       ->get();
-    
-        return $jenisLaporan;
-    }
-    
 
     public static function isExistAsBahawan($idRole, $idBawahan)
     {
@@ -624,89 +537,6 @@ public function getUserRoleById($userId)
 
         return false;
     }
-
-    public function getDocumentNameAndTypeById($id)
-    {
-        // Cari dokumen berdasarkan ID
-        $document = DocumentModel::find($id);
-
-        // Pastikan dokumen ditemukan
-        if ($document) {
-            // Temukan tipe dokumen berdasarkan ID yang ada pada dokumen
-            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
-
-            // Pastikan tipe dokumen ditemukan
-            if ($tipe) {
-                // Gabungkan nama dokumen dengan jenis dokumen
-                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
-
-                // Kembalikan hasil gabungan
-                return $print;
-            }
-        }
-
-        // Jika dokumen atau tipe dokumen tidak ditemukan, kembalikan null
-        return null;
-    }
-
-    public function getDocumentNameAndType()
-{
-    // Ambil semua dokumen
-    $documents = DocumentModel::all();
-    $results = [];
-
-    foreach ($documents as $document) {
-        // Periksa apakah dokumen dengan ID tersebut ada dalam atribut "menggantikan_dokumen"
-        if (!$this->isReplacementDocument($document->id)) {
-            // Ambil tipe dokumen berdasarkan ID yang ada pada dokumen
-            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
-
-            // Jika tipe dokumen ditemukan, lanjutkan
-            if ($tipe) {
-                // Gabungkan nama dokumen dengan jenis dokumen
-                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
-
-                // Tambahkan hasil gabungan ke dalam array dengan ID dokumen sebagai kunci
-                $results[$document->id] = $print;
-            }
-        }
-    }
-
-    // Kembalikan array hasil gabungan
-    return $results;
-}
-
-
-    // Metode untuk mengecek apakah sebuah dokumen adalah dokumen pengganti
-    private function isReplacementDocument($documentId)
-    {
-        return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
-    }
-
-    public static function isAccountableToRoleLaporan($id, $roleId): bool
-    {
-        // Pisahkan string $id menjadi array berdasarkan delimiter ";"
-        $idArray = explode(';', $id);
-
-        // Lakukan pencarian untuk setiap nilai dalam array $idArray
-        foreach ($idArray as $singleId) {
-            // Ambil nama peran berdasarkan singleId
-            $roleName = self::getRoleName($singleId);
-
-            // Ambil daftar accountable_to untuk peran yang diberikan
-            $accountableTo = self::getAllAccountableTo($roleId);
-
-            // Periksa apakah roleName terdapat dalam daftar accountableTo
-            if (strpos($accountableTo, $roleName) !== false) {
-                // Jika ada yang memenuhi syarat, kembalikan true
-                return true;
-            }
-        }
-
-        // Jika tidak ada yang memenuhi syarat, kembalikan false
-        return false;
-    }
-
 
     public static function isResponsibleToRoleLaporan($id, $roleId): bool
     {
@@ -755,27 +585,224 @@ public function getUserRoleById($userId)
         // Jika tidak ada yang memenuhi syarat, kembalikan false
         return false;
     }
+
+    public function isLaporanIdInCekLaporan($laporanId)
+    {
+        // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
+        $cekLaporan = Laporan::where('cek_revisi', $laporanId)
+            ->where('status', 'Disetujui')
+            ->first();
+
+        // Jika ada, return false
+        if ($cekLaporan) {
+            return false;
+        }
+
+        // Jika tidak ada, return true
+        return true;
+    }
+
+    public function getNamaLaporanById($laporanId)
+    {
+        // Cari laporan berdasarkan ID
+        $laporan = Laporan::find($laporanId);
+
+        // Jika laporan ditemukan, kembalikan nama laporannya
+        if ($laporan) {
+            return $laporan->nama_laporan;
+        }
+
+        // Jika laporan tidak ditemukan, kembalikan null
+        return null;
+    }
+
+    public function countWaitingLaporan($userId)
+    {
+        // Mengambil semua data laporan
+        $laporan = Laporan::all();
+
+        // Inisialisasi variabel untuk menghitung banyak data
+        $banyakData = 0;
+
+        // Iterasi setiap laporan
+        foreach ($laporan as $item) {
+            // Periksa apakah status laporan adalah 'Menunggu' dan user mempunyai akses ke laporan ini
+            if ($item->status === 'Menunggu' && $this->isAccountableToRoleLaporan(auth()->user()->role, $this->getUserRoleById($item->created_by))) {
+                $banyakData++;
+            }
+        }
+
+        // Mengembalikan jumlah data yang memenuhi kondisi
+        return $banyakData;
+    }
+
+    public static function isAccountableToRoleLaporan($id, $roleId): bool
+    {
+        // Pisahkan string $id menjadi array berdasarkan delimiter ";"
+        $idArray = explode(';', $id);
+
+        // Lakukan pencarian untuk setiap nilai dalam array $idArray
+        foreach ($idArray as $singleId) {
+            // Ambil nama peran berdasarkan singleId
+            $roleName = self::getRoleName($singleId);
+
+            // Ambil daftar accountable_to untuk peran yang diberikan
+            $accountableTo = self::getAllAccountableTo($roleId);
+
+            // Periksa apakah roleName terdapat dalam daftar accountableTo
+            if (strpos($accountableTo, $roleName) !== false) {
+                // Jika ada yang memenuhi syarat, kembalikan true
+                return true;
+            }
+        }
+
+        // Jika tidak ada yang memenuhi syarat, kembalikan false
+        return false;
+    }
+
+    public function getUserRoleById($userId)
+    {
+        // Cari user berdasarkan ID
+        $user = User::find($userId);
+
+        // Jika user ditemukan, kembalikan rolenya
+        if ($user) {
+            return $user->role;
+        }
+
+        // Jika user tidak ditemukan, kembalikan null
+        return null;
+    }
+
+
+    // Metode untuk mengecek apakah sebuah dokumen adalah dokumen pengganti
+
+    public function getJenisLaporanWithoutLog($userId)
+    {
+        // Mendapatkan ID laporan yang diunggah oleh user saat ini
+        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
+            ->pluck('id_jenis_laporan');
+
+        $idrole = auth()->user()->role;
+        $idsubmit = RoleModel::where('id', $idrole)->first();
+
+        // Pisahkan string menjadi array
+        $requiredIds = explode(';', $idsubmit->required_to_submit_document);
+
+        // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
+        $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
+            ->whereIn('id_tipelaporan', $requiredIds)
+            ->get();
+
+        return $jenisLaporan;
+    }
+
+    public function getDocumentNameAndTypeById($id)
+    {
+        // Cari dokumen berdasarkan ID
+        $document = DocumentModel::find($id);
+
+        // Pastikan dokumen ditemukan
+        if ($document) {
+            // Temukan tipe dokumen berdasarkan ID yang ada pada dokumen
+            $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+
+            // Pastikan tipe dokumen ditemukan
+            if ($tipe) {
+                // Gabungkan nama dokumen dengan jenis dokumen
+                $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+
+                // Kembalikan hasil gabungan
+                return $print;
+            }
+        }
+
+        // Jika dokumen atau tipe dokumen tidak ditemukan, kembalikan null
+        return null;
+    }
+
+    public function getDocumentNameAndType()
+    {
+        // Ambil semua dokumen
+        $documents = DocumentModel::all();
+        $results = [];
+
+        foreach ($documents as $document) {
+            // Periksa apakah dokumen dengan ID tersebut ada dalam atribut "menggantikan_dokumen"
+            if (!$this->isReplacementDocument($document->id)) {
+                // Ambil tipe dokumen berdasarkan ID yang ada pada dokumen
+                $tipe = DocumentTypeModel::find($document->tipe_dokumen);
+
+                // Jika tipe dokumen ditemukan, lanjutkan
+                if ($tipe) {
+                    // Gabungkan nama dokumen dengan jenis dokumen
+                    $print = $document->name . ' (' . $tipe->jenis_dokumen . ')';
+
+                    // Tambahkan hasil gabungan ke dalam array dengan ID dokumen sebagai kunci
+                    $results[$document->id] = $print;
+                }
+            }
+        }
+
+        // Kembalikan array hasil gabungan
+        return $results;
+    }
+
+    private function isReplacementDocument($documentId)
+    {
+        return DocumentModel::where('menggantikan_dokumen', $documentId)->exists();
+    }
+
     public function getPendingLaporanNotifications()
     {
         // Ambil semua laporan dengan status "Menunggu"
         $laporan = Laporan::where('status', 'Menunggu')->get();
-    
+
         // Buat array untuk menyimpan notifikasi
         $notifications = [];
-    
+
         // Loop melalui setiap laporan dan buat notifikasi untuk setiap laporan
         foreach ($laporan as $lap) {
             // Buat teks notifikasi
             $notificationText = $lap->createdByUser->name . ' Mengirimkan Laporan Untuk Diperiksa';
-    
+
             // Tambahkan notifikasi ke dalam array
             $notifications[] = [
                 'laporan' => $lap,
                 'notification_text' => $notificationText,
             ];
         }
-    
+
         return $notifications;
     }
 
+    public static function countNotClickedNotification (): int
+    {
+//        return count(NotificationModel::where('to', $id)->get());
+        return count(NotificationModel::all());
+    }
+
+    public static function getAllNotifications()
+    {
+        return NotificationModel::all();
+    }
+
+    public static function getNotificationTime($time): string
+    {
+        $carbonObject = Carbon::createFromFormat('Y-m-d H:i:s', $time);
+
+        $diffInMinutes = $carbonObject->diffInMinutes(Carbon::now());
+        $diffInHours = $carbonObject->diffInHours(Carbon::now());
+        $diffInDays = $carbonObject->diffInDays(Carbon::now());
+
+        if ($diffInMinutes < 60) {
+            return "$diffInMinutes mnts ago";
+        } elseif ($diffInHours < 24) {
+            $diffInMinutes = $diffInMinutes % 60;
+            return "$diffInHours hrs, $diffInMinutes mnts ago";
+        } else {
+            $diffInHours = $diffInHours % 24;
+            return "$diffInDays days, $diffInHours hrs ago";
+        }
+    }
 }

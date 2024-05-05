@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
 use App\Models\AllowedUserModel;
 use App\Models\Employee;
+use App\Models\NotificationModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
@@ -157,6 +158,13 @@ class RegisteredUserController extends Controller
                     'user_id' => $userId,
                     'name' => $request->name,
                     'role' => $request->role
+                ]);
+
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'admin_only' => true,
+                    'clicked' => false,
                 ]);
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
