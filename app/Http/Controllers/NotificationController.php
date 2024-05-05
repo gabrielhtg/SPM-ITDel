@@ -10,9 +10,9 @@ class NotificationController extends Controller
     public function getNotifications(Request $request) {
         $notification = NotificationModel::find($request->id);
 
-        if (!$notification->checked) {
+        if (!$notification->clicked) {
             $notification->update([
-                'checked' => true
+                'clicked' => true
             ]);
         }
 

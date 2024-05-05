@@ -15,6 +15,7 @@ class NotificationModel extends Model
         'message',
         'ref_link',
         'admin_only',
-        'created_at'
+        'created_at',
+        'clicked'
     ];
 }

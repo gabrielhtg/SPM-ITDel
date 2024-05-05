@@ -7,6 +7,9 @@ use App\Models\RoleModel;
 use App\Models\User;
 use App\Models\UserInactiveModel;
 use App\Services\AllServices;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +19,7 @@ class UserController extends Controller
 {
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|RedirectResponse
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application|RedirectResponse
      *
      * Mendapatkan halaman user settings yang active usernya
      */
@@ -31,7 +34,6 @@ class UserController extends Controller
                 'roles' => $roles,
                 'users' => $users,
                 'pending_action' => $passwordResetReq,
-                'pending_action' => $passwordResetReq,
                 'active_sidebar' => [4, 1]
             ];
 
@@ -41,7 +43,7 @@ class UserController extends Controller
         }
     }
 
-    public function getUserSettingsInactive()
+    public function getUserSettingsInactive(): Factory|Application|View|\Illuminate\Contracts\Foundation\Application|RedirectResponse
     {
         if (AllServices::isLoggedUserHasAdminAccess()) {
             $users_inactive = UserInactiveModel::all();
@@ -78,7 +80,7 @@ class UserController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Foundation\Application
+     * @return \Illuminate\Contracts\Foundation\Application|Factory|View|Application
      *
      * Fungsi ini digunakan untuk mendapatkan detail user melalui page user-detail
      */

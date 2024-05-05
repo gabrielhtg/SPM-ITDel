@@ -157,7 +157,7 @@ class RegisteredUserController extends Controller
                 Employee::create([
                     'user_id' => $userId,
                     'name' => $request->name,
-                    'role' => $request->role
+                    'role' => $request->role,
                 ]);
 
                 NotificationModel::create([

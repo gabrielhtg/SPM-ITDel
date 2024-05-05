@@ -779,7 +779,7 @@ class AllServices
     public static function countNotClickedNotification (): int
     {
 //        return count(NotificationModel::where('to', $id)->get());
-        return count(NotificationModel::all());
+        return count(NotificationModel::where('clicked', false)->get());
     }
 
     public static function getAllNotifications()

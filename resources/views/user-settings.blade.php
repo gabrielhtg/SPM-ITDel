@@ -147,7 +147,7 @@
                                         @endif
                                         <td>
                                             <div class="d-flex" style="gap: 10px">
-                                                @if (AllServices::isCurrentRole('Admin'))
+                                                @if (AllServices::isLoggedUserHasAdminAccess())
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
                                                         data-target="#modal-nonaktif-{{ $e->id }}">
                                                         {{--                                            <i class="fas fa-trash"></i> --}}

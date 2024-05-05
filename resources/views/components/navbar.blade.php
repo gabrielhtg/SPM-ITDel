@@ -46,14 +46,14 @@
                         @foreach($notifications as $notification)
                         <form action="{{ route('openNotification') }}" method="post">
                             @csrf
-
+                            <input type="hidden" name="id" value="{{ $notification->id }}">
                             <button type="submit" class="d-flex dropdown-item w-100">
                                @if($notification->clicked)
-                                   <i class="fas fa-exclamation-circle mt-1 mr-2"></i>
-                                   <div>
-                                       {{ $notification->message }}
-                                       <span class="float-right text-muted text-sm">{{ AllServices::getNotificationTime($notification->created_at) }}</span>
-                                   </div>
+                                    <i class="far fa-circle nav-icon mr-2 mt-1"></i>
+                                    <div class="w-100 d-flex flex-column" style="white-space: normal">
+                                        {{ $notification->message }}
+                                        <span class="text-muted text-sm">{{ AllServices::getNotificationTime($notification->created_at) }}</span>
+                                    </div>
                                @else
                                    <i class="fas fa-exclamation-circle mt-1 mr-2"></i>
                                 <div class="w-100 d-flex flex-column" style="white-space: normal">
