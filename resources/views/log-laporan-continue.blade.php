@@ -92,19 +92,18 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{\Carbon\Carbon::parse($item->create_at )->format('d/m/Y')}}
-
+                                        {{ $item->create_at ? \Carbon\Carbon::parse($item->create_at)->format('d/m/Y') : '-' }}
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{\Carbon\Carbon::parse($item->approve_at )->format('d/m/Y')}}
-
+                                        {{ $item->approve_at ? \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y') : '-' }}
                                     </div>
                                 </div>
                             </td>
+                            
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">

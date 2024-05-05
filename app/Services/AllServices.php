@@ -681,21 +681,25 @@ class AllServices
     {
         // Mendapatkan ID laporan yang diunggah oleh user saat ini
         $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
-            ->pluck('id_jenis_laporan');
+        ->whereNotNull('status')
+        ->pluck('id_jenis_laporan');
 
+      
+         
         $idrole = auth()->user()->role;
         $idsubmit = RoleModel::where('id', $idrole)->first();
-
+    
         // Pisahkan string menjadi array
         $requiredIds = explode(';', $idsubmit->required_to_submit_document);
-
+    
         // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
-            ->whereIn('id_tipelaporan', $requiredIds)
-            ->get();
-
+                       ->whereIn('id_tipelaporan', $requiredIds)
+                       ->get();
+    
         return $jenisLaporan;
     }
+    
 
     public function getDocumentNameAndTypeById($id)
     {
@@ -805,4 +809,5 @@ class AllServices
             return "$diffInDays days, $diffInHours hrs ago";
         }
     }
+    
 }

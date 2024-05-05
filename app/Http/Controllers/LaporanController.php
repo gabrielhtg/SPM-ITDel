@@ -31,7 +31,7 @@ class LaporanController extends Controller
     $document = $role->required_to_submit_document;
 
     $tipe_laporan = app(AllServices::class)->getJenisLaporanWithoutLog(auth()->user()->id);
-   
+
    
     $type_laporan =TipeLaporan::all();
     $jenis_laporan =JenisLaporan::all();
@@ -172,36 +172,38 @@ public function getLaporanManagementReject()
     }
 
     public function approve($id)
-{
-    $nowDate = Carbon::now();
-    $laporan = Laporan::findOrFail($id);
-    $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
-    $create_at = $laporan->created_at;
-    $approve_at=$laporan->approve_at;
-    // Update status laporan
-    $laporan->status = 'Disetujui';
-    $laporan->approve_at = $nowDate;
-    $laporan->direview_oleh = auth()->user()->id;
-    $laporan->save();
-
-    // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
-    $carbonStartDate = $tipeLaporan->end_date;
-    $carbonCreateDate =  $laporan->created_at;
+    {
+        $nowDate = Carbon::now();
+        $laporan = Laporan::findOrFail($id);
+        $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
+        $create_at = $laporan->created_at;
+        $approve_at = $laporan->approve_at;
     
-    // Tentukan status berdasarkan perbandingan tanggal
-    $status = $carbonCreateDate->greaterThan($carbonStartDate) ? 'Terlambat' : 'Tepat Waktu';
-
-    // Buat log laporan dengan status yang ditentukan
-    LogLaporan::create([
-        'id_jenis_laporan' => $laporan->id_tipelaporan,
-        'upload_by' => $laporan->created_by,
-        'status' => $status,
-        'approve_at'=>$approve_at,
-        'create_at'=>$create_at,
-    ]);
-
-    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
-}
+        // Update status laporan
+        $laporan->status = 'Disetujui';
+        $laporan->approve_at = $nowDate;
+        $laporan->direview_oleh = auth()->user()->id;
+        $laporan->save();
+    
+        // Bandingkan tanggal laporan dengan tanggal awal periode pada jenis laporan
+        $carbonStartDate = $tipeLaporan->end_date;
+        $carbonCreateDate = $laporan->created_at;
+        
+        // Tentukan status berdasarkan perbandingan tanggal
+        $status = $carbonCreateDate->greaterThan($carbonStartDate) ? 'Terlambat' : 'Tepat Waktu';
+    
+        // Perbarui log laporan yang sesuai
+        LogLaporan::where('id_jenis_laporan', $laporan->id_tipelaporan)
+            ->where('upload_by', $laporan->created_by)
+            ->update([
+                'status' => $status,
+                'approve_at' => $nowDate,
+                'create_at' => $create_at,
+            ]);
+    
+        return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
+    }
+    
 
 
 
