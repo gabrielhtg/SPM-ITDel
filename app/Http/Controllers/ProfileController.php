@@ -69,12 +69,14 @@ class ProfileController extends Controller
 
                 foreach ($admins as $admin) {
                     if (in_array($adminRole->id, explode(";", $admin->role))) {
-                        NotificationModel::create([
-                            'message' => "Permintaan ganti role dari " .  $request->name . ".",
-                            'ref_link' => "user-settings-active",
-                            'to' => $admin->id,
-                            'clicked' => false,
-                        ]);
+                        if ($admin->id !== \auth()->user()->id) {
+                            NotificationModel::create([
+                                'message' => "Permintaan ganti role dari " .  $request->name . ".",
+                                'ref_link' => "user-settings-active",
+                                'to' => $admin->id,
+                                'clicked' => false,
+                            ]);
+                        }
                     }
                 }
             }

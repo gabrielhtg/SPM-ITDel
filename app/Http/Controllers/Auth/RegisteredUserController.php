@@ -73,21 +73,21 @@ class RegisteredUserController extends Controller
                         'role' => $request->role
                     ]);
 
-                    
+
                     $role_user = $request->role;
 
                     // Ambil objek RoleModel berdasarkan ID
                     $role = RoleModel::where('id', $role_user)->first();
 
-                    
-                   
+
+
 
                     $Laporan = $role->required_to_submit_document;
 
-                  
+
                     $tipeLaporan = explode(';', $Laporan);
 
-                   
+
                     $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
 
                     foreach ($jenis_laporan as $jenis) {
@@ -96,11 +96,11 @@ class RegisteredUserController extends Controller
                             'upload_by' => $userId,
                             'create_at'=>null,
                             'approve_at'=>null,
-                          
+
                         ]);
                     }
 
-                   
+
 
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }
@@ -186,14 +186,12 @@ class RegisteredUserController extends Controller
                     'pending_roles' => $request->role
                 ])->id;
 
-                $admins = RoleModel::where('is_admin', true)->get();
-
                 $role_user = $request->role;
 
                 // Ambil objek RoleModel berdasarkan ID
                 $role = RoleModel::where('id', $role_user)->first();
                 $Laporan = $role->required_to_submit_document;
-                $tipeLaporan = explode(';', $Laporan);               
+                $tipeLaporan = explode(';', $Laporan);
                 $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
 
                 foreach ($jenis_laporan as $jenis) {
@@ -202,25 +200,25 @@ class RegisteredUserController extends Controller
                         'upload_by' => $userId,
                         'create_at'=>null,
                         'approve_at'=>null,
-                      
+
                     ]);
                 }
 
+                $adminRoles = RoleModel::where('is_admin', true)->get();
 
+                foreach ($adminRoles as $adminRole) {
+                    $admins = User::where('role', 'LIKE', '%' . $adminRole->id . '%')->get();
 
-                NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'admin_only' => true,
-                    'clicked' => false,
-                ]);
-                foreach ($admins as $admin) {
-                    NotificationModel::create([
-                        'message' => "Permintaan register dari " .  $request->name . ".",
-                        'ref_link' => "user-settings-active",
-                        'to' => $admin->id,
-                        'clicked' => false,
-                    ]);
+                    foreach ($admins as $admin) {
+                        if (in_array($adminRole->id, explode(";", $admin->role))) {
+                            NotificationModel::create([
+                                'message' => "Permintaan register dari " .  $request->name . ".",
+                                'ref_link' => "user-settings-active",
+                                'to' => $admin->id,
+                                'clicked' => false,
+                            ]);
+                        }
+                    }
                 }
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
@@ -235,6 +233,7 @@ class RegisteredUserController extends Controller
         else {
             return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Permintaan Pendaftaran Tidak Diizinkan']);
         }
+        return redirect()->route('login')->with('data', ['failed' => true, 'text' => 'Permintaan Pendaftaran Tidak Diizinkan']);
     }
 
     public function deleteInvitation(Request $request) {
@@ -282,7 +281,7 @@ class RegisteredUserController extends Controller
                 foreach ($admins as $admin) {
                     if (in_array($adminRole->id, explode(";", $admin->role))) {
                         NotificationModel::create([
-                            'message' => "Permintaan ganti role dari " .  $request->name . ".",
+                            'message' => "Permintaan register dari " .  $resetObject->name . "diterima oleh " . auth()->user()->name,  ".",
                             'ref_link' => "user-settings-active",
                             'to' => $admin->id,
                             'clicked' => false,
@@ -306,15 +305,21 @@ class RegisteredUserController extends Controller
         if ($data && $data->status == false) {
             $data->delete();
 
-            $admins = RoleModel::where('is_admin', true)->get();
+            $adminRoles = RoleModel::where('is_admin', true)->get();
 
-            foreach ($admins as $admin) {
-                NotificationModel::create([
-                    'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'to' => $admin->id,
-                    'clicked' => false,
-                ]);
+            foreach ($adminRoles as $adminRole) {
+                $admins = User::where('role', 'LIKE', '%' . $adminRole->id . '%')->get();
+
+                foreach ($admins as $admin) {
+                    if (in_array($adminRole->id, explode(";", $admin->role))) {
+                        NotificationModel::create([
+                            'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                            'ref_link' => "user-settings-active",
+                            'to' => $admin->id,
+                            'clicked' => false,
+                        ]);
+                    }
+                }
             }
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
@@ -326,15 +331,21 @@ class RegisteredUserController extends Controller
                 'pending_roles' => null
             ]);
 
-            $admins = RoleModel::where('is_admin', true)->get();
+            $adminRoles = RoleModel::where('is_admin', true)->get();
 
-            foreach ($admins as $admin) {
-                NotificationModel::create([
-                    'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'to' => $admin->id,
-                    'clicked' => false,
-                ]);
+            foreach ($adminRoles as $adminRole) {
+                $admins = User::where('role', 'LIKE', '%' . $adminRole->id . '%')->get();
+
+                foreach ($admins as $admin) {
+                    if (in_array($adminRole->id, explode(";", $admin->role))) {
+                        NotificationModel::create([
+                            'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                            'ref_link' => "user-settings-active",
+                            'to' => $admin->id,
+                            'clicked' => false,
+                        ]);
+                    }
+                }
             }
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
