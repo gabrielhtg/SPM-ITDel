@@ -14,8 +14,8 @@ class CheckDocumentActive
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure  $next
-     * @param  \Illuminate\Http\Request  $request
+     * @param Closure $next
+     * @param Request $request
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

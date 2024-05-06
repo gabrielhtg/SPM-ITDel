@@ -216,6 +216,17 @@ class RegisteredUserController extends Controller
                 'role' => $resetObject->role,
             ]);
 
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "diterima oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {
@@ -231,6 +242,17 @@ class RegisteredUserController extends Controller
         if ($data && $data->status == false) {
             $data->delete();
 
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 
@@ -239,6 +261,17 @@ class RegisteredUserController extends Controller
                 'verified' => true,
                 'pending_roles' => null
             ]);
+
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
