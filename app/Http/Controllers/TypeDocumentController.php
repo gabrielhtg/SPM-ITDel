@@ -131,15 +131,17 @@ class TypeDocumentController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            'nama' => 'required|unique:jenis_laporan',
             'year' => 'required',
             'end_date' => 'required|date',
         ], [
             'nama.required' => 'Nama laporan harus diisi.',
+            'nama.unique' => 'Jenis Laporan Harus Berbeda dengan Jenis Laporan yang sudah ada',
             'year.required' => 'Tahun harus diisi.',
             'end_date.required' => 'Tanggal selesai harus diisi.',
             'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
         ]);
+        
     
         if ($validator->fails()) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
@@ -160,6 +162,7 @@ class TypeDocumentController extends Controller
             'end_date' => $request->end_date,
         ]);
     
+        $id =$jenis_laporan->id;
         
         $roles = RoleModel::where(function ($query) use ($request) {
             $id_tipelaporan = $request->id_tipelaporan;

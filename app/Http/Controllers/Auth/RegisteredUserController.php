@@ -175,7 +175,7 @@ class RegisteredUserController extends Controller
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 ]);
 
-                User::create([
+                $userId= User::create([
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
@@ -188,7 +188,6 @@ class RegisteredUserController extends Controller
 
                 $admins = RoleModel::where('is_admin', true)->get();
 
-<<<<<<< HEAD
                 $role_user = $request->role;
 
                 // Ambil objek RoleModel berdasarkan ID
@@ -215,7 +214,6 @@ class RegisteredUserController extends Controller
                     'admin_only' => true,
                     'clicked' => false,
                 ]);
-=======
                 foreach ($admins as $admin) {
                     NotificationModel::create([
                         'message' => "Permintaan register dari " .  $request->name . ".",
@@ -224,7 +222,6 @@ class RegisteredUserController extends Controller
                         'clicked' => false,
                     ]);
                 }
->>>>>>> 5ac15d409440e3907e571c958a3c3bb07cd22023
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
             }

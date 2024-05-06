@@ -174,18 +174,33 @@ public function getLaporanManagementReject()
         $user = User::findOrFail($iduser);
 
         $accountable = AccountableModel::where('role', $user->role)->first();
-        $accountable_to = explode(';', $accountable->accountable_to);
+        $roleId = $accountable->role; // Ganti dengan id peran yang diinginkan
 
-        $alluseraccountable = User::whereIn('role', $accountable_to)->get();
+        // Ambil semua nilai accountable_to berdasarkan roleId
+        $accountableTos = AccountableModel::where('role', $roleId)->pluck('accountable_to')->toArray();
+        
+        // Buat array unik dari semua nilai accountable_to
+        $allAccountableTo = [];
+        foreach ($accountableTos as $accountableTo) {
+            $allAccountableTo = array_merge($allAccountableTo, explode(';', $accountableTo));
+        }
+        $allAccountableTo = array_unique($allAccountableTo);
 
-        foreach ($alluseraccountable as $to) {
+        
+        
+        // Ambil semua user yang memiliki peran yang termasuk dalam nilai accountable_to yang unik
+        $allUsers = User::whereIn('role', $allAccountableTo)->get();
+        
+        // Buat notifikasi untuk setiap user
+        foreach ($allUsers as $users) {
             NotificationModel::create([
                 'message' => "Permintaan untuk memeriksa laporan dari " . $user->name . ".",
                 'ref_link' => "LaporanManagementReject",
                 'clicked' => false,
-                'to' => $to->id,
+                'to' => $users->id,
             ]);
         }
+        
 
 
         

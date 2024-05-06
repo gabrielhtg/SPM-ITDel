@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('log_laporan', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('id_jenis_laporan');
-            $table->foreign('id_jenis_laporan')->references('id')->on('tipe_laporan');
+            $table->foreign('id_jenis_laporan')->references('id')->on('jenis_laporan');
             $table->unsignedBigInteger('upload_by');
             $table->foreign('upload_by')->references('id')->on('users');
             $table->string('status')->nullable();
