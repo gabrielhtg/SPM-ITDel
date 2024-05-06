@@ -70,6 +70,29 @@ class DocumentController extends Controller
         return view('document-view-all', $data);
     }
 
+    public function getDocumentManagementViewSpmAll()
+    {
+        $documents = DocumentModel::where('dokumen_spm', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        $documenthero = HeroDocument::all();
+        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $jenis_dokumen = DocumentTypeModel::all();
+        $roles = RoleModel::all();
+
+        $data = [
+            'documents' => $documents,
+            'uploadedUsers' => $uploadedUsers,
+            'jenis_dokumen' => $jenis_dokumen,
+            'roles' => $roles,
+            'documenthero' => $documenthero,
+        ];
+
+        return view('document-view-spm-all', $data);
+    }
+
+
 
     // public function getDocumentManagement()
     // {
@@ -177,6 +200,7 @@ class DocumentController extends Controller
         ],
         'tipe_dokumen' => 'required',
         'can_see_by' => 'required',
+        'dokumen_spm' => 'required',
         'link' => ['nullable', 'url'],
         'menggantikan_dokumen' => [
             // Validasi tambahan untuk memastikan bahwa dokumen yang digantikan memiliki tipe dokumen yang sama
@@ -199,6 +223,7 @@ class DocumentController extends Controller
         'end_date.required' => 'Tanggal akhir harus diisi.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
         'can_see_by.required' => 'Pilihan untuk dapat dilihat atau tidak harus dipilih.',
+        'dokumen_spm.required' => 'Pilihan untuk iya atau tidak pada Dokuemn SPM.',
         'link.url' => 'Link dokumen tidak valid.'
     ]);
 
@@ -269,6 +294,7 @@ class DocumentController extends Controller
         'give_access_to' => $accessor ?? 'default_user', // Pastikan nilai default yang sesuai jika $accessor null
         'give_edit_access_to' => $editor,
         'can_see_by' => $request->can_see_by,
+        'dokumen_spm' => $request->dokumen_spm,
         'link' => $request->link,
     ]);
 
@@ -361,10 +387,10 @@ public function updateDocument(Request $request, $id)
     }
 
     // Update keterangan_status jika ada perubahan
-  
+
 
     // Lanjutkan dengan penanganan atribut lainnya
-   
+
     $document->keterangan_status = $request->keterangan_status;
     $document->name = $request->name;
     $document->nomor_dokumen = $request->nomor_dokumen;
@@ -376,7 +402,7 @@ public function updateDocument(Request $request, $id)
     if ($request->keterangan_status==0) {
         $document->keterangan_status = false;
         $document->end_date = Carbon::now();
-       
+
     }
     $document->give_access_to = implode(';', $request->input('give_access_to', []));
     $document->give_edit_access_to = implode(';', $request->input('give_edit_access_to', []));
@@ -436,6 +462,22 @@ public function updateDocument(Request $request, $id)
 
         return view('document-view', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers,'documenthero'=> $documenthero]);
     }
+
+    public function getDocumentspm()
+    {
+        $documents = DocumentModel::where('dokumen_spm', true) // Mengambil hanya dokumen yang document_spm bernilai true (atau 1)
+        ->whereIn('give_access_to', ['0', '50'])
+            ->orWhere('give_access_to', 'LIKE', '%1%')
+            ->orderBy('created_at', 'desc')
+            ->take(10)
+            ->get();
+
+        $uploadedUsers = User::whereIn('id', $documents->pluck('created_by'))->get();
+        $documenthero = HeroDocument::all();
+
+        return view('document-view-spm', ['documents' => $documents, 'uploadedUsers' => $uploadedUsers, 'documenthero' => $documenthero]);
+    }
+
 
 
     public function getDocumentDetail($id)

@@ -160,7 +160,7 @@ class TypeDocumentController extends Controller
             'end_date' => $request->end_date,
         ]);
     
-        // Ambil semua peran yang sesuai dengan tipe laporan baru
+        
         $roles = RoleModel::where(function ($query) use ($request) {
             $id_tipelaporan = $request->id_tipelaporan;
             $id_tipelaporanArray = explode(';', $id_tipelaporan);

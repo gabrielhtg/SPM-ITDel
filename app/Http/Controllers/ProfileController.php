@@ -62,12 +62,16 @@ class ProfileController extends Controller
                 'verified' => false
             ]);
 
-            NotificationModel::create([
-                'message' => "Permintaan ganti role dari " .  $request->name . ".",
-                'ref_link' => "user-settings-active",
-                'admin_only' => true,
-                'clicked' => false,
-            ]);
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
 
             return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Tunggu hingga admin menyetujui perubahan Anda!']);
         }

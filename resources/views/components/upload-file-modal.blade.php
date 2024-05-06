@@ -57,7 +57,7 @@
                                     <input type="text" name="name" class="form-control" required>
                                 </div>
 
-                                
+
 
                                 <div class="form-group">
                                     <label>Nomor Dokumen:</label>
@@ -86,7 +86,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label>File:</label>
                                     <input type="file" name="file" class="form-control-file" >
@@ -96,7 +96,7 @@
                                     <label>Link Dokumen:</label>
                                     <input type="text" name="link" class="form-control">
                                 </div>
-                                
+
                                     <div class="form-group">
                                         <label>Tipe Dokumen:</label>
                                         <select id="tipe_dokumen"  name="tipe_dokumen" class="select2 form-control" multiple="multiple" data-placeholder="Cari Tipe Dokumen" style="width: 100%;">
@@ -111,21 +111,21 @@
                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan Akses Kepada" style="width: 100%;">
                                         <option value="0">Public</option>
                                         @foreach($roles as $role)
-                                        
+
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Berikan Izin Edit Kepada:</label>
                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan Izin Edit Kepada" style="width: 100%;">
-                                        
+
                                         @foreach($roles as $role)
                                             <option value="{{ $role->id }}">{{ $role->role }}</option>
                                         @endforeach
-                                        
+
                                     </select>
                                 </div>
 
@@ -140,16 +140,25 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Dokumen SPM</label>
+                                    <select name="dokumen_spm" class="form-control" required>
+                                        <option value="" disabled selected>Pilih Opsi</option>
+                                        <option value="1">Iya</option>
+                                        <option value="0">Tidak</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
                                     <label>Tanggal Mulai:</label>
                                     <input type="datetime-local" name="start_date" class="form-control" required>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label>Tanggal Berakhir:</label>
                                     <input type="datetime-local" name="end_date" class="form-control" placeholder="Pilih tanggal dan waktu">
                                 </div>
-                                
-                                
+
+
 
                                 <div class="form-group">
                                     <label>Tahun:</label>
@@ -160,14 +169,14 @@
 
                                     <button type="submit" class="btn btn-primary">Unggah Dokumen</button>
                                 </div>
-                            
+
                             </form>
-                                
+
                                 </div>
                             </div>
                         </div>
 
-                        
+
                     </div>
                 </div>
             </div>

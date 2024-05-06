@@ -87,17 +87,17 @@
                                                 {{-- <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
-                                                       
+
                                                         @php
                                                             $name = app(AllServices::class)->getDocumentNameAndTypeById($document->menggantikan_dokumen);
                                                         @endphp
                                                         <option selected>{{ $name }}</option>
                                                     </select>
                                                 </div> --}}
-                                              
-                                                
-                                                
-                                                
+
+
+
+
                                                 <div class="form-group">
                                                     <label>Menggantikan Dokumen:</label>
                                                     <select name="menggantikan_dokumen[]" class="select2 form-control" multiple="multiple" data-placeholder="Search Document Type" style="width: 100%;">
@@ -113,10 +113,10 @@
                                                             <option value="{{ $id }}">{{ $name }}</option>
                                                         @endforeach
                                                     </select>
-                                                   
+
                                                     </select>
                                                 </div>
-                                                
+
 
                                                 <div class="form-group">
                                                     <label>File:</label>
@@ -139,7 +139,7 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
-    
+
                                                 <div class="form-group">
                                                     <label>Berikan Akses Kepada:</label>
                                                     <select name="give_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Give Access to" style="width: 100%;">
@@ -150,27 +150,27 @@
                                                             @endphp
                                                             <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                                         @endforeach
-    
+
                                                     </select>
                                                 </div>
-    
-    
+
+
                                                 <div class="form-group">
                                                     <label>Berikan izin edit kepada:</label>
                                                     <select name="give_edit_access_to[]" class="select2 form-control" multiple="multiple" data-placeholder="Berikan izin edit kepada" style="width: 100%;">
-                                                        
+
                                                         @foreach($roles as $role)
                                                             @php
                                                                 $selected = in_array($role->id, explode(';', $document->give_edit_access_to ?? '')) ? 'selected' : '';
                                                             @endphp
                                                             <option value="{{ $role->id }}" {{ $selected }}>{{ $role->role }}</option>
                                                         @endforeach
-    
+
                                                     </select>
                                                 </div>
-    
-    
-    
+
+
+
                                             <div class="form-group">
                                                 <label>Bisa dilihat oleh:</label>
                                                 <select name="can_see_by" class="form-control" required>
@@ -179,22 +179,30 @@
                                                     <option value="0" @if($document->can_see_by == 0) selected @endif>Pribadi</option>
                                                 </select>
                                             </div>
-    
+
                                             <div class="form-group">
                                                 <label>Tanggal Mulai:</label>
                                                 <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
                                             </div>
-    
+
+                                                <div class="form-group">
+                                                    <label>Dokumen SPM</label>
+                                                    <select name="dokumen_spm" class="form-control" required value="{{ $document->dokumen_spm }}">
+                                                        <option value="1">Iya</option>
+                                                        <option value="0">Tidak</option>
+                                                    </select>
+                                                </div>
+
                                             <div class="form-group">
                                                 <label>Tanggal Berakhir:</label>
                                                 <input type="datetime-local" name="end_date" class="form-control"  value="{{ $document->end_date }}">
                                             </div>
-    
+
                                             <div class="form-group">
                                                 <label>Tahun:</label>
                                                 <input type="number" name="year" class="form-control" required min="1" value="{{ $document->year }}">
                                             </div>
-    
+
                                             <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="window.location.href='{{ route('documentManagement') }}'">Kembali</button>
 

@@ -3,24 +3,48 @@
 namespace App\Http\Middleware;
 
 use App\Models\DocumentModel;
+use App\Models\User;
 use Closure;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Auth;
 
 class CheckDocumentActive
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure  $next
-     * @param  \Illuminate\Http\Request  $request
+     * @param Closure $next
+     * @param Request $request
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
         // Ambil semua dokumen
         $allDocuments = DocumentModel::all();
+
+        $users = User::all();
+
+        foreach ($users as $user) {
+            $targetTime = "2024-05-05 21:44:40";
+
+            $currentDateTime = new DateTime();
+
+            try {
+                $targetDateTime = new DateTime($targetTime);
+                $targetDateTime->modify('+1 hour');
+
+                if ($currentDateTime > $targetDateTime) {
+                    $user->update([
+                        'online' => false,
+                    ]);
+                }
+            } catch (\Exception $e) {
+                // do nothing
+            }
+
+
+        }
 
         foreach ($allDocuments as $document) {
             $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->start_date);

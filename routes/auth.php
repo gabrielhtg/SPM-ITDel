@@ -54,6 +54,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
+    Route::get('/getdocumentspm', [DocumentController::class, 'getDocumentspm'])->name('getdocumentspm');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
     //    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
@@ -142,8 +143,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/edit-jenis-laporan/{id}', [TypeDocumentController::class, 'updateLaporanJenis'])->name('editJenisLaporan');
         Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
         Route::post('upload-laporan-jenis', [TypeDocumentController::class, 'addLaporanJenis'])->name('uploadJenisLaporan');
-
-
 
         Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
         Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');

@@ -11,6 +11,7 @@ use App\Models\TipeLaporan;
 use App\Models\JenisLaporan;
 use App\Models\LogLaporan;
 use App\Models\Laporan;
+use App\Models\NotificationModel;
 use App\Services\AllServices;
 use Illuminate\Support\Carbon;
 
@@ -85,6 +86,7 @@ public function getJenisLaporanView($id)
 
 public function getLaporanManagementReject()
 {
+  
     if (auth()->check()) {
         $userId = auth()->user()->role;
         $role = RoleModel::find($userId);
@@ -166,6 +168,27 @@ public function getLaporanManagementReject()
             'created_by' => auth()->user()->id,
             'revisi' => $request->revisi ?? false,
         ]);
+
+        
+        $iduser = auth()->user()->id;
+        $user = User::findOrFail($iduser);
+
+        $accountable = AccountableModel::where('role', $user->role)->first();
+        $accountable_to = explode(';', $accountable->accountable_to);
+
+        $alluseraccountable = User::whereIn('role', $accountable_to)->get();
+
+        foreach ($alluseraccountable as $to) {
+            NotificationModel::create([
+                'message' => "Permintaan untuk memeriksa laporan dari " . $user->name . ".",
+                'ref_link' => "LaporanManagementReject",
+                'clicked' => false,
+                'to' => $to->id,
+            ]);
+        }
+
+
+        
 
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil diunggah!']);

@@ -29,7 +29,8 @@
 
         @php
             $banyakUnreadNotification = AllServices::countNotClickedNotification();
-            $notifications = AllServices::getAllNotifications();
+            $notifications = AllServices::getNotifications();
+//            $notifications = AllServices::getAllNotifications();
         @endphp
 
             <li class="nav-item dropdown">
