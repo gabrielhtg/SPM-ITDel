@@ -144,8 +144,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
         Route::post('upload-laporan-jenis', [TypeDocumentController::class, 'addLaporanJenis'])->name('uploadJenisLaporan');
 
-
-
         Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
         Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
         Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
