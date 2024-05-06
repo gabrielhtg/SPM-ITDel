@@ -53,8 +53,8 @@
     <section class="content">
         <div class="container-fluid">
             @php
-                // Urutkan jenis_laporan berdasarkan tahun dari kecil ke besar
-                $jenis_laporan_sorted = $jenis_laporan->sortBy('year');
+                // Urutkan jenis_laporan berdasarkan tahun dari besar ke kecil
+                $jenis_laporan_sorted = $jenis_laporan->sortByDesc('year');
                 // Inisialisasi tahun sebelumnya
                 $prevYear = null;
                 // Ambil daftar tahun unik dari JenisLaporan
@@ -97,6 +97,7 @@
             @endif
         </div><!-- /.container-fluid -->
     </section>
+    
     
     <!-- /.content -->
 </div>

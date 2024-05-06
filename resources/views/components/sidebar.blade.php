@@ -129,13 +129,15 @@
                                     </a>
                                 </li>
                             @endif
-
+                            
+                            @if(app(AllServices::class)->isAccountable(auth()->user()->role) ||  app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) )
                             <li class="nav-item">
                                 <a href="{{ route('LogLaporanview') }}" class="nav-link {{ $active_sidebar[1] == 3 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Log Laporan</p>
                                 </a>
                             </li>
+                            @endif
 
                         </ul>
                     </li>

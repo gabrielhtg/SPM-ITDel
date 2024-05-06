@@ -1,5 +1,8 @@
-{{-- @php use App\Models\User;use App\Services\AllServices; @endphp --}}
-@php use App\Services\AllServices; @endphp
+@php
+    use App\Services\AllServices;
+    use Illuminate\Support\Facades\Auth;
+@endphp
+
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,9 +63,6 @@
                     <i class="fas fa-arrow-left"></i> <span style="margin-left: 5px">Kembali</span>
                 </a>
 
-
-
-
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
@@ -76,6 +76,7 @@
                     </thead>
                     <tbody>
                         @foreach($log as $item)
+                        @if( app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || (app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->upload_by))))
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
@@ -113,6 +114,7 @@
                                 </div>
                             </td>
                         </tr>
+                        @endif
                     @endforeach
                     </tbody>
                 </table>

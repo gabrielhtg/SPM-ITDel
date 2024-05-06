@@ -225,7 +225,7 @@ public function updateLaporanJenis(Request $request, $id)
     $nama_tipe = $tipe_laporan->nama_laporan;
 
     // Gabungkan nama tipe laporan dengan nama jenis laporan dari form
-    $nama_laporan = $nama_tipe . ' (' . $request->input('nama') . ')';
+    $nama_laporan = $request->nama;
 
     // Update data jenis laporan
     $jenisLaporan->update([
