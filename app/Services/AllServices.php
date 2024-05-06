@@ -688,22 +688,22 @@ class AllServices
         ->whereNotNull('status')
         ->pluck('id_jenis_laporan');
 
-      
-         
+
+
         $idrole = auth()->user()->role;
         $idsubmit = RoleModel::where('id', $idrole)->first();
-    
+
         // Pisahkan string menjadi array
         $requiredIds = explode(';', $idsubmit->required_to_submit_document);
-    
+
         // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
                        ->whereIn('id_tipelaporan', $requiredIds)
                        ->get();
-    
+
         return $jenisLaporan;
     }
-    
+
 
     public function getDocumentNameAndTypeById($id)
     {
@@ -844,13 +844,4 @@ class AllServices
         }
     }
 
-    public static function isThisRoleHasAdminAccess ($id) {
-        foreach (explode(";", User::find($id)->role) as  $e) {
-            if (RoleModel::find($e)->is_admin) {
-                return true;
-            }
-        }
-
-        return false;
-}
 }
