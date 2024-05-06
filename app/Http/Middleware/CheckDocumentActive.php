@@ -25,8 +25,12 @@ class CheckDocumentActive
 
         $users = User::all();
 
+        User::find(auth()->user()->id)->update([
+            'last_login_at' => now()
+        ]);
+
         foreach ($users as $user) {
-            $targetTime = "2024-05-05 21:44:40";
+            $targetTime = $user->last_login_at;
 
             $currentDateTime = new DateTime();
 
