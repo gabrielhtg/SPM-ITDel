@@ -158,5 +158,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
 
         Route::post('/open-notification', [NotificationController::class, 'getNotifications'])->name('openNotification');
+        Route::get('/mark-as-read-notification', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
     });
 });

@@ -62,15 +62,21 @@ class ProfileController extends Controller
                 'verified' => false
             ]);
 
-            $admins = RoleModel::where('is_admin', true)->get();
+            $adminRoles = RoleModel::where('is_admin', true)->get();
 
-            foreach ($admins as $admin) {
-                NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'to' => $admin->id,
-                    'clicked' => false,
-                ]);
+            foreach ($adminRoles as $adminRole) {
+                $admins = User::where('role', 'LIKE', '%' . $adminRole->id . '%')->get();
+
+                foreach ($admins as $admin) {
+                    if (in_array($adminRole->id, explode(";", $admin->role))) {
+                        NotificationModel::create([
+                            'message' => "Permintaan ganti role dari " .  $request->name . ".",
+                            'ref_link' => "user-settings-active",
+                            'to' => $admin->id,
+                            'clicked' => false,
+                        ]);
+                    }
+                }
             }
 
             return \redirect()->route('profile')->with('toastData', ['success' => true, "text" => 'Sukses. Tunggu hingga admin menyetujui perubahan Anda!']);
