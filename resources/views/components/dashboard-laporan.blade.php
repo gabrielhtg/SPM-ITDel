@@ -35,10 +35,6 @@
 
     <!-- Main Sidebar Container -->
     @include("components.sidebar")
-    {{-- @php
-    $isResponsible = app(AllServices::class)->isAccountable(auth()->user()->role);
-    dd($isResponsible);
-@endphp --}}
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -54,37 +50,48 @@
         </div>
 
         <!-- Main content -->
+        <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 @php
-                    $currentYear = 2024;
+                    // Inisialisasi tahun sebelumnya
+                    $prevYear = null;
+                    // Ambil daftar tahun unik dari JenisLaporan
                     $colors = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger'];
                     $colorIndex = 0;
                 @endphp
-                @for ($i = $currentYear; $i <= $currentYear + 2; $i++)
+                @foreach ($jenis_laporan as $item)
+                    @if ($prevYear !== null && $item->year === $prevYear)
+                        @continue
+                    @endif
                     <div class="row">
-                        @for ($j = 1; $j <= 4; $j++)
-                            <div class="col-md-3">
-                                <!-- small box -->
-                                <div class="small-box {{ $colors[$colorIndex] }}">
-                                    <div class="inner">
-                                        <h3>{{ $currentYear }}</h3>
-                                        <p>Laporan Tahunan</p>
-                                    </div>
-                                    <div class="icon">
-                                        <i class="ion ion-bag"></i>
-                                    </div>
-                                    <a href="{{ route('getDashboardlaporanContinue') }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                        <div class="col-md-3">
+                            <!-- small box -->
+                            <div class="small-box {{ $colors[$colorIndex] }}">
+                                <div class="inner">
+                                    <h3>{{ $item->year }}</h3>
                                 </div>
+                                <div class="icon">
+                                    <i class="ion ion-bag"></i>
+                                </div>
+                                <a href="{{ route('getDashboardlaporanContinue', ['year' => $item->year]) }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+
                             </div>
-                            @php
-                                $colorIndex = ($colorIndex + 1) % count($colors);
-                            @endphp
-                        @endfor
+                        </div>
                     </div>
-                @endfor
+                    @php
+                        // Atur tahun sebelumnya ke tahun saat ini
+                        $prevYear = $item->year;
+                        // Ganti indeks warna untuk variasi
+                        $colorIndex = ($colorIndex + 1) % count($colors);
+                    @endphp
+                @endforeach
             </div><!-- /.container-fluid -->
         </section>
+        
+        
+<!-- /.content -->
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

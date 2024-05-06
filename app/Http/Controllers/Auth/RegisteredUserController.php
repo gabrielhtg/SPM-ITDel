@@ -93,6 +93,7 @@ class RegisteredUserController extends Controller
                     foreach ($jenis_laporan as $jenis) {
                         LogLaporan::create([
                             'id_jenis_laporan' => $jenis->id,
+                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
                             'upload_by' => $userId,
                             'create_at'=>null,
                             'approve_at'=>null,
@@ -197,6 +198,7 @@ class RegisteredUserController extends Controller
                 foreach ($jenis_laporan as $jenis) {
                     LogLaporan::create([
                         'id_jenis_laporan' => $jenis->id,
+                        'id_tipe_laporan'=>$jenis->id_tipelaporan,
                         'upload_by' => $userId,
                         'create_at'=>null,
                         'approve_at'=>null,

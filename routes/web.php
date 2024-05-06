@@ -47,6 +47,7 @@ Route::get('/dashboard-laporan-continue', [\App\Http\Controllers\DashboardLapora
 
 
 
+
 Route::get('/dashboard', function () {
 
     return view('dashboard');

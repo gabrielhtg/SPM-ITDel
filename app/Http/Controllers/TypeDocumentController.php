@@ -152,7 +152,7 @@ class TypeDocumentController extends Controller
         $nama_tipe = $tipe_laporan->nama_laporan;
         
         // Buat nama laporan dengan menambahkan nama tipe laporan
-        $nama_laporan = $nama_tipe . ' (' . $request->input('nama') . ')';
+        $nama_laporan = $nama_tipe ." ". $request->input('nama') . ' (' . $request->input('year') . ')';
     
         // Tambahkan jenis laporan baru
         $jenis_laporan = JenisLaporan::create([
@@ -175,11 +175,12 @@ class TypeDocumentController extends Controller
     
         // Ambil semua pengguna yang memiliki peran yang sesuai dengan tipe laporan baru
         $users = User::whereIn('role', $roles->pluck('id'))->get();
-    
+        // dd($jenis_laporan->id_tipe_laporan);
         // Buat entri log laporan untuk setiap pengguna yang sesuai
         foreach ($users as $user) {
             LogLaporan::create([
                 'id_jenis_laporan' => $jenis_laporan->id,
+                'id_tipe_laporan'=>$request->id_tipelaporan,
                 'upload_by' => $user->id,
                 'create_at' => null,
                 'approve_at' => null,

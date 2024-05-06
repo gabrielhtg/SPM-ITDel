@@ -52,9 +52,10 @@
                 <div class="row">
                     <div class="col-md-6">
 
+                        @foreach($tipe_laporan as $item)
                         <div class="card card-success">
                             <div class="card-header">
-                                <h3 class="card-title">Bar Chart</h3>
+                                <h3 class="card-title">{{$item->nama_laporan}}</h3>
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -66,32 +67,14 @@
                             </div>
                             <div class="card-body">
                                 <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="barChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
+                                    <canvas id="barChart_{{ $item->id }}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
                                 </div>
                             </div>
 
                         </div>
+                        @endforeach
 
 
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h3 class="card-title">Bar Chart</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="barChart1" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
-                                </div>
-                            </div>
-
-                        </div>
 
 
                     </div>
@@ -99,45 +82,6 @@
                     <div class="col-md-6">
 
 
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h3 class="card-title">Bar Chart</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="barChart2" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h3 class="card-title">Bar Chart</h3>
-                                <div class="card-tools">
-                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                        <i class="fas fa-times"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                                    <canvas id="barChart3" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
-                                </div>
-                            </div>
-
-                        </div>
 
                     </div>
 
@@ -161,203 +105,81 @@
 
 <script src="{{ asset("dist/js/demo.js") }}"></script>
 
+<script src="{{ asset("plugins/chart.js/Chart.min.js") }}"></script>
+
 <script>
     $(function () {
-        /* ChartJS
-         * -------
-         * Here we will create a few charts using ChartJS
-         */
+        @foreach($tipe_laporan as $tipe)
+            @php
+                // Ambil jenis laporan berdasarkan tipe laporan
+                $jenis_laporan_ids = $tipe->jenis_laporan->pluck('id')->toArray();
+                // Ambil nama jenis laporan berdasarkan id
+                $jenis_laporan_names = \App\Models\JenisLaporan::whereIn('id', $jenis_laporan_ids)->pluck('nama')->toArray();
+                // Hitung jumlah laporan yang sudah mengumpulkan per jenis
+                $mengumpulkan_per_jenis = [];
+                foreach ($jenis_laporan_ids as $jenis) {
+                    $jumlah_mengumpulkan = \App\Models\LogLaporan::where('id_jenis_laporan', $jenis)->whereNotNull('status')->count();
+                    array_push($mengumpulkan_per_jenis, $jumlah_mengumpulkan);
+                }
+                // Hitung jumlah laporan yang belum mengumpulkan per jenis
+                $belum_mengumpulkan_per_jenis = [];
+                foreach ($jenis_laporan_ids as $jenis) {
+                    $jumlah_belum_mengumpulkan = \App\Models\LogLaporan::where('id_jenis_laporan', $jenis)->whereNull('status')->count();
+                    array_push($belum_mengumpulkan_per_jenis, $jumlah_belum_mengumpulkan);
+                }
+            @endphp
 
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        var barChartData = {
-            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label               : 'Digital Goods',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label               : 'Electronics',
-                    backgroundColor     : 'rgba(210, 214, 222, 1)',
-                    borderColor         : 'rgba(210, 214, 222, 1)',
-                    pointRadius         : false,
-                    pointColor          : 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor    : '#c1c7d1',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data                : [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
-        var temp0 = barChartData.datasets[0]
-        var temp1 = barChartData.datasets[1]
-        barChartData.datasets[0] = temp1
-        barChartData.datasets[1] = temp0
-
-        var barChartOptions = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
-        }
-
-        new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
-
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas1 = $('#barChart1').get(0).getContext('2d')
-        var barChartData1 = {
-            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label               : 'Digital Goods',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label               : 'Electronics',
-                    backgroundColor     : 'rgba(210, 214, 222, 1)',
-                    borderColor         : 'rgba(210, 214, 222, 1)',
-                    pointRadius         : false,
-                    pointColor          : 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor    : '#c1c7d1',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data                : [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
-        var temp01 = barChartData.datasets[0]
-        var temp11 = barChartData.datasets[1]
-        barChartData.datasets[0] = temp11
-        barChartData.datasets[1] = temp01
-
-        var barChartOptions1 = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
-        }
-
-        new Chart(barChartCanvas1, {
-            type: 'bar',
-            data: barChartData1,
-            options: barChartOptions1
-        })
-
-        var barChartCanvas2 = $('#barChart2').get(0).getContext('2d')
-        var barChartData2 = {
-            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label               : 'Digital Goods',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label               : 'Electronics',
-                    backgroundColor     : 'rgba(210, 214, 222, 1)',
-                    borderColor         : 'rgba(210, 214, 222, 1)',
-                    pointRadius         : false,
-                    pointColor          : 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor    : '#c1c7d1',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data                : [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
-        var temp02 = barChartData.datasets[0]
-        var temp12 = barChartData.datasets[1]
-        barChartData.datasets[0] = temp12
-        barChartData.datasets[1] = temp02
-
-        var barChartOptions2 = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
-        }
-
-        new Chart(barChartCanvas2, {
-            type: 'bar',
-            data: barChartData2,
-            options: barChartOptions2
-        })
-
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas3 = $('#barChart3').get(0).getContext('2d')
-        var barChartData3 = {
-            labels  : ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label               : 'Digital Goods',
-                    backgroundColor     : 'rgba(60,141,188,0.9)',
-                    borderColor         : 'rgba(60,141,188,0.8)',
-                    pointRadius          : false,
-                    pointColor          : '#3b8bba',
-                    pointStrokeColor    : 'rgba(60,141,188,1)',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data                : [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label               : 'Electronics',
-                    backgroundColor     : 'rgba(210, 214, 222, 1)',
-                    borderColor         : 'rgba(210, 214, 222, 1)',
-                    pointRadius         : false,
-                    pointColor          : 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor    : '#c1c7d1',
-                    pointHighlightFill  : '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data                : [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
-        var temp03 = barChartData.datasets[0]
-        var temp13 = barChartData.datasets[1]
-        barChartData.datasets[0] = temp13
-        barChartData.datasets[1] = temp03
-
-        var barChartOptions3 = {
-            responsive              : true,
-            maintainAspectRatio     : false,
-            datasetFill             : false
-        }
-
-        new Chart(barChartCanvas3, {
-            type: 'bar',
-            data: barChartData3,
-            options: barChartOptions3
-        })
-    })
+            var labels_{{ $tipe->id }} = {!! json_encode($jenis_laporan_names) !!};
+            var barChartCanvas{{ $tipe->id }} = $('#barChart_{{ $tipe->id }}').get(0).getContext('2d');
+            var barChartData{{ $tipe->id }} = {
+                labels  : labels_{{ $tipe->id }},
+                datasets: [
+                    {
+                        label               : 'Sudah Mengumpulkan',
+                        backgroundColor     : 'rgba(60,141,188,0.9)',
+                        borderColor         : 'rgba(60,141,188,0.8)',
+                        pointRadius          : false,
+                        pointColor          : '#3b8bba',
+                        pointStrokeColor    : 'rgba(60,141,188,1)',
+                        pointHighlightFill  : '#fff',
+                        pointHighlightStroke: 'rgba(60,141,188,1)',
+                        data                : {!! json_encode($mengumpulkan_per_jenis) !!}
+                    },
+                    {
+                        label               : 'Belum Mengumpulkan',
+                        backgroundColor     : 'rgba(210, 214, 222, 1)',
+                        borderColor         : 'rgba(210, 214, 222, 1)',
+                        pointRadius         : false,
+                        pointColor          : 'rgba(210, 214, 222, 1)',
+                        pointStrokeColor    : '#c1c7d1',
+                        pointHighlightFill  : '#fff',
+                        pointHighlightStroke: 'rgba(220,220,220,1)',
+                        data                : {!! json_encode($belum_mengumpulkan_per_jenis) !!}
+                    },
+                ]
+            };
+            new Chart(barChartCanvas{{ $tipe->id }}, {
+                type: 'bar',
+                data: barChartData{{ $tipe->id }},
+                options: {
+                    responsive              : true,
+                    maintainAspectRatio     : false,
+                    datasetFill             : false
+                }
+            });
+        @endforeach
+    });
 </script>
+
+
+
+
+
+
+
+
+
+
 
 
 </body>
