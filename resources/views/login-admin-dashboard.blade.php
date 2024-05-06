@@ -77,10 +77,11 @@
                     </div>
                     <div class="modal-body">
                         <div id="modal-content">
-                            <p id="modal-role">Role: </p> <!-- Mengisi dengan data -->
-                            <p id="modal-responsible">Responsible: </p> <!-- Mengisi dengan data -->
-                            <p id="modal-informable">Informable: </p> <!-- Mengisi dengan data -->
-                            <p id="modal-accountable">Accountable: </p> <!-- Mengisi dengan data -->
+                            <p id="modal-role"></p> <!-- Mengisi dengan data -->
+                            <p id="modal-responsible"></p> <!-- Mengisi dengan data -->
+                            <p id="modal-informable"></p> <!-- Mengisi dengan data -->
+                            <p id="modal-accountable"></p> <!-- Mengisi dengan data -->
+                            <p id="modal-employee"></p> <!-- Mengisi dengan data -->
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -113,24 +114,33 @@
         const options = {
             contentKey: 'data',
             width: '100%',
-            height: '800px',
-            nodeWidth: 150,
-            nodeHeight: 100,
-            fontColor: '#000',
-            borderColor: '#333',
+            height: '680px',
+            nodeWidth: 120,
+            nodeHeight: 40,
+            fontColor: '#fff',
+            borderColor: '#fff',
             childrenSpacing: 50,
             siblingSpacing: 20,
             direction: 'top',
             nodeTemplate: (content) =>
-                `<a href="#" class="node-link" data-toggle="modal" data-target="#personModal" data-name="${content.name}" data-images="${content.imageURL}" data-role="${content.role}" data-responsible="${content.responsible}" data-informable="${content.informable}" data-accountable="${content.accountable}">
-                    <div style='display: flex;flex-direction: column;justify-content: center;align-items: center;height: 100%;'>
-                        <img style='width: 50px;height: 50px;border-radius: 50%;' src='${content.imageURL}' alt='' />
-                        <div style="font-weight: bold; font-size: 14px">${content.name}</div>
-                        <div style="font-weight: bold; font-size: 14px">${content.role}</div>
+            `<a 
+                href="#" 
+                class="node-link" 
+                data-toggle="modal" 
+                data-target="#personModal" 
+                data-name="${content.name}" 
+                data-images="${content.imageURL}" 
+                data-role="${content.role}" 
+                data-responsible="${content.responsible}" 
+                data-informable="${content.informable}" 
+                data-accountable="${content.accountable}"
+                data-employee="${content.employee}">
+                    <div class="node-content">
+                        <div class="role">${content.role}</div>
                     </div>
-                </a>`,
+            </a>`,
 
-            canvasStyle: 'border: 1px solid black;background: #f6f6f6;',
+            canvasStyle: 'background: #fff;',
         };
         const tree = new ApexTree(document.getElementById('svg-tree'), options);
         tree.render(data);
@@ -145,15 +155,15 @@
                 const responsible = this.dataset.responsible;
                 const informable = this.dataset.informable;
                 const accountable = this.dataset.accountable;
+                const employee = this.dataset.employee;
 
                 // Open modal
                 $('#personModal').modal('show');
-                $('#modal-name').text(name);
-                $('#modal-image').attr('src', image);
                 $('#modal-role').text(`Role: ${role}`);
                 $('#modal-responsible').text(`Responsible to: ${responsible}`);
                 $('#modal-informable').text(`Informable to: ${informable}`);
                 $('#modal-accountable').text(`Accountable to: ${accountable}`);
+                $('#modal-employee').text(`Employees: ${employee}`);
             });
         });
 

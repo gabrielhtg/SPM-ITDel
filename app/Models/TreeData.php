@@ -10,8 +10,9 @@ class TreeData
     public $responsible;
     public $accountable;
     public $informable;
+    public $employee;
 
-    public function __construct($imageURL, $name, $role, $responsible, $accountable, $informable)
+    public function __construct($imageURL, $name, $role, $responsible, $accountable, $informable, $employee)
     {
         $this->imageURL = $imageURL;
         $this->name = $name;
@@ -19,5 +20,6 @@ class TreeData
         $this->responsible = $responsible;
         $this->accountable = $accountable;
         $this->informable = $informable;
+        $this->employee = $employee;
     }
 }
