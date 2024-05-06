@@ -145,13 +145,11 @@
                                                 </div>
                                             </td>
                                         @endif
-
-
                                         <td>
                                             <div class="d-flex" style="gap: 10px">
-                                                @if (AllServices::isCurrentRole('Admin'))
+                                                @if (AllServices::isLoggedUserHasAdminAccess())
                                                     <button type="button" class="btn btn-danger" data-toggle="modal"
-                                                        data-target="#modal-delete-{{ $e->id }}">
+                                                        data-target="#modal-nonaktif-{{ $e->id }}">
                                                         {{--                                            <i class="fas fa-trash"></i> --}}
                                                         <svg xmlns="http://www.w3.org/2000/svg" width="17"
                                                             height="17" fill="currentColor" class="bi bi-person-dash"
@@ -184,37 +182,41 @@
         </div>
 
         @foreach ($users as $e)
-            <div class="modal fade" id="modal-delete-{{ $e->id }}">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Nonaktifkan Akun</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form id="form-delete-{{ $e->id }}" method="POST"
-                                action="{{ route('remove-user') }}">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="id" value="{{ $e->id }}">
-                            </form>
+            @if ($e->id == auth()->user()->id)
+                @continue
+            @else
+                <div class="modal fade" id="modal-nonaktif-{{ $e->id }}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Nonaktifkan Akun</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="form-nonaktif-{{ $e->id }}" method="POST"
+                                      action="{{ route('remove-user') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
+                                </form>
 
-                            <p>
-                                Apakah anda yakin akan menonaktifkan akun {{ $e->name }}?
-                            </p>
+                                <p>
+                                    Apakah anda yakin akan menonaktifkan akun {{ $e->name }}?
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" form="form-nonaktif-{{ $e->id }}"
+                                        class="btn btn-danger">Nonaktifkan</button>
+                            </div>
                         </div>
-                        <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="submit" form="form-delete-{{ $e->id }}"
-                                class="btn btn-danger">Nonaktifkan</button>
-                        </div>
+                        <!-- /.modal-content -->
                     </div>
-                    <!-- /.modal-content -->
+                    <!-- /.modal-dialog -->
                 </div>
-                <!-- /.modal-dialog -->
-            </div>
+            @endif
         @endforeach
         <!-- /.content-wrapper -->
         @include('components.footer')

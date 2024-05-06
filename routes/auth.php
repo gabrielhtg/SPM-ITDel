@@ -11,6 +11,9 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\AkreditasiController;
+use App\Http\Controllers\HeroDashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\RoleTreeController;
 use App\Http\Controllers\TypeDocumentController;
@@ -53,6 +56,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('/self-register', [RegisteredUserController::class, 'registerSelfUser'])->name('self-register');
     Route::get('/getdocument', [DocumentController::class, 'getDocument'])->name('getdocument');
+    Route::get('/getdocumentspm', [DocumentController::class, 'getDocumentspm'])->name('getdocumentspm');
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
     //    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
@@ -67,6 +71,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/employee', [EmployeeController::class, 'getEmployeePage'])->name('employee');
         Route::post('/add-employee', [EmployeeController::class, 'addEmployee'])->name('add-employee');
         Route::delete('/remove-employee', [EmployeeController::class, 'removeEmployee'])->name('remove-employee');
+        Route::post('/edit-employee', [EmployeeController::class, 'editEmployee'])->name('edit-employee');
 
         Route::get('verify-email', EmailVerificationPromptController::class)
             ->name('verification.notice');
@@ -141,8 +146,6 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete-type-laporan/{id}', [TypeDocumentController::class, 'deleteLaporanType'])->name('deleteTypeLaporan');
         Route::post('upload-laporan-jenis', [TypeDocumentController::class, 'addLaporanJenis'])->name('uploadJenisLaporan');
 
-
-
         Route::get('/list-allowed-user', [ListAllowedUserController::class, 'getListAllowedUser'])->name('list-allowed-user');
         Route::post('/upload-list-allowed-user', [ListAllowedUserController::class, 'uploadListAllowedUser'])->name('uploadListAllowedUser');
         Route::delete('/delete-list-allowed-user', [ListAllowedUserController::class, 'removeFromList'])->name('removeFromList');
@@ -156,5 +159,28 @@ Route::middleware('auth')->group(function () {
         Route::delete('/remove-role', [RoleController::class, 'removeRole'])->name('removeRole');
         Route::post('/change-role-status', [RoleController::class, 'updateStatus'])->name('update-status');
 
+        Route::post('/open-notification', [NotificationController::class, 'getNotifications'])->name('openNotification');
+
+         // about it del
+        Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
+        Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout')->middleware(ActiveNews::class);
+        Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
+        Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');
+        Route::post('/updatedashboard/{id}', [DashboardController::class, 'updatedashboard'])->name('dashboard-introduction-udpate');
+        Route::get('/deletedashboard/detail/{id}', [DashboardController::class, 'deletedashboard'])->name('dashboard-introduction-delete');
+
+        // herosection
+        Route::get('/dashboard-herosection', [HerodashboardController::class, 'indexherosection'])->name('herosection');
+        Route::post('/dashboard-herosection', [HeroDashboardController::class, 'storeherosection'])->name('dashboard-herosection-add');
+        Route::get('/herosection/detail/{id}', [HeroDashboardController::class, 'getDetailherosection'])->name('herosection-detail');
+        Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
+        Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
+
+        // akreditasi
+        Route::get('/dashboard-akreditasi', [AkreditasiController::class, 'indexherosection'])->name('akreditasi');
+        Route::post('/dashboard-akreditasi', [AkreditasiController::class, 'storeherosection'])->name('dashboard-akreditasi-add');
+        Route::get('/akreditasi/detail/{id}', [AkreditasiController::class, 'getDetailherosection'])->name('akreditasi-detail');
+        Route::post('/updateakreditasi/{id}', [AkreditasiController::class, 'updateherosection'])->name('dashboard-akreditasi-update');
+        Route::get('/deleteakreditasi/detail/{id}', [AkreditasiController::class, 'deleteherosection'])->name('dashboard-akreditasi-delete');
     });
 });

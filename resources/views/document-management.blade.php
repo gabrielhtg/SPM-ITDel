@@ -71,7 +71,6 @@
                 @endif
                 @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
                     @include('components.edit-document-hero')
-                              
                 @endif
 
 

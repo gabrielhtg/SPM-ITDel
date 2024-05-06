@@ -14,6 +14,7 @@ class News extends Model
         'title',
         'description',
         'bgimage',
+        'descimg',
         'start_date',
         'end_date',
         'keterangan_status'

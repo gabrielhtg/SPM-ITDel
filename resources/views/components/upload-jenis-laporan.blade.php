@@ -31,9 +31,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="start_date">Tanggal Mulai:</label>
-                        <input type="datetime-local" id="start_date" name="start_date" class="form-control">
+                        <label for="Year">Tahun :</label>
+                        <input type="number" id="year" name="year" class="form-control" min="1900" max="20909" step="1">
                     </div>
+                    
 
                     <div class="form-group">
                         <label for="end_date">Tanggal Berakhir:</label>

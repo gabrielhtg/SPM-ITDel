@@ -72,8 +72,6 @@
                             </tr>
                         </thead>
                         <tbody>
-
-
                             @foreach ($users as $e)
                                 <tr>
                                     <td>

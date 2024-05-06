@@ -26,6 +26,7 @@ class DocumentModel extends Model
         'end_date',
         'keterangan_status',
         'can_see_by',
+        'dokumen_spm',
         'masa_berlaku',
         'parent',
         'link',
@@ -36,5 +37,5 @@ class DocumentModel extends Model
     {
         return $this->id === $documentId || $this->menggantikan_dokumen === $documentId;
     }
-        
+
 }

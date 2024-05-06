@@ -94,16 +94,24 @@
                                 {{-- </p> --}}
                             </a>
                         </li>
-                        
-                        
+
+
                     @endif
                         <li class="nav-item">
                             <a href="{{ route('getdocument') }}" class="nav-link">
-                                
+
                                    Dokumen
-                                
+
                             </a>
                         </li>
+
+                    <li class="nav-item">
+                        <a href="{{ route('getdocumentspm') }}" class="nav-link">
+
+                            Dokumen SPM
+
+                        </a>
+                    </li>
 
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>

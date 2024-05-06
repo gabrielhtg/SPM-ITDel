@@ -130,15 +130,15 @@ class TypeDocumentController extends Controller
     // Validasi input
     $validator = Validator::make($request->all(), [
         'nama' => 'required',
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after:start_date',
+        'year' => 'required',
+        'end_date' => 'required|date',
     ], [
         'nama.required' => 'Nama laporan harus diisi.',
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.date' => 'Tanggal mulai harus berupa tanggal.',
-        'end_date.required' => 'Tanggal selesai harus diisi.',
+        'end_date.required' => 'Tahun harus diisi.',
         'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
-        'end_date.after' => 'Tanggal selesai harus setelah tanggal mulai.',
+       
     ]);
 
     // Cek apakah pengguna memiliki akses admin
@@ -162,7 +162,7 @@ class TypeDocumentController extends Controller
     JenisLaporan::create([
         'id_tipelaporan' => $request->id_tipelaporan,
         'nama' => $nama_laporan,
-        'start_date' => $request->start_date,
+        'year' => $request->year,
         'end_date' => $request->end_date,
     ]);
 
@@ -175,15 +175,14 @@ public function updateLaporanJenis(Request $request, $id)
     // Validasi input
     $validator = Validator::make($request->all(), [
         'nama' => 'required',
-        'start_date' => 'required|date',
-        'end_date' => 'required|date|after:start_date',
+        'year' => 'required',
+        'end_date' => 'required|date',
     ], [
         'nama.required' => 'Nama laporan harus diisi.',
-        'start_date.required' => 'Tanggal mulai harus diisi.',
-        'start_date.date' => 'Tanggal mulai harus berupa tanggal.',
+        'year.required' => 'Tahun mulai harus diisi.',
         'end_date.required' => 'Tanggal selesai harus diisi.',
         'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
-        'end_date.after' => 'Tanggal selesai harus setelah tanggal mulai.',
+       
     ]);
 
     // Jika validasi gagal
@@ -210,7 +209,7 @@ public function updateLaporanJenis(Request $request, $id)
     $jenisLaporan->update([
         'id_tipelaporan' => $request->id_tipelaporan,
         'nama' => $nama_laporan,
-        'start_date' => $request->start_date,
+        'year' => $request->year,
         'end_date' => $request->end_date,
     ]);
 

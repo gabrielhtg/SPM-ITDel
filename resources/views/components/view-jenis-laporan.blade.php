@@ -65,8 +65,8 @@
                     <thead>
                     <tr>
                         <th>Kategori Tipe Laporan</th>
-                        <th>Start Date</th>
-                        <th>End Date</th>
+                        <th>Tahun</th>
+                        <th>Tanggal Berakhir</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -83,7 +83,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{ $e->start_date }}
+                                        {{ $e->year }}
                                     </div>
                                 </div>
                             </td><td>
@@ -153,8 +153,8 @@
                                     <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $e->nama}}" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="edit_start_date">Tanggal Mulai:</label>
-                                    <input type="datetime-local" id="edit_start_date" name="start_date" class="form-control" value="{{ $e->start_date }}" required>
+                                    <label for="Year">Tahun :</label>
+                                    <input type="number" id="year" name="year" class="form-control" min="1900" max="20909" step="1" required value="{{$e->year}}">
                                 </div>
                                 <div class="form-group">
                                     <label for="edit_end_date">Tanggal Berakhir:</label>

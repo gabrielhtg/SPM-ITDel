@@ -18,8 +18,8 @@ class create_user_admin extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'User Admin',
-                'email' => 'useradmin@gmail.com',
+                'name' => 'SPM Administrator',
+                'email' => 'spmadministrator@gmail.com',
                 'password' => Hash::make("admin"),
                 'status' => true,
                 'role' => 1,

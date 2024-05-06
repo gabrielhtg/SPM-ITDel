@@ -156,6 +156,7 @@
                                 </div>
                             </div>
                         </td>
+                        
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
@@ -164,7 +165,7 @@
                                         echo '-';
                                     } elseif ($item->status == 'Disetujui') {
                                         echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                    } elseif ($item->status == 'Ditolak') {
+                                    } elseif ($item->status == 'Revisi') {
                                         echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp
@@ -197,7 +198,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
-                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Ditolak"))
+                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Revisi"))
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
                                     <i class="fas fa-comment"></i>
                                 </button>
@@ -252,7 +253,7 @@
                                                 $allServices = new \App\Services\AllServices();
                                                 @endphp
                                                 @foreach ($laporan as $lap)
-                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($lap->id))
+                                                    @if(auth()->user()->id == $lap->created_by && $lap->status=="Revisi" && $allServices->isLaporanIdInCekLaporan($lap->id))
                                                         <option value="{{$lap->id}}" @if($item->revisi == $lap->cek_revisi) selected @endif>{{$lap->nama_laporan}}</option>
                                                     @endif
                                                 @endforeach
@@ -288,27 +289,40 @@
 
 
 <!-- Modal -->
-                            <div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
-                                <div class="modal-dialog modal-dialog-centered">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body">
-                                            <!-- Tempat untuk menampilkan isi komentar -->
-                                            <div id="commentContent">
-                                                {{$item->komentar}}
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<div class="modal fade" id="commentModal{{$item->id}}" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="commentModalLabel">Isi Komentar</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Tempat untuk menampilkan isi komentar -->
+                <div id="commentContent">
+                    {{$item->komentar}}
+                </div>
+                <!-- Tautan untuk melihat file komentar dalam tab baru -->
+                <div>
+                   
+                    @if($item->file_catatan)
+                        <a href="{{ asset($item->file_catatan) }}" target="_blank" class="btn btn-success">
+                            <i class="fas fa-eye"></i> Lihat File
+                        </a>
+                    @else
+                        <span class="text-muted">Tidak ada file komentar.</span>
+                    @endif
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
                     @endif
                     @endforeach

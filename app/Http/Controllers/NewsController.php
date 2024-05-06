@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\News;
 use App\Models\User;
+use App\Services\AllServices;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
@@ -91,14 +92,21 @@ class NewsController extends Controller
 
         $images = $dom->getElementsByTagName('img');
 
+        $listDescImg = [];
+
         foreach ($images as $key => $img) {
+            // dump($img->getAttribute('src'));
+            // sleep(10);
             $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
             $image_name = "/src/newsimg/" . time() . $key . '.png';
             file_put_contents(public_path() . $image_name, $data);
+            $listDescImg[] = $image_name;
 
             $img->removeAttribute('src');
             $img->setAttribute('src', $image_name);
         }
+
+        // dd($listDescImg);
 
         $description = $dom->saveHTML();
 
@@ -113,6 +121,7 @@ class NewsController extends Controller
                 'title' => $request->title,
                 'description' => $description,
                 'bgimage' => $gambarnews,
+                'descimg' => implode(';', $listDescImg),
                 'start_date' => $request->start_date,
                 'end_date' => $request->end_date,
                 'keterangan_status' => true,
@@ -132,18 +141,16 @@ class NewsController extends Controller
 
     public function updatenews(Request $request, $id)
     {
-        // Temukan data news berdasarkan ID
+
+        // dd($id);
+
         $news = News::find($id);
 
-        // Jika ada file bgimage yang diunggah
         if ($request->hasFile('bgimage')) {
-            // Mendapatkan nama file asli
             $gambarnews = $request->file('bgimage')->getClientOriginalName();
 
-            // Pindahkan file bgimage ke direktori yang ditentukan
             $request->file('bgimage')->move(public_path('src/gambarnews'), $gambarnews);
 
-            // Hapus gambar lama jika ada
             if ($news->bgimage) {
                 $imagePath = public_path('src/gambarnews/' . $news->bgimage);
                 if (file_exists($imagePath)) {
@@ -151,63 +158,52 @@ class NewsController extends Controller
                 }
             }
 
-            // Simpan nama file bgimage baru
             $news->bgimage = $gambarnews;
         }
+
+        $oldDescImage = explode(';', $news->descimg);
+        $newDescImage = [];
 
         // Mengambil deskripsi dari request
         $description = $request->description;
 
-        // Membuat objek DOMDocument untuk memanipulasi HTML
         $dom = new DOMDocument();
+        $dom->loadHTML($description, 9);
 
-        // Periksa jika deskripsi tidak kosong
-        if (!empty($description)) {
-            $dom->loadHTML($description, 9);
+        $images = $dom->getElementsByTagName('img');
 
-            $images = $dom->getElementsByTagName('img');
+        foreach ($images as $key => $img) {
+            try {
+                $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
+                $image_name = "/src/newsimg/" . time() . $key . '.png';
+                $newDescImage[] = $image_name;
 
-            $newImageNames = [];
-
-            // Melakukan iterasi untuk setiap gambar
-            foreach ($images as $key => $img) {
-                // Check if the image is a new one
-                if (strpos($img->getAttribute('src'), 'data:image/') === 0) {
-                    $data = base64_decode(explode(',', explode(';', $img->getAttribute('src'))[1])[1]);
-                    $image_name = "/src/newsimg/" . time() . $key . '.png';
-                    file_put_contents(public_path() . $image_name, $data);
-
-                    $newImageNames[] = $image_name;
-
-                    $img->removeAttribute('src');
-                    $img->setAttribute('src', $image_name);
-                } else {
-                    // Jika gambar tidak baru, tambahkan nama file gambar ke array
-                    $oldImageName = basename($img->getAttribute('src'));
-                    $newImageNames[] = "/src/newsimg/" . $oldImageName;
-                }
+                file_put_contents(public_path() . $image_name, $data);
+    
+                $img->removeAttribute('src');
+                $img->setAttribute('src', $image_name);
+            } catch (\ErrorException $e) {
+                $newDescImage[] = $img->getAttribute('src');
             }
+           
+        }
 
-            $description = $dom->saveHTML();
-
-            $oldImages = glob(public_path('src/newsimg/*'));
-            foreach ($oldImages as $oldImage) {
-                $oldImageName = basename($oldImage);
-                if (!in_array("/src/newsimg/" . $oldImageName, $newImageNames)) {
-                    unlink($oldImage);
+        foreach ($oldDescImage as $e) {
+            if (!in_array($e, $newDescImage)) {
+                $imagePath = public_path($e);
+                if (file_exists($imagePath)) {
+                    File::delete($imagePath);
                 }
             }
         }
 
-        // Update data news
+        $description = $dom->saveHTML();
+
         $news->title = $request->title;
         $news->start_date = $request->start_date;
         $news->end_date = $request->end_date;
-
-        // Jika deskripsi tidak kosong, simpan perubahan deskripsi
-        if (!empty($description)) {
-            $news->description = $description;
-        }
+        $news->description = $description;
+        $news->descimg = implode(';', $newDescImage);
 
         $currentDateTime = now();
         if ($request->start_date <= $currentDateTime && (!$request->end_date || $request->end_date >= $currentDateTime)) {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TipeLaporan;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 
 class Laporan extends Model
 {
@@ -22,6 +23,7 @@ class Laporan extends Model
         'approve_at',
         'reject_at',
         'komentar',
+        'file_catatan',
     ];
 
     // Relasi dengan tabel tipe_laporan

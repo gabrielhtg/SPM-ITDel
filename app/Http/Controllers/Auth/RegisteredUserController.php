@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
 use App\Models\AllowedUserModel;
 use App\Models\Employee;
+use App\Models\NotificationModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
@@ -49,10 +50,11 @@ class RegisteredUserController extends Controller
         $data = AllowedUserModel::where('email', $request->email)->first();
         $user = User::where('username', $request->username)->first();
 
+
         if ($data !== null) {
             if (!$user) {
                 try {
-                    User::create([
+                    $userId = User::create([
                         'name' => $request->name,
                         'username' => $request->username,
                         'email' => $request->email,
@@ -61,10 +63,12 @@ class RegisteredUserController extends Controller
                         'status' =>true,
                         'password' => Hash::make($request->password),
                         'role' => $request->role
-                    ]);
+                    ])->id;
+
                     Employee::create([
+                        'user_id' => $userId,
                         'name' => $request->name,
-                        'role' => $request->id
+                        'role' => $request->role
                     ]);
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }
@@ -148,7 +152,18 @@ class RegisteredUserController extends Controller
                     'status' => false,
                     'password' => Hash::make($request->password),
                     'pending_roles' => $request->role
-                ]);
+                ])->id;
+
+                $admins = RoleModel::where('is_admin', true)->get();
+
+                foreach ($admins as $admin) {
+                    NotificationModel::create([
+                        'message' => "Permintaan register dari " .  $request->name . ".",
+                        'ref_link' => "user-settings-active",
+                        'to' => $admin->id,
+                        'clicked' => false,
+                    ]);
+                }
 
                 return redirect()->route('login')->with('data', ['failed' => false, 'text' => 'Permintaan Register Terkirim']);
             }
@@ -194,6 +209,24 @@ class RegisteredUserController extends Controller
                 'pending_roles' => null,
                 'created_at' => now()
             ]);
+
+            Employee::create([
+                'user_id' => $resetObject->id,
+                'name' => $resetObject->name,
+                'role' => $resetObject->role,
+            ]);
+
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "diterima oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {
@@ -209,6 +242,17 @@ class RegisteredUserController extends Controller
         if ($data && $data->status == false) {
             $data->delete();
 
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 
@@ -217,6 +261,17 @@ class RegisteredUserController extends Controller
                 'verified' => true,
                 'pending_roles' => null
             ]);
+
+            $admins = RoleModel::where('is_admin', true)->get();
+
+            foreach ($admins as $admin) {
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'to' => $admin->id,
+                    'clicked' => false,
+                ]);
+            }
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }

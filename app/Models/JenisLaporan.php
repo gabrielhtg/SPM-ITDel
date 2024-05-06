@@ -14,7 +14,7 @@ class JenisLaporan extends Model
     protected $fillable = [
         'id_tipelaporan',
         'nama',
-        'start_date',
+        'year',
         'end_date',
     ];
 
