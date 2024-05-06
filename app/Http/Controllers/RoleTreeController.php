@@ -29,7 +29,7 @@ class RoleTreeController extends Controller
             $this->bentukTree($tree, $rolePuncak);
         }
 
-        // dd($tree);
+        // dd($this->getAllEmployee(3));
 
         $data = [
             'tree' => stripslashes(json_encode($tree)),
@@ -51,6 +51,7 @@ class RoleTreeController extends Controller
                 $responsibleId = $allService::getAllResponsible($employee->role);
                 $accountableId = $allService::getAllAccountableTo($employee->role);
                 $informableId = $allService::getAllInformable($employee->role);
+                $employees = $this->getAllEmployee($employee->role);
 
                 $tree->setId($employee->id);
                 $tree->setData(
@@ -60,7 +61,8 @@ class RoleTreeController extends Controller
                         $roleId,
                         $responsibleId,
                         $accountableId,
-                        $informableId
+                        $informableId,
+                        $employees,
                     )
                 );
             }
@@ -81,6 +83,27 @@ class RoleTreeController extends Controller
         }
 
         return $tree;
+    }
+
+    private function getAllEmployee($roleId): string
+    {
+        $employee = Employee::where("role", $roleId)->get();
+
+        $output = '';
+
+        if ($employee !== null) {
+            foreach ($employee as $e) {
+                $output .= $e->name . ', ';
+            }
+
+            if (substr($output, 0, -2) === '') {
+                return "Belum Didefinisikan";
+            }
+
+            return substr($output, 0, -2);
+        } else {
+            return "Belum Didefinisikan";
+        }
     }
 
 }

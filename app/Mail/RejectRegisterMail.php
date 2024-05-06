@@ -3,14 +3,13 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Address;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class RegisterInvitationMail extends Mailable
+class RejectRegisterMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -22,27 +21,9 @@ class RegisterInvitationMail extends Mailable
     public $role;
     public $token;
 
-    public function __construct($reqPesan, $reqRole, $reqToken)
+    public function __construct($reqPesan)
     {
-
-        if ($reqRole == 1) {
-            $this->role = "Rektor";
-        }
-        else if ($reqRole == 2) {
-            $this->role = "Wakil Rektor";
-        }
-        else if ($reqRole == 3) {
-            $this->role = "Ketua SPPM";
-        }
-        else if ($reqRole == 4) {
-            $this->role = "Anggota SPPM";
-        }
-        else {
-            $this->role = "Unknown";
-        }
-
         $this->pesan = $reqPesan;
-        $this->token = $reqToken;
     }
 
     /**
@@ -52,7 +33,7 @@ class RegisterInvitationMail extends Mailable
     {
         return new Envelope(
             from: new Address('amiadmitdel@gmail.com', 'SPM IT Del Administrator'),
-            subject: 'Register Invitation Mail',
+            subject: 'Register Request Rejected',
         );
     }
 
@@ -62,11 +43,9 @@ class RegisterInvitationMail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'Mail.register-invitation-mail',
+            view: 'Mail.reject-register-mail',
             with: [
                 'pesan' => $this->pesan,
-                'role' => $this->role,
-                'token' => $this->token
             ],
         );
     }
