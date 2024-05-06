@@ -95,7 +95,7 @@
                                         @endif
                                     </li>
                                     <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                        <b>Login Terakhir</b> <span class="float-right">
+                                        <b>Terakhir Dilihat</b> <span class="float-right">
                                             @if (auth()->user()->last_login_at !== null)
                                                 {{ AllServices::getLastLogin(auth()->user()->last_login_at) }}
                                             @else

@@ -116,7 +116,7 @@
                                     @endif
                                 </li>
                                 <li class="list-group-item" style="padding-left: 10px; padding-right: 10px">
-                                    <b>Last Login</b> <span class="float-right">
+                                    <b>Last Online</b> <span class="float-right">
                                         @if($user->last_login_at !== null)
                                             {{ AllServices::getLastLogin($user->last_login_at) }}
                                         @else
