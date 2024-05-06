@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Mail\RegisterInvitationMail;
 use App\Models\AllowedUserModel;
 use App\Models\Employee;
+use App\Models\JenisLaporan;
+use App\Models\LogLaporan;
 use App\Models\NotificationModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
@@ -70,6 +72,36 @@ class RegisteredUserController extends Controller
                         'name' => $request->name,
                         'role' => $request->role
                     ]);
+
+                    
+                    $role_user = $request->role;
+
+                    // Ambil objek RoleModel berdasarkan ID
+                    $role = RoleModel::where('id', $role_user)->first();
+
+                    
+                   
+
+                    $Laporan = $role->required_to_submit_document;
+
+                  
+                    $tipeLaporan = explode(';', $Laporan);
+
+                   
+                    $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+
+                    foreach ($jenis_laporan as $jenis) {
+                        LogLaporan::create([
+                            'id_jenis_laporan' => $jenis->id,
+                            'upload_by' => $userId,
+                            'create_at'=>null,
+                            'approve_at'=>null,
+                          
+                        ]);
+                    }
+
+                   
+
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }
                 catch (QueryException $e) {
@@ -143,7 +175,7 @@ class RegisteredUserController extends Controller
                     'password' => ['required', 'confirmed', Rules\Password::defaults()],
                 ]);
 
-                User::create([
+                $userId= User::create([
                     'name' => $request->name,
                     'username' => $request->username,
                     'email' => $request->email,
@@ -156,6 +188,32 @@ class RegisteredUserController extends Controller
 
                 $admins = RoleModel::where('is_admin', true)->get();
 
+                $role_user = $request->role;
+
+                // Ambil objek RoleModel berdasarkan ID
+                $role = RoleModel::where('id', $role_user)->first();
+                $Laporan = $role->required_to_submit_document;
+                $tipeLaporan = explode(';', $Laporan);               
+                $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+
+                foreach ($jenis_laporan as $jenis) {
+                    LogLaporan::create([
+                        'id_jenis_laporan' => $jenis->id,
+                        'upload_by' => $userId,
+                        'create_at'=>null,
+                        'approve_at'=>null,
+                      
+                    ]);
+                }
+
+
+
+                NotificationModel::create([
+                    'message' => "Permintaan register dari " .  $request->name . ".",
+                    'ref_link' => "user-settings-active",
+                    'admin_only' => true,
+                    'clicked' => false,
+                ]);
                 foreach ($admins as $admin) {
                     NotificationModel::create([
                         'message' => "Permintaan register dari " .  $request->name . ".",
