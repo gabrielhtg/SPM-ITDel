@@ -787,25 +787,21 @@ class AllServices
     public static function countNotClickedNotification (): int
     {
         $notifications = NotificationModel::all();
-        $temp = 0;
+        $temp = [];
+        $count = 0;
 
         for ($i = 1; $i <= 5; $i++) {
             if ((count($notifications) - $i) > -1) {
                 if ($notifications[count($notifications) - $i]->to == auth()->user()->id) {
+                    $temp[] = $notifications[count($notifications) - $i];
                     if (!$notifications[count($notifications) - $i]->clicked) {
-                        $temp++;
-                    }
-                }
-
-                if (self::isLoggedUserHasAdminAccess() == $notifications[count($notifications) - $i]->admin_only) {
-                    if (!$notifications[count($notifications) - $i]->clicked) {
-                        $temp++;
+                        $count++;
                     }
                 }
             }
         }
 
-        return $temp;
+        return $count;
     }
 
     public static function getAllNotifications()
@@ -821,10 +817,6 @@ class AllServices
         for ($i = 1; $i <= 5; $i++) {
             if ((count($notifications) - $i) > -1) {
                 if ($notifications[count($notifications) - $i]->to == auth()->user()->id) {
-                    $temp[] = $notifications[count($notifications) - $i];
-                }
-
-                if (self::isLoggedUserHasAdminAccess() == $notifications[count($notifications) - $i]->admin_only) {
                     $temp[] = $notifications[count($notifications) - $i];
                 }
             }
@@ -851,5 +843,14 @@ class AllServices
             return "$diffInDays days, $diffInHours hrs ago";
         }
     }
-    
+
+    public static function isThisRoleHasAdminAccess ($id) {
+        foreach (explode(";", User::find($id)->role) as  $e) {
+            if (RoleModel::find($e)->is_admin) {
+                return true;
+            }
+        }
+
+        return false;
+}
 }

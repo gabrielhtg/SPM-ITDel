@@ -274,15 +274,21 @@ class RegisteredUserController extends Controller
                 'role' => $resetObject->role,
             ]);
 
-            $admins = RoleModel::where('is_admin', true)->get();
+            $adminRoles = RoleModel::where('is_admin', true)->get();
 
-            foreach ($admins as $admin) {
-                NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . "diterima oleh " . auth()->user()->name . ".",
-                    'ref_link' => "user-settings-active",
-                    'to' => $admin->id,
-                    'clicked' => false,
-                ]);
+            foreach ($adminRoles as $adminRole) {
+                $admins = User::where('role', 'LIKE', '%' . $adminRole->id . '%')->get();
+
+                foreach ($admins as $admin) {
+                    if (in_array($adminRole->id, explode(";", $admin->role))) {
+                        NotificationModel::create([
+                            'message' => "Permintaan ganti role dari " .  $request->name . ".",
+                            'ref_link' => "user-settings-active",
+                            'to' => $admin->id,
+                            'clicked' => false,
+                        ]);
+                    }
+                }
             }
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
@@ -304,7 +310,7 @@ class RegisteredUserController extends Controller
 
             foreach ($admins as $admin) {
                 NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
                     'ref_link' => "user-settings-active",
                     'to' => $admin->id,
                     'clicked' => false,
@@ -324,7 +330,7 @@ class RegisteredUserController extends Controller
 
             foreach ($admins as $admin) {
                 NotificationModel::create([
-                    'message' => "Permintaan register dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
+                    'message' => "Permintaan ganti role dari " .  $request->name . "ditolak oleh " . auth()->user()->name . ".",
                     'ref_link' => "user-settings-active",
                     'to' => $admin->id,
                     'clicked' => false,
