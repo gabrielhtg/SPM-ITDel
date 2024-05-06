@@ -38,62 +38,66 @@
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0">Dashboard Laporan</h1>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
-
-        <!-- Main content -->
-        <!-- Main content -->
-        <section class="content">
-            <div class="container-fluid">
-                @php
-                    // Inisialisasi tahun sebelumnya
-                    $prevYear = null;
-                    // Ambil daftar tahun unik dari JenisLaporan
-                    $colors = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger'];
-                    $colorIndex = 0;
-                @endphp
-                @foreach ($jenis_laporan as $item)
-                    @if ($prevYear !== null && $item->year === $prevYear)
-                        @continue
-                    @endif
-                    <div class="row">
-                        <div class="col-md-3">
-                            <!-- small box -->
-                            <div class="small-box {{ $colors[$colorIndex] }}">
-                                <div class="inner">
-                                    <h3>{{ $item->year }}</h3>
-                                </div>
-                                <div class="icon">
-                                    <i class="ion ion-bag"></i>
-                                </div>
-                                <a href="{{ route('getDashboardlaporanContinue', ['year' => $item->year]) }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-
-                            </div>
-                        </div>
-                    </div>
-                    @php
-                        // Atur tahun sebelumnya ke tahun saat ini
-                        $prevYear = $item->year;
-                        // Ganti indeks warna untuk variasi
-                        $colorIndex = ($colorIndex + 1) % count($colors);
-                    @endphp
-                @endforeach
-            </div><!-- /.container-fluid -->
-        </section>
-        
-        
-<!-- /.content -->
-
-        <!-- /.content -->
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">Dashboard Laporan</h1>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
     </div>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            @php
+                // Inisialisasi tahun sebelumnya
+                $prevYear = null;
+                // Ambil daftar tahun unik dari JenisLaporan
+                $colors = ['bg-info', 'bg-success', 'bg-warning', 'bg-danger'];
+                $colorIndex = 0;
+                $rowCount = 0;
+            @endphp
+            @foreach ($jenis_laporan as $item)
+                @if ($prevYear !== null && $item->year === $prevYear)
+                    @continue
+                @endif
+                @if ($rowCount % 4 === 0)
+                    <div class="row">
+                @endif
+                <div class="col-md-3">
+                    <!-- small box -->
+                    <div class="small-box {{ $colors[$colorIndex] }}">
+                        <div class="inner">
+                            <h3>{{ $item->year }}</h3>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="{{ route('getDashboardlaporanContinue', ['year' => $item->year]) }}" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+                    </div>
+                </div>
+                @php
+                    // Atur tahun sebelumnya ke tahun saat ini
+                    $prevYear = $item->year;
+                    // Ganti indeks warna untuk variasi
+                    $colorIndex = ($colorIndex + 1) % count($colors);
+                    $rowCount++;
+                @endphp
+                @if ($rowCount % 4 === 0)
+                    </div><!-- /.row -->
+                @endif
+            @endforeach
+            @if ($rowCount % 4 !== 0)
+                </div><!-- /.row -->
+            @endif
+        </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+</div>
+
     <!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
