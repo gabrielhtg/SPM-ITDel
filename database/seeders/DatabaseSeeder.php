@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             createFakePasswordResetRequest::class,
             createRole::class,
             allowedUser::class,
-            create_dashboard_introduction::class,
+            dashboard::class,
             NewsSeeder::class,
 //            Dokumen::class,
             DocType::class,

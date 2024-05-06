@@ -72,6 +72,18 @@
     text-transform: uppercase; /* Mengubah teks menjadi huruf kapital */
 }
 
+.col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center {
+    flex-direction: column !important; /* Menampilkan gambar di atas teks */
+    text-align: center !important; /* Teks diatur ke tengah */
+}
+
+.col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center img {
+    margin-bottom: 15px !important; /* Jarak antara gambar dan teks */
+}
+
+.col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center > div h1{
+    text-align: center !important;
+}
 
 
 
@@ -104,4 +116,64 @@
         margin-bottom: 20px;
     }
 
+
+
+    /* Gaya untuk tampilan layar kecil, seperti perangkat seluler */
+    
+}
+@media (max-width: 768px) {
+    .textketerangan {
+        margin-top: 15px !important; /* Jarak dari gambar */
+        margin-left: 10px !important; /* Margin kiri yang lebih kecil */
+        margin-right: 10px !important; /* Margin kanan yang lebih kecil */
+        font-size: 14px !important; /* Ukuran font yang sedikit lebih kecil */
+        text-align: center !important; /* Teks diatur ke tengah */
+    }
+
+    .textketeranganakreditasi {
+        font-size: 18px !important;
+        text-indent: 1.5em;
+    }
+
+    .textketerangandashboard {
+        font-size: 18px !important;
+        text-indent: 1.5em;
+    }
+
+    .row.justify-content-center {
+        display: flex !important;
+        flex-direction: column-reverse !important; /* Menampilkan gambar di atas teks */
+        align-items: center !important; /* Gambar dan teks diatur ke tengah */
+    }
+
+    .row.justify-content-center img {
+        max-width: 100% !important; /* Maksimum lebar gambar adalah lebar kontainer */
+        height: auto !important; /* Lebar gambar disesuaikan proporsional dengan lebar kontainer */
+        margin-bottom: 15px !important; /* Jarak antara gambar dan teks */
+    }
+
+    /* Gaya untuk tampilan layar kecil, seperti perangkat seluler */
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center {
+        flex-direction: column !important; /* Menampilkan gambar di atas teks */
+        text-align: center !important; /* Teks diatur ke tengah */
+    }
+
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center img {
+        width: 120px !important; /* Lebar gambar diatur ulang */
+        height: 120px !important; /* Tinggi gambar diatur ulang */
+        margin-bottom: 15px !important; /* Jarak antara gambar dan teks */
+    }
+
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center > div {
+        margin-top: 15px !important; /* Jarak dari gambar ke teks */
+    }
+
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center > div h1,
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center > div h2 {
+        margin: 0 !important; /* Menghapus margin pada teks */
+    }
+
+    .col-xl-6.col-lg-8.d-flex.align-items-center.justify-content-center > div h2{
+        display: none !important;
+    }
 }

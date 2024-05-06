@@ -7,6 +7,7 @@ use App\Models\RoleModel;
 use App\Models\RoleTree;
 use App\Models\TreeData;
 use App\Models\User;
+use App\Models\Employee;
 use App\Services\AllServices;
 use Illuminate\Http\Request;
 
@@ -41,21 +42,21 @@ class RoleTreeController extends Controller
     private function bentukTree(RoleTree $tree, $node)
     {
         if ($node != null) {
-            $users = User::where('role', $node->id)->get();
+            $employees = Employee::where('role', $node->id)->get();
 
             $allService = new AllServices();
 
-            foreach ($users as $user) {
-                $roleId = $allService::convertRole($user->role);
-                $responsibleId = $allService::getAllResponsible($user->role);
-                $accountableId = $allService::getAllAccountableTo($user->role);
-                $informableId = $allService::getAllInformable($user->role);
+            foreach ($employees as $employee) {
+                $roleId = $allService::convertRole($employee->role);
+                $responsibleId = $allService::getAllResponsible($employee->role);
+                $accountableId = $allService::getAllAccountableTo($employee->role);
+                $informableId = $allService::getAllInformable($employee->role);
 
-                $tree->setId($user->id);
+                $tree->setId($employee->id);
                 $tree->setData(
                     new TreeData(
-                        $user->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($user->profile_pict), 
-                        $user->name, 
+                        $employee->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($employee->profile_pict), 
+                        $employee->name, 
                         $roleId,
                         $responsibleId,
                         $accountableId,
@@ -71,7 +72,7 @@ class RoleTreeController extends Controller
             if ($arrayRoleBawahan !== null) {
                 foreach ($arrayRoleBawahan as $roleBawahan) {
                     if ($roleBawahan) {
-                        if (count(User::where('role', $roleBawahan->bawahan)->get())) {
+                        if (count(Employee::where('role', $roleBawahan->bawahan)->get())) {
                             $tree->addChild($this->bentukTree(new RoleTree(null, null, null), RoleModel::find($roleBawahan->bawahan)));
                         }
                     }

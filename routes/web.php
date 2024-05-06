@@ -4,7 +4,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\HerodashboardController;
+use App\Http\Controllers\AkreditasiController;
 use App\Http\Middleware\ActiveNews;
+use App\Models\Akreditasi;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -65,7 +67,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');
     Route::get('/guesslayout', [DashboardController::class, 'index'])->name('guesslayout')->middleware(ActiveNews::class);
     Route::post('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
-    // Route::get('/dashboard-admin', [DashboardController::class, 'storeintroduction'])->name('dashboard-introduction-add');
     Route::get('/dashboard/detail/{id}', [DashboardController::class, 'getdashboardintroductiondetail'])->name('dashboard-introduction-detail');
     Route::post('/updatedashboard/{id}', [DashboardController::class, 'updatedashboard'])->name('dashboard-introduction-udpate');
     Route::get('/deletedashboard/detail/{id}', [DashboardController::class, 'deletedashboard'])->name('dashboard-introduction-delete');
@@ -76,6 +77,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/herosection/detail/{id}', [HeroDashboardController::class, 'getDetailherosection'])->name('herosection-detail');
     Route::post('/updateherosection/{id}', [HeroDashboardController::class, 'updateherosection'])->name('dashboard-herosection-update');
     Route::get('/deleteherosection/detail/{id}', [HeroDashboardController::class, 'deleteherosection'])->name('dashboard-herosection-delete');
+
+    // akreditasi
+    Route::get('/dashboard-akreditasi', [AkreditasiController::class, 'indexherosection'])->name('akreditasi');
+    Route::post('/dashboard-akreditasi', [AkreditasiController::class, 'storeherosection'])->name('dashboard-akreditasi-add');
+    Route::get('/akreditasi/detail/{id}', [AkreditasiController::class, 'getDetailherosection'])->name('akreditasi-detail');
+    Route::post('/updateakreditasi/{id}', [AkreditasiController::class, 'updateherosection'])->name('dashboard-akreditasi-update');
+    Route::get('/deleteakreditasi/detail/{id}', [AkreditasiController::class, 'deleteherosection'])->name('dashboard-akreditasi-delete');
+
 });
 
 require __DIR__ . '/auth.php';

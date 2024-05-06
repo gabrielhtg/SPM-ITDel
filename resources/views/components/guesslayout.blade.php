@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SPM IT Del</title>
-
+<link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
@@ -93,16 +93,18 @@
     <!-- Main Sidebar Container -->
     {{-- @include("components.sidebar") --}}
     @foreach($guestHero as $hero)
-      <section id="hero" class="d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/walpeper/' . $hero->gambarhero) }}') top center; background-size: cover; position: relative;">
-          <div class="container" data-aos="fade-up">
-
-            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-              <div class="col-xl-6 col-lg-8">
-                <h1 class="fade-in">{!! $hero->judulhero !!}</h1>
-                <h2 class="fade-in" style="animation-delay: 0.5s;">{!! $hero->tambahanhero !!}</h2>
+        <section id="hero" class="d-flex align-items-center justify-content-center" style="background: url('{{ asset('src/walpeper/' . $hero->gambarhero) }}') top center; background-size: cover; position: relative;">
+            <div class="container" data-aos="fade-up">
+              <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
+                <div class="col-xl-6 col-lg-8 d-flex align-items-center justify-content-center">
+                  <img src="{{ asset('src/profilhero/' . $hero->profilhero) }}"  class="fade-in"  style="width: 220px; height: 220px;">
+                  <div>
+                      <h1 class="fade-in" style="animation-delay: 0.5s;">{!! $hero->judulhero !!}</h1>
+                      <h2 class="fade-in tambahan" style="animation-delay: 0.5s;margin-left:22px;">{!! $hero->tambahanhero !!}</h2>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
         </section><!-- End Hero -->
     @endforeach
 
@@ -117,79 +119,57 @@
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
             </div>
-            <!-- /.content-header -->
-
-            <!-- Main content -->
-
-
-
-
-            <!-- /.content -->
         </div>
     </div>
 
-    {{-- @isset($dashboard) --}}
-    <section class="p-5">
+    
+    {{-- Tentang ITDel --}}
+    <section class="p-md-5">
       <div class="container p-3">
           @forelse ($guestIntroduction as $item)
           <h1 id="keteranganContainer" class="mb-3">{{ $item->juduldashboard }}</h1>
-            {{-- <hr class="mx-2" style="border-top: 3px solid black; width: 15%;"> --}}
-            <div class="p-3 rounded border custom-font-size">
-              <div class="textketerangan">
+            
+            <div class="p-3 rounded custom-font-size">
+              <div class="text-justify textketerangandashboard">
                 {!! $item->keterangandashboard !!}
               </div>
               <div class="row mt-5 justify-content-center">
-                <div class="col-md-3">
-                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
-                    <div class="fa-3x fas fa-chalkboard-teacher mb-2 counter-icon"></div>
-                    <div class="text-center ">
-                      <div id="teacherCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Mahasiswa</div> <!-- Perbesar font size untuk label -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
-                    <div class="fa-3x fas fa-user mb-2 counter-icon"></div>
-                    <div class="text-center ">
-                      <div id="memberCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Dosen</div> <!-- Perbesar font size untuk label -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
-                    <div class="fa-3x fas fa-building mb-2 counter-icon"></div>
-                    <div class="text-center ">
-                      <div id="facultyCount" class="counter">0</div>
-                      <div class="counter-label fade-in">Fakultas</div> <!-- Perbesar font size untuk label -->
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="p-5 rounded bg-light d-flex justify-content-around align-items-center counter-wrapper fadeIn">
-                    <div class="fa-3x fas fa-graduation-cap mb-2 counter-icon"></div>
-                    <div class="text-center" style="padding-bottom:8px">
-                      <div id="departmentCount" class="counter">0</div>
-                      <div class="counter-label fade-in" style="font-size: 18px ">Program Studi</div> <!-- Perbesar font size untuk label -->
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
             @empty
             <p>No data available.</p>
           @endforelse
-
-
         </div>
       </section>
+
+
+      {{-- Akreditasi----------------------------------------------------------------------------------------------}}
+      <section class="p-md-5" id ="akreditasi">
+        <div class="container p-3">
+            @forelse ($akreditasi as $item)
+            <h1 id="keteranganContainer1" class="mb-3">{{ $item->judulakreditasi }}</h1>
+              {{-- <hr class="mx-2" style="border-top: 3px solid black; width: 15%;"> --}}
+              <div class="p-3 rounded custom-font-size">
+                <div class="row mt-5 justify-content-center">
+                  <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="fade-in" style="width: 1020px; height: 705px; object-fit: cover;">
+                </div>
+              
+                <div class="text-justify textketeranganakreditasi" style="margin-top:35px;font-size:18px;">
+                  {!! $item->keteranganakreditasi !!}
+                </div>
+              </div>
+              @empty
+              <p>No data available.</p>
+            @endforelse
+          </div>
+        </section>
     {{-- @endisset --}}
 
-    <section id="news-view1" class="p-5">
+    <section id="news-view1" class="p-md-5">
       <div class="container p-4">
         <h1 class="mb-3">Berita SPM IT Del</h1>
-        <div class="border rounded p-3">
+        <div class=" rounded p-3">
 
           <div class="row">
 
@@ -341,6 +321,11 @@ function animateValue(id, start, end, duration) {
   $(document).ready(function() {
     var keteranganWidth = $('#keteranganContainer')[0].scrollWidth; // Mengukur lebar konten secara keseluruhan
     $('#keteranganContainer').append('<hr class="my-3" style="border-top: 2px solid black; width: ' + keteranganWidth + 'px;">'); // Menambahkan garis dengan lebar sesuai dengan lebar konten
+  });
+
+  $(document).ready(function() {
+    var keteranganWidth = $('#keteranganContainer1')[0].scrollWidth; // Mengukur lebar konten secara keseluruhan
+    $('#keteranganContainer1').append('<hr class="my-3" style="border-top: 2px solid black; width: ' + keteranganWidth + 'px;">'); // Menambahkan garis dengan lebar sesuai dengan lebar konten
   });
 </script>
 </body>

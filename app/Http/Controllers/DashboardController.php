@@ -73,10 +73,13 @@ class DashboardController extends Controller
 
         // Mengirimkan data pengumuman beserta ukuran file ke tampilan
         $loggedInUserName = auth()->user()->name;
-        return view('dashboard-admin-detail', [
+
+        $data = [
             'dashboardDetail' => $dashboardDetail,
             'loggedInUserName' => $loggedInUserName,
-        ]);
+            'active_sidebar' => [3,0]
+        ];
+        return view('dashboard-admin-detail',$data);
     }
 
     public function updatedashboard(Request $request, $id)

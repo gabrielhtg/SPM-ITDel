@@ -50,18 +50,13 @@
                     <li style="">
                         <h1 class="logo me-auto me-lg-0">
                             <a href="{{ route('dashboard') }}">
-                                <img src="{{ asset('src/img/logo.png') }}" alt="Logo"
-                                    class="mr-2 brand-image elevation-3" style="opacity: .8">
                                 <span class="brand-text font-weight-bold display-7"><strong>SPM</strong> IT Del</span>
                             </a>
                         </h1>
                     </li>
                     <li class="col">
                         <a href="{{ route('dashboard') }}" class="nav-link ">
-                            {{-- <i class="nav-icon fas fa-newspaper"></i> --}}
-                            {{-- <p> --}}
                             Dashboard
-                            {{-- </p> --}}
                         </a>
                     </li>
                     <li class="col">
@@ -70,7 +65,7 @@
                         </a>
                     </li>
                     <li class="col">
-                        <a href="#" class="nav-link" onclick="redirectToNewsView()">
+                        <a href="#akreditasi" class="nav-link" onclick="redirectToNewsView()">
                             Akreditasi
                         </a>
                     </li>

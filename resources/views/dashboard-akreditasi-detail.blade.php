@@ -40,7 +40,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">Hero Dahboard Detail</h1>
+                        <h1 class="m-0">Akreditasi Detail</h1>
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 <section class="content" id="main-content">
                     <div class="page-header">
                         <span>Judul Hero : </span>
-                        <h2>{{ $herosectiondetail->judulhero }}</h2>
+                        <h2>{{ $akreditasidetail->judulakreditasi }}</h2>
                     </div>
                 
                     <div class="pengumuman-view">
@@ -59,21 +59,15 @@
                             <div class="row">
                                 <div class="col-sm-10 mt-4">
                                     <div class="box box-solid">
-                                        <p>profil hero :</p>
-                                        <img style="width:200px;height:200px;" src="{{ asset('src/profilhero/'.$herosectiondetail->profilhero) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
-                                    </div>
-                                </div>
-                                <div class="col-sm-10 mt-4">
-                                    <div class="box box-solid">
-                                        <p>background hero :</p>
-                                        <img src="{{ asset('src/walpeper/'.$herosectiondetail->gambarhero) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
+                                        <p>foto akreditasi :</p>
+                                        <img style="width:600px;height:400px;" src="{{ asset('src/gambarakreditasi/'.$akreditasidetail->gambarakreditasi) }}" alt="gambar tidak ditemukan" class="img-fluid" style="width: 500px;">
                                     </div>
                                 </div>
                                 <div id="grid-system1" class="col-sm-10 mt-2">
                                     <div class="box box-solid">
                                         <div id="grid-system1-body" class="box-body">
                                             <span style="display: block">Keterangan Hero : </span> 
-                                            {!! $herosectiondetail->tambahanhero !!}
+                                            {!! $akreditasidetail->keteranganakreditasi !!}
                                         </div>
                                     </div>
                                 </div>
@@ -90,22 +84,8 @@
                                                 <tbody>
                                                     <tr>
                                                         <td>
-                                                            <a href="{{ asset('src/walpeper/'.$herosectiondetail->gambarhero) }}" target="_blank">
-                                                                {{ $herosectiondetail->profilhero }}
-                                                            </a>
-                                                        </td>
-                                                        <td>
-                                                            @if($fileSizeInMBakreditasi < 1)
-                                                                {{ $fileSizeInKBakreditasi }} KB
-                                                            @else
-                                                                {{ $fileSizeInMBakreditasi }} MB
-                                                            @endif
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <a href="{{ asset('src/walpeper/'.$herosectiondetail->gambarhero) }}" target="_blank">
-                                                                {{ $herosectiondetail->gambarhero }}
+                                                            <a href="{{ asset('src/gambarakreditasi/'.$akreditasidetail->gambarakreditasi) }}" target="_blank">
+                                                                {{ $akreditasidetail->gambarakreditasi }}
                                                             </a>
                                                         </td>
                                                         <td>

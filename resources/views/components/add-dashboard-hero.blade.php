@@ -14,6 +14,15 @@
             <div class="modal-body">
                 <form id="form-addHerosection" method="POST" action="{{ route('dashboard-herosection-add') }}" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                        <label for="exampleInputFile">Profil Image Input</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="file" name="profilhero">
+                                <label class="custom-file-label" for="file">Choose Image</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-group mt-1">
                         <label for="title">Judul Besar</label>
                         <input type="text" name="judulhero" id="judulhero" class="form-control" required>
@@ -23,11 +32,11 @@
                     <textarea class="summernote" name="tambahanhero"></textarea>
 
                     <div class="form-group">
-                        <label for="exampleInputFile">Walpeper Input</label>
+                        <label for="exampleInputFile">Background Input</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" class="custom-file-input" id="file" name="gambarhero">
-                                <label class="custom-file-label" for="file">Choose file</label>
+                                <input type="file" class="custom-file-input" id="filegambarhero" name="gambarhero">
+                                <label class="custom-file-label" for="file">Choose Image</label>
                             </div>
                         </div>
                     </div>
@@ -46,6 +55,14 @@
 <script>
     document.getElementById('file').addEventListener('change', function(e) {
         var fileName = document.getElementById('file').files[0].name;
+        var nextSibling = e.target.nextElementSibling;
+        nextSibling.innerText = fileName;
+    });
+</script>
+
+<script>
+    document.getElementById('filegambarhero').addEventListener('change', function(e) {
+        var fileName = document.getElementById('filegambarhero').files[0].name;
         var nextSibling = e.target.nextElementSibling;
         nextSibling.innerText = fileName;
     });

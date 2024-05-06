@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('hero_dashboard', function (Blueprint $table) {
+        Schema::create('table_akreditasi', function (Blueprint $table) {
             $table->id();
-            $table->String('profilhero');
-            $table->string('judulhero');
-            $table->text('tambahanhero');
-            $table->string('gambarhero');
+            $table->string('judulakreditasi');
+            $table->String('gambarakreditasi');
+            $table->text('keteranganakreditasi');
             $table->timestamps();
         });
     }
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('hero_dashboard');
+        Schema::dropIfExists('table_akreditasi');
     }
 };

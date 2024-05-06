@@ -5,16 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class HeroDashboard extends Model
+class Akreditasi extends Model
 {
     use HasFactory;
 
-    protected $table = "hero_dashboard";
-    
+    protected $table = "table_akreditasi";
+
     protected $fillable = [
-        'profilhero',
-        'judulhero',
-        'tambahanhero',
-        'gambarhero',
+        'judulakreditasi',
+        'gambarakreditasi',
+        'keteranganakreditasi',    
     ];
 }
+
