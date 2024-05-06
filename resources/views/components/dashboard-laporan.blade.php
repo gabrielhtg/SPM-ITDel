@@ -53,6 +53,8 @@
     <section class="content">
         <div class="container-fluid">
             @php
+                // Urutkan jenis_laporan berdasarkan tahun dari kecil ke besar
+                $jenis_laporan_sorted = $jenis_laporan->sortBy('year');
                 // Inisialisasi tahun sebelumnya
                 $prevYear = null;
                 // Ambil daftar tahun unik dari JenisLaporan
@@ -60,7 +62,7 @@
                 $colorIndex = 0;
                 $rowCount = 0;
             @endphp
-            @foreach ($jenis_laporan as $item)
+            @foreach ($jenis_laporan_sorted as $item)
                 @if ($prevYear !== null && $item->year === $prevYear)
                     @continue
                 @endif
@@ -95,6 +97,7 @@
             @endif
         </div><!-- /.container-fluid -->
     </section>
+    
     <!-- /.content -->
 </div>
 
