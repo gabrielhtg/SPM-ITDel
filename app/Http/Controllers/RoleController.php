@@ -20,7 +20,7 @@ class RoleController extends Controller
 
 
         $data = [
-            'active_sidebar' => [7, 0],
+            'active_sidebar' => [8, 0],
             'roles' => RoleModel::all(),
             'tipe_dokumen' => TipeLaporan::all()
         ];

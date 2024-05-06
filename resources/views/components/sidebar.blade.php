@@ -92,8 +92,8 @@
                 @endif
 
                 @if (Auth::check() && auth()->user()->role != null)
-                    <li class="nav-item {{ $active_sidebar[0] == 5 ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
+                    <li class="nav-item {{ $active_sidebar[0] == 6 ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Laporan Berkala
@@ -143,7 +143,7 @@
 
                 @if (auth()->user()->role != null)
                     <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
+                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>Manajemen Dokumen</p>
                         </a>
@@ -152,7 +152,7 @@
 
                 @if (AllServices::isLoggedUserHasAdminAccess())
                     <li class="nav-item">
-                        <a href="{{ route('role-management') }}" class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
+                        <a href="{{ route('role-management') }}" class="nav-link {{ $active_sidebar[0] == 8 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-crown"></i>
                             <p>Manajemen Role</p>
                         </a>
