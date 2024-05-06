@@ -182,5 +182,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/akreditasi/detail/{id}', [AkreditasiController::class, 'getDetailherosection'])->name('akreditasi-detail');
         Route::post('/updateakreditasi/{id}', [AkreditasiController::class, 'updateherosection'])->name('dashboard-akreditasi-update');
         Route::get('/deleteakreditasi/detail/{id}', [AkreditasiController::class, 'deleteherosection'])->name('dashboard-akreditasi-delete');
+        Route::get('/mark-as-read-notification', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
     });
 });

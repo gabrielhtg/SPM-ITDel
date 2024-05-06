@@ -8,6 +8,7 @@ use Closure;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use PHPUnit\Runner\ErrorException;
 
 class CheckDocumentActive
 {
@@ -25,31 +26,30 @@ class CheckDocumentActive
 
         $users = User::all();
 
-        User::find(auth()->user()->id)->update([
-            'last_login_at' => now()
-        ]);
+        if (auth()->user() !== null) {
+            User::find(auth()->user()->id)->update([
+                'last_login_at' => now()
+            ]);
 
-        foreach ($users as $user) {
-            $targetTime = $user->last_login_at;
+            foreach ($users as $user) {
+                $targetTime = $user->last_login_at;
 
-            $currentDateTime = new DateTime();
+                $currentDateTime = new DateTime();
 
-            try {
-                $targetDateTime = new DateTime($targetTime);
-                $targetDateTime->modify('+1 hour');
+                try {
+                    $targetDateTime = new DateTime($targetTime);
+                    $targetDateTime->modify('+1 hour');
 
-                if ($currentDateTime > $targetDateTime) {
-                    $user->update([
-                        'online' => false,
-                    ]);
+                    if ($currentDateTime > $targetDateTime) {
+                        $user->update([
+                            'online' => false,
+                        ]);
+                    }
+                } catch (\Exception $e) {
+                    // do nothing
                 }
-            } catch (\Exception $e) {
-                // do nothing
             }
-
-
         }
-
         foreach ($allDocuments as $document) {
             $carbonStartDate = Carbon::createFromFormat('Y-m-d H:i:s', $document->start_date);
             $nowDate = Carbon::now();
