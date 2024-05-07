@@ -73,7 +73,7 @@
                                     Responsible To
                                 </th>
                                 <th>
-                                    Informable To
+                                    Inform To
                                 </th>
                                 <th>
                                     Akses Admin

@@ -8,6 +8,7 @@ use App\Models\JenisLaporan;
 use App\Models\TipeLaporan;
 use App\Models\LogLaporan;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Services\AllServices;
@@ -172,7 +173,7 @@ class TypeDocumentController extends Controller
                 $query->orWhere('required_to_submit_document', 'LIKE', "%$id%");
             }
         })->get();
-    
+       
         // Ambil semua pengguna yang memiliki peran yang sesuai dengan tipe laporan baru
         $users = User::whereIn('role', $roles->pluck('id'))->get();
         // dd($jenis_laporan->id_tipe_laporan);
@@ -184,6 +185,7 @@ class TypeDocumentController extends Controller
                 'upload_by' => $user->id,
                 'create_at' => null,
                 'approve_at' => null,
+                'end_date'=>$jenis_laporan->end_date,
             ]);
         }
     
@@ -232,6 +234,11 @@ public function updateLaporanJenis(Request $request, $id)
         'id_tipelaporan' => $request->id_tipelaporan,
         'nama' => $nama_laporan,
         'year' => $request->year,
+        'end_date' => $request->end_date,
+    ]);
+
+    LogLaporan::where('id_jenis_laporan', $jenisLaporan->id)
+    ->update([
         'end_date' => $request->end_date,
     ]);
 

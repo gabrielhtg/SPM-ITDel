@@ -101,6 +101,7 @@ class RegisteredUserController extends Controller
                             'upload_by' => $userId,
                             'create_at'=>null,
                             'approve_at'=>null,
+                            'end_date'=>$jenis->end_date,
 
                         ]);
                     }
@@ -206,6 +207,7 @@ class RegisteredUserController extends Controller
                         'upload_by' => $userId,
                         'create_at'=>null,
                         'approve_at'=>null,
+                        'end_date'=>$jenis->end_date,
 
                     ]);
                 }

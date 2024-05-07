@@ -57,8 +57,8 @@
                                             <td class="bold col-2" style="font-size: 20px; font-weight: bold;">Nama Dokumen</td>
                                             <td class="bold" style="font-size: 18px;">{!! strlen($document->name) > 110 ? wordwrap($document->name, 110, "<br>", true) : $document->name !!}</td>
                                         </tr>
-                                        
-                                        
+
+
                                         <tr>
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Deskripsi</td>
@@ -101,7 +101,7 @@
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Dibuat</td>
                                             <td class="bold">{{ $document->start_date }}</td>
                                         </tr>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -120,7 +120,7 @@
                                         <!-- Isi preview document -->
                                         <div class="row mb-4">
                                             <div class="col fw-semibold">
-                                                
+
                                             </div>
                                         </div>
                                         <div class="row justify-content-center">
@@ -143,7 +143,7 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header" style="background-color: #eeeeee; padding: 20px;">
-                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Dokumen Sejenis</h3>
+                                        <h3 class="card-title" style="color: black !important; font-size: 20px; font-weight: bold;">Dokumen Berkaitan</h3>
                                     </div>
                                     <div class="card-body flex-grow-1">
                                         <!-- Isi similar document -->
