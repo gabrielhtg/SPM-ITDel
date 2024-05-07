@@ -263,7 +263,7 @@
                                                         <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                                                             <div class="modal-content">
                                                                 <div class="modal-header">
-                                                                    <h4 class="modal-title">Edit Hero Section</h4>
+                                                                    <h4 class="modal-title">Edit Akreditasi</h4>
                                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                                         <span aria-hidden="true">&times;</span>
                                                                     </button>
@@ -402,7 +402,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Failed',
-                    text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+                    text: 'Gagal Menambahkan data! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
                     toast: true,
                     showConfirmButton: false,
                     position: 'top-end',

@@ -123,12 +123,14 @@ class AkreditasiController extends Controller
             }
 
             // Simpan file yang baru diunggah
-            $gambarakreditasi = $request->file('gambarakreditasi')->getClientOriginalName();
-            $request->file('gambarakreditasi')->move(public_path('src/gambarakreditasi'), $gambarakreditasi);
+            $gambarakreditasi1 = $request->file('gambarakreditasi')->getClientOriginalName();
+            $request->file('gambarakreditasi')->move(public_path('src/gambarakreditasi'), $gambarakreditasi1);
 
             // Update data dengan file yang baru
-            $data->gambarakreditasi = $gambarakreditasi;
+            $data->gambarakreditasi = $gambarakreditasi1;
         }
+
+        
 
         // Update data pengumuman dengan informasi yang baru
         $data->judulakreditasi = $request->judulakreditasi;
