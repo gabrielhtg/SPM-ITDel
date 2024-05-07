@@ -22,6 +22,7 @@ class DocumentModel extends Model
         'menggantikan_dokumen',
         'year',
         'tipe_dokumen',
+        'set_date',
         'start_date',
         'end_date',
         'keterangan_status',

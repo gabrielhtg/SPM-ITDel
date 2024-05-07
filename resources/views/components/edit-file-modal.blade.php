@@ -179,6 +179,10 @@
                                                     <option value="0" @if($document->can_see_by == 0) selected @endif>Pribadi</option>
                                                 </select>
                                             </div>
+                                                <div class="form-group">
+                                                    <label>Tanggal Ditetapkan:</label>
+                                                    <input type="datetime-local" name="set_date" class="form-control" required value="{{ $document->start_date }}">
+                                                </div>
 
                                             <div class="form-group">
                                                 <label>Tanggal Mulai:</label>

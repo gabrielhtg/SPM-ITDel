@@ -230,6 +230,7 @@
                                     <p><strong>Diunggah Oleh:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
+                                    <p><strong>Tanggal Ditetapkan:</strong> {{ \Carbon\Carbon::parse($e->set_date)->format('d/m/Y') }}
                                     <p><strong>Tanggal Berlaku:</strong>
                                         {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
                                         @if($e->end_date)
