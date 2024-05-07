@@ -35,7 +35,7 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="responsible-to">Responsible To</label>
-                        <select id="responsible-to" name="responsible[]" multiple="multiple"
+                        <select id="responsible-to" name="responsible_to[]" multiple="multiple"
                                 class="responsible-to-custom form-control" style="width: 100%">
                             <option></option>
                             @foreach($roles as $e)
