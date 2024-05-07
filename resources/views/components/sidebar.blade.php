@@ -84,7 +84,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('employee') }}" class="nav-link {{ $active_sidebar[1] == 3 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Employee</p>
+                                    <p>Karyawan</p>
                                 </a>
                             </li>
                         </ul>

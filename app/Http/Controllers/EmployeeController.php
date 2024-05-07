@@ -31,14 +31,14 @@ class EmployeeController extends Controller
             'role' => $request->role
         ]);
 
-        return back()->with('toastData', ['success' => true, 'text' => 'Employee ' . $request->nama_role . ' berhasil ditambahkan!']);
+        return back()->with('toastData', ['success' => true, 'text' => 'Karyawan ' . $request->nama_role . ' berhasil ditambahkan!']);
     }
 
     public function removeEmployee (Request $request): RedirectResponse
     {
         Employee::find($request->id)->delete();
 
-        return back()->with('toastData', ['success' => true, 'text' => 'Employee ' . $request->nama_role . ' berhasil dihapus!']);
+        return back()->with('toastData', ['success' => true, 'text' => 'Karyawan ' . $request->nama_role . ' berhasil dihapus!']);
     }
 
     public function editEmployee (Request $request): RedirectResponse

@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Employee</title>
+    <title>Karyawan</title>
     <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <!-- Google Font: Source Sans Pro -->
@@ -41,7 +41,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Employee</h1>
+                            <h1 class="m-0">Karyawan</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -146,15 +146,15 @@
                                 </form>
 
                                 <p>
-                                    Apakah anda yakin akan remove employee {{ $e->name }}?
+                                    Apakah anda yakin akan menghapus karyawan {{ $e->name }}?
                                 </p>
                             @endif
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             @if($e->user_id === null)
                                 <button type="submit" form="form-delete-{{ $e->id }}"
-                                        class="btn btn-danger">Remove</button>
+                                        class="btn btn-danger">Hapus</button>
                             @endif
 
                         </div>
@@ -218,10 +218,10 @@
 
                         </div>
                         <div class="modal-footer justify-content-between">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                             @if($e->user_id === null)
                                 <button type="submit" form="form-edit-{{ $e->id }}"
-                                        class="btn btn-primary">Save</button>
+                                        class="btn btn-primary">Simpan</button>
                             @endif
                         </div>
                     </div>
@@ -326,7 +326,7 @@
         $(function() {
             //Initialize Select2 Elements
             $('.select2').select2({
-                placeholder: "Select role",
+                placeholder: "Pilih role",
                 allowClear: true
             });
         })
