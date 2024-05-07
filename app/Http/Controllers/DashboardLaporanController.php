@@ -14,11 +14,11 @@ class DashboardLaporanController extends Controller
         $jenis_laporan = JenisLaporan::all();
      
 
-        $active_sidebar = [0, 1]; 
+        $active_sidebar = [9, 0]; 
 
         $data = [
           
-            'active_sidebar' => [0, 1],
+            'active_sidebar' => [9, 0],
             'jenis_laporan'=>$jenis_laporan,
             
         ];
@@ -53,7 +53,7 @@ class DashboardLaporanController extends Controller
         // dd($jumlah_per_jenis);
     
         $data = [
-            'active_sidebar' => [0, 1],
+            'active_sidebar' => [9, 0],
             'log_laporan' => $log_laporan,
             'tipe_laporan' => $tipe_laporan,
             'jenis_laporan' => $jenis_laporan_ids,
