@@ -260,7 +260,7 @@ public function reject(Request $request, $id)
     }
 
     $laporan = Laporan::findOrFail($id);
-    $laporan->status = 'Ditolak';
+    $laporan->status = 'Direview';
     $laporan->reject_at = now();
     $laporan->direview_oleh = auth()->user()->id;
     $laporan->komentar = $request->komentar; 

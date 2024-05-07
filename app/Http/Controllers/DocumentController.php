@@ -199,6 +199,7 @@ class DocumentController extends Controller
             }
         ],
         'tipe_dokumen' => 'required',
+        'set_date' => ['required', 'date'],
         'can_see_by' => 'required',
         'dokumen_spm' => 'required',
         'link' => ['nullable', 'url'],
@@ -218,6 +219,7 @@ class DocumentController extends Controller
     ], [
         'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
         'nomor_dokumen.unique' => 'Nomor dokumen sudah digunakan.',
+        'set_date.required' => 'Tanggal Berlaku harus diisi.',
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'end_date.required' => 'Tanggal akhir harus diisi.',
@@ -288,6 +290,7 @@ class DocumentController extends Controller
         'parent' => $parent,
         'year' => $request->year,
         'tipe_dokumen' => $request->tipe_dokumen,
+        'set_date' => $request->set_date,
         'start_date' => $request->start_date,
         'end_date' => $request->end_date,
         'keterangan_status' => true,
@@ -320,6 +323,7 @@ public function updateDocument(Request $request, $id)
             'required'
         ],
         'start_date' => ['required', 'date', $request->input('end_date') ? 'before:end_date' : ''],
+        'set_date' => ['required', 'date'],
         'tipe_dokumen' => 'required',
         'can_see_by' => 'required',
         'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:30720',
@@ -337,6 +341,7 @@ public function updateDocument(Request $request, $id)
         ],
     ], [
         'name.required' => 'Nama dokumen harus diisi.',
+        'set_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.required' => 'Tanggal mulai harus diisi.',
         'start_date.before' => 'Tanggal mulai harus lebih kecil dari tanggal akhir.',
         'tipe_dokumen.required' => 'Tipe dokumen harus diisi.',
@@ -397,6 +402,7 @@ public function updateDocument(Request $request, $id)
     $document->deskripsi = $request->deskripsi;
     $document->year = $request->year;
     $document->tipe_dokumen = $request->tipe_dokumen;
+    $document->set_date = $request->set_date;
     $document->start_date = $request->start_date;
     $document->end_date = $request->end_date;
     if ($request->keterangan_status==0) {

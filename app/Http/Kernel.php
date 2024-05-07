@@ -7,6 +7,8 @@ use App\Http\Middleware\CheckDocumentReplaced;
 use App\Http\Middleware\LaporanMiddleware;
 use App\Http\Middleware\LogPengumpulanLaporan;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use App\Console\Commands\SendDailyReminderEmail;
+use Illuminate\Console\Scheduling\Schedule;
 
 class Kernel extends HttpKernel
 {
@@ -76,4 +78,15 @@ class Kernel extends HttpKernel
         'checkDocumentReplaced'=>CheckDocumentReplaced::class,
         
     ];
+    /**
+     * Define the application's command schedule.
+     *
+     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @return void
+     */
+        protected function schedule(Schedule $schedule)
+    {
+        // Tambahkan task scheduling untuk menjalankan command pengiriman email pada pukul 15:00
+        $schedule->command(SendDailyReminderEmail::class)->dailyAt('08:00');
+    }
 }

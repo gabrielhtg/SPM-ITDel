@@ -198,7 +198,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
-                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Revisi"))
+                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Direview"))
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
                                     <i class="fas fa-comment"></i>
                                 </button>

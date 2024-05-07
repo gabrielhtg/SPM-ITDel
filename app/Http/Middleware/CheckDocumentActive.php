@@ -3,11 +3,13 @@
 namespace App\Http\Middleware;
 
 use App\Models\DocumentModel;
+use App\Models\LogLaporan;
 use App\Models\User;
 use Closure;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 use PHPUnit\Runner\ErrorException;
 
 class CheckDocumentActive
@@ -21,7 +23,7 @@ class CheckDocumentActive
      */
     public function handle(Request $request, Closure $next)
     {
-        // Ambil semua dokumen
+       
         $allDocuments = DocumentModel::all();
 
         $users = User::all();
@@ -89,6 +91,30 @@ class CheckDocumentActive
                 'online' =>true
             ]);
         }
+
+
+        $nowDate = Carbon::now();
+        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+        ->whereNull('status')
+        ->get();
+
+        $userIds = $logLaporan->pluck('upload_by')->toArray();
+
+        // Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
+        $userLaporan = User::whereIn('id', $userIds)->get();
+        $emails = $userLaporan->pluck('email')->toArray();
+        // dd($email);
+        // Ambil semua dokumen
+
+        foreach ($emails as $email) {
+            Mail::raw('grase cantik', function ($message) use ($email) {
+                $message->to($email)
+                    ->subject('Daily Reminder');
+            });
+        }
+
+
+
         return $next($request);
     }
 }
