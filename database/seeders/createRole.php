@@ -18,7 +18,7 @@ class createRole extends Seeder
         DB::table('roles')->insert([
             ['role' => 'Admin', 'status' => true, 'is_admin' => true, 'atasan_id' => null],
             ['role' => 'Rektor', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
-            ['role' => 'SPM', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
+            ['role' => 'SPM', 'status' => true, 'is_admin' => false, 'atasan_id' => 2],
             ['role' => 'WR 1', 'status' => true, 'is_admin' => false, 'atasan_id' => 2],
             ['role' => 'WR 2', 'status' => true, 'is_admin' => false, 'atasan_id' => 2],
             ['role' => 'WR 3', 'status' => true, 'is_admin' => false, 'atasan_id' => 2],
