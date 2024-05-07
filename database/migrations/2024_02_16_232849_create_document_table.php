@@ -27,7 +27,8 @@
                         $table->integer('year');
                         $table->string('tipe_dokumen');
                         $table->boolean('dokumen_spm')->nullable();
-                        $table->timestamp('start_date');
+                        $table->timestamp('set_date');
+                        $table->timestamp('start_date')->nullable();
                         $table->timestamp('end_date')->nullable();
                         $table->boolean('keterangan_status')->default(true);
                         $table->boolean('can_see_by')->default(true);

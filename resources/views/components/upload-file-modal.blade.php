@@ -149,6 +149,11 @@
                                 </div>
 
                                 <div class="form-group">
+                                    <label>Tanggal Ditetapkan:</label>
+                                    <input type="datetime-local" name="set_date" class="form-control" required>
+                                </div>
+
+                                <div class="form-group">
                                     <label>Tanggal Mulai:</label>
                                     <input type="datetime-local" name="start_date" class="form-control" required>
                                 </div>

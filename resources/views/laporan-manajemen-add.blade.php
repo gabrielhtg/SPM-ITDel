@@ -105,7 +105,7 @@
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id === $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                            @elseif($item->status == 'Revisi') background-color:  #f2dedf; /* Warna merah */
+                            @elseif($item->status == 'Direview') background-color:  #f2dedf; /* Warna merah */
                             @else background-color: #e8f0fe; /* Warna biru */
                             @endif
                             ">
@@ -156,7 +156,7 @@
                                 </div>
                             </div>
                         </td>
-                        
+
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
@@ -198,7 +198,7 @@
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
-                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Revisi"))
+                                @if((auth()->user()->id === $item->created_by) && ($item->status =="Direview"))
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
                                     <i class="fas fa-comment"></i>
                                 </button>
@@ -305,7 +305,7 @@
                 </div>
                 <!-- Tautan untuk melihat file komentar dalam tab baru -->
                 <div>
-                   
+
                     @if($item->file_catatan)
                         <a href="{{ asset($item->file_catatan) }}" target="_blank" class="btn btn-success">
                             <i class="fas fa-eye"></i> Lihat File
