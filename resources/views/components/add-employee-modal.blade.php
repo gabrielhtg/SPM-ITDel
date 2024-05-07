@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-success1">
-    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Employee</span>
+    <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambahkan Karyawan</span>
 </button>
 
 <div class="modal fade" id="modal-success1">
@@ -45,8 +45,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-add-employee" class="btn btn-primary">Add Employee</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" form="form-add-employee" class="btn btn-primary">Tambah Karyawan</button>
             </div>
         </div>
         <!-- /.modal-content -->

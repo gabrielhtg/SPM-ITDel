@@ -192,7 +192,7 @@
                                                 <div class="form-group mt-3">
                                                     <label for="responsible-to{{ $e->id }}">Responsible To</label>
                                                     <select id="responsible-to{{ $e->id }}"
-                                                        name="responsible[]" multiple="multiple"
+                                                        name="responsible_to[]" multiple="multiple"
                                                         class="responsible-to-custom form-control" style="width: 100%">
                                                         <option></option>
                                                         @foreach ($roles as $role)
