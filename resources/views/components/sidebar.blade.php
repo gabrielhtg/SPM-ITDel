@@ -37,7 +37,7 @@
                 <li class="nav-item">
                     <a href="{{ route('indexlogindashboard') }}" class="nav-link {{ $active_sidebar[0] == 1 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
-                        <p>Admin Dashboard</p>
+                        <p>Struktur Organisasi</p>
                     </a>
                 </li>
 
