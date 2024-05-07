@@ -28,7 +28,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{ route('dashboard-laporan') }}" class="nav-link {{ $active_sidebar[0] == 0 ? 'active' : '' }}">
+                    <a href="{{ route('dashboard-laporan') }}" class="nav-link {{ $active_sidebar[0] == 8 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
@@ -92,8 +92,8 @@
                 @endif
 
                 @if (Auth::check() && auth()->user()->role != null)
-                    <li class="nav-item {{ $active_sidebar[0] == 5 ? 'menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ $active_sidebar[0] == 5 ? 'active' : '' }}">
+                    <li class="nav-item {{ $active_sidebar[0] == 6 ? 'menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>
                             <p>
                                 Laporan Berkala
@@ -129,13 +129,15 @@
                                     </a>
                                 </li>
                             @endif
-
+                            
+                            @if(app(AllServices::class)->isAccountable(auth()->user()->role) ||  app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) )
                             <li class="nav-item">
                                 <a href="{{ route('LogLaporanview') }}" class="nav-link {{ $active_sidebar[1] == 3 ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Log Laporan</p>
                                 </a>
                             </li>
+                            @endif
 
                         </ul>
                     </li>
@@ -143,7 +145,7 @@
 
                 @if (auth()->user()->role != null)
                     <li class="nav-item">
-                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
+                        <a href="{{ route('documentManagement') }}" class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
                             <i class="fas fa-file nav-icon"></i>
                             <p>Manajemen Dokumen</p>
                         </a>
@@ -152,7 +154,7 @@
 
                 @if (AllServices::isLoggedUserHasAdminAccess())
                     <li class="nav-item">
-                        <a href="{{ route('role-management') }}" class="nav-link {{ $active_sidebar[0] == 7 ? 'active' : '' }}">
+                        <a href="{{ route('role-management') }}" class="nav-link {{ $active_sidebar[0] == 8 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-crown"></i>
                             <p>Manajemen Role</p>
                         </a>

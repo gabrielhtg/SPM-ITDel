@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Mail\AcceptRegisterMail;
 use App\Mail\RegisterInvitationMail;
+use App\Mail\RejectRegisterMail;
+use App\Mail\ResetPasswordMail;
 use App\Models\AllowedUserModel;
 use App\Models\Employee;
 use App\Models\JenisLaporan;
@@ -12,6 +15,7 @@ use App\Models\NotificationModel;
 use App\Models\RegisterInvitationModel;
 use App\Models\RoleModel;
 use App\Models\User;
+use App\Services\AllServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -93,6 +97,7 @@ class RegisteredUserController extends Controller
                     foreach ($jenis_laporan as $jenis) {
                         LogLaporan::create([
                             'id_jenis_laporan' => $jenis->id,
+                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
                             'upload_by' => $userId,
                             'create_at'=>null,
                             'approve_at'=>null,
@@ -197,6 +202,7 @@ class RegisteredUserController extends Controller
                 foreach ($jenis_laporan as $jenis) {
                     LogLaporan::create([
                         'id_jenis_laporan' => $jenis->id,
+                        'id_tipe_laporan'=>$jenis->id_tipelaporan,
                         'upload_by' => $userId,
                         'create_at'=>null,
                         'approve_at'=>null,
@@ -290,6 +296,8 @@ class RegisteredUserController extends Controller
                 }
             }
 
+            Mail::to($resetObject->email)->send(new AcceptRegisterMail("Permintaan request kamu sebagai " . AllServices::convertRole($resetObject->role) . " sudah diterima. Anda sekarang sudah bisa login."));
+
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {
@@ -303,6 +311,7 @@ class RegisteredUserController extends Controller
         $data = User::find($request->id);
 
         if ($data && $data->status == false) {
+            Mail::to($data->email)->send(new RejectRegisterMail("Permintaan request kamu sebagai " . AllServices::convertRole($data->role) . " ditolak. Pastikan data yang anda masukkan sudah tepat atau anda memang sudah diizinkan untuk mendaftar!"));
             $data->delete();
 
             $adminRoles = RoleModel::where('is_admin', true)->get();
@@ -321,6 +330,8 @@ class RegisteredUserController extends Controller
                     }
                 }
             }
+
+            Mail::to($data->email)->send(new RejectRegisterMail("Permintaan request kamu sebagai " . AllServices::convertRole($data->role) . " ditolak. Pastikan data yang anda masukkan sudah tepat atau anda memang sudah diizinkan untuk mendaftar!"));
 
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
@@ -347,7 +358,6 @@ class RegisteredUserController extends Controller
                     }
                 }
             }
-
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 

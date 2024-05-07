@@ -48,7 +48,7 @@ class KategoriLaporanSeeder extends Seeder
         // Tambahkan data untuk semester genap dan ganjil
         $data[] = [
             'id_tipelaporan' => 3,
-            'nama' => 'Semester Genap 2023/2024',
+            'nama' => 'Semester Genap ',
             'start_date' => Carbon::createFromDate(2023, 12, 1)->toDateTimeString(),
             'end_date' => Carbon::createFromDate(2024, 5, 31)->toDateTimeString(),
             'created_at' => now(),
@@ -57,7 +57,7 @@ class KategoriLaporanSeeder extends Seeder
 
         $data[] = [
             'id_tipelaporan' => 3,
-            'nama' => 'Semester Ganjil 2024/2025',
+            'nama' => 'Semester Ganjil ',
             'start_date' => Carbon::createFromDate(2024, 6, 1)->toDateTimeString(),
             'end_date' => Carbon::createFromDate(2024, 11, 30)->toDateTimeString(),
             'created_at' => now(),
@@ -67,7 +67,7 @@ class KategoriLaporanSeeder extends Seeder
         // Tambahkan data untuk laporan tahunan
         $data[] = [
             'id_tipelaporan' => 4,
-            'nama' => 'Tahunan 2024',
+            'nama' => 'Tahunan ',
             'start_date' => Carbon::createFromDate(2024, 1, 1)->toDateTimeString(),
             'end_date' => Carbon::createFromDate(2024, 12, 31)->toDateTimeString(),
             'created_at' => now(),

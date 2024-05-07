@@ -18,4 +18,9 @@ class TipeLaporan extends Model
         // 'end_date'
     ];
 
+    public function jenis_laporan()
+    {
+        return $this->hasMany(JenisLaporan::class, 'id_tipelaporan');
+    }
+
 }

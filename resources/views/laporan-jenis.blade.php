@@ -69,7 +69,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach($jenis_laporan as $item)
+                        @foreach($jenis_laporan->sortByDesc('year') as $item)
                         <tr>
                             <td>
                                 <div class="user-panel d-flex justify-content-center align-items-center">
@@ -79,7 +79,7 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                        @endforeach
 
 
 

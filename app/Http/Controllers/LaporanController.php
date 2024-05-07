@@ -41,7 +41,7 @@ class LaporanController extends Controller
     $data = [
         'uploadedUsers' => $uploadedUsers,
         'roles' => $role,
-        'active_sidebar' => [5, 1],
+        'active_sidebar' => [6, 1],
         'laporan' => $laporan,
         'tipe_laporan' => $tipe_laporan,
         'type_laporan'=>$type_laporan,
@@ -57,7 +57,7 @@ public function getLogLaporanView()
     $tipe_laporan = TipeLaporan::all();
 
     $data = [
-        'active_sidebar' => [5, 3],
+        'active_sidebar' => [6, 3],
         'tipe_laporan' => $tipe_laporan,
     ];
     return view('log-laporan-view', $data);
@@ -67,7 +67,7 @@ public function getJenisLaporanView($id)
     $jenis_laporan = JenisLaporan::where('id_tipelaporan',$id)->get();
 
     $data = [
-        'active_sidebar' => [5, 3],
+        'active_sidebar' => [6, 3],
         'jenis_laporan' => $jenis_laporan,
     ];
     return view('laporan-jenis', $data);
@@ -77,7 +77,7 @@ public function getJenisLaporanView($id)
     public function getLogLaporanContinue($id){
         $log = LogLaporan::where('id_jenis_laporan',$id)->get();
         $data = [
-            'active_sidebar' => [5, 3],
+            'active_sidebar' => [6, 3],
             'log'=>$log
         ];
         return view('log-laporan-continue', $data);
@@ -110,7 +110,7 @@ public function getLaporanManagementReject()
             $data = [
                 'uploadedUsers' => $uploadedUsers,
                 'roles' => $role,
-                'active_sidebar' => [5, 2],
+                'active_sidebar' => [6, 2],
                 'laporan' => $laporan,
                 'tipe_laporan' => $tipe_laporan,
                 'banyakData' => $banyakData,
