@@ -46,7 +46,7 @@
                         </select>
                     </div>
                     <div class="form-group mt-3">
-                        <label for="informable-to">Informable To</label>
+                        <label for="informable-to">Inform To</label>
                         <select id="informable-to" name="informable_to[]" class="informable-to-custom form-control"
                                 multiple="multiple" style="width: 100%">
                             <option></option>

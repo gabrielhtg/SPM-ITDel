@@ -126,7 +126,7 @@ class RoleController extends Controller
 
         foreach (InformableModel::where('informable_to', $request->id)->get() as $e) {
             if (RoleModel::find($e->role)->status) {
-                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang informable to role ini!']);
+                return back()->with('toastData', ['success' => false, 'text' => 'Gagal menggati status role. Pastikan tidak ada role yang inform to role ini!']);
             }
         }
 

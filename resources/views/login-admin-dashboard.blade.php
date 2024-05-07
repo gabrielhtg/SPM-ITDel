@@ -161,7 +161,7 @@
                 $('#personModal').modal('show');
                 $('#modal-role').text(`Role: ${role}`);
                 $('#modal-responsible').text(`Responsible to: ${responsible}`);
-                $('#modal-informable').text(`Informable to: ${informable}`);
+                $('#modal-informable').text(`Inform to: ${informable}`);
                 $('#modal-accountable').text(`Accountable to: ${accountable}`);
                 $('#modal-employee').text(`Employees: ${employee}`);
             });
