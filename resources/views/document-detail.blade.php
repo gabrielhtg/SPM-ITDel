@@ -98,8 +98,8 @@
                                             <td class="bold">{{ $uploadedUser->name }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Dibuat</td>
-                                            <td class="bold">{{ $document->start_date }}</td>
+                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Ditetapkan</td>
+                                            <td class="bold">{{ $document->set_date }}</td>
                                         </tr>
 
                                     </tbody>

@@ -55,13 +55,13 @@
                         </h1>
                     </li>
                     <li class="col">
-                        <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
-                            News
+                        <a href="#akreditasi" class="nav-link" onclick="redirectToNewsView()">
+                            Akreditasi
                         </a>
                     </li>
                     <li class="col">
-                        <a href="#akreditasi" class="nav-link" onclick="redirectToNewsView()">
-                            Akreditasi
+                        <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
+                            News
                         </a>
                     </li>
 
