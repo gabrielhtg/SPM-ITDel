@@ -87,20 +87,14 @@
 
 
                     @endif
-                        <li class="nav-item">
-                            <a href="{{ route('getdocument') }}" class="nav-link">
-
-                                   Dokumen
-
-                            </a>
-                        </li>
-
-                    <li class="nav-item">
-                        <a href="{{ route('getdocumentspm') }}" class="nav-link">
-
-                            Dokumen SPM
-
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownDokumen" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dokumen
                         </a>
+                        <ul class="dropdown-menu dropdown-menu-sm" aria-labelledby="navbarDropdownDokumen">
+                            <li><a class="dropdown-item" href="{{ route('getdocument') }}">Dokumen</a></li>
+                            <li><a class="dropdown-item" href="{{ route('getdocumentspm') }}">Dokumen SPM</a></li>
+                        </ul>
                     </li>
 
                 </ul>
