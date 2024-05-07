@@ -123,19 +123,21 @@ class AkreditasiController extends Controller
             }
 
             // Simpan file yang baru diunggah
-            $gambarakreditasi1 = $request->file('gambarakreditasi')->getClientOriginalName();
-            $request->file('gambarakreditasi')->move(public_path('src/gambarakreditasi'), $gambarakreditasi1);
+            $gambarakreditasi = $request->file('gambarakreditasi')->getClientOriginalName();
+            $request->file('gambarakreditasi')->move(public_path('src/gambarakreditasi'), $gambarakreditasi);
 
             // Update data dengan file yang baru
-            $data->gambarakreditasi = $gambarakreditasi1;
+            $data->gambarakreditasi = $gambarakreditasi;
         }
 
         
 
+        // dd($request->keteranganakreditasi);
         // Update data pengumuman dengan informasi yang baru
         $data->judulakreditasi = $request->judulakreditasi;
         $data->keteranganakreditasi = $request->keteranganakreditasi;
         $data->save();
+
 
         return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update Dashboard']);
 

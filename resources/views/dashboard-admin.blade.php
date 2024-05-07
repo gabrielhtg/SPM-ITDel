@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Dashboard Admin</title>
+    <title>Dashboard Management</title>
 
     <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <!-- Google Font: Source Sans Pro -->
@@ -269,7 +269,7 @@
                                                                     </button>
                                                                 </div>
                                                                 <div class="modal-body">
-                                                                    <form id="form-editherosection" method="POST" action="{{ route('dashboard-akreditasi-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                                                    <form id="form-editakreditasi" method="POST" action="{{ route('dashboard-akreditasi-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
                                                                         @csrf
                                                                         <div class="form-group mt-1">
                                                                             <label for="title">Judul Besar</label>
@@ -297,7 +297,7 @@
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" form="form-editherosection" class="btn btn-primary">Update Introduction</button>
+                                                                    <button type="submit" form="form-editakreditasi" class="btn btn-primary">Update Akreditasi</button>
                                                                 </div>
                                                             </div>
                                                         </div>
