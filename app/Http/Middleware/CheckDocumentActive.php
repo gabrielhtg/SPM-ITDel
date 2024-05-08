@@ -92,38 +92,6 @@ class CheckDocumentActive
                 'online' =>true
             ]);
         }
-
-
-      
-        $nowDate = Carbon::now();
-$logLaporan = LogLaporan::where('end_date', '<', $nowDate)
-    ->whereNull('status')
-    ->get();
-
-$userIds = $logLaporan->pluck('upload_by')->toArray();
-
-// Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
-$userLaporan = User::whereIn('id', $userIds)->get();
-$emails = $userLaporan->pluck('email')->toArray();
-
-foreach ($emails as $email) {
-    $idJenisLaporan = $logLaporan->pluck('id_jenis_laporan')->unique()->toArray(); // Get unique jenis laporan IDs
-    $jenisLaporan = JenisLaporan::whereIn('id', $idJenisLaporan)->get();
-
-    $messageContent = 'Segera Mengumpulkan: ';
-    foreach ($jenisLaporan as $jenis) {
-        $messageContent .= $jenis->nama . ', ';
-    }
-    $messageContent = rtrim($messageContent, ', '); // Remove the last comma and space
-
-    Mail::raw($messageContent, function ($message) use ($email) {
-        $message->to($email)
-                ->subject('Daily Reminder');
-    });
-}
-
-        
-    
     
         return $next($request);
     }
