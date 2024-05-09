@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Mail\DailyReminder;
 use App\Models\DocumentModel;
 use App\Models\JenisLaporan;
 use App\Models\LogLaporan;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use PHPUnit\Runner\ErrorException;
+use Termwind\Components\Dd;
 
 class CheckDocumentActive
 {
@@ -24,7 +26,7 @@ class CheckDocumentActive
      */
     public function handle(Request $request, Closure $next)
     {
-       
+
         $allDocuments = DocumentModel::all();
 
         $users = User::all();
@@ -92,7 +94,32 @@ class CheckDocumentActive
                 'online' =>true
             ]);
         }
-    
+
+//        $nowDate = now();
+//        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+//            ->whereNull('status')
+//            ->get();
+//
+//        $userIds = $logLaporan->pluck('upload_by')->toArray();
+//
+//        // Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
+//        $userLaporan = User::whereIn('id', $userIds)->get();
+//        $emails = $userLaporan->pluck('email')->toArray();
+//
+//        foreach ($emails as $email) {
+//            $idJenisLaporan = $logLaporan->pluck('id_jenis_laporan')->unique()->toArray(); // Get unique jenis laporan IDs
+//            $jenisLaporan = JenisLaporan::whereIn('id', $idJenisLaporan)->get();
+//
+//            $messageContent = 'Segera kumpulkan: ';
+//            foreach ($jenisLaporan as $jenis) {
+//                $messageContent .= $jenis->nama . ', ';
+//            }
+//            $messageContent = rtrim($messageContent, ', '); // Remove the last comma and space
+//
+////            \dd($email);
+//            Mail::to($email)->send(new DailyReminder($messageContent));
+//        }
+
         return $next($request);
     }
 }

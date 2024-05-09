@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Mail\DailyReminder;
+use App\Mail\RejectRegisterMail;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\DocumentModel;
@@ -17,6 +19,7 @@ use App\Models\TipeLaporan;
 use App\Models\User;
 use ErrorException;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class AllServices
 {
@@ -844,4 +847,33 @@ class AllServices
         }
     }
 
+    public static function sendDailyReminder(): void
+    {
+        // Lakukan pengiriman email di sini
+        $nowDate = now();
+        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+            ->whereNull('status')
+            ->get();
+
+        $userIds = $logLaporan->pluck('upload_by')->toArray();
+
+        // Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
+        $userLaporan = User::whereIn('id', $userIds)->get();
+        $emails = $userLaporan->pluck('email')->toArray();
+
+        foreach ($emails as $email) {
+            $idJenisLaporan = $logLaporan->pluck('id_jenis_laporan')->unique()->toArray(); // Get unique jenis laporan IDs
+            $jenisLaporan = JenisLaporan::whereIn('id', $idJenisLaporan)->get();
+
+            $messageContent = 'Segera kumpulkan: ';
+            foreach ($jenisLaporan as $jenis) {
+                $messageContent .= $jenis->nama . ', ';
+            }
+            $messageContent = rtrim($messageContent, ', '); // Remove the last comma and space
+
+            echo $email;
+
+            Mail::to($email)->send(new DailyReminder($messageContent));
+        }
+    }
 }
