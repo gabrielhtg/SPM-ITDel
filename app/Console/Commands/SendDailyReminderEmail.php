@@ -59,6 +59,6 @@ class SendDailyReminderEmail extends Command
             });
         }
 
-        $this->info('Daily reminder emails sent successfully!');
+       
     }
 }
