@@ -44,11 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
             CheckDocumentReplaced::class,
-             SendDailyReminderEmail::class,
-
-       
-         
-            
+//            SendDailyReminderEmail::class,
         ],
 
         'api' => [
@@ -79,8 +75,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDocumentActive' => CheckDocumentActive::class,
         'checkDocumentReplaced'=>CheckDocumentReplaced::class,
-       
-        
     ];
     /**
      * Define the application's command schedule.
@@ -90,12 +84,12 @@ class Kernel extends HttpKernel
      */
 //     protected function schedule(Schedule $schedule)
 // {
-   
+
 //     $schedule->command('send:daily-reminder-email')
-//              ->timezone('Asia/Jakarta') 
+//              ->timezone('Asia/Jakarta')
 //              ->dailyAt('08:00');
 // }
 
-    
+
 
 }

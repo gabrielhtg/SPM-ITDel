@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Services\AllServices;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\Console\Commands\SendDailyReminderEmail;
@@ -12,7 +13,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        $schedule->command(SendDailyReminderEmail::class)->timezone('Asia/Jakarta')->dailyAt('08:04');
+//        $schedule->command(SendDailyReminderEmail::class)->timezone('Asia/Jakarta')->dailyAt('17:39');
+
+        $schedule->call(function () {
+            AllServices::sendDailyReminder();
+        })->dailyAt('17:46');
     }
 
     /**
