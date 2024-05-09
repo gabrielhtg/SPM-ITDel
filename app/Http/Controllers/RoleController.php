@@ -17,8 +17,6 @@ class RoleController extends Controller
 {
     public function getHalamanRoleManagement()
     {
-
-
         $data = [
             'active_sidebar' => [8, 0],
             'roles' => RoleModel::all(),

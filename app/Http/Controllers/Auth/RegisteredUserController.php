@@ -265,11 +265,12 @@ class RegisteredUserController extends Controller
 
     public function acceptRegisterRequest(Request $request) {
         $resetObject = User::find($request->id);
+        $temp = $resetObject->pending_roles;
 
         if ($resetObject) {
             $resetObject->update([
                 'verified' => true,
-                'role' => $resetObject->pending_roles,
+                'role' => $temp,
                 'status' => true,
                 'pending_roles' => null,
                 'created_at' => now()
@@ -278,7 +279,7 @@ class RegisteredUserController extends Controller
             Employee::create([
                 'user_id' => $resetObject->id,
                 'name' => $resetObject->name,
-                'role' => $resetObject->role,
+                'role' => $temp,
             ]);
 
             $adminRoles = RoleModel::where('is_admin', true)->get();
