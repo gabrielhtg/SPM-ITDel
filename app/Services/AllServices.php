@@ -376,8 +376,11 @@ class AllServices
     public static function isLoggedUserHasAdminAccess(): bool
     {
         foreach (explode(";",auth()->user()->role) as  $e) {
-            if (RoleModel::find($e)->is_admin) {
-                return true;
+            $role = RoleModel::find($e);
+            if ($role) {
+                if (RoleModel::find($e)->is_admin) {
+                    return true;
+                }
             }
         }
 
