@@ -44,7 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
             CheckDocumentReplaced::class,
-             SendDailyReminderEmail::class,
+            
 
        
          
