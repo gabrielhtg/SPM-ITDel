@@ -306,12 +306,20 @@ class AllServices
 
     public static function haveAccountable($roleId): bool
     {
-        // Cari accountable model yang memiliki role yang sesuai
-        $accountable = AccountableModel::where('role', 'LIKE', "%$roleId%")->first();
-
+        // Pisahkan string $roleId menjadi array ID
+        $roleIds = explode(';', $roleId);
+    
+        // Cari accountable model yang memiliki setiap role yang sesuai
+        $accountable = AccountableModel::where(function ($query) use ($roleIds) {
+            foreach ($roleIds as $roleId) {
+                $query->orWhere('role', 'LIKE', "%$roleId%");
+            }
+        })->first();
+    
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
+    
 
 
     public static function isInformable($roleIds): bool

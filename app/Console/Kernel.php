@@ -17,7 +17,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             AllServices::sendDailyReminder();
-        })->dailyAt('17:46');
+        })->dailyAt('08:00');
     }
 
     /**
