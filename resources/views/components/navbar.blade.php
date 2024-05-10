@@ -77,7 +77,7 @@
                         </div>
                         <div class="dropdown-divider"></div>
                     @endif
-                    <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    <a href="{{ route('notification') }}" class="dropdown-item dropdown-footer">See All Notifications</a>
                 </div>
             </li>
 

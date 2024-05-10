@@ -820,7 +820,16 @@ class AllServices
 
     public static function getAllNotifications()
     {
-        return NotificationModel::all()->sortByDesc('created_at');
+        $notifications = NotificationModel::all()->sortByDesc('created_at');
+        $temp = [];
+
+        foreach ($notifications as $notification) {
+            if ($notification->to == auth()->user()->id ) {
+                $temp[] = $notification;
+            }
+        }
+
+        return $temp;
     }
 
     public static function getNotifications(): array
