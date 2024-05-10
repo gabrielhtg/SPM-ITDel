@@ -153,12 +153,12 @@ class TypeDocumentController extends Controller
         $nama_tipe = $tipe_laporan->nama_laporan;
         
         // Buat nama laporan dengan menambahkan nama tipe laporan
-        $nama_laporan = $nama_tipe ." ". $request->input('nama') . ' (' . $request->input('year') . ')';
+        // $nama_laporan = $nama_tipe ." ". $request->input('nama') . ' (' . $request->input('year') . ')';
     
         // Tambahkan jenis laporan baru
         $jenis_laporan = JenisLaporan::create([
             'id_tipelaporan' => $request->id_tipelaporan,
-            'nama' => $nama_laporan,
+            'nama' => $request->nama,
             'year' => $request->year,
             'end_date' => $request->end_date,
         ]);

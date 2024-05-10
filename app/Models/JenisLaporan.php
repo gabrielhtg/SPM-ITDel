@@ -23,4 +23,17 @@ class JenisLaporan extends Model
     {
         return $this->belongsTo(TipeLaporan::class, 'id_tipelaporan');
     }
+
+      /**
+     * Mengambil nama tipe laporan berdasarkan ID.
+     *
+     * @param int $id
+     * @return string|null
+     */
+    public static function getNamaTipeLaporanById(int $id): ?string
+    {
+        $tipeLaporan = static::find($id);
+        return $tipeLaporan ? $tipeLaporan->nama_laporan : null;
+    }
+
 }

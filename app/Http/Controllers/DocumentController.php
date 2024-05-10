@@ -533,7 +533,8 @@ public function updateDocument(Request $request, $id)
     {
         $jenis_laporan = JenisLaporan::all();
         $type_laporan =TipeLaporan::all();
-        $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
+        $active_sidebar = [1, 1]; 
+     
 
         $data = [
             'type_laporan'=>$type_laporan,

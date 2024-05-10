@@ -76,7 +76,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{ $e->nama }}
+                                        {{ \App\Services\AllServices::getJenislaporanName($e->id_tipelaporan, $e->id) }}
                                     </div>
                                 </div>
                             </td>

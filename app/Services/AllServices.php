@@ -887,4 +887,14 @@ class AllServices
             Mail::to($email)->send(new DailyReminder($messageContent));
         }
     }
+
+    public static function getJenisLaporanName($idtipe, $idJenis): string
+    {
+        $tipeLaporan = TipeLaporan::find($idtipe);
+        $jenisLaporan = JenisLaporan::find($idJenis);
+    
+        $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
+    
+        return $nama;
+    }
 }
