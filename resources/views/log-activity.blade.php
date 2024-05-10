@@ -52,7 +52,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="mb-3 d-flex flex-wrap" style="gap: 5px">
-
+                        <a href="{{ asset('src/log.txt') }}" class="btn btn-primary" download><i class="fas fa-download mr-2"></i> Download Log File</a>
                     </div>
 
                     <table id="example1" class="table table-bordered table-striped">
@@ -115,7 +115,6 @@
     <script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
     <!-- AdminLTE App -->
     <script src="{{ asset('dist/js/adminlte.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Page specific script -->
     <script>
         let table = new DataTable('#example1', {
@@ -127,41 +126,8 @@
             ]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-        // let tableRole = new DataTable('#table-role', {
-        //     "responsive": true,
-        //     "lengthChange": false,
-        //     "autoWidth": false,
-        //     "pageLength": 10,
-        // });
-    </script>
-{{--    <script>--}}
-{{--        $(function() {--}}
-{{--            @if (session('toastData') != null)--}}
-{{--                @if (session('toastData')['success'])--}}
-{{--                    Swal.fire({--}}
-{{--                        icon: 'success',--}}
-{{--                        title: 'Success',--}}
-{{--                        text: '{!! session('toastData')['text'] !!}',--}}
-{{--                        // toast: true,--}}
-{{--                        showConfirmButton: false,--}}
-{{--                        // position: 'top-end',--}}
-{{--                        timer: 3000--}}
-{{--                    })--}}
-{{--                @else--}}
-{{--                    Swal.fire({--}}
-{{--                        icon: 'error',--}}
-{{--                        title: 'Failed',--}}
-{{--                        text: '{!! session('toastData')['text'] !!}',--}}
-{{--                        // toast: true,--}}
-{{--                        showConfirmButton: false,--}}
-{{--                        // position: 'top-end',--}}
-{{--                        timer: 5000--}}
-{{--                    })--}}
-{{--                @endif--}}
-{{--            @endif--}}
-{{--        });--}}
-{{--    </script>--}}
 
+    </script>
 </body>
 
 </html>

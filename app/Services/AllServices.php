@@ -895,5 +895,8 @@ class AllServices
             'log' => $log,
             'user' => auth()->user()->email
         ]);
+
+        $logData = '[' . date('Y-m-d H:i:s') . '] ' . $log . ' - User: ' . auth()->user()->email . "\n";
+        file_put_contents(public_path('src/log.txt'), $logData, FILE_APPEND);
     }
 }
