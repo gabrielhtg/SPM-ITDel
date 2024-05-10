@@ -165,7 +165,7 @@
                                         echo '-';
                                     } elseif ($item->status == 'Disetujui') {
                                         echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                    } elseif ($item->status == 'Revisi') {
+                                    } elseif ($item->status == 'Direview') {
                                         echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp

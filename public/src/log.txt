@@ -1,3 +1,15 @@
 [2024-05-10 09:50:06] Mengaktifkan status role BAAK - User: ifs21010@students.del.ac.id
 [2024-05-10 09:50:39] Menonaktifkan status role BAAK - User: ifs21010@students.del.ac.id
 [2024-05-10 09:50:41] Menonaktifkan status role PPKHA - User: ifs21010@students.del.ac.id
+[2024-05-10 10:27:29] Mengedit role WR 1 - User: spmadministrator@gmail.com
+[2024-05-10 10:35:41] Menambahkan email dedi@gmail.com ke list allowed user - User: spmadministrator@gmail.com
+[2024-05-10 10:35:47] Menambahkan email ktl@gmail.com ke list allowed user - User: spmadministrator@gmail.com
+[2024-05-10 10:36:22] Menambahkan user gerry - User: spmadministrator@gmail.com
+[2024-05-10 10:36:50] Mengedit role WR 3 - User: spmadministrator@gmail.com
+[2024-05-10 10:37:07] Menonaktifkan status role BAAK - User: spmadministrator@gmail.com
+[2024-05-10 10:37:11] Mengaktifkan status role BAAK - User: spmadministrator@gmail.com
+[2024-05-10 10:37:22] Mengedit role BAAK - User: spmadministrator@gmail.com
+[2024-05-10 10:37:51] Menambahkan user dedi - User: spmadministrator@gmail.com
+[2024-05-10 10:50:50] Mengedit role WR 1 - User: spmadministrator@gmail.com
+[2024-05-10 10:51:03] Mengedit role WR 1 - User: spmadministrator@gmail.com
+[2024-05-10 10:51:48] Mengedit role WR 1 - User: spmadministrator@gmail.com
