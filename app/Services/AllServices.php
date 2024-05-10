@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Http\Controllers\LogActivityController;
 use App\Mail\DailyReminder;
 use App\Mail\RejectRegisterMail;
 use App\Models\AccountableModel;
@@ -11,6 +12,7 @@ use App\Models\DocumentTypeModel;
 use App\Models\InformableModel;
 use App\Models\JenisLaporan;
 use App\Models\Laporan;
+use App\Models\LogActivityModel;
 use App\Models\LogLaporan;
 use App\Models\NotificationModel;
 use App\Models\ResponsibleModel;
@@ -308,18 +310,18 @@ class AllServices
     {
         // Pisahkan string $roleId menjadi array ID
         $roleIds = explode(';', $roleId);
-    
+
         // Cari accountable model yang memiliki setiap role yang sesuai
         $accountable = AccountableModel::where(function ($query) use ($roleIds) {
             foreach ($roleIds as $roleId) {
                 $query->orWhere('role', 'LIKE', "%$roleId%");
             }
         })->first();
-    
+
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
-    
+
 
 
     public static function isInformable($roleIds): bool
@@ -888,13 +890,23 @@ class AllServices
         }
     }
 
-    public static function getJenisLaporanName($idtipe, $idJenis): string
-    {
-        $tipeLaporan = TipeLaporan::find($idtipe);
-        $jenisLaporan = JenisLaporan::find($idJenis);
-    
-        $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
-    
-        return $nama;
+    public static function addLog ($log) {
+        LogActivityModel::create([
+            'log' => $log,
+            'user' => auth()->user()->email
+        ]);
+
+        $logData = '[' . date('Y-m-d H:i:s') . '] ' . $log . ' - User: ' . auth()->user()->email . "\n";
+        file_put_contents(public_path('src/log.txt'), $logData, FILE_APPEND);
     }
+
+    public static function getJenisLaporanName($idtipe, $idJenis): string
+{
+    $tipeLaporan = TipeLaporan::find($idtipe);
+    $jenisLaporan = JenisLaporan::find($idJenis);
+
+    $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
+
+    return $nama;
+}
 }

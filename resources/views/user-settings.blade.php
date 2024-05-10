@@ -307,12 +307,12 @@
             "select": true
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
-        let tableRole = new DataTable('#table-role', {
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "pageLength": 10,
-        });
+        // let tableRole = new DataTable('#table-role', {
+        //     "responsive": true,
+        //     "lengthChange": false,
+        //     "autoWidth": false,
+        //     "pageLength": 10,
+        // });
     </script>
     <script>
         $(function() {
