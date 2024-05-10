@@ -2,9 +2,7 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\LogActivityController;
 use App\Mail\DailyReminder;
-use App\Mail\RejectRegisterMail;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\DocumentModel;
@@ -890,14 +888,17 @@ class AllServices
         }
     }
 
-    public static function addLog ($log) {
-        LogActivityModel::create([
-            'log' => $log,
-            'user' => auth()->user()->email
-        ]);
+    public static function addLog ($log): void
+    {
+        if (!empty(auth()->user()->email)) {
+            LogActivityModel::create([
+                'log' => $log,
+                'user' => auth()->user()->email
+            ]);
 
-        $logData = '[' . date('Y-m-d H:i:s') . '] ' . $log . ' - User: ' . auth()->user()->email . "\n";
-        file_put_contents(public_path('src/log.txt'), $logData, FILE_APPEND);
+            $logData = '[' . date('Y-m-d H:i:s') . '] ' . $log . ' - User: ' . auth()->user()->email . "\n";
+            file_put_contents(public_path('src/log.txt'), $logData, FILE_APPEND);
+        }
     }
 
     public static function getJenisLaporanName($idtipe, $idJenis): string
