@@ -14,13 +14,13 @@ class HeroDocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'titlehero' => 'required|string|max:40',
             'descriptionhero' => 'required|string|max:100',
-            'imagehero' => 'nullable|file|mimes:jpeg,png,jpg|max:10240|not_mimes:pdf,doc,docx', // Tambahkan not_mimes untuk menolak tipe file tertentu
+            'imagehero' => 'nullable|file|mimes:jpeg,png,jpg|max:10240', // Tambahkan not_mimes untuk menolak tipe file tertentu
         ], [
             'descriptionhero.max' => 'Deskripsi tidak boleh melebihi 100 karakter.',
             'descriptionhero.required' => 'Deskripsi tidak boleh kosong',
             'titlehero.max' => 'Judul tidak boleh melebihi 40 karakter.',
             'imagehero.mimes' => 'Format file tidak didukung. Harap unggah file gambar (format: jpeg, png, jpg).',
-            'imagehero.not_mimes' => 'File tidak boleh berupa PDF atau dokumen.', // Pesan untuk file yang tidak diizinkan
+            
         ]);
 
         // Jika validasi gagal, kembali dengan pesan error
