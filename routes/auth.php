@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\LogActivityController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AkreditasiController;
 use App\Http\Controllers\HeroDashboardController;
@@ -183,5 +184,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/updateakreditasi/{id}', [AkreditasiController::class, 'updateherosection'])->name('dashboard-akreditasi-update');
         Route::get('/deleteakreditasi/detail/{id}', [AkreditasiController::class, 'deleteherosection'])->name('dashboard-akreditasi-delete');
         Route::get('/mark-as-read-notification', [NotificationController::class, 'markAllAsRead'])->name('markAllAsRead');
+
+        Route::get('/log-activity', [LogActivityController::class, 'getLogActivityPage'])->name('getLogActivityPage');
     });
 });

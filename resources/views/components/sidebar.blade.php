@@ -161,6 +161,15 @@
                     </li>
                 @endif
 
+                @if (AllServices::isLoggedUserHasAdminAccess())
+                    <li class="nav-item">
+                        <a href="{{ route('getLogActivityPage') }}" class="nav-link {{ $active_sidebar[0] == 10 ? 'active' : '' }}">
+                            <i class="nav-icon fas fa-file-code"></i>
+                            <p>Log Activity</p>
+                        </a>
+                    </li>
+                @endif
+
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
