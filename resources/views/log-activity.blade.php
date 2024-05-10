@@ -121,6 +121,7 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
+            order: [[3, 'desc']],
             buttons: [
                 'copy', 'excel', 'pdf'
             ]
