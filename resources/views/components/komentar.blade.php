@@ -25,7 +25,7 @@
                         <label for="document-file">Tambahkan File</label>
                         <div class="input-group">
                             <div class="custom-file">
-                                <input type="file" name="file" class="custom-file-input" id="document-file" onchange="displayFileName()" required>
+                                <input type="file" name="file" class="custom-file-input" id="document-file" onchange="displayFileName()" >
                                 <label class="custom-file-label" for="document-file" id="file-label">Pilih file</label>
                             </div>
                         </div>
