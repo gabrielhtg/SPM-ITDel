@@ -16,6 +16,7 @@ use App\Services\AllServices;
 use Illuminate\Support\Carbon;
 
 
+
 use Illuminate\Support\Facades\Validator;
 class LaporanController extends Controller
 {
@@ -238,6 +239,14 @@ public function getLaporanManagementReject()
                 'approve_at' => $nowDate,
                 'create_at' => $create_at,
             ]);
+
+            $message = AllServices::getJenislaporanName($tipeLaporan->id_tipelaporan, $tipeLaporan->id)." "."Telah Disetujui oleh"." ".auth()->user()->name;
+            NotificationModel::create([
+                'message' =>$message,
+                'ref_link' => "LaporanManagementAdd",
+                'clicked' => false,
+                'to' => $laporan->created_by,
+            ]);
     
         return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
     }
@@ -279,6 +288,14 @@ public function reject(Request $request, $id)
     }
 
     $laporan->save();
+    $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
+    $message = AllServices::getJenislaporanName($tipeLaporan->id_tipelaporan, $tipeLaporan->id)." "."Telah Direview oleh"." ".auth()->user()->name."."." "."Silahkan melakukan Revisi.";
+    NotificationModel::create([
+        'message' =>$message,
+        'ref_link' => "LaporanManagementAdd",
+        'clicked' => false,
+        'to' => $laporan->created_by,
+    ]);
 
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
 }
