@@ -386,7 +386,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[4, "desc"]]
+            "order": [[2, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>
