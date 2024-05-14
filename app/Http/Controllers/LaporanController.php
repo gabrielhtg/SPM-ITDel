@@ -170,7 +170,6 @@ public function getLaporanManagementReject()
             'revisi' => $request->revisi ?? false,
         ]);
 
-        
         $iduser = auth()->user()->id;
         $user = User::findOrFail($iduser);
 
@@ -204,9 +203,11 @@ public function getLaporanManagementReject()
         
 
 
-        
+        $jenis_laporan = JenisLaporan::where('id',$request->id_tipelaporan)->first();
+        $tipe_laporan = TipeLaporan::where('id',$jenis_laporan->id_tipelaporan)->first();
+     
 
-
+        AllServices::addLog(sprintf("%s Menambahkan %s %s(%d) ", $user->name,$tipe_laporan->nama_laporan,$jenis_laporan->nama,$jenis_laporan->year));
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil diunggah!']);
     }
 
@@ -247,7 +248,13 @@ public function getLaporanManagementReject()
                 'clicked' => false,
                 'to' => $laporan->created_by,
             ]);
-    
+
+           
+        $tipe_laporan = TipeLaporan::where('id',$tipeLaporan->id_tipelaporan)->first();
+            $iduser = auth()->user()->id;
+            $user = User::findOrFail($iduser);
+            $createdby = User::findOrFail($laporan->created_by);
+            AllServices::addLog(sprintf("%s Menyetujui %s %s(%d) dari %s ", $user->name,$tipe_laporan->nama_laporan,$tipeLaporan->nama,$tipeLaporan->year,$createdby->name));
         return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
     }
     
@@ -297,6 +304,11 @@ public function reject(Request $request, $id)
         'to' => $laporan->created_by,
     ]);
 
+    $tipe_laporan = TipeLaporan::where('id',$tipeLaporan->id_tipelaporan)->first();
+            $iduser = auth()->user()->id;
+            $user = User::findOrFail($iduser);
+            $createdby = User::findOrFail($laporan->created_by);
+            AllServices::addLog(sprintf("%s Tidak Menyetujui %s %s(%d) dari %s ", $user->name,$tipe_laporan->nama_laporan,$tipeLaporan->nama,$tipeLaporan->year,$createdby->name));
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
 }
 
@@ -353,6 +365,12 @@ public function update(Request $request, $id)
 
     $laporan->revisi = $request->revisi ?? false;
     $laporan->save();
+    $jenis_laporan = JenisLaporan::where('id',$request->id_tipelaporan)->first();
+    $tipe_laporan = TipeLaporan::where('id',$jenis_laporan->id_tipelaporan)->first();
+    $iduser = auth()->user()->id;
+    $user = User::findOrFail($iduser);
+
+    AllServices::addLog(sprintf("%s Memperbaharui %s %s(%d) ", $user->name,$tipe_laporan->nama_laporan,$jenis_laporan->nama,$jenis_laporan->year));
 
     // Redirect kembali ke halaman manajemen laporan dengan pesan sukses
     return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil disunting!']);

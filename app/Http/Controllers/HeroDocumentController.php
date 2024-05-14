@@ -55,6 +55,8 @@ class HeroDocumentController extends Controller
         // Simpan perubahan
         $document->save();
 
+        AllServices::addLog(sprintf("Memperbaharui Hero Dokumen", $request->nama,$request->year));
+
         // Redirect ke halaman atau tindakan lain setelah penyimpanan
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Berhasil diperbarui!']);
     }
