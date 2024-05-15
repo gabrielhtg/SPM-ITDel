@@ -403,6 +403,7 @@ public function updateDocument(Request $request, $id)
     $document->nomor_dokumen = $request->nomor_dokumen;
     $document->deskripsi = $request->deskripsi;
     $document->year = $request->year;
+    $document->dokumen_spm= $request->dokumen_spm;
     $document->tipe_dokumen = $request->tipe_dokumen;
     $document->set_date = $request->set_date;
     $document->start_date = $request->start_date;
