@@ -24,3 +24,6 @@
 [2024-05-13 15:14:11] gerry Menyetujui Laporan Bulanan April(2024) dari dedi  - User: dedi@gmail.com
 [2024-05-13 15:15:12] gerry Tidak Menyetujui Laporan Bulanan Oktober(2024) dari dedi  - User: dedi@gmail.com
 [2024-05-13 15:16:36] Menambahkan Tipe Laporan saddassdd - User: spmadministrator@gmail.com
+[2024-05-15 14:48:46] Menambahkan Dokumen ssaddadsda - User: spmadministrator@gmail.com
+[2024-05-15 14:54:23] Menghapus Dokumen ssaddadsda - User: spmadministrator@gmail.com
+[2024-05-15 14:54:59] Menambahkan Dokumen sdsdsad - User: spmadministrator@gmail.com
