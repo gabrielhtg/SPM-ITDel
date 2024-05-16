@@ -49,3 +49,9 @@
 [2024-05-15 16:20:53] gerry Menyetujui Laporan Bulanan Oktober(2024) dari dedi  - User: dedi@gmail.com
 [2024-05-15 16:20:56] gerry Menyetujui Laporan Bulanan Oktober(2024) dari dedi  - User: dedi@gmail.com
 [2024-05-15 16:21:33] gerry Menyetujui Laporan Bulanan Oktober(2024) dari dedi  - User: dedi@gmail.com
+[2024-05-16 14:30:21] Menambahkan Berita Ini adalah judul berita 1000 - User: spmadministrator@gmail.com
+[2024-05-16 14:31:01] Menyunting Berita Ini adalah judul berita 1000 - gabriel ganteng dan tidak memberikan rafael tugas ty menjadi Ini adalah judul berita 1000 - gabriel ganteng dan tidak memberikan rafael tugas ty - User: spmadministrator@gmail.com
+[2024-05-16 14:31:23] Menghapus Berita Ini adalah judul berita 1000 - gabriel ganteng dan tidak memberikan rafael tugas ty - User: spmadministrator@gmail.com
+[2024-05-16 14:34:10] Menambahkan Berita "Pengembangan Aplikasi SPM" - User: spmadministrator@gmail.com
+[2024-05-16 14:34:42] Menyunting Berita "Pengembangan Aplikasi SPM edited" menjadi "Pengembangan Aplikasi SPM edited" - User: spmadministrator@gmail.com
+[2024-05-16 14:34:55] Menghapus Berita "Pengembangan Aplikasi SPM edited" - User: spmadministrator@gmail.com
