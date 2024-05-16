@@ -55,3 +55,6 @@
 [2024-05-16 14:34:10] Menambahkan Berita "Pengembangan Aplikasi SPM" - User: spmadministrator@gmail.com
 [2024-05-16 14:34:42] Menyunting Berita "Pengembangan Aplikasi SPM edited" menjadi "Pengembangan Aplikasi SPM edited" - User: spmadministrator@gmail.com
 [2024-05-16 14:34:55] Menghapus Berita "Pengembangan Aplikasi SPM edited" - User: spmadministrator@gmail.com
+[2024-05-16 21:03:16] Menambahkan Dokumen gerry - User: spmadministrator@gmail.com
+[2024-05-16 21:05:26] Memperbaharui Dokumen gerry - User: spmadministrator@gmail.com
+[2024-05-16 21:15:22] Memperbaharui Dokumen Statuta Institut Teknologi Del 2019 - User: spmadministrator@gmail.com
