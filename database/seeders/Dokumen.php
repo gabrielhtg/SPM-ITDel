@@ -260,5 +260,50 @@ class Dokumen extends Seeder
             // 'link' => 'http://example.com',
             // 'keterangan_berlaku' => true,
         ]);
+
+        DocumentModel::create([
+            'name' => 'PENGESAHAN KURIKULUM 2016-2019 PROGRAM STUDI DIPLOMA 3 DAN PROGRAM STUDI DIPLOMA 4 DI LINGKUNGAN IT DEL',
+            'nama_dokumen' => '003_SK_SA_Pengesahan-Kurikulum-Diploma.pdf',
+            'nomor_dokumen' => '0O3/SK/SA/IT Del/VII/16',
+            'deskripsi' => '<p>bahwa berdasarkan Statuta Institut Teknologi Del (IT Del) yang menyatakan bahwa Senat Akademik bertugas antara lain mengatur ketentuan mengenai kurikulum pendidikan,
+            bahwa Sidang Senat Akademik IT Del mensahkan Kurikulum 2016-2019 Program Studi Diploma 3 dan Program Studi Diploma 4 di Lingkungan Institut Teknologi Del.</p>',
+            'directory' => '/src/documents/003_SK_SA_Pengesahan-Kurikulum-Diploma.pdf',
+            'give_access_to' =>0,
+            'give_edit_access_to' => 1,
+            'created_by' => 1,
+            // 'menggantikan_dokumen' => 'Dokumen Lama 1',
+            'year' => 2016,
+            'tipe_dokumen' => 20,
+            'dokumen_spm' =>false,
+            'set_date' => '2016-08-22 00:00:00',
+            'start_date' => '2016-08-22 00:00:00',
+            // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
+            'keterangan_status' => true,
+            'can_see_by' => true,
+            // 'link' => 'http://example.com',
+            // 'keterangan_berlaku' => true,
+        ]);
+
+        DocumentModel::create([
+            'name' => 'PEDOMAN DAN TATA CARA PEMILIHAN REKTOR DI LINGKUNGAN IT DEL',
+            'nama_dokumen' => 'SK-Senat-Akademik-Tentang-Pedoman-dan-Tata-Cara-Pemilihan-Rektor-Di-Lingkungan-IT-Del-Nomor-002-SK-SA-ITD-V-2016.pdf',
+            'nomor_dokumen' => '002/SK/SA/ITD/V/2016',
+            'deskripsi' => '<p>bahwa untuk melaksanakan kesinambungan dan pengembangan Institut Teknologi Del, proses pemilihan dan pengangkatan Rektor perlu dilakukan secara periodik, bahwa proses pemilihan dan pengangkatan Rektor Institut Teknologi Del perlu diatur dengan baik, bahwa untuk menunjang kelancaran proses pemilihan Rektor Institut Teknologi Del, perlu ditetapkan Pedoman dan Tata Cara Pemilihan Rektor Institut Teknologi Del.</p>',
+            'directory' => '/src/documents/SK-Senat-Akademik-Tentang-Pedoman-dan-Tata-Cara-Pemilihan-Rektor-Di-Lingkungan-IT-Del-Nomor-002-SK-SA-ITD-V-2016.pdf',
+            'give_access_to' =>0,
+            'give_edit_access_to' => 1,
+            'created_by' => 1,
+            // 'menggantikan_dokumen' => 'Dokumen Lama 1',
+            'year' => 2016,
+            'tipe_dokumen' => 20,
+            'dokumen_spm' =>false,
+            'set_date' => '2016-08-22 00:00:00',
+            'start_date' => '2016-08-22 00:00:00',
+            // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
+            'keterangan_status' => true,
+            'can_see_by' => true,
+            // 'link' => 'http://example.com',
+            // 'keterangan_berlaku' => true,
+        ]);
     }
 }
