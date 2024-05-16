@@ -230,9 +230,9 @@
             icon: 'success',
             title: 'Success',
             text: '{!! session('toastData')['text'] !!}',
-            toast: true,
+            // toast: true,
             showConfirmButton: false,
-            position: 'top-end',
+            // position: 'top-end',
             timer: 3000
         })
         @else
@@ -240,9 +240,9 @@
             icon: 'error',
             title: 'Failed',
             text: '{!! session('toastData')['text'] !!}',
-            toast: true,
+            // toast: true,
             showConfirmButton: false,
-            position: 'top-end',
+            // position: 'top-end',
             timer: 5000
         })
         @endif
@@ -253,9 +253,9 @@
             icon: 'error',
             title: 'Failed',
             text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-            toast: true,
+            // toast: true,
             showConfirmButton: false,
-            position: 'top-end',
+            // position: 'top-end',
             timer: 5000
         })
         @endif
