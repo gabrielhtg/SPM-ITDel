@@ -93,7 +93,7 @@
                         @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="
                                 @if($item->status === 'Disetujui') background-color: #def0d8; /* Warna hijau */
-                                @elseif($item->status === 'Review') background-color:  #f2dedf /* Warna merah */
+                                @elseif($item->status === 'Direview') background-color:  #f2dedf; /* Warna merah */
                                 @else background-color: #e8f0fe; /* Warna biru */
                                 @endif
                                 ">
@@ -108,7 +108,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{$item->JenisLaporan->nama}}
+                                        {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}
                                     </div>
                                 </div>
                             </td>
@@ -152,7 +152,7 @@
                                             echo '-';
                                         } elseif ($item->status == 'Disetujui') {
                                             echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                        } elseif ($item->status == 'Revisi') {
+                                        } elseif ($item->status == 'Direview') {
                                             echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                         }
                                         @endphp
@@ -244,7 +244,7 @@
                 "responsive": true, "lengthChange": false, "autoWidth": false,
                 "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
                 "pageLength": 10,
-                "order": [[4, "desc"]]
+                "order": [[2, "desc"]]
             }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
         });
     </script>

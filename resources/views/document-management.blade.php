@@ -199,7 +199,9 @@
 
 
                                         @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
-                                            @include('components.delete-confirmation-modal', ['id' => $e->id, 'name' => $e->name, 'route' => 'remove-document'])
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
                                         @endif
 
                                     </div>
@@ -210,6 +212,38 @@
                     @endforeach
                     </tbody>
                 </table>
+
+                @foreach($documents as $e)
+                <div class="modal fade" id="modal-delete-{{ $e->id }}">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Konfirmasi Penghapusan</h4>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form id="form-delete-{{ $e->id}}" method="POST" action="{{ route('remove-document') }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="id" value="{{ $e->id }}">
+                                </form>
+                
+                                <p>
+                                    Apakah Anda yakin ingin menghapus data {{$e->name }}?
+                                </p>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">Hapus</button>
+                            </div>
+                        </div>
+                        <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                @endforeach
 
                 @foreach ($documents as $e)
                     <div class="modal fade" id="modal-detail-document-{{ $e->id }}">

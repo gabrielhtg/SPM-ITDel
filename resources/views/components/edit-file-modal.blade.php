@@ -189,13 +189,14 @@
                                                 <input type="datetime-local" name="start_date" class="form-control" required value="{{ $document->start_date }}">
                                             </div>
 
-                                                <div class="form-group">
-                                                    <label>Dokumen SPM</label>
-                                                    <select name="dokumen_spm" class="form-control" required value="{{ $document->dokumen_spm }}">
-                                                        <option value="1">Iya</option>
-                                                        <option value="0">Tidak</option>
-                                                    </select>
-                                                </div>
+                                            <div class="form-group">
+                                                <label>Dokumen SPM</label>
+                                                <select name="dokumen_spm" class="form-control" required>
+                                                    <option value="1" {{ $document->dokumen_spm == 1 ? 'selected' : '' }}>Iya</option>
+                                                    <option value="0" {{ $document->dokumen_spm == 0 ? 'selected' : '' }}>Tidak</option>
+                                                </select>
+                                            </div>
+                                            
 
                                             <div class="form-group">
                                                 <label>Tanggal Berakhir:</label>

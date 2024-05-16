@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AllowedUserModel;
+use App\Services\AllServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -64,11 +65,14 @@ class ListAllowedUserController extends Controller
             }
         }
 
+        AllServices::addLog("Menambahkan list allowed user dari excel.");
         return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan pengguna yang diizinkan dari file excel!']);
     }
 
     public function removeFromList (Request $request) {
-        AllowedUserModel::find($request->id)->delete();
+        $allowedUser = AllowedUserModel::find($request->id);
+        AllServices::addLog(sprintf("Menghapus email %s dari list allowed user", $allowedUser->email));
+        $allowedUser->delete();
 
         return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Data berhasil dihapus!']);
     }
@@ -87,6 +91,7 @@ class ListAllowedUserController extends Controller
                 'created_by' => auth()->user()->username
             ]);
 
+            AllServices::addLog(sprintf("Menambahkan email %s ke list allowed user", $request->email));
             return redirect()->route("list-allowed-user")->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan pengguna baru yang diizinkan!']);
         } catch (QueryException $e) {
             return redirect()->route("list-allowed-user")->with('toastData', ['success' => false, 'text' => 'Gagal menambahkan pengguna baru yang diizinkan. Email sudah ditambahkan!']);

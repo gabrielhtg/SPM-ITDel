@@ -14,10 +14,13 @@ class HeroDocumentController extends Controller
         $validator = Validator::make($request->all(), [
             'titlehero' => 'required|string|max:40',
             'descriptionhero' => 'required|string|max:100',
-            'imagehero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
+            'imagehero' => 'nullable|file|mimes:jpeg,png,jpg|max:10240', // Tambahkan not_mimes untuk menolak tipe file tertentu
         ], [
             'descriptionhero.max' => 'Deskripsi tidak boleh melebihi 100 karakter.',
+            'descriptionhero.required' => 'Deskripsi tidak boleh kosong',
             'titlehero.max' => 'Judul tidak boleh melebihi 40 karakter.',
+            'imagehero.mimes' => 'Format file tidak didukung. Harap unggah file gambar (format: jpeg, png, jpg).',
+            
         ]);
 
         // Jika validasi gagal, kembali dengan pesan error
@@ -51,6 +54,8 @@ class HeroDocumentController extends Controller
 
         // Simpan perubahan
         $document->save();
+
+        AllServices::addLog(sprintf("Memperbaharui Hero Dokumen", $request->nama,$request->year));
 
         // Redirect ke halaman atau tindakan lain setelah penyimpanan
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Berhasil diperbarui!']);

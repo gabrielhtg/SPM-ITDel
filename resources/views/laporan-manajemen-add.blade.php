@@ -120,7 +120,8 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    {{$item->jenisLaporan->nama}}
+                                    
+                                    {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}
                                 </div>
                             </div>
                         </td>
@@ -165,7 +166,7 @@
                                         echo '-';
                                     } elseif ($item->status == 'Disetujui') {
                                         echo \Carbon\Carbon::parse($item->approve_at)->format('d/m/Y');
-                                    } elseif ($item->status == 'Revisi') {
+                                    } elseif ($item->status == 'Direview') {
                                         echo \Carbon\Carbon::parse($item->reject_at)->format('d/m/Y');
                                     }
                                     @endphp
@@ -194,7 +195,7 @@
                                 <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                @if($item->status=="Menunggu")
+                                @if($item->status=="Menunggu" && auth()->user()->id==$item->created_by)
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
@@ -386,7 +387,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[4, "desc"]]
+            "order": [[2, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

@@ -16,6 +16,7 @@ use App\Services\AllServices;
 use Illuminate\Support\Carbon;
 
 
+
 use Illuminate\Support\Facades\Validator;
 class LaporanController extends Controller
 {
@@ -169,7 +170,6 @@ public function getLaporanManagementReject()
             'revisi' => $request->revisi ?? false,
         ]);
 
-        
         $iduser = auth()->user()->id;
         $user = User::findOrFail($iduser);
 
@@ -203,9 +203,11 @@ public function getLaporanManagementReject()
         
 
 
-        
+        $jenis_laporan = JenisLaporan::where('id',$request->id_tipelaporan)->first();
+        $tipe_laporan = TipeLaporan::where('id',$jenis_laporan->id_tipelaporan)->first();
+     
 
-
+        AllServices::addLog(sprintf("%s Menambahkan %s %s(%d) ", $user->name,$tipe_laporan->nama_laporan,$jenis_laporan->nama,$jenis_laporan->year));
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil diunggah!']);
     }
 
@@ -238,7 +240,21 @@ public function getLaporanManagementReject()
                 'approve_at' => $nowDate,
                 'create_at' => $create_at,
             ]);
-    
+
+            $message = AllServices::getJenislaporanName($tipeLaporan->id_tipelaporan, $tipeLaporan->id)." "."Telah Disetujui oleh"." ".auth()->user()->name;
+            NotificationModel::create([
+                'message' =>$message,
+                'ref_link' => "LaporanManagementAdd",
+                'clicked' => false,
+                'to' => $laporan->created_by,
+            ]);
+
+           
+        $tipe_laporan = TipeLaporan::where('id',$tipeLaporan->id_tipelaporan)->first();
+            $iduser = auth()->user()->id;
+            $user = User::findOrFail($iduser);
+            $createdby = User::findOrFail($laporan->created_by);
+            AllServices::addLog(sprintf("%s Menyetujui %s %s(%d) dari %s ", $user->name,$tipe_laporan->nama_laporan,$tipeLaporan->nama,$tipeLaporan->year,$createdby->name));
         return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Disetujui!']);
     }
     
@@ -279,7 +295,20 @@ public function reject(Request $request, $id)
     }
 
     $laporan->save();
+    $tipeLaporan = JenisLaporan::findOrFail($laporan->id_tipelaporan);
+    $message = AllServices::getJenislaporanName($tipeLaporan->id_tipelaporan, $tipeLaporan->id)." "."Telah Direview oleh"." ".auth()->user()->name."."." "."Silahkan melakukan Revisi.";
+    NotificationModel::create([
+        'message' =>$message,
+        'ref_link' => "LaporanManagementAdd",
+        'clicked' => false,
+        'to' => $laporan->created_by,
+    ]);
 
+    $tipe_laporan = TipeLaporan::where('id',$tipeLaporan->id_tipelaporan)->first();
+            $iduser = auth()->user()->id;
+            $user = User::findOrFail($iduser);
+            $createdby = User::findOrFail($laporan->created_by);
+            AllServices::addLog(sprintf("%s Tidak Menyetujui %s %s(%d) dari %s ", $user->name,$tipe_laporan->nama_laporan,$tipeLaporan->nama,$tipeLaporan->year,$createdby->name));
     return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
 }
 
@@ -336,6 +365,12 @@ public function update(Request $request, $id)
 
     $laporan->revisi = $request->revisi ?? false;
     $laporan->save();
+    $jenis_laporan = JenisLaporan::where('id',$request->id_tipelaporan)->first();
+    $tipe_laporan = TipeLaporan::where('id',$jenis_laporan->id_tipelaporan)->first();
+    $iduser = auth()->user()->id;
+    $user = User::findOrFail($iduser);
+
+    AllServices::addLog(sprintf("%s Memperbaharui %s %s(%d) ", $user->name,$tipe_laporan->nama_laporan,$jenis_laporan->nama,$jenis_laporan->year));
 
     // Redirect kembali ke halaman manajemen laporan dengan pesan sukses
     return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Laporan berhasil disunting!']);

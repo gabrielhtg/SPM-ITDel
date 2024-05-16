@@ -56,6 +56,7 @@ class TypeDocumentController extends Controller
             'jenis_dokumen' => $request->jenis_dokumen,
             'singkatan' => $request->singkatan,
         ]);
+        AllServices::addLog(sprintf("Menambahkan Tipe Dokumen %s", $request->jenis_dokumen));
 
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Tipe dokumen berhasil ditambahkan!']);
     }
@@ -80,6 +81,7 @@ class TypeDocumentController extends Controller
             'nama_laporan' => $request->nama_laporan,
 
         ]);
+        AllServices::addLog(sprintf("Menambahkan Tipe Laporan %s", $request->nama_laporan));
 
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
     }
@@ -104,6 +106,7 @@ class TypeDocumentController extends Controller
         $laporan->nama_laporan = $request->nama_laporan;
         $laporan->save();
 
+        AllServices::addLog(sprintf("Memperbaharui Tipe Laporan %s", $request->nama_laporan));
         // Redirect kembali ke halaman manajemen tipe laporan dengan pesan sukses
         return redirect()->route('viewLaporanType')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil diperbarui!']);
     }
@@ -117,6 +120,7 @@ class TypeDocumentController extends Controller
         if($tipe_laporan) {
             // Jika ditemukan, hapus data
             $tipe_laporan->delete();
+            AllServices::addLog(sprintf("Menghapus Tipe Laporan %s", $tipe_laporan->nama_laporan));
 
             // Redirect kembali dengan pesan sukses
             return redirect()->route('viewLaporanType')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil dihapus!']);
@@ -132,12 +136,11 @@ class TypeDocumentController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'nama' => 'required|unique:jenis_laporan',
+            'nama' => 'required',
             'year' => 'required',
             'end_date' => 'required|date',
         ], [
             'nama.required' => 'Nama laporan harus diisi.',
-            'nama.unique' => 'Jenis Laporan Harus Berbeda dengan Jenis Laporan yang sudah ada',
             'year.required' => 'Tahun harus diisi.',
             'end_date.required' => 'Tanggal selesai harus diisi.',
             'end_date.date' => 'Tanggal selesai harus berupa tanggal.',
@@ -153,12 +156,12 @@ class TypeDocumentController extends Controller
         $nama_tipe = $tipe_laporan->nama_laporan;
         
         // Buat nama laporan dengan menambahkan nama tipe laporan
-        $nama_laporan = $nama_tipe ." ". $request->input('nama') . ' (' . $request->input('year') . ')';
+        // $nama_laporan = $nama_tipe ." ". $request->input('nama') . ' (' . $request->input('year') . ')';
     
         // Tambahkan jenis laporan baru
         $jenis_laporan = JenisLaporan::create([
             'id_tipelaporan' => $request->id_tipelaporan,
-            'nama' => $nama_laporan,
+            'nama' => $request->nama,
             'year' => $request->year,
             'end_date' => $request->end_date,
         ]);
@@ -188,6 +191,8 @@ class TypeDocumentController extends Controller
                 'end_date'=>$jenis_laporan->end_date,
             ]);
         }
+
+        AllServices::addLog(sprintf("Menambahkan Kategori Tipe Laporan %s(%d)", $request->nama,$request->year));
     
         return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => true, 'text' => 'Tipe laporan berhasil ditambahkan!']);
     }
@@ -242,6 +247,7 @@ public function updateLaporanJenis(Request $request, $id)
         'end_date' => $request->end_date,
     ]);
 
+    AllServices::addLog(sprintf("Memperbaharui Kategori Tipe Laporan %s(%d)", $nama_laporan,$request->year));
     return redirect()->route('viewLaporanJenis')->with('toastData', ['success' => true, 'text' => 'Jenis laporan berhasil diupdate!']);
 }
 

@@ -17,8 +17,6 @@ class RoleController extends Controller
 {
     public function getHalamanRoleManagement()
     {
-
-
         $data = [
             'active_sidebar' => [8, 0],
             'roles' => RoleModel::all(),
@@ -85,6 +83,8 @@ class RoleController extends Controller
                     'bawahan' => $newRole->id
                 ]);
             }
+
+            AllServices::addLog(sprintf("Menambahkan role %s", $request->nama_role));
             return back()->with('toastData', ['success' => true, 'text' => 'Role ' . $request->nama_role . ' berhasil ditambahkan!']);
         } catch (QueryException $e) {
             if ($e->errorInfo[1] == 1062) {
@@ -136,6 +136,7 @@ class RoleController extends Controller
             'status' => !$currentRoleStatus
         ]);
 
+        AllServices::addLog(sprintf("%s status role %s", $role->status ? 'Mengaktifkan' : 'Menonaktifkan', $role->role));
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil mengganti status role!']);
     }
 
@@ -213,6 +214,7 @@ class RoleController extends Controller
             'is_admin' => $request->is_admin,
         ]);
 
+        AllServices::addLog(sprintf("Mengedit role %s", $role->role));
         return back()->with('toastData', ['success' => true, 'text' => 'Berhasil memperbarui role!']);
     }
 }

@@ -34,7 +34,7 @@ class AkreditasiController extends Controller
     {
         $request->validate([
             'judulakreditasi' => 'required',
-            'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
+            'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
         ]);
 
@@ -103,7 +103,7 @@ class AkreditasiController extends Controller
         // Validasi input
         $request->validate([
             'judulakreditasi' => 'required',
-            'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
+            'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
         ]);
         // Cari data pengumuman yang akan diupdate

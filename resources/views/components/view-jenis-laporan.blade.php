@@ -76,7 +76,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{ $e->nama }}
+                                        {{ \App\Services\AllServices::getJenislaporanName($e->id_tipelaporan, $e->id) }}
                                     </div>
                                 </div>
                             </td>
@@ -214,7 +214,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[4, "desc"]]
+            "order": [[0, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

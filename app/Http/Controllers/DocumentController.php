@@ -8,6 +8,7 @@ use App\Models\JenisLaporan;
 use App\Models\LaporanTypeModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
+use App\Services\AllServices;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -308,6 +309,7 @@ class DocumentController extends Controller
     }
 
     $document->save();
+    AllServices::addLog(sprintf("Menambahkan Dokumen %s", $request->name));
 
     return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'File berhasil diunggah!']);
 }
@@ -401,6 +403,7 @@ public function updateDocument(Request $request, $id)
     $document->nomor_dokumen = $request->nomor_dokumen;
     $document->deskripsi = $request->deskripsi;
     $document->year = $request->year;
+    $document->dokumen_spm= $request->dokumen_spm;
     $document->tipe_dokumen = $request->tipe_dokumen;
     $document->set_date = $request->set_date;
     $document->start_date = $request->start_date;
@@ -431,6 +434,7 @@ public function updateDocument(Request $request, $id)
 
     // Simpan perubahan ke database
     $document->save();
+    AllServices::addLog(sprintf("Memperbaharui Dokumen %s", $request->name));
     return redirect()->route('documentManagement', $id)->with('toastData', ['success' => true, 'text' => 'File berhasil diperbarui!']);
 }
 
@@ -441,6 +445,9 @@ public function updateDocument(Request $request, $id)
         $document = DocumentModel::find($request->id);
         File::delete(public_path($document->directory));
         $document->delete();
+
+        AllServices::addLog(sprintf("Menghapus Dokumen %s", $document->name));
+            
 
         return redirect()->route('documentManagement')->with('toastData', ['success' => true, 'text' => 'Dokumen berhasil dihapus!']);
     }
@@ -533,7 +540,8 @@ public function updateDocument(Request $request, $id)
     {
         $jenis_laporan = JenisLaporan::all();
         $type_laporan =TipeLaporan::all();
-        $active_sidebar = [1, 1]; // Mengatur nilai untuk $active_sidebar
+        $active_sidebar = [1, 1]; 
+     
 
         $data = [
             'type_laporan'=>$type_laporan,

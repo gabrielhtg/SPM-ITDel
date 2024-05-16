@@ -43,19 +43,6 @@ class create_user_admin extends Seeder
                 'created_at' => now(),
                 'profile_pict' => null,
             ],
-            //            [
-//                'name' => 'David Vincent Gurning',
-//                'email' => 'ifs21001@students.del.ac.id',
-//                'username' => 'Davidgrng',
-//                'phone' => '082164084465',
-//                'online' => false,
-//                'password' => Hash::make("admin"),
-//                'status' => true,
-//                'verified' => true,
-//                'role' => 1,
-//                'created_at' => now(),
-//                'profile_pict' => 'src/img/vincent.jpg'
-//            ],
 //            [
 //                'name' => 'Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech',
 //                'email' => 'aldo@del.ac.id',

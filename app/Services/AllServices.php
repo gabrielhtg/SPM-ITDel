@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Mail\DailyReminder;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\DocumentModel;
@@ -9,6 +10,7 @@ use App\Models\DocumentTypeModel;
 use App\Models\InformableModel;
 use App\Models\JenisLaporan;
 use App\Models\Laporan;
+use App\Models\LogActivityModel;
 use App\Models\LogLaporan;
 use App\Models\NotificationModel;
 use App\Models\ResponsibleModel;
@@ -17,6 +19,7 @@ use App\Models\TipeLaporan;
 use App\Models\User;
 use ErrorException;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
 
 class AllServices
 {
@@ -303,12 +306,20 @@ class AllServices
 
     public static function haveAccountable($roleId): bool
     {
-        // Cari accountable model yang memiliki role yang sesuai
-        $accountable = AccountableModel::where('role', 'LIKE', "%$roleId%")->first();
+        // Pisahkan string $roleId menjadi array ID
+        $roleIds = explode(';', $roleId);
+
+        // Cari accountable model yang memiliki setiap role yang sesuai
+        $accountable = AccountableModel::where(function ($query) use ($roleIds) {
+            foreach ($roleIds as $roleId) {
+                $query->orWhere('role', 'LIKE', "%$roleId%");
+            }
+        })->first();
 
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
     }
+
 
 
     public static function isInformable($roleIds): bool
@@ -365,8 +376,11 @@ class AllServices
     public static function isLoggedUserHasAdminAccess(): bool
     {
         foreach (explode(";",auth()->user()->role) as  $e) {
-            if (RoleModel::find($e)->is_admin) {
-                return true;
+            $role = RoleModel::find($e);
+            if ($role) {
+                if (RoleModel::find($e)->is_admin) {
+                    return true;
+                }
             }
         }
 
@@ -684,9 +698,13 @@ class AllServices
     public function getJenisLaporanWithoutLog($userId)
     {
         // Mendapatkan ID laporan yang diunggah oleh user saat ini
-        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
-        ->whereNotNull('status')
-        ->pluck('id_jenis_laporan');
+        $uploadedJenisLaporanIds = Laporan::where('created_by', $userId)
+        ->where(function ($query) {
+            $query->where('status', 'Direview')
+                ->orWhere('status', 'Menunggu');
+        })
+        ->pluck('id_tipelaporan');
+
 
 
 
@@ -806,7 +824,16 @@ class AllServices
 
     public static function getAllNotifications()
     {
-        return NotificationModel::all()->sortByDesc('created_at');
+        $notifications = NotificationModel::all()->sortByDesc('created_at');
+        $temp = [];
+
+        foreach ($notifications as $notification) {
+            if ($notification->to == auth()->user()->id ) {
+                $temp[] = $notification;
+            }
+        }
+
+        return $temp;
     }
 
     public static function getNotifications(): array
@@ -844,4 +871,67 @@ class AllServices
         }
     }
 
+    public static function sendDailyReminder(): void
+    {
+        // Lakukan pengiriman email di sini
+        $nowDate = now();
+        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+            ->whereNull('status')
+            ->get();
+
+        $userIds = $logLaporan->pluck('upload_by')->toArray();
+
+        // Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
+        $userLaporan = User::whereIn('id', $userIds)->get();
+        $emails = $userLaporan->pluck('email')->toArray();
+
+        foreach ($emails as $email) {
+            $idJenisLaporan = $logLaporan->pluck('id_jenis_laporan')->unique()->toArray(); // Get unique jenis laporan IDs
+            $jenisLaporan = JenisLaporan::whereIn('id', $idJenisLaporan)->get();
+
+            $messageContent = 'Segera kumpulkan: ';
+            foreach ($jenisLaporan as $jenis) {
+                $messageContent .= $jenis->nama . ', ';
+            }
+            $messageContent = rtrim($messageContent, ', '); // Remove the last comma and space
+
+            echo $email;
+
+            Mail::to($email)->send(new DailyReminder($messageContent));
+        }
+    }
+
+    public static function addLog ($log): void
+    {
+        if (!empty(auth()->user()->email)) {
+            LogActivityModel::create([
+                'log' => $log,
+                'user' => auth()->user()->email
+            ]);
+
+            $logData = '[' . date('Y-m-d H:i:s') . '] ' . $log . ' - User: ' . auth()->user()->email . "\n";
+            file_put_contents(public_path('src/log.txt'), $logData, FILE_APPEND);
+        }
+    }
+
+    public static function getJenisLaporanName($idtipe, $idJenis): string
+{
+    $tipeLaporan = TipeLaporan::find($idtipe);
+    $jenisLaporan = JenisLaporan::find($idJenis);
+
+    $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
+
+    return $nama;
+}
+
+public static function JenisLaporanName( $idJenis): string
+{
+    
+    $jenisLaporan = JenisLaporan::find($idJenis);
+    $tipeLaporan = TipeLaporan::find($jenisLaporan->id_tipelaporan);
+
+    $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
+
+    return $nama;
+}
 }

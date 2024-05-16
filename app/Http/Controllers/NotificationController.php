@@ -45,4 +45,13 @@ class NotificationController extends Controller
 
         return redirect()->back();
     }
+
+    public function getNotificationPage() {
+        $data = [
+            'notifications' => AllServices::getAllNotifications(),
+            'active_sidebar' => [0, 0]
+        ];
+
+        return view('notification', $data);
+    }
 }

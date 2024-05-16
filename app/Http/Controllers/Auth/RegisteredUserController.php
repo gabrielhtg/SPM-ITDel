@@ -83,9 +83,6 @@ class RegisteredUserController extends Controller
                     // Ambil objek RoleModel berdasarkan ID
                     $role = RoleModel::where('id', $role_user)->first();
 
-
-
-
                     $Laporan = $role->required_to_submit_document;
 
 
@@ -106,8 +103,7 @@ class RegisteredUserController extends Controller
                         ]);
                     }
 
-
-
+                    AllServices::addLog(sprintf("Menambahkan user %s", $request->name));
                     return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
                 }
                 catch (QueryException $e) {
@@ -265,11 +261,12 @@ class RegisteredUserController extends Controller
 
     public function acceptRegisterRequest(Request $request) {
         $resetObject = User::find($request->id);
+        $temp = $resetObject->pending_roles;
 
         if ($resetObject) {
             $resetObject->update([
                 'verified' => true,
-                'role' => $resetObject->pending_roles,
+                'role' => $temp,
                 'status' => true,
                 'pending_roles' => null,
                 'created_at' => now()
@@ -278,7 +275,7 @@ class RegisteredUserController extends Controller
             Employee::create([
                 'user_id' => $resetObject->id,
                 'name' => $resetObject->name,
-                'role' => $resetObject->role,
+                'role' => $temp,
             ]);
 
             $adminRoles = RoleModel::where('is_admin', true)->get();
@@ -300,13 +297,12 @@ class RegisteredUserController extends Controller
 
             Mail::to($resetObject->email)->send(new AcceptRegisterMail("Permintaan request kamu sebagai " . AllServices::convertRole($resetObject->role) . " sudah diterima. Anda sekarang sudah bisa login."));
 
+            AllServices::addLog(sprintf("Menerima permintaan action dari %s", $resetObject->name));
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Berhasil menerima permintaan!"]);
         }
         else {
             return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => "Gagal menerima permintaan! Email tidak ditemukan!"]);
         }
-
-
     }
 
     public function deleteRegisterRequest(Request $request) {
@@ -335,6 +331,7 @@ class RegisteredUserController extends Controller
 
             Mail::to($data->email)->send(new RejectRegisterMail("Permintaan request kamu sebagai " . AllServices::convertRole($data->role) . " ditolak. Pastikan data yang anda masukkan sudah tepat atau anda memang sudah diizinkan untuk mendaftar!"));
 
+            AllServices::addLog(sprintf("Menolak permintaan pendaftaran dari %s", $data->name));
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 
@@ -360,6 +357,7 @@ class RegisteredUserController extends Controller
                     }
                 }
             }
+            AllServices::addLog(sprintf("Menolak permintaan pergantian role dari %s", $data->name));
             return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menghapus!']);
         }
 

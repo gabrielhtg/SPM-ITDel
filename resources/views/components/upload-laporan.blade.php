@@ -25,14 +25,21 @@
 
                     <div class="form-group mt-3">
                         <label for="tipe-laporan">Tipe Laporan</label>
-                        <select id="tipe-laporan" name="id_tipelaporan" 
-                                class="tipe-laporan-custom form-control" style="width: 100%">
+                        <select id="tipe-laporan" name="id_tipelaporan" class="tipe-laporan-custom form-control" style="width: 100%">
                             <option></option>
-                            @foreach($tipe_laporan as $tipe)
-                                <option value="{{ $tipe->id }}">{{ $tipe->nama}}</option>
-                            @endforeach
+                            <?php
+                              
+                                $sorted_tipe_laporan = $tipe_laporan->sortByDesc('end_date');
+                            ?>
+                          @foreach($sorted_tipe_laporan as $tipe)
+                          <option value="{{ $tipe->id }}" 
+                                  @if(!$loop->first) class="hide" @endif>
+                              {{ \App\Services\AllServices::JenislaporanName($tipe->id) }}
+                          </option>
+                      @endforeach
                         </select>
                     </div>
+                    
 
                     <div class="form-group">
                         <label for="revisi">Revisi:</label><br>

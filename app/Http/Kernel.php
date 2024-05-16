@@ -44,8 +44,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             CheckDocumentActive::class,
             CheckDocumentReplaced::class,
-         
-            
+//            SendDailyReminderEmail::class,
         ],
 
         'api' => [
@@ -76,7 +75,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'checkDocumentActive' => CheckDocumentActive::class,
         'checkDocumentReplaced'=>CheckDocumentReplaced::class,
-        
     ];
     /**
      * Define the application's command schedule.
@@ -84,9 +82,14 @@ class Kernel extends HttpKernel
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
-        protected function schedule(Schedule $schedule)
-    {
-        // Tambahkan task scheduling untuk menjalankan command pengiriman email pada pukul 15:00
-        $schedule->command(SendDailyReminderEmail::class)->dailyAt('08:00');
-    }
+//     protected function schedule(Schedule $schedule)
+// {
+
+//     $schedule->command('send:daily-reminder-email')
+//              ->timezone('Asia/Jakarta')
+//              ->dailyAt('08:00');
+// }
+
+
+
 }

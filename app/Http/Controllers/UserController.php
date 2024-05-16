@@ -65,6 +65,8 @@ class UserController extends Controller
             $user = User::find($request->id);
 
             if ($user) {
+                AllServices::addLog(sprintf("Menonaktifkan user %s", $user->username));
+                AllServices::addLog(sprintf("Menonaktifkan employee %s", $user->name));
                 Employee::where('user_id', $user->id)->delete();
 
                 $user->delete();

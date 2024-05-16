@@ -14,10 +14,7 @@ class responsibleSeeder extends Seeder
     public function run(): void
     {
         DB::table('responsible')->insert([
-//            ["role"=>3,"responsible_to" => 2],
-//            ["role"=>4,"responsible_to" => 3],
-//            ["role"=>4,"responsible_to" => 2],
-//            ["role"=>5,"responsible_to" => 2]
-            ]);
+            ["role"=>3, "responsible_to" => 2],
+        ]);
     }
 }
