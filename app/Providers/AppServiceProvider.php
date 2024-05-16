@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Announcement;
@@ -40,5 +41,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('guestBigNews', $guestBigNews);
             $view->with('guestIntroduction', $guestIntroduction);
         });
+
+//        if (config('app.env') === 'local') {
+//            URL::forceScheme('https');
+//        }
     }
 }
