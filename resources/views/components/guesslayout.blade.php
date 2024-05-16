@@ -301,7 +301,6 @@ function animateValue(id, start, end, duration) {
     var obj = document.getElementById(id);
     var timer = setInterval(function() {
       current += increment;
-      obj.innerHTML = current;
       if (current == end) {
         clearInterval(timer);
       }
