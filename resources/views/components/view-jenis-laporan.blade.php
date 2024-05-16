@@ -71,7 +71,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($jenis_laporan as $e)
+                    @foreach($jenis_laporan as $e)   
                         <tr>
                             <td>
                                 <div class="user-panel d-flex">
@@ -214,7 +214,7 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[0, "desc"]]
+            "order": [[2, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

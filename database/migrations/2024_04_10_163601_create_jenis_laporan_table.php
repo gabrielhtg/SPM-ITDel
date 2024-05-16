@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('id_tipelaporan');
             $table->foreign('id_tipelaporan')->references('id')->on('tipe_laporan');
-            $table->string('nama');
+            $table->string('nama')->nullable();
             $table->integer('year');
             $table->timestamp('end_date')->nullable();
             $table->timestamps();

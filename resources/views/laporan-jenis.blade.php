@@ -65,11 +65,11 @@
                     <thead>
                     <tr>
                         <th class="text-center">Kategori Tipe Laporan</th>
+                        <th class="text-center" >Tanggal Berakhir</th>
                     </tr>
                     </thead>
                     <tbody>
-
-                        @foreach($jenis_laporan->sortByDesc('year') as $item)
+                        @foreach($jenis_laporan->sortByDesc('end_date') as $item)
                         <tr>
                             <td>
                                 <div class="user-panel d-flex justify-content-center align-items-center">
@@ -78,14 +78,16 @@
                                     </a>
                                 </div>
                             </td>
+                            <td>
+                                <div class="user-panel d-flex justify-content-center align-items-center">
+                                    {{$item->end_date}}
+                                </div>
+                            </td>
+                            
                         </tr>
                         @endforeach
-
-
-
-
-
                     </tbody>
+                    
                 </table>
 
             </div>
@@ -133,7 +135,16 @@
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
             "pageLength": 10,
-            "order": [[0, "desc"]]
+            "order": [[1, "desc"]],
+            "columnDefs": [
+                {
+                    "targets": [1], // indeks kolom pertama
+                    "visible": false,
+                    "searchable": false // agar tidak dapat dicari
+                }
+            ]
+            
+            
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
 </script>

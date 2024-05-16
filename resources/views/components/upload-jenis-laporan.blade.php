@@ -26,7 +26,7 @@
 
                     <div class="form-group">
                         <label for="nama_laporan">Jenis Laporan:</label>
-                        <input type="text" id="nama" name="nama" placeholder="Jenis Dokumen" class="form-control" required>
+                        <input type="text" id="nama" name="nama" placeholder="Jenis Dokumen" class="form-control">
                         <div class="invalid-feedback">Harap masukkan jenis dokumen yang valid.</div>
                     </div>
 

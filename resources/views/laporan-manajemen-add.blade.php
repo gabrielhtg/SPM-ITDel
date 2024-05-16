@@ -101,7 +101,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($laporan as $item)
+                    @foreach ($laporan->sortByDesc('created_at') as $item)
                     @if(app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || auth()->user()->id === $item->created_by)
                     <tr style="
                             @if($item->status == 'Disetujui') background-color: #def0d8; /* Warna hijau */
@@ -120,7 +120,6 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    
                                     {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}
                                 </div>
                             </div>
