@@ -698,9 +698,13 @@ class AllServices
     public function getJenisLaporanWithoutLog($userId)
     {
         // Mendapatkan ID laporan yang diunggah oleh user saat ini
-        $uploadedJenisLaporanIds = LogLaporan::where('upload_by', $userId)
-        ->whereNotNull('status')
-        ->pluck('id_jenis_laporan');
+        $uploadedJenisLaporanIds = Laporan::where('created_by', $userId)
+        ->where(function ($query) {
+            $query->where('status', 'Direview')
+                ->orWhere('status', 'Menunggu');
+        })
+        ->pluck('id_tipelaporan');
+
 
 
 
@@ -914,6 +918,17 @@ class AllServices
 {
     $tipeLaporan = TipeLaporan::find($idtipe);
     $jenisLaporan = JenisLaporan::find($idJenis);
+
+    $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
+
+    return $nama;
+}
+
+public static function JenisLaporanName( $idJenis): string
+{
+    
+    $jenisLaporan = JenisLaporan::find($idJenis);
+    $tipeLaporan = TipeLaporan::find($jenisLaporan->id_tipelaporan);
 
     $nama = "{$tipeLaporan->nama_laporan} {$jenisLaporan->nama} ({$jenisLaporan->year})";
 

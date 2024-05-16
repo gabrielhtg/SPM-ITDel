@@ -34,7 +34,7 @@
                           @foreach($sorted_tipe_laporan as $tipe)
                           <option value="{{ $tipe->id }}" 
                                   @if(!$loop->first) class="hide" @endif>
-                              {{ \App\Services\AllServices::getJenislaporanName($tipe->id_tipelaporan, $tipe->id) }}
+                              {{ \App\Services\AllServices::JenislaporanName($tipe->id) }}
                           </option>
                       @endforeach
                         </select>

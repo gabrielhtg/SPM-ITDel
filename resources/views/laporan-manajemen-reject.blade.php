@@ -108,7 +108,7 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">
-                                        {{$item->JenisLaporan->nama}}
+                                        {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}
                                     </div>
                                 </div>
                             </td>

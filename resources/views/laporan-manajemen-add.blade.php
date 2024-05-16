@@ -120,7 +120,8 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="d-flex align-items-center">
-                                    {{$item->jenisLaporan->nama}}
+                                    
+                                    {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}
                                 </div>
                             </div>
                         </td>
@@ -194,7 +195,7 @@
                                 <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                @if($item->status=="Menunggu")
+                                @if($item->status=="Menunggu" && auth()->user()->id==$item->created_by)
                                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
                                 <i class="fas fa-edit"></i> </button>
                                 @endif
