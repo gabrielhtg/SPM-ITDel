@@ -136,11 +136,11 @@ class TypeDocumentController extends Controller
     {
         // Validasi input
         $validator = Validator::make($request->all(), [
-            'nama' => 'required',
+            // 'nama' => 'required',
             'year' => 'required',
             'end_date' => 'required|date',
         ], [
-            'nama.required' => 'Nama laporan harus diisi.',
+            // 'nama.required' => 'Nama laporan harus diisi.',
             'year.required' => 'Tahun harus diisi.',
             'end_date.required' => 'Tanggal selesai harus diisi.',
             'end_date.date' => 'Tanggal selesai harus berupa tanggal.',

@@ -65,14 +65,18 @@ public function getLogLaporanView()
 }
 public function getJenisLaporanView($id)
 {
-    $jenis_laporan = JenisLaporan::where('id_tipelaporan',$id)->get();
+    $jenis_laporan = JenisLaporan::where('id_tipelaporan', $id)
+                                  ->orderByDesc('end_date')
+                                  ->get();
 
     $data = [
         'active_sidebar' => [6, 3],
         'jenis_laporan' => $jenis_laporan,
     ];
+    // dd($jenis_laporan);
     return view('laporan-jenis', $data);
 }
+
 
 
     public function getLogLaporanContinue($id){
