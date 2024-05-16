@@ -36,10 +36,10 @@ class createRole extends Seeder
             ['role' => 'Staff LPPM', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
             ['role' => 'Direktur Pendidikan', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
             ['role' => 'Member of Direktorat Kemitraan dan Hubungan Masyrakat', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
-            ['role' => 'Member of BAA', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
+            ['role' => 'Member of BAA', 'status' => true, 'is_admin' => false, 'atasan_id' => 7],
             ['role' => 'Member of Keamanan dan QA', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
-            ['role' => 'Member of Lembaga Kemahasiswaaan', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
-            ['role' => 'Member of Pusat Pembinaan Keasramaan', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
+            ['role' => 'Member of Lembaga Kemahasiswaaan', 'status' => true, 'is_admin' => false, 'atasan_id' => 7],
+            ['role' => 'Member of Pusat Pembinaan Keasramaan', 'status' => true, 'is_admin' => false, 'atasan_id' => 7],
             ['role' => 'Member of Pusat Teknologi dan Sistem Informasi', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
             ['role' => 'Member of SDI', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
             ['role' => 'Member of Divisi Infastruktur ', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
@@ -82,6 +82,5 @@ class createRole extends Seeder
             ['role' => 'Dosen Program Studi D3 Teknik Komputer', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
             ['role' => 'Dosen Program Studi D4 Teknologi Rekayasa Perangkat Lunak', 'status' => true, 'is_admin' => false, 'atasan_id' => null],
         ]);
-
     }
 }
