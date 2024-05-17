@@ -700,7 +700,7 @@ class AllServices
         // Mendapatkan ID tipe laporan yang diunggah oleh user saat ini
         $uploadedJenisLaporanIds = Laporan::where('created_by', $userId)
             ->where(function ($query) {
-                $query->where('status', 'Direview')
+                $query->where('status', 'Disetujui')
                       ->orWhere('status', 'Menunggu');
             })
             ->pluck('id_tipelaporan')

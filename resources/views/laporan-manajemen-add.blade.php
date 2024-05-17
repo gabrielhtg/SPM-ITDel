@@ -1,5 +1,9 @@
 {{-- @php use App\Models\User;use App\Services\AllServices; @endphp --}}
 @php use App\Services\AllServices; @endphp
+@php
+    $allServices = new \App\Services\AllServices();
+    $jenisLaporanWithoutLog = $allServices->getJenisLaporanWithoutLog(auth()->user()->id);
+@endphp
     <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -232,12 +236,13 @@
                                         <div class="form-group mt-3">
                                             <label for="edit-tipe-laporan{{ $item->id }}">Tipe Laporan</label>
                                             <select id="edit-tipe-laporan{{ $item->id }}" name="id_tipelaporan" class="edit-tipe-laporan-custom form-control" style="width: 100%">
-                                                <option></option>
+                                                <option value="">Pilih Tipe Laporan</option>
                                                 @foreach($tipe_laporan as $tipe)
-                                                    <option value="{{ $tipe->id }}" @if($tipe->id == $item->id_tipelaporan) selected @endif>{{ $tipe->nama }}</option>
+                                                    <option value="{{ $tipe->id }}" @if($tipe->id == $item->id_tipelaporan) selected @endif>{{ \App\Services\AllServices::JenislaporanName($tipe->id) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
+                                        
                                         <div class="form-group">
                                             <label for="edit-revisiCheckbox{{ $item->id }}">Revisi:</label><br>
                                             <div class="form-check form-check-inline">
