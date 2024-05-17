@@ -78,44 +78,76 @@
                         $i = 1;
                     @endphp
                     @foreach($notifications as $e)
-                            <tr>
-                                <td>{{ $i++ }}</td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if($e->clicked)
-                                                {{ $e->message }}
-                                            @else
-                                                <strong>{{ $e->message }}</strong>  
-                                            @endif
-                                        </div>
+                        <tr>
+                            <td>{{ $i++ }}</td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        @if($e->clicked)
+                                            {{ $e->message }}
+                                        @else
+                                            <strong>{{ $e->message }}</strong>  
+                                        @endif
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if($e->clicked)
-                                                {{ AllServices::getNotificationTime($e->created_at) }}
-                                            @else
-                                                <strong>{{ AllServices::getNotificationTime($e->created_at) }}</strong>
-                                            @endif
-                                        </div>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="d-flex align-items-center">
+                                        @if($e->clicked)
+                                            {{ AllServices::getNotificationTime($e->created_at) }}
+                                        @else
+                                            <strong>{{ AllServices::getNotificationTime($e->created_at) }}</strong>
+                                        @endif
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                                <td>
-                                    <div class="user-panel d-flex justify-content-center ">
-                                        <div class="d-flex align-items-center">
-                                            <form action="{{ route('openNotification') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $e->id }}">
-                                                <button type="submit" class="btn btn-success"><i class="fas fa-external-link-alt pr-1 pl-2"></i></button>
-                                            </form>
-                                        </div>
+                            <td>
+                                <div class="user-panel d-flex justify-content-center ">
+                                    <div class="d-flex align-items-center ">
+                                        <form action="{{ route('openNotification') }}" method="post" class="mr-2">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{ $e->id }}">
+                                            <button type="submit" class="btn btn-success"><i class="fas fa-external-link-alt"></i></button>
+                                        </form>
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}"><i class="fas fa-trash-alt"></i></button>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
+
+                        {{-- Pesan Konfirmasi --}}
+                        <div class="modal fade" id="modal-delete-{{ $e->id }}">
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Konfirmasi Penghapusan</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="form-delete-{{ $e->id }}" method="POST" action="{{ route('destroy-notification', ['id' => $e->id]) }}">
+                                            @csrf
+                                            @method('GET')
+                                            <input type="hidden" name="id" value="{{ $e->id }}">
+                                        </form>
+                        
+                                        <p>
+                                            Apakah Anda yakin ingin notifikasi {{ $e->message }}?
+                                        </p>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">Hapus</button>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
                     @endforeach
                     </tbody>
                 </table>
