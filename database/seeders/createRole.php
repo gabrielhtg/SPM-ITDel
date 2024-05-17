@@ -62,7 +62,7 @@ class createRole extends Seeder
             ['role' => 'Dekan Fakultas Informatika dan Teknik Elektro', 'status' => true, 'is_admin' => false, 'atasan_id' => 2, 'required_to_submit_document' => "2;3"],
             ['role' => 'Dekan Fakultas Teknologi Industri', 'status' => true, 'is_admin' => false, 'atasan_id' => 2, 'required_to_submit_document' => "2;3"],
             ['role' => 'Dekan Fakultas Bioteknologi', 'status' => true, 'is_admin' => false, 'atasan_id' => 2, 'required_to_submit_document' => "2;3"],
-            ['role' => 'Dekan Fakultas Vokasi', 'status' => true, 'is_admin' => false, 'atasan_id' => 2, 'required_to_submit_document' => 2],
+            ['role' => 'Dekan Fakultas Vokasi', 'status' => true, 'is_admin' => false, 'atasan_id' => 2, 'required_to_submit_document' => "2;3"],
             ['role' => 'Ketua Program Studi S1 Informatika', 'status' => true, 'is_admin' => false, 'atasan_id' => null, 'required_to_submit_document' => 3],
             ['role' => 'Ketua Program Studi S1 Elektro', 'status' => true, 'is_admin' => false, 'atasan_id' => null, 'required_to_submit_document' => 3],
             ['role' => 'Ketua Program Studi S1 Sistem Informasi', 'status' => true, 'is_admin' => false, 'atasan_id' => null, 'required_to_submit_document' => 3],
