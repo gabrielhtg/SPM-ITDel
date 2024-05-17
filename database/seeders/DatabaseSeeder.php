@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             NewsSeeder::class,
 //            Dokumen::class,
             DocType::class,
+            Dokumen::class,
             HeroDocumentSeeder::class,
             TipeLaporanSeeder::class,
             accountableSeeder::class,
