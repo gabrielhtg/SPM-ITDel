@@ -52,7 +52,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 1,
+               'role' => 2,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -65,7 +65,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 2,
+               'role' => 4,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -78,7 +78,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 22,
+               'role' => "5;59",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -91,7 +91,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 29,
+               'role' => "6;59",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -104,7 +104,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 10,
+               'role' => 19,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -117,7 +117,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 3,
+               'role' => "44;58",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -130,7 +130,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 3,
+               'role' => 47,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -143,7 +143,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 3,
+               'role' => 45,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -156,7 +156,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 3,
+               'role' => 46,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -169,7 +169,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 34,
+               'role' => "13;59",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -182,7 +182,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => "48;57",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -195,7 +195,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => "50;59",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -208,7 +208,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => "49;58",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -221,7 +221,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => 51,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -234,7 +234,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => 56,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -247,7 +247,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => 55,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -260,7 +260,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 7,
+               'role' => 54,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -273,7 +273,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 12,
+               'role' => 23,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -286,7 +286,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 11,
+               'role' => 21,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -299,7 +299,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 11,
+               'role' => 21,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -312,7 +312,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 21,
+               'role' => 31,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -325,7 +325,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 21,
+               'role' => 31,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -338,7 +338,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 26,
+               'role' => 35,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -351,7 +351,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 26,
+               'role' => 7,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -364,7 +364,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 47,
+               'role' => 57,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -377,7 +377,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 47,
+               'role' => 57,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -390,7 +390,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 47,
+               'role' => 57,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -403,7 +403,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 47,
+               'role' => 57,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -416,7 +416,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 4,
+               'role' => "9;59",
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -429,7 +429,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 48,
+               'role' => 59,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -442,7 +442,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 48,
+               'role' => 59,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -455,7 +455,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 46,
+               'role' => 58,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -468,7 +468,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 46,
+               'role' => 58,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -481,7 +481,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 46,
+               'role' => 58,
                'created_at' => now(),
                'profile_pict' => null
            ],
@@ -494,7 +494,7 @@ class create_user_admin extends Seeder
                'password' => Hash::make("admin"),
                'status' => true,
                'verified' => true,
-               'role' => 46,
+               'role' => 58,
                'created_at' => now(),
                'profile_pict' => null
            ],
