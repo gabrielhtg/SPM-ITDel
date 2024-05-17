@@ -49,7 +49,7 @@ class dashboard extends Seeder
             'profilhero' => '../profilhero/icon.png',
             'judulhero' => 'SPM IT DEL',
             'tambahanhero' => 'Ini Merupakan Website SPM IT DEL',
-            'gambarhero' => '../walpeper/header_admisicopy.jpg',
+            'gambarhero' => '../walpeper/header_admisifoto.jpg',
         ]);
 
         DB::table('table_akreditasi')->insert([
