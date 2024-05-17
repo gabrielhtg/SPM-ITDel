@@ -717,6 +717,7 @@ class AllServices
         // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
                        ->whereIn('id_tipelaporan', $requiredIds)
+                       ->orderBy('end_date', 'desc')
                        ->get();
 
         
