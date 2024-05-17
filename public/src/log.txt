@@ -58,3 +58,7 @@
 [2024-05-16 21:03:16] Menambahkan Dokumen gerry - User: spmadministrator@gmail.com
 [2024-05-16 21:05:26] Memperbaharui Dokumen gerry - User: spmadministrator@gmail.com
 [2024-05-16 21:15:22] Memperbaharui Dokumen Statuta Institut Teknologi Del 2019 - User: spmadministrator@gmail.com
+[2024-05-17 09:23:08] Menambahkan email dediandree22@gmail.com ke list allowed user - User: spmadministrator@gmail.com
+[2024-05-17 09:23:29] Menambahkan user Dedi Andre Martua Raja Panggabean - User: spmadministrator@gmail.com
+[2024-05-17 09:28:36] Menambahkan Kategori Tipe Laporan lkasndlksadnaldad(2004) - User: spmadministrator@gmail.com
+[2024-05-17 10:31:02] Menambahkan role dedi - User: spmadministrator@gmail.com

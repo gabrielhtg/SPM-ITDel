@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             bawahanSeeder::class,
             JenisLaporanSeeder::class,
 //            KategoriLaporanSeeder::class,
+            LogLaporanSeeder::class,
         ]);
     }
 }

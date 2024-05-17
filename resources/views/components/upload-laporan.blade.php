@@ -1,3 +1,8 @@
+@php
+    $allServices = new \App\Services\AllServices();
+    $jenisLaporanWithoutLog = $allServices->getJenisLaporanWithoutLog(auth()->user()->id);
+@endphp
+
 <a href="#modal-add-laporan" class="btn btn-success mb-3" data-toggle="modal">
     <i class="fas fa-plus"></i> <span style="margin-left: 5px">Tambah Laporan</span>
 </a>
@@ -23,22 +28,19 @@
                         <input type="text" class="form-control" placeholder="Ketik disini" id="nama-laporan" name="nama_laporan" required>
                     </div>
 
+                    
                     <div class="form-group mt-3">
                         <label for="tipe-laporan">Tipe Laporan</label>
                         <select id="tipe-laporan" name="id_tipelaporan" class="tipe-laporan-custom form-control" style="width: 100%">
                             <option></option>
-                            <?php
-                              
-                                $sorted_tipe_laporan = $tipe_laporan->sortByDesc('end_date');
-                            ?>
-                          @foreach($sorted_tipe_laporan as $tipe)
-                          <option value="{{ $tipe->id }}" 
-                                  @if(!$loop->first) class="hide" @endif>
-                              {{ \App\Services\AllServices::JenislaporanName($tipe->id) }}
-                          </option>
-                      @endforeach
+                            @foreach($jenisLaporanWithoutLog as $tipe)
+                                <option value="{{ $tipe->id }}">
+                                    {{ \App\Services\AllServices::JenislaporanName($tipe->id)}}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
+                    
                     
 
                     <div class="form-group">

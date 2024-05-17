@@ -719,6 +719,7 @@ class AllServices
                        ->whereIn('id_tipelaporan', $requiredIds)
                        ->get();
 
+        
         return $jenisLaporan;
     }
 
