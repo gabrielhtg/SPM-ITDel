@@ -517,7 +517,7 @@ class Dokumen extends Seeder
             'year' => 2018,
             'tipe_dokumen' => 20,
             'dokumen_spm' =>false,
-            'set_date' => '2018--04-27 00:00:00',
+            'set_date' => '2018-04-27 00:00:00',
             'start_date' => '2018-04-27 00:00:00',
             // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
             'keterangan_status' => true,
@@ -539,7 +539,7 @@ class Dokumen extends Seeder
             'year' => 2018,
             'tipe_dokumen' => 20,
             'dokumen_spm' =>false,
-            'set_date' => '2018--07-03 00:00:00',
+            'set_date' => '2018-07-03 00:00:00',
             'start_date' => '2018-07-03 00:00:00',
             // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
             'keterangan_status' => true,
@@ -561,7 +561,7 @@ class Dokumen extends Seeder
             'year' => 2020,
             'tipe_dokumen' => 20,
             'dokumen_spm' =>false,
-            'set_date' => '2020--11-13 00:00:00',
+            'set_date' => '2020-11-13 00:00:00',
             'start_date' => '2020-11-13 00:00:00',
             // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
             'keterangan_status' => true,
@@ -583,7 +583,7 @@ class Dokumen extends Seeder
             'year' => 2020,
             'tipe_dokumen' => 20,
             'dokumen_spm' =>false,
-            'set_date' => '2020--11-13 00:00:00',
+            'set_date' => '2020-11-13 00:00:00',
             'start_date' => '2020-11-13 00:00:00',
             // 'end_date' => Carbon::now()->addDays(30), // Tambahkan 30 hari dari tanggal sekarang
             'keterangan_status' => true,

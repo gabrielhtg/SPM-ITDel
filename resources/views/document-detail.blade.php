@@ -99,7 +99,12 @@
                                         </tr>
                                         <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Ditetapkan</td>
-                                            <td class="bold">{{ $document->set_date }}</td>
+                                            @php
+                                                use Carbon\Carbon;
+                                            @endphp
+
+                                            <td class="bold">{{ Carbon::parse($document->set_date)->format('d-m-Y') }}</td>
+
                                         </tr>
 
                                     </tbody>
