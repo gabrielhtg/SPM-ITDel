@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     </div>
+                    
                     <div class="form-group mt-1">
                         <label for="title">Judul Besar</label>
                         <input type="text" name="judulhero" id="judulhero" class="form-control" required>

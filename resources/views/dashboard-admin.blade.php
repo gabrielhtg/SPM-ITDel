@@ -364,7 +364,7 @@
         <!-- AdminLTE App -->
         <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
         <!-- Page specific script -->
-
+        
         <script>
             document.getElementById('inputgambarwalpeper').addEventListener('change', function(e) {
                 var fileName = document.getElementById('inputgambarwalpeper').files[0].name;
@@ -372,6 +372,15 @@
                 nextSibling.innerText = fileName;
             });
         </script>
+
+        <script>
+            document.getElementById('inputprofilwalpeper').addEventListener('change', function(e) {
+                var fileName = document.getElementById('inputprofilwalpeper').files[0].name;
+                var nextSibling = e.target.nextElementSibling;
+                nextSibling.innerText = fileName;
+            });
+        </script>
+
         <script>
             $(function () {
                 @if(session('toastData') != null)
@@ -439,6 +448,8 @@
                 nextSibling.innerText = fileName;
             });
         </script>
+
+
 
         <script>
             document.getElementById('gambarakreditasi').addEventListener('change', function(e) {

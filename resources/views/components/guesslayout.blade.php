@@ -11,8 +11,6 @@
     <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Tempusdominus Bootstrap 4 -->
-    <link rel="stylesheet" href="{{ asset("plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css") }}">
     <!-- iCheck -->
     <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
     <!-- JQVMap -->
@@ -55,16 +53,6 @@
 
         .see-more.btn {
           font-size: 15px;
-        }
-
-        .desc-pgh {
-          font-size: 15px;
-        }
-      }
-
-      @media (max-width: 800px) { 
-        .desc-pgh {
-          font-size: 10px;
         }
       }
 
@@ -187,7 +175,7 @@
               @if($e->keterangan_status == 1)
 
                 <div class="col-sm-6 ">
-                  <div class="card" style="max-height: 420px; min-height: 420px; position: relative;">
+                  <div class="card" style="max-height: 390px; min-height: 390px; position: relative;">
                     <img src="{{ asset('src/gambarnews/'.$e->bgimage) }}" class="card-img-top img-fluid" alt="..." style="object-fit: cover; height: 200px;" loading="lazy">
                     <div class="card-body" style="padding: 10px; position: relative;">
                         <h5 class="title-card card-title mb-1 fw-bold">{{ $e->title }}</h5>
@@ -201,17 +189,22 @@
                             @endif
                           </i>
                         </p>
-                        @php
-                          $description = $e->description;
-                          $cleanDesc = strip_tags($description, '<p><b>');
-                        @endphp
-                        <div class="desc-card card-text desc-pgh">
-                            @if (str_word_count($cleanDesc) > 10)
-                              {!! substr($cleanDesc, 0, 125) !!} ...
-                            @else
-                              {!! $cleanDesc !!}
+                        <p class="desc-card card-text">
+                            @php
+                                $description = $e->description;
+                                // Memeriksa apakah teks mengandung tag <table> atau tag <img>
+                                $containsTable = preg_match('/<table\b[^>]>(.?)<\/table>/s', $description);
+                                $containsImage = preg_match('/<img\b[^>]*>/', $description);
+                            @endphp
+                            @if (!$containsTable && !$containsImage && !empty(trim(strip_tags($e->description))))
+                                {{-- {!! $e->description !!} --}}
+                                @if (str_word_count($e->description) > 10)
+                                    {!! substr($e->description, 0, 110) !!} ...
+                                @else
+                                    {!! $e->description !!}
+                                @endif
                             @endif
-                        </div>
+                        </p>
                         <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">Lihat Detail</a>
                     </div>
                   </div>
@@ -244,10 +237,9 @@
 </div>
 <!-- ./wrapper -->
 
-<!-- jQuery -->
-<script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
+</script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ asset("plugins/jquery-ui/jquery-ui.min.js") }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -260,16 +252,9 @@
 <script src="{{ asset("plugins/chart.js/Chart.min.js") }}"></script>
 <!-- Sparkline -->
 <script src="{{ asset("plugins/sparklines/sparkline.js") }}"></script>
-<!-- JQVMap -->
-<script src="{{ asset("plugins/jqvmap/jquery.vmap.min.js") }}"></script>
-<script src="{{ asset("plugins/jqvmap/maps/jquery.vmap.usa.js") }}"></script>
-<!-- jQuery Knob Chart -->
-<script src="{{ asset("plugins/jquery-knob/jquery.knob.min.js") }}"></script>
 <!-- daterangepicker -->
 <script src="{{ asset("plugins/moment/moment.min.js") }}"></script>
 <script src="{{ asset("plugins/daterangepicker/daterangepicker.js") }}"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="{{ asset("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js") }}"></script>
 <!-- Summernote -->
 <script src="{{ asset("plugins/summernote/summernote-bs4.min.js") }}"></script>
 <!-- overlayScrollbars -->
@@ -282,45 +267,27 @@
 <script src="{{ asset("dist/js/pages/dashboard.js") }}"></script>
 <script src="{{ asset('splide/dist/js/splide.min.js') }}"></script>
 <script>
-    var splide = new Splide( '.splide', {
-        type   : 'loop',
-        perPage: 3,
-        perMove: 1,
-        gap: 20,
-        breakpoints: {
-            640: {
-                perPage: 1,
-            },
-        },
-    } );
-
-    splide.mount();
+    document.addEventListener('DOMContentLoaded', function() {
+        var splideElement = document.querySelector('.splide');
+        if (splideElement) {
+            var splide = new Splide('.splide', {
+                type: 'loop',
+                perPage: 3,
+                perMove: 1,
+                gap: 20,
+                breakpoints: {
+                    640: {
+                        perPage: 1,
+                    },
+                },
+            });
+            splide.mount();
+        } else {
+            // 
+        }
+    });
 </script>
 
-<script>
-function animateValue(id, start, end, duration) {
-    var range = end - start;
-    var current = start;
-    var increment = end > start ? 1 : -1;
-    var stepTime = Math.abs(Math.floor(duration / range));
-    var obj = document.getElementById(id);
-    var timer = setInterval(function() {
-      current += increment;
-      if (current == end) {
-        clearInterval(timer);
-      }
-    }, stepTime);
-  }
-
-  function startCounters() {
-    animateValue("teacherCount", 0, 1500, 3000);
-    animateValue("memberCount", 0, 71, 3000);
-    animateValue("facultyCount", 0, 4, 3000);
-    animateValue("departmentCount", 0, 9, 3000);
-  }
-
-  window.addEventListener('load', startCounters);
-</script>
 <script>
   $(document).ready(function() {
     var keteranganWidth = $('#keteranganContainer')[0].scrollWidth; // Mengukur lebar konten secara keseluruhan
