@@ -62,6 +62,7 @@
 [2024-05-17 09:23:29] Menambahkan user Dedi Andre Martua Raja Panggabean - User: spmadministrator@gmail.com
 [2024-05-17 09:28:36] Menambahkan Kategori Tipe Laporan lkasndlksadnaldad(2004) - User: spmadministrator@gmail.com
 [2024-05-17 10:31:02] Menambahkan role dedi - User: spmadministrator@gmail.com
+<<<<<<< HEAD
 [2024-05-17 14:40:03] Menambahkan Dokumen asdsadasd - User: johannes@del.ac.id
 [2024-05-17 15:27:22] Mengedit role WR 1 - User: spmadministrator@gmail.com
 [2024-05-17 15:28:32] Mengedit role BAAK - User: spmadministrator@gmail.com
@@ -74,3 +75,12 @@
 [2024-05-17 15:47:24] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Desember(2024) dari Dr. Johannes Harungguan Sianipar, S.T., M.T.  - User: aldo@del.ac.id
 [2024-05-17 15:53:26] Dr. Johannes Harungguan Sianipar, S.T., M.T. Menambahkan Laporan Semesteran Genap(2024)  - User: johannes@del.ac.id
 [2024-05-17 15:55:00] Dr. Johannes Harungguan Sianipar, S.T., M.T. Memperbaharui Laporan Tahunan (2024)  - User: johannes@del.ac.id
+=======
+[2024-05-17 14:36:27] Menambahkan Dokumen Rafael A. C. Manurung - User: spmadministrator@gmail.com
+[2024-05-17 14:38:06] Memperbaharui Dokumen Rafael A. C. Manurung - User: spmadministrator@gmail.com
+[2024-05-17 15:11:14] Menambahkan Kategori Tipe Laporan ganjil(2024) - User: spmadministrator@gmail.com
+[2024-05-17 15:11:38] Dr. Johannes Harungguan Sianipar, S.T., M.T. Menambahkan Laporan Semesteran ganjil(2024)  - User: johannes@del.ac.id
+[2024-05-17 15:46:44] Menerima permintaan action dari Albert Sagala, S.T, M.T - User: spmadministrator@gmail.com
+[2024-05-17 15:46:53] Menerima permintaan action dari Dr. Arlinta Christy Barus S.T., M.InfoTech - User: spmadministrator@gmail.com
+[2024-05-17 16:01:36] Menerima permintaan action dari Albert Sagala, S.T, M.T - User: spmadministrator@gmail.com
+>>>>>>> f5b6f8e01edeef5bd2d3b65132a2a13fb4773c0d
