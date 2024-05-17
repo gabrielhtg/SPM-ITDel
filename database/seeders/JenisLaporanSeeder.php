@@ -19,15 +19,17 @@ class JenisLaporanSeeder extends Seeder
             'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
         ];
 
-        // ID of the 'Laporan Bulanan' tipe_laporan
+        // Get IDs of the different 'tipe_laporan'
         $tipeLaporanBulananId = DB::table('tipe_laporan')->where('nama_laporan', 'Laporan Bulanan')->first()->id;
         $tipeLaporanTriwulanId = DB::table('tipe_laporan')->where('nama_laporan', 'Laporan TriWulan')->first()->id;
+        $tipeLaporanSemesteranId = DB::table('tipe_laporan')->where('nama_laporan', 'Laporan Semesteran')->first()->id;
+        $tipeLaporanTahunanId = DB::table('tipe_laporan')->where('nama_laporan', 'Laporan Tahunan')->first()->id;
 
         // Create entries for each month
         foreach ($months as $index => $month) {
             DB::table('jenis_laporan')->insert([
                 'id_tipelaporan' => $tipeLaporanBulananId,
-                'nama' => $month ,
+                'nama' => $month,
                 'year' => 2024,
                 'end_date' => Carbon::createFromDate(2024, $index + 1, 1)->endOfMonth(),
                 'created_at' => Carbon::now(),
@@ -36,19 +38,41 @@ class JenisLaporanSeeder extends Seeder
         }
 
         // Create entries for each quarter ending month
-        $quarterEndingMonths = [
-            'Maret', 'Juni', 'September', 'Desember'
-        ];
+        $quarterEndingMonths = ['Maret', 'Juni', 'September', 'Desember'];
 
         foreach ($quarterEndingMonths as $index => $month) {
             DB::table('jenis_laporan')->insert([
                 'id_tipelaporan' => $tipeLaporanTriwulanId,
-                'nama' => $month ,
+                'nama' => $month,
                 'year' => 2024,
                 'end_date' => Carbon::createFromDate(2024, ($index + 1) * 3, 1)->endOfMonth(),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
         }
+
+        // Create entries for semesteran
+        $semesterNames = ['Ganjil', 'Genap'];
+
+        foreach ($semesterNames as $index => $semester) {
+            $month = $index == 0 ? 6 : 12; // 6 for Ganjil (June), 12 for Genap (December)
+            DB::table('jenis_laporan')->insert([
+                'id_tipelaporan' => $tipeLaporanSemesteranId,
+                'nama' => $semester,
+                'year' => 2024,
+                'end_date' => Carbon::createFromDate(2024, $month, 1)->endOfMonth(),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ]);
+        }
+
+        // Create entry for tahunan
+        DB::table('jenis_laporan')->insert([
+            'id_tipelaporan' => $tipeLaporanTahunanId,
+            'year' => 2024,
+            'end_date' => Carbon::createFromDate(2024, 12, 1)->endOfYear(),
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now(),
+        ]);
     }
 }

@@ -62,3 +62,11 @@
 [2024-05-17 09:23:29] Menambahkan user Dedi Andre Martua Raja Panggabean - User: spmadministrator@gmail.com
 [2024-05-17 09:28:36] Menambahkan Kategori Tipe Laporan lkasndlksadnaldad(2004) - User: spmadministrator@gmail.com
 [2024-05-17 10:31:02] Menambahkan role dedi - User: spmadministrator@gmail.com
+[2024-05-17 14:40:03] Menambahkan Dokumen asdsadasd - User: johannes@del.ac.id
+[2024-05-17 15:27:22] Mengedit role WR 1 - User: spmadministrator@gmail.com
+[2024-05-17 15:28:32] Mengedit role BAAK - User: spmadministrator@gmail.com
+[2024-05-17 15:36:54] Mengedit role BAAK - User: spmadministrator@gmail.com
+[2024-05-17 15:39:25] Mengedit role WR 1 - User: spmadministrator@gmail.com
+[2024-05-17 15:39:53] Menambahkan Kategori Tipe Laporan (2025) - User: spmadministrator@gmail.com
+[2024-05-17 15:41:23] Mengedit role Dekan Fakultas Bioteknologi - User: spmadministrator@gmail.com
+[2024-05-17 15:42:02] Menambahkan Kategori Tipe Laporan (2027) - User: spmadministrator@gmail.com

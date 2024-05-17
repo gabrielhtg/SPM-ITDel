@@ -150,7 +150,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="edit_nama">Kategori Tipe Laporan:</label>
-                                    <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $e->nama}}" required>
+                                    <input type="text" id="edit_nama" name="nama" class="form-control" value="{{ $e->nama}}" >
                                 </div>
                                 <div class="form-group">
                                     <label for="Year">Tahun :</label>

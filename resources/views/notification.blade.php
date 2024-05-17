@@ -78,44 +78,7 @@
                         $i = 1;
                     @endphp
                     @foreach($notifications as $e)
-                            <tr>
-                                <td>{{ $i++ }}</td>
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if($e->clicked)
-                                                {{ $e->message }}
-                                            @else
-                                                <strong>{{ $e->message }}</strong>  
-                                            @endif
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex">
-                                        <div class="d-flex align-items-center">
-                                            @if($e->clicked)
-                                                {{ AllServices::getNotificationTime($e->created_at) }}
-                                            @else
-                                                <strong>{{ AllServices::getNotificationTime($e->created_at) }}</strong>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    <div class="user-panel d-flex justify-content-center ">
-                                        <div class="d-flex align-items-center">
-                                            <form action="{{ route('openNotification') }}" method="post">
-                                                @csrf
-                                                <input type="hidden" name="id" value="{{ $e->id }}">
-                                                <button type="submit" class="btn btn-success"><i class="fas fa-external-link-alt pr-1 pl-2"></i></button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                           z
                     @endforeach
                     </tbody>
                 </table>

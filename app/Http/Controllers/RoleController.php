@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
 use App\Models\InformableModel;
+use App\Models\JenisLaporan;
 use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
@@ -12,6 +13,8 @@ use App\Models\User;
 use App\Services\AllServices;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Models\LogLaporan;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -172,10 +175,40 @@ class RoleController extends Controller
 
         if ($request->wajib_melaporkan !== null) {
             $laporan = implode(";", $request->wajib_melaporkan);
-
+    
             $role->update([
                 'required_to_submit_document' => $laporan
             ]);
+    
+            $roleId = $role->id;
+            $users = User::where(DB::raw("CONCAT(';', role, ';')"), 'LIKE', "%;$roleId;%")
+                ->pluck('id')
+                ->toArray();
+    
+            // Memisahkan laporan menjadi array untuk digunakan dalam query
+            $laporanArray = explode(";", $laporan);
+    
+            $jenis_laporans = JenisLaporan::whereIn('id_tipelaporan', $laporanArray)->get();
+    
+            foreach ($users as $userId) {
+                foreach ($jenis_laporans as $jenis_laporan) {
+                    $log = LogLaporan::where('upload_by', $userId)
+                        ->where('id_jenis_laporan', $jenis_laporan->id)
+                        ->first();
+    
+                    // Membuat log jika belum ada
+                    if ($log === null) {
+                        LogLaporan::create([
+                            'id_jenis_laporan' => $jenis_laporan->id,
+                            'id_tipe_laporan' => $jenis_laporan->id_tipelaporan,
+                            'upload_by' => $userId,
+                            'created_at' => now(), // Menggunakan `now()` untuk waktu saat ini
+                            'approve_at' => null,
+                            'end_date' => $jenis_laporan->end_date,
+                        ]);
+                    }
+                }
+            }
         }
 
         if ($request->atasan_role != null) {
