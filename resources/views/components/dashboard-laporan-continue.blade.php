@@ -1,6 +1,6 @@
 {{-- @php use App\Models\User;use App\Services\AllServices; @endphp --}}
 @php use App\Services\AllServices; @endphp
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -65,22 +65,27 @@
                                     </div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                                    <div class="chart">
+                                        <div class="chartjs-size-monitor">
+                                            <div class="chartjs-size-monitor-expand">
+                                                <div class=""></div>
+                                            </div>
+                                            <div class="chartjs-size-monitor-shrink">
+                                                <div class=""></div>
+                                            </div>
+                                        </div>
                                         <canvas id="barChart_{{ $item->id }}" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 557px;" width="557" height="250" class="chartjs-render-monitor"></canvas>
                                     </div>
                                 </div>
-
                             </div>
                         </div>
                     @endforeach
                 </div>
-
             </div>
         </section>
-
     </div>
 </div>
-    @include('components.footer')
+@include('components.footer')
 
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
 <script src="{{ asset("plugins/jquery/jquery.min.js") }}"></script>
@@ -113,9 +118,26 @@
                     $jumlah_belum_mengumpulkan = \App\Models\LogLaporan::where('id_jenis_laporan', $jenis)->whereNull('status')->count();
                     array_push($belum_mengumpulkan_per_jenis, $jumlah_belum_mengumpulkan);
                 }
+                // Hitung total laporan per jenis
+                $total_per_jenis = [];
+                foreach ($jenis_laporan_ids as $jenis) {
+                    $total_laporan = \App\Models\LogLaporan::where('id_jenis_laporan', $jenis)->count();
+                    array_push($total_per_jenis, $total_laporan);
+                }
+                // Hitung persentase laporan yang sudah mengumpul per jenis
+                $persentase_mengumpulkan = [];
+                foreach ($mengumpulkan_per_jenis as $index => $jumlah_mengumpulkan) {
+                    $persentase = $total_per_jenis[$index] > 0 ? ($jumlah_mengumpulkan / $total_per_jenis[$index]) * 100 : 0;
+                    array_push($persentase_mengumpulkan, number_format($persentase, 2) . '%');
+                }
+                // Gabungkan nama jenis laporan dengan persentase
+                $jenis_laporan_names_with_percentage = [];
+                foreach ($jenis_laporan_names as $index => $name) {
+                    $jenis_laporan_names_with_percentage[] = $name . ' (' . $persentase_mengumpulkan[$index] . ')';
+                }
             @endphp
 
-            var labels_{{ $tipe->id }} = {!! json_encode($jenis_laporan_names) !!};
+            var labels_{{ $tipe->id }} = {!! json_encode($jenis_laporan_names_with_percentage) !!};
             var barChartCanvas{{ $tipe->id }} = $('#barChart_{{ $tipe->id }}').get(0).getContext('2d');
             var barChartData{{ $tipe->id }} = {
                 labels  : labels_{{ $tipe->id }},
@@ -156,17 +178,5 @@
         @endforeach
     });
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
 </body>
 </html>

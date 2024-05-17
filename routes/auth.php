@@ -163,6 +163,7 @@ Route::middleware('auth')->group(function () {
         // notifikasi
         Route::post('/open-notification', [NotificationController::class, 'getNotifications'])->name('openNotification');
         Route::get('/notification', [NotificationController::class, 'getNotificationPage'])->name('notification');
+        Route::get('/remove-notification', [NotificationController::class, 'destroyNotification'])->name('destroy-notification');
 
          // about it del
         Route::get('/dashboard-admin', [DashboardController::class, 'getdashboard'])->name('dashboard-admin');

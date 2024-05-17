@@ -697,27 +697,28 @@ class AllServices
 
     public function getJenisLaporanWithoutLog($userId)
     {
-        // Mendapatkan ID laporan yang diunggah oleh user saat ini
+        // Mendapatkan ID tipe laporan yang diunggah oleh user saat ini
         $uploadedJenisLaporanIds = Laporan::where('created_by', $userId)
-        ->where(function ($query) {
-            $query->where('status', 'Direview')
-                ->orWhere('status', 'Menunggu');
-        })
-        ->pluck('id_tipelaporan');
-
-
-
+            ->where(function ($query) {
+                $query->where('status', 'Disetujui')
+                      ->orWhere('status', 'Menunggu');
+            })
+            ->pluck('id_tipelaporan')
+            ->toArray();
 
         $idrole = auth()->user()->role;
         $idsubmit = RoleModel::where('id', $idrole)->first();
 
         // Pisahkan string menjadi array
         $requiredIds = explode(';', $idsubmit->required_to_submit_document);
+         
 
         // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
-                       ->whereIn('id_tipelaporan', $requiredIds)
-                       ->get();
+            ->whereIn('id_tipelaporan', $requiredIds)
+            ->orderBy('end_date', 'desc')
+            ->get();
+        
 
         return $jenisLaporan;
     }

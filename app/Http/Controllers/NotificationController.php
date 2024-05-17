@@ -54,4 +54,11 @@ class NotificationController extends Controller
 
         return view('notification', $data);
     }
+
+    public function destroyNotification(Request $request) {
+        $notification = NotificationModel::find($request->id);
+        $notification->delete();
+
+        return redirect()->route('notification');
+    }
 }

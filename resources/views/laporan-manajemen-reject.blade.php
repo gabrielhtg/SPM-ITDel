@@ -88,7 +88,7 @@
                     </thead>
                     <tbody>
 
-                        @foreach ($laporan as $item)
+                        @foreach ($laporan->sortByDesc('created_by') as $item)
 
                         @if((app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isResponsibleToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by)))||(app(AllServices::class)->isInformableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->created_by))))
                         <tr style="

@@ -538,7 +538,7 @@ public function updateDocument(Request $request, $id)
 
     public function viewLaporanJenis()
     {
-        $jenis_laporan = JenisLaporan::all();
+        $jenis_laporan = JenisLaporan::orderBy('end_date', 'desc')->get();
         $type_laporan =TipeLaporan::all();
         $active_sidebar = [1, 1]; 
      
@@ -546,11 +546,12 @@ public function updateDocument(Request $request, $id)
         $data = [
             'type_laporan'=>$type_laporan,
             'jenis_laporan'=>$jenis_laporan,
+            'active_sidebar'=>[0,0],
 
         ];
 
 
-        return view('components/view-jenis-laporan',$data, compact( 'active_sidebar'));
+        return view('components/view-jenis-laporan',$data);
     }
 
 
