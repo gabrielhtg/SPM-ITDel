@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Employee;
 use App\Services\AllServices;
 use Illuminate\Http\Request;
+use Termwind\Components\Dd;
 
 class RoleTreeController extends Controller
 {
@@ -18,12 +19,14 @@ class RoleTreeController extends Controller
         $tree = new RoleTree(null, null, null);
 
         // Bagian ini untuk mendapatkan user puncak
-        foreach (RoleModel::all() as $e) {
-            if ($e->atasan_id == null && $e->role !== "Admin") {
-                $rolePuncak = $e;
-                break;
-            }
-        }
+//        foreach (RoleModel::all() as $e) {
+//            if ($e->atasan_id == null && $e->role !== "Admin") {
+//                $rolePuncak = $e;
+//                break;
+//            }
+//        }
+
+        $rolePuncak = RoleModel::where("role", "Rektor")->first();
 
         if (!empty($rolePuncak)) {
             $this->bentukTree($tree, $rolePuncak);
@@ -42,30 +45,24 @@ class RoleTreeController extends Controller
     private function bentukTree(RoleTree $tree, $node)
     {
         if ($node != null) {
+            $roleId = AllServices::convertRole($node->id);
+            $responsibleId = AllServices::getAllResponsible($node->id);
+            $accountableId = AllServices::getAllAccountableTo($node->id);
+            $informableId = AllServices::getAllInformable($node->id);
             $employees = Employee::where('role', $node->id)->get();
 
-            $allService = new AllServices();
-
-            foreach ($employees as $employee) {
-                $roleId = $allService::convertRole($employee->role);
-                $responsibleId = $allService::getAllResponsible($employee->role);
-                $accountableId = $allService::getAllAccountableTo($employee->role);
-                $informableId = $allService::getAllInformable($employee->role);
-                $employees = $this->getAllEmployee($employee->role);
-
-                $tree->setId($employee->id);
-                $tree->setData(
-                    new TreeData(
-                        $employee->profile_pict == null ? asset("src/img/default-profile-pict.png") : asset($employee->profile_pict), 
-                        $employee->name, 
-                        $roleId,
-                        $responsibleId,
-                        $accountableId,
-                        $informableId,
-                        $employees,
-                    )
-                );
-            }
+            $tree->setId($node->id);
+            $tree->setData(
+                new TreeData(
+                    null,
+                    'test',
+                    $roleId,
+                    $responsibleId,
+                    $accountableId,
+                    $informableId,
+                    $employees,
+                )
+            );
 
             $arrayRoleBawahan = BawahanModel::where("role", $node->id)->get();
 
