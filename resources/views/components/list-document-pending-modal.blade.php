@@ -21,7 +21,7 @@
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                            <th>Nama Dokumen</th>
+                            <th>Nama Dokumen</th>   
                             <th>Jenis Laporan</th>
                             <th>Pengirim</th>
                             <th>Revisi</th>
