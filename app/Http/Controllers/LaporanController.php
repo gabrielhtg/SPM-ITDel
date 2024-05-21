@@ -271,7 +271,7 @@ public function reject(Request $request, $id)
 {   
     $validator = Validator::make($request->all(), [
         'komentar' => 'required',
-        'file' => 'required', // Pastikan file_catatan diperlukan
+        // 'file' => 'required', // Pastikan file_catatan diperlukan
     ]);
 
     // Periksa jika validasi gagal
