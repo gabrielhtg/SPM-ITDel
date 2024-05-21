@@ -51,6 +51,14 @@ class RoleTreeController extends Controller
             $informableId = AllServices::getAllInformable($node->id);
             $employees = Employee::where('role', $node->id)->get();
 
+            $empName = "";
+
+            foreach ($employees as $employee) {
+                $empName = $empName . $employee->name .  "; ";
+            }
+
+            $empName = substr($empName, 0, -2);
+
             $tree->setId($node->id);
             $tree->setData(
                 new TreeData(
@@ -60,7 +68,7 @@ class RoleTreeController extends Controller
                     $responsibleId,
                     $accountableId,
                     $informableId,
-                    $employees,
+                    $empName,
                 )
             );
 
