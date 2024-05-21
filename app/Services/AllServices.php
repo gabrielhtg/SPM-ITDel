@@ -310,11 +310,7 @@ class AllServices
         $roleIds = explode(';', $roleId);
 
         // Cari accountable model yang memiliki setiap role yang sesuai
-        $accountable = AccountableModel::where(function ($query) use ($roleIds) {
-            foreach ($roleIds as $roleId) {
-                $query->orWhere('role', 'LIKE', "%$roleId%");
-            }
-        })->first();
+        $accountable = AccountableModel::whereIn('role', $roleIds)->first();
 
         // Jika tidak ada accountable model yang sesuai, maka tidak accountable
         return $accountable !== null;
