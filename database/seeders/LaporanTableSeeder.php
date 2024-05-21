@@ -34,7 +34,7 @@ class LaporanTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 2, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 2,  // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => 3, // Adjust according to your 'users' table
                 'created_by' => 8, // Adjust according to your 'users' table
                 'nama_laporan' => 'Laporan Bulanan',
