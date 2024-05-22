@@ -136,7 +136,7 @@ class NewsController extends Controller
             $news->save();
 
             AllServices::addLog(sprintf("Menambahkan Berita \"%s\"", $request->title));
-            return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to add news']);
+            return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambahkan Berita']);
         }
     }
 
@@ -216,7 +216,7 @@ class NewsController extends Controller
         $news->save();
 
         AllServices::addLog(sprintf("Menyunting Berita \"%s\" menjadi \"%s\"", $news->title, $request->title));
-        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Successfully updated news']);
+        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Mengubah Berita']);
     }
 
     public function deletenews($id)
@@ -254,7 +254,7 @@ class NewsController extends Controller
         $news->delete();
 
         AllServices::addLog(sprintf("Menghapus Berita \"%s\"", $news->title));
-        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
+        return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Menghapus Berita']);
     }
 
     public function getDetail($id)

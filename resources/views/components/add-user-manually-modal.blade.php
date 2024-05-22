@@ -117,8 +117,8 @@
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="submit" form="form-register" class="btn btn-primary">Add User</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" form="form-register" class="btn btn-primary">Tambah Pengguna</button>
             </div>
         </div>
         <!-- /.modal-content -->

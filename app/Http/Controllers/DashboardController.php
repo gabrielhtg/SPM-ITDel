@@ -63,7 +63,7 @@ class DashboardController extends Controller
             'keterangandashboard' => $request->keterangandashboard,
         ]);
 
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to add introduction']);
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambah Dashboard']);
     }
 
 
@@ -96,7 +96,7 @@ class DashboardController extends Controller
         $data->keterangandashboard = $request->keterangandashboard;
         $data->save();
 
-        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update introduction']);
+        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Mengubah Introduction']);
     }
 
     public function deletedashboard($id)
@@ -106,7 +106,7 @@ class DashboardController extends Controller
 
         $dashboard->delete();
 
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => ' Succesfully to delete introduction']);
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Behrhasil Menghapus Introduction']);
     }
 
 
@@ -151,7 +151,7 @@ class DashboardController extends Controller
             'gambarhero' => $walpeper, // Masukkan nama file ke dalam basis data
         ]);
 
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to add new Hero Section']);
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambahkan Hero Section']);
     }
 
     public function getDetailherosection($id)
@@ -224,7 +224,7 @@ class DashboardController extends Controller
         $data->tambahanhero = $request->tambahanhero;
         $data->save();
 
-        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update news']);
+        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Mengubah Dashboard']);
     }
 
     public function deleteherosection($id)
@@ -238,6 +238,6 @@ class DashboardController extends Controller
         }
         $herosection->delete();
 
-        return redirect('dashboatd-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to delete news']);
+        return redirect('dashboatd-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Menghapus Hero Section']);
     }
 }

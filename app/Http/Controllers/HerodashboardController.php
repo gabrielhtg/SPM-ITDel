@@ -70,7 +70,7 @@ class HerodashboardController extends Controller
             'gambarhero' => $walpeper, // Masukkan nama file ke dalam basis data
         ]);
 
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to add new Hero Section']);
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambahkan Hero Section']);
     }
 
     public function getDetailherosection($id)
@@ -177,7 +177,7 @@ class HerodashboardController extends Controller
         $data->tambahanhero = $request->tambahanhero;
         $data->save();
 
-        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Succesfully to update Dashboard']);
+        return redirect()->route('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Mengubah Hero Section']);
 
     }
 
@@ -198,7 +198,7 @@ class HerodashboardController extends Controller
     
         $data->delete();
     
-        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Successfully deleted Dashboard']);
+        return redirect('dashboard-admin')->with('toastData', ['success' => true, 'text' => 'Berhasil Menghapus Hero Section']);
     }
     
     

@@ -119,8 +119,8 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" form="form-editherosection" class="btn btn-primary">Update Introduction</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" form="form-editherosection" class="btn btn-primary">Ubah Pengenalan</button>
                                                                 </div>
                                                             </div>
                                                             <!-- /.modal-content -->
@@ -199,7 +199,7 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
                                                                     <button type="submit" form="form-editIntroduction" class="btn btn-primary">Update Introduction</button>
                                                                 </div>
                                                             </div>
@@ -296,8 +296,8 @@
                                                                     </form>
                                                                 </div>
                                                                 <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="submit" form="form-editakreditasi" class="btn btn-primary">Update Akreditasi</button>
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                    <button type="submit" form="form-editakreditasi" class="btn btn-primary">Ubah Akreditasi</button>
                                                                 </div>
                                                             </div>
                                                         </div>
