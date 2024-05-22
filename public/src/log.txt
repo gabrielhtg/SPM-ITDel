@@ -97,3 +97,5 @@
 [2024-05-22 17:22:26] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
 [2024-05-22 17:22:57] Menonaktifkan user tesa - User: spmadministrator@gmail.com
 [2024-05-22 17:22:57] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-22 17:32:11] Menonaktifkan user anggiat - User: spmadministrator@gmail.com
+[2024-05-22 17:32:11] Menonaktifkan employee Anggiat Saud Parulian, S.Tr.Kom. - User: spmadministrator@gmail.com
