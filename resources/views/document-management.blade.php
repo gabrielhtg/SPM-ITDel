@@ -111,7 +111,14 @@
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="d-flex align-items-center">
-                                            {{ $e->name }}
+                                            <?php
+                                            $name = $e->name;
+                                            while(strlen($name) > 30) {
+                                                echo substr($name, 0, 30) . "<br>";
+                                                $name = substr($name, 30);
+                                            }
+                                            echo $name;
+                                            ?>
                                         </div>
 
                                     </div>
