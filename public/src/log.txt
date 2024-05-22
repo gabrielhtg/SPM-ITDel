@@ -92,3 +92,13 @@
 [2024-05-21 14:35:30] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Februari(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-21 14:35:35] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-22 04:55:35] Menerima permintaan action dari Gabriel Cesar Hutagalung - User: spmadministrator@gmail.com
+[2024-05-22 16:27:40] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-22 16:39:35] Menyunting Berita "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW)" menjadi "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW)" - User: spmadministrator@gmail.com
+[2024-05-22 17:05:38] Menonaktifkan user albert - User: spmadministrator@gmail.com
+[2024-05-22 17:05:38] Menonaktifkan employee Albert Sagala, S.T, M.T - User: spmadministrator@gmail.com
+[2024-05-22 17:06:35] Menambahkan user Tesalonika - User: spmadministrator@gmail.com
+[2024-05-22 17:06:45] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-22 17:06:45] Menonaktifkan employee Tesalonika - User: spmadministrator@gmail.com
+[2024-05-22 17:07:20] Menambahkan user Tesalonika - User: spmadministrator@gmail.com
+[2024-05-22 17:07:26] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-22 17:07:26] Menonaktifkan employee Tesalonika - User: spmadministrator@gmail.com
