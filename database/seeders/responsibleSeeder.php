@@ -15,6 +15,7 @@ class responsibleSeeder extends Seeder
     {
         DB::table('responsible')->insert([
             ["role"=>3, "responsible_to" => 2],
+            ["role"=>2, "responsible_to" => 13],
         ]);
     }
 }
