@@ -122,13 +122,25 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <span>{{ \App\Models\User::find($item->created_by)->name }}
-                                            <span class="badge badge-success"
-                                                style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->created_by)->role) }}</span>
-                                        </span>
+                                        <?php
+                                            $user = \App\Models\User::find($item->created_by);
+                                            $name = $user->name;
+                                            $role = \App\Services\AllServices::convertRole($user->role);
+                                            
+                                            // Menggunakan substring untuk memotong nama menjadi bagian-bagian yang lebih pendek
+                                            while(strlen($name) > 30) {
+                                                echo "<span>" . substr($name, 0, 30) . "</span><br>";
+                                                $name = substr($name, 30);
+                                            }
+                                            echo "<span>$name</span>";
+                            
+                                            // Menampilkan peran (role) dengan badge
+                                            echo "<span class='badge badge-success ml-2'>$role</span>";
+                                        ?>
                                     </div>
                                 </div>
                             </td>
+                            
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">

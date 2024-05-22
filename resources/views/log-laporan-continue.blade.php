@@ -66,7 +66,7 @@
                 <table id="example1" class="table table-bordered table-striped">
                     <thead>
                     <tr>
-                        <th>Unit/Prodi/Fakultas
+                        <th>Unit/Prodi/Fakultas</th>
                         <th>Pemberi Laporan</th>
                         <th>Dikumpulkan Pada</th>
                         <th>Diperiksa Pada</th>
