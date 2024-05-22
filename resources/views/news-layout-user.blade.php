@@ -29,22 +29,27 @@
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
     <link rel="stylesheet" href="{{ asset("src/css/style.css") }}">
 </head>
-<body class=" bg-dark">
+<body class="">
     
-
-    <div style="margin-bottom:100px;">
+    <div class="" style="margin-bottom:100px; background-color: black; width: 100%; height: 120px;">
         @include("components.guessnavbar")
     </div>
-    
-    
     
     <div class="container mt-5">
         <div class="row">
             <div class="col-lg-20">
                 <hr>
                 <h1 class="mb-4">{{$newsdetail->title }}</h1>
-                <p class="text-muted">{{ $newsdetail->created_at->format('Y-m-d') }}</p>
-                <img src="{{ asset('src/gambarnews/'.$newsdetail->bgimage) }}" class="img-fluid rounded img-zoomin mx-auto d-block mb-4" style="object-fit: cover; height: 600px;" alt="">
+                <i class="h5">
+                  Tanggal : 
+                  {{ \Carbon\Carbon::parse($newsdetail->start_date)->format('d/m/Y') }}
+                  @if($newsdetail->end_date != null)
+                      - {{ \Carbon\Carbon::parse($newsdetail->end_date)->format('d/m/Y') }}
+                  @else
+                      - Sekarang
+                  @endif
+                </i>
+                <img src="{{ asset('src/gambarnews/'.$newsdetail->bgimage) }}" class="img-fluid rounded img-zoomin mx-auto d-block mb-4 mt-4" style="object-fit: cover; height: 600px;" alt="">
                 <hr>
                 <div class="lead" style="margin-bottom: 200px; margin-top: 50px; text-align: justify;">
                     {!! $newsdetail->description !!}

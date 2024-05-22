@@ -54,6 +54,16 @@
         .see-more.btn {
           font-size: 15px;
         }
+
+        .desc-pgh {
+          font-size: 15px;
+        }
+      }
+
+      @media (max-width: 800px) { 
+        .desc-pgh {
+          font-size: 10px;
+        }
       }
 
       @media (max-width: 576px) {
@@ -189,22 +199,17 @@
                             @endif
                           </i>
                         </p>
-                        <p class="desc-card card-text">
-                            @php
-                                $description = $e->description;
-                                // Memeriksa apakah teks mengandung tag <table> atau tag <img>
-                                $containsTable = preg_match('/<table\b[^>]>(.?)<\/table>/s', $description);
-                                $containsImage = preg_match('/<img\b[^>]*>/', $description);
-                            @endphp
-                            @if (!$containsTable && !$containsImage && !empty(trim(strip_tags($e->description))))
-                                {{-- {!! $e->description !!} --}}
-                                @if (str_word_count($e->description) > 10)
-                                    {!! substr($e->description, 0, 110) !!} ...
-                                @else
-                                    {!! $e->description !!}
-                                @endif
+                        @php
+                          $description = $e->description;
+                          $cleanDesc = strip_tags($description, '<p><b>');
+                        @endphp
+                        <div class="desc-card card-text desc-pgh">
+                            @if (str_word_count($cleanDesc) > 10)
+                              {!! substr($cleanDesc, 0, 125) !!} ...
+                            @else
+                              {!! $cleanDesc !!}
                             @endif
-                        </p>
+                        </div>
                         <a href="{{ route('news-layout-user', ['id' => $e->id]) }}" class="see-more btn btn-primary text-center" style="position: absolute; bottom: 10px; right:10px">Lihat Detail</a>
                     </div>
                   </div>
