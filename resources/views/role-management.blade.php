@@ -9,7 +9,7 @@
     <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+        href="https://fonts.googleapis.com/css?family=Source+Srespans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
@@ -142,6 +142,40 @@
                                 @endif
                             @endforeach
                         </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>
+                                Role
+                            </th>
+                            <th>
+                                Atasan
+                            </th>
+                            <th>
+                                Bawahan
+                            </th>
+                            <th>
+                                Accountable To
+                            </th>
+                            <th>
+                                Responsible To
+                            </th>
+                            <th>
+                                Inform To
+                            </th>
+                            <th>
+                                Akses Admin
+                            </th>
+                            <th>
+                                Wajib Melaporkan
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                            <th>
+                                Aksi
+                            </th>
+                        </tr>
+                        </tfoot>
                     </table>
 
                     @foreach ($roles as $e)
@@ -296,7 +330,27 @@
             "responsive": true,
             "lengthChange": false,
             "autoWidth": false,
-            "pageLength": 10,
+            "pageLength": 8,
+            initComplete: function () {
+                this.api()
+                    .columns()
+                    .every(function () {
+                        let column = this;
+                        let title = column.footer().textContent;
+
+                        // Create input element
+                        let input = document.createElement('input');
+                        // input.placeholder = title;
+                        column.footer().replaceChildren(input);
+
+                        // Event listener for user input
+                        input.addEventListener('keyup', () => {
+                            if (column.search() !== this.value) {
+                                column.search(input.value).draw();
+                            }
+                        });
+                    });
+            }
         });
     </script>
     <script>

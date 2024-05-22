@@ -304,7 +304,7 @@
             ],
             @endif
             "pageLength": 10,
-            "select": true
+            "select": true,
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
 
         // let tableRole = new DataTable('#table-role', {
