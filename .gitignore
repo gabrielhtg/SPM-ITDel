@@ -17,5 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-/public/src/img/profile_pict
-# /public/src/documents
+/public/src/log.txt
+# /public/src/img/profile_pict
+# # /public/src/documents
