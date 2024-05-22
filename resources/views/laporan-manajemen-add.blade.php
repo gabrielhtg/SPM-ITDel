@@ -98,6 +98,7 @@
                         <th>Jenis Laporan</th>
                         <th>Status</th>
                         <th>Dibuat Oleh</th>
+                        <th>Unit/Prodi/Fakultas</th>
                         <th>Diperiksa Oleh</th>
                         <th>Diperiksa Pada</th>
                         <th>Revisi</th>
@@ -140,6 +141,12 @@
                             <div class="user-panel d-flex">
                                 <div class="info">
                                     <span>{{ \App\Models\User::find($item->created_by)->name }}
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="user-panel d-flex">
+                                <div class="info">
                                         <span class="badge badge-success"
                                             style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->created_by)->role) }}</span>
                                     </span>

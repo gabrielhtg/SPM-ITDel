@@ -286,7 +286,7 @@ class RegisteredUserController extends Controller
                 foreach ($admins as $admin) {
                     if (in_array($adminRole->id, explode(";", $admin->role))) {
                         NotificationModel::create([
-                            'message' => "Permintaan register dari " .  $resetObject->name . "diterima oleh " . auth()->user()->name,  ".",
+                            'message' => "Permintaan register dari " .  $resetObject->name . " diterima oleh " . auth()->user()->name,  ".",
                             'ref_link' => "user-settings-active",
                             'to' => $admin->id,
                             'clicked' => false,

@@ -69,6 +69,16 @@ class UserController extends Controller
                 AllServices::addLog(sprintf("Menonaktifkan employee %s", $user->name));
                 Employee::where('user_id', $user->id)->delete();
 
+                UserInactiveModel::create([
+                    'name' => $user->name,
+                    'username' => $user->username,
+                    'phone' => $user->phone,
+                    'email' => $user->email,
+                    'ends_on' => now(),
+                    'role' => $user->role,
+                    'profile_pict' => $user->profile_pict
+                ]);
+
                 $user->delete();
 
                 return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => "Akun dengan nama pengguna " . $user->name . " berhasil dinonaktifkan!"]);

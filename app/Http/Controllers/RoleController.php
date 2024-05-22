@@ -202,7 +202,7 @@ class RoleController extends Controller
                             'id_jenis_laporan' => $jenis_laporan->id,
                             'id_tipe_laporan' => $jenis_laporan->id_tipelaporan,
                             'upload_by' => $userId,
-                            'created_at' => now(), // Menggunakan `now()` untuk waktu saat ini
+                            'created_at' => now(), 
                             'approve_at' => null,
                             'end_date' => $jenis_laporan->end_date,
                         ]);

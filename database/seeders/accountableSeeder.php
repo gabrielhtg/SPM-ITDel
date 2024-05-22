@@ -40,7 +40,6 @@ class accountableSeeder extends Seeder
             ['role' => 27, 'accountable_to' => 2],
             ['role' => 22, 'accountable_to' => 2],
             ['role' => 22, 'accountable_to' => 4],
-            ['role' => 8, 'accountable_to' => 4],
             ['role' => 28, 'accountable_to' => 4],
             ['role' => 28, 'accountable_to' => 2],
             ['role' => 31, 'accountable_to' => 4],

@@ -84,3 +84,10 @@
 [2024-05-17 15:46:53] Menerima permintaan action dari Dr. Arlinta Christy Barus S.T., M.InfoTech - User: spmadministrator@gmail.com
 [2024-05-17 16:01:36] Menerima permintaan action dari Albert Sagala, S.T, M.T - User: spmadministrator@gmail.com
 >>>>>>> f5b6f8e01edeef5bd2d3b65132a2a13fb4773c0d
+[2024-05-21 14:19:25] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-21 14:19:47] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si  - User: aldo@del.ac.id
+[2024-05-21 14:19:53] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Riyanthi Angrainy Sianturi, S.Sos, M.Ds  - User: aldo@del.ac.id
+[2024-05-21 14:19:58] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Dr. Merry Meryam Martgrita, S.Si., M.Si  - User: aldo@del.ac.id
+[2024-05-21 14:35:24] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Januari(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-21 14:35:30] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Februari(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-21 14:35:35] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id

@@ -14,11 +14,6 @@ class allowedUser extends Seeder
     public function run(): void
     {
         DB::table('allowed_user')->insert([
-            [
-                'email' => 'ifs21005@students.del.ac.id',
-                'created_at' =>now(),
-                'created_by' => "admin"
-            ],
         ]);
     }
 }

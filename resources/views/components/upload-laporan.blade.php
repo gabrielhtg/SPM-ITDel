@@ -60,8 +60,8 @@
                             $allServices = new \App\Services\AllServices();
                             @endphp
                             @foreach ($laporan as $item)
-                                @if(auth()->user()->id == $item->created_by && $item->status=="Ditolak" && $allServices->isLaporanIdInCekLaporan($item->id))
-                                    <option value="{{$item->id}}">{{$item->nama_laporan}}</option>
+                                @if(auth()->user()->id == $item->created_by && $item->status=="Direview" && $allServices->isLaporanIdInCekLaporan($item->id))
+                                    <option value="{{$item->id}}"> {{ \App\Services\AllServices::JenislaporanName($item->id)}}</option>
                                 @endif
                             @endforeach
                         </select>
