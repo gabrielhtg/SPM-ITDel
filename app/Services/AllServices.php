@@ -316,6 +316,7 @@ class AllServices
         return $accountable !== null;
     }
 
+    
 
 
     public static function isInformable($roleIds): bool
