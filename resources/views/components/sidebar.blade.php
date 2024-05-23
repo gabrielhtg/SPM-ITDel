@@ -94,7 +94,7 @@
                 $isResponsible = app(AllServices::class)->isResponsible(auth()->user()->role) || app(AllServices::class)->isAccountable(auth()->user()->role) || app(AllServices::class)->isInformable(auth()->user()->role);
             @endphp
 
-                @if (Auth::check() && auth()->user()->role != null ||app(AllServices::class)->haveAccountable(auth()->user()->role) || app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)||$isResponsible||app(AllServices::class)->isAccountable(auth()->user()->role) ||  app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) )
+                @if (app(AllServices::class)->haveAccountable(auth()->user()->role) || app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role)||$isResponsible||app(AllServices::class)->isAccountable(auth()->user()->role) ||  app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) )
                     <li class="nav-item {{ $active_sidebar[0] == 6 ? 'menu-open' : '' }}">
                         <a href="#" class="nav-link {{ $active_sidebar[0] == 6 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-users-cog"></i>

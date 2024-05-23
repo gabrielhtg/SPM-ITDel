@@ -95,3 +95,4 @@
 [2024-05-23 06:48:01] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan TriWulan Desember(2024)  - User: indra.tambunan@del.ac.id
 [2024-05-23 06:57:16] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan Semesteran Genap(2024)  - User: indra.tambunan@del.ac.id
 [2024-05-23 07:02:58] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan TriWulan September(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-23 10:30:00] Menambahkan role dedi - User: spmadministrator@gmail.com
