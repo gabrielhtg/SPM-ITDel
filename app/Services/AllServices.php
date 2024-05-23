@@ -719,8 +719,7 @@ class AllServices
 
         return $jenisLaporan;
     }
-
-
+    
     public function getDocumentNameAndTypeById($id)
     {
         // Cari dokumen berdasarkan ID

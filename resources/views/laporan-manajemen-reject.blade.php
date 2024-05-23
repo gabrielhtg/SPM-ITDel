@@ -73,7 +73,7 @@
 
 
 
-                <table id="example1" class="table table-bordered table-striped">
+                <table id="example1" class="table table-bordered table-striped responsive">
                     <thead>
                         <tr>
                             <th>Nama</th>
@@ -122,39 +122,48 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                        <?php
+                                            <?php
                                             $user = \App\Models\User::find($item->created_by);
                                             $name = $user->name;
                                             $role = \App\Services\AllServices::convertRole($user->role);
-                                            
-                                            // Menggunakan substring untuk memotong nama menjadi bagian-bagian yang lebih pendek
+
+                                            // Memotong nama menjadi beberapa baris jika terlalu panjang
                                             while(strlen($name) > 30) {
-                                                echo "<span>" . substr($name, 0, 30) . "</span><br>";
+                                                echo "<span style='display:block; word-wrap: break-word; white-space: normal;'>" . substr($name, 0, 30) . "</span>";
                                                 $name = substr($name, 30);
                                             }
-                                            echo "<span>$name</span>";
-                            
-                                            // Menampilkan peran (role) dengan badge
-                                            echo "<span class='badge badge-success ml-2'>$role</span>";
-                                        ?>
+                                            echo "<span style='display:block; word-wrap: break-word; white-space: normal;'>$name</span>";
+
+                                            // Menampilkan peran (role) dengan badge di bawah nama
+                                            echo "<span class='badge badge-success mt-1' style='display:block;'>$role</span>";
+                                            ?>
                                     </div>
                                 </div>
                             </td>
-                            
+
+
+
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
                                         @if($item->direview_oleh !== null)
-                                        <span>{{ \App\Models\User::find($item->direview_oleh)->name }}
-                                            <span class="badge badge-success "
-                                                style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->direview_oleh)->role) }}</span>
-                                        </span>
+                                                <?php
+                                                $reviewer = \App\Models\User::find($item->direview_oleh);
+                                                $reviewerName = $reviewer->name;
+                                                $reviewerRole = \App\Services\AllServices::convertRole($reviewer->role);
+                                                ?>
+                                            <span style="word-wrap: break-word; white-space: normal;">
+                                                {{ $reviewerName }}
+                                                <br>
+                                                <span class="badge badge-success mt-1">{{ $reviewerRole }}</span>
+                                            </span>
                                         @else
-                                        <span>Belum Diperiksa</span>
+                                            <span>Belum Diperiksa</span>
                                         @endif
                                     </div>
                                 </div>
                             </td>
+
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">

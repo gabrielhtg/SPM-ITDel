@@ -47,7 +47,7 @@
     @include('components.guessnavbar')
 
     <section>
-        <div class="headernewsdetail" style=" height: 120px; width: 100; background-color:black;"></div>
+        <div class="headernewsdetail mb-4" style=" height: 120px; width: 100; background-color:black;"></div>
     </section>
 
     <section id="news-view" style="min-height: 83vh;">
@@ -132,21 +132,6 @@
     <script src="{{ asset('dist/js/adminlte.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard.js') }}"></script>
     <script src="{{ asset('splide/dist/js/splide.min.js') }}"></script>
-    <script>
-        var splide = new Splide('.splide', {
-            type   : 'loop',
-            perPage: 3,
-            perMove: 1,
-            gap: 20,
-            breakpoints: {
-                640: {
-                    perPage: 1,
-                },
-            },
-        });
-    
-        splide.mount();
-    </script>
     <script>
         $(document).ready(function() {
             // Function to perform search

@@ -107,7 +107,22 @@
                             )
                             <tr>
 
-                                <td>{{ $e->nomor_dokumen }}</td>
+                                <td>
+                                    <div class="user-panel d-flex">
+                                        <div class="d-flex align-items-center">
+                                                <?php
+                                                $nomor_dokumen = $e->nomor_dokumen;
+                                                while(strlen($nomor_dokumen) > 30) {
+                                                    echo substr($nomor_dokumen, 0, 30) . "<br>";
+                                                    $nomor_dokumen = substr($nomor_dokumen, 30);
+                                                }
+                                                echo $nomor_dokumen;
+                                                ?>
+                                        </div>
+                                    </div>
+                                </td>
+
+
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="d-flex align-items-center">
@@ -157,13 +172,19 @@
                                 <td>
                                     <div class="user-panel d-flex">
                                         <div class="info">
-                                        <span> {{ \App\Models\User::find($e->created_by)->name }} <span
-                                                class="badge badge-success"
-                                                style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}</span></span>
-
+                                            <div style="display: flex; flex-direction: column;">
+                                                <span style="word-wrap: break-word; white-space: normal; display: block;">{{ \App\Models\User::find($e->created_by)->name }}</span>
+                                                <div style="display: inline-flex; flex-wrap: wrap;">
+                                                    <span class="badge badge-success" style="display: inline-block; word-wrap: break-word; white-space: normal;">
+                                                        {{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </td>
+
+
 
                                 <td>
                                     <div class="user-panel d-flex">
@@ -236,7 +257,7 @@
                                     @method('DELETE')
                                     <input type="hidden" name="id" value="{{ $e->id }}">
                                 </form>
-                
+
                                 <p>
                                     Apakah Anda yakin ingin menghapus data {{$e->name }}?
                                 </p>

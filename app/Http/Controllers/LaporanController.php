@@ -138,6 +138,8 @@ public function getLaporanManagementReject()
             'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx|max:30720',
             'id_tipelaporan' => 'required',
             'cek_revisi'=>'nullable',
+            'revisi' => 'nullable', 
+
 
         ], [
             'file.max' => 'Ukuran file melebihi batas maksimum unggah 30 MB.',
@@ -149,6 +151,10 @@ public function getLaporanManagementReject()
         if ($validator->fails()) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
         }
+        if ($request->has('revisi') && $request->id_tipelaporan != $request->revisi) {
+            return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => 'Kategori Tipe Laporan harus sama dengan Kategori Laporan yang Direvisi']);
+        }
+        
 
         // Proses unggah file jika ada
         if ($request->hasFile('file')) {
@@ -176,10 +182,10 @@ public function getLaporanManagementReject()
 
         $iduser = auth()->user()->id;
         $user = User::findOrFail($iduser);
-
+        
         $accountable = AccountableModel::where('role', $user->role)->first();
         $roleId = $accountable->role; // Ganti dengan id peran yang diinginkan
-
+        
         // Ambil semua nilai accountable_to berdasarkan roleId
         $accountableTos = AccountableModel::where('role', $roleId)->pluck('accountable_to')->toArray();
         
@@ -189,21 +195,31 @@ public function getLaporanManagementReject()
             $allAccountableTo = array_merge($allAccountableTo, explode(';', $accountableTo));
         }
         $allAccountableTo = array_unique($allAccountableTo);
-
         
+        // Ambil semua user
+        $allUsers = User::all();
         
-        // Ambil semua user yang memiliki peran yang termasuk dalam nilai accountable_to yang unik
-        $allUsers = User::whereIn('role', $allAccountableTo)->get();
+        // Filter user yang memiliki peran yang termasuk dalam nilai accountable_to yang unik
+        $filteredUsers = $allUsers->filter(function ($user) use ($allAccountableTo) {
+            $userRoles = explode(';', $user->role);
+            foreach ($userRoles as $role) {
+                if (in_array($role, $allAccountableTo)) {
+                    return true;
+                }
+            }
+            return false;
+        });
         
-        // Buat notifikasi untuk setiap user
-        foreach ($allUsers as $users) {
+        // Buat notifikasi untuk setiap user yang terfilter
+        foreach ($filteredUsers as $filteredUser) {
             NotificationModel::create([
                 'message' => "Permintaan untuk memeriksa laporan dari " . $user->name . ".",
                 'ref_link' => "LaporanManagementReject",
                 'clicked' => false,
-                'to' => $users->id,
+                'to' => $filteredUser->id,
             ]);
         }
+        
         
 
 

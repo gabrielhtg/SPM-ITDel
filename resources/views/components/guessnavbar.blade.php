@@ -55,12 +55,12 @@
                         </h1>
                     </li>
                     <li class="col">
-                        <a href="#akreditasi" class="nav-link" onclick="redirectToNewsView()">
+                        <a href="#akreditasi" class="nav-link" onclick="redirectToAkreditasiView()">
                             Akreditasi
                         </a>
                     </li>
                     <li class="col">
-                        <a href="{{ route('dashboard') }}#news-view" class="nav-link" onclick="redirectToNewsView()">
+                        <a href="#news-view" class="nav-link" onclick="redirectToNewsView()">
                             News
                         </a>
                     </li>
@@ -188,6 +188,23 @@
                 // Scroll to the news-view section
                 $('html, body').animate({
                     scrollTop: $("#news-view").offset().top
+                }, 1000); // You can adjust the duration of the scroll animation
+            }
+        });
+    }
+</script>
+<script>
+    function redirectToAkreditasiView() {
+        // Redirect to dashboard with hash fragment
+        window.location.href = "{{ route('dashboard') }}#akreditasi1";
+
+        // Wait for the dashboard to load, then scroll to the news-view section
+        $(document).ready(function() {
+            // Check if the hash exists in the URL
+            if (window.location.hash === '#akreditasi1') {
+                // Scroll to the news-view section
+                $('html, body').animate({
+                    scrollTop: $("#akreditasi").offset().top
                 }, 1000); // You can adjust the duration of the scroll animation
             }
         });
