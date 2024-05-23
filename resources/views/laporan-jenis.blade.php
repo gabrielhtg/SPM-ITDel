@@ -12,6 +12,7 @@
     @endphp --}}
 
     <!-- Google Font: Source Sans Pro -->
+    <link rel="shortcut icon" type="image/jpg" href="{{ asset("src/img/logo.png") }}"/>
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
