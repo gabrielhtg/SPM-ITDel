@@ -50,7 +50,7 @@
         <div class="card">
             <div class="card-body">
 
-                @if(AllServices::isCurrentRole("Admin"))
+                @if(AllServices::isLoggedUserHasAdminAccess())
                     @include('components.add-news')
                 @endif
                 <div class="list-group">
