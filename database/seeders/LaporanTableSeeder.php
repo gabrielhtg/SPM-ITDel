@@ -18,10 +18,10 @@ class LaporanTableSeeder extends Seeder
         DB::table('laporan')->insert([
             //Dekan FITE
             [
-                'id_tipelaporan' => 1, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 13, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 8, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
@@ -33,42 +33,42 @@ class LaporanTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 2,  // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 14,  // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 8, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
-                'approve_at' => now(),
+                'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report has been approved',
-                'file_catatan' => 'Approved',
+                'komentar' => 'Initial report submission',
+                'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 3, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 15, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 8, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
-                'cek_revisi' => 'Perbaikan diperlukan',
+                'cek_revisi' => null,
                 'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report declined',
-                'file_catatan' => 'revisi',
+                'komentar' => 'Initial report submission',
+                'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
 
             //Dekan FTI
             [
-                'id_tipelaporan' => 1, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 13, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 10, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
@@ -80,31 +80,31 @@ class LaporanTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 2, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 14, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 10, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
-                'approve_at' => now(),
+                'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report has been approved',
-                'file_catatan' => 'notes/revision1.pdf',
+                'komentar' => 'Initial report submission',
+                'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 3, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 15, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 10, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
-                'cek_revisi' => 'Perbaikan diperlukan',
+                'cek_revisi' => null,
                 'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report declined',
+                'komentar' => 'Initial report submission',
                 'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -112,10 +112,10 @@ class LaporanTableSeeder extends Seeder
 
             //Dekan Fakultas Vokasi
             [
-                'id_tipelaporan' => 1, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 13, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 9, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
@@ -127,41 +127,41 @@ class LaporanTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 2, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 14, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 9, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
-                'approve_at' => now(),
+                'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report has been approved',
-                'file_catatan' => 'notes/revision1.pdf',
+                'komentar' => 'Initial report submission',
+                'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 3, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 15, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 9, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
-                'cek_revisi' => 'Perbaikan diperlukan',
+                'cek_revisi' => null,
                 'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report declined',
+                'komentar' => 'Initial report submission',
                 'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             //Dekan Fakultas Bioteknologi
             [
-                'id_tipelaporan' => 1, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 13, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 11, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
@@ -173,31 +173,31 @@ class LaporanTableSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 2, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 14, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 11, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
                 'cek_revisi' => null,
-                'approve_at' => now(),
+                'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report has been approved',
-                'file_catatan' => 'notes/revision1.pdf',
+                'komentar' => 'Initial report submission',
+                'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'id_tipelaporan' => 3, // Adjust according to your 'jenis_laporan' table
+                'id_tipelaporan' => 15, // Adjust according to your 'jenis_laporan' table
                 'direview_oleh' => null, // Adjust according to your 'users' table
                 'created_by' => 11, // Adjust according to your 'users' table
-                'nama_laporan' => 'Laporan Bulanan',
+                'nama_laporan' => 'Laporan TriWulan',
                 'directory' => 'src/documents/Laporan_Bulanan.pdf',
                 'status' => 'Menunggu',
-                'cek_revisi' => 'Perbaikan diperlukan',
+                'cek_revisi' => null,
                 'approve_at' => null,
                 'reject_at' => null,
-                'komentar' => 'Monthly report declined',
+                'komentar' => 'Initial report submission',
                 'file_catatan' => null,
                 'created_at' => now(),
                 'updated_at' => now(),
