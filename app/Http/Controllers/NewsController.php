@@ -135,7 +135,7 @@ class NewsController extends Controller
 
             $news->save();
 
-            AllServices::addLog(sprintf("Menambahkan Berita \"%s\"", $request->title));
+            AllServices::addLog(sprintf("Menghapus Berita \"%s\"", implode(' ', array_slice(str_word_count($request->title, 1), 0, 10))));
             return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambahkan Berita']);
         }
     }
@@ -215,7 +215,7 @@ class NewsController extends Controller
 
         $news->save();
 
-        AllServices::addLog(sprintf("Menyunting Berita \"%s\" menjadi \"%s\"", $news->title, $request->title));
+        AllServices::addLog(sprintf("Menyunting Berita \"%s\" menjadi \"%s\"", implode(' ', array_slice(str_word_count($news->title, 1), 0, 10)), implode(' ', array_slice(str_word_count($request->title, 1), 0, 10))));
         return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Mengubah Berita']);
     }
 
@@ -253,7 +253,7 @@ class NewsController extends Controller
 
         $news->delete();
 
-        AllServices::addLog(sprintf("Menghapus Berita \"%s\"", $news->title));
+        AllServices::addLog(sprintf("Menghapus Berita \"%s\"", implode(' ', array_slice(str_word_count($news->title, 1), 0, 10))));
         return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Menghapus Berita']);
     }
 
