@@ -140,33 +140,46 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="info">
-                                    <span>{{ \App\Models\User::find($item->created_by)->name }}
+                                    <span style="word-wrap: break-word; white-space: normal; display: block;">{{ \App\Models\User::find($item->created_by)->name }}
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="info">
-                                        <span class="badge badge-success"
-                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->created_by)->role) }}</span>
+                                        <?php
+                                        $creator = \App\Models\User::find($item->created_by);
+                                        $creatorRole = \App\Services\AllServices::convertRole($creator->role);
+                                        ?>
+                                    <span class="badge badge-success" style="display: inline-block; word-wrap: break-word; white-space: normal;">
+                                        {{ $creatorRole }}
                                     </span>
                                 </div>
                             </div>
                         </td>
+
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="info">
                                     @if($item->direview_oleh !== null)
-                                    <span>{{ \App\Models\User::find($item->direview_oleh)->name }}
-                                        <span class="badge badge-success "
-                                            style="margin-left: 5px">{{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->direview_oleh)->role) }}</span>
-                                    </span>
+                                            <?php
+                                            $reviewer = \App\Models\User::find($item->direview_oleh);
+                                            $reviewerName = $reviewer->name;
+                                            $reviewerRole = \App\Services\AllServices::convertRole($reviewer->role);
+                                            ?>
+
+                                        <span style="word-wrap: break-word; white-space: normal; display: block;">
+                                            {{ $reviewerName }}
+                                            <br>
+                                            <span class="badge badge-success mt-1">{{ $reviewerRole }}</span>
+                                        </span>
                                     @else
-                                    <span>Belum Diperiksa</span>
+                                        <span>Belum Diperiksa</span>
                                     @endif
                                 </div>
                             </div>
                         </td>
+
 
                         <td>
                             <div class="user-panel d-flex">
@@ -249,7 +262,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                        
+
                                         <div class="form-group">
                                             <label for="edit-revisiCheckbox{{ $item->id }}">Revisi:</label><br>
                                             <div class="form-check form-check-inline">
