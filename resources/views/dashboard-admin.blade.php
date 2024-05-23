@@ -411,7 +411,7 @@
                 Swal.fire({
                     icon: 'error',
                     title: 'Failed',
-                    text: 'Gagal Menambahkan data! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
+                    text: 'Jumlah karakter melebihi batas! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
                     // toast: true,
                     showConfirmButton: false,
                     // position: 'top-end',

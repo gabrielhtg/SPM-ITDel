@@ -128,10 +128,10 @@ class HerodashboardController extends Controller
     {
         // Validasi input
         $request->validate([
-            'profilhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
-            'judulhero' => 'required',
-            'tambahanhero' => 'required',
-            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
+            'profilhero' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
+            'judulhero' => 'required|max:30',
+            'tambahanhero' => 'required|max:50',
+            'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
         ]);
         // Cari data pengumuman yang akan diupdate
         $data = HeroDashboard::find($id);
