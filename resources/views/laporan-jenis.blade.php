@@ -135,7 +135,7 @@
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10,
+            "pageLength": 12,
             "order": [[1, "desc"]],
             "columnDefs": [
                 {

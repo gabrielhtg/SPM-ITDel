@@ -119,3 +119,5 @@
 [2024-05-23 16:59:00] Menyunting Berita "Del Debate Championship DDC edited df" menjadi "Del Debate Championship DDC edited df" - User: spmadministrator@gmail.com
 [2024-05-23 16:59:05] Menghapus Berita "Del Debate Championship DDC edited df" - User: spmadministrator@gmail.com
 [2024-05-23 17:01:22] Menyunting Berita "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun edited" menjadi "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun edited" - User: spmadministrator@gmail.com
+[2024-05-24 13:47:38] Menambahkan Dokumen dedi - User: spmadministrator@gmail.com
+[2024-05-24 13:52:30] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id

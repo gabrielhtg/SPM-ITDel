@@ -493,7 +493,7 @@
         $("#example1").DataTable({
             "responsive": true, "lengthChange": false, "autoWidth": false,
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"],
-            "pageLength": 10,
+            "pageLength": 15,
             "order": [[4, "desc"]]
         }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     });
