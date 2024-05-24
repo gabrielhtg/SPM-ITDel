@@ -114,8 +114,6 @@
                                 </li>
                             @endif
 
-                          
-
                             @if ($isResponsible)
                                 <li class="nav-item">
                                     <a href="{{ route('LaporanManagementReject') }}" class="nav-link {{ $active_sidebar[0] == 6 && $active_sidebar[1] == 2 ? 'active' : '' }}">

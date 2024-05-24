@@ -51,10 +51,10 @@ class RoleController extends Controller
                 'required_to_submit_document' => $laporan
             ]);
 
-            $arrayAccountableTo = AllServices::getAccountableTo($request->atasan_role);
+//            $arrayAccountableTo = AllServices::getAccountableTo($request->atasan_role);
 
-            if (count($arrayAccountableTo) > 0) {
-                foreach ($arrayAccountableTo as $e) {
+            if ($request->accountable_to !== null) {
+                foreach ($request->accountable_to as $e) {
                     AccountableModel::create([
                         'role' => $newRole->id,
                         'accountable_to' => $e
@@ -160,6 +160,19 @@ class RoleController extends Controller
             }
         }
 
+        if ($request->accountable_to !== null) {
+            AllServices::clearAccountableTo($role->id);
+
+            foreach ($request->accountable_to as $e) {
+                if ($e != -1) {
+                    AccountableModel::create([
+                        'role' => $request->id,
+                        'accountable_to' => $e
+                    ]);
+                }
+            }
+        }
+
         if ($request->responsible_to !== null) {
             AllServices::clearResponsibleTo($role->id);
 
@@ -175,34 +188,34 @@ class RoleController extends Controller
 
         if ($request->wajib_melaporkan !== null) {
             $laporan = implode(";", $request->wajib_melaporkan);
-    
+
             $role->update([
                 'required_to_submit_document' => $laporan
             ]);
-    
+
             $roleId = $role->id;
             $users = User::where(DB::raw("CONCAT(';', role, ';')"), 'LIKE', "%;$roleId;%")
                 ->pluck('id')
                 ->toArray();
-    
+
             // Memisahkan laporan menjadi array untuk digunakan dalam query
             $laporanArray = explode(";", $laporan);
-    
+
             $jenis_laporans = JenisLaporan::whereIn('id_tipelaporan', $laporanArray)->get();
-    
+
             foreach ($users as $userId) {
                 foreach ($jenis_laporans as $jenis_laporan) {
                     $log = LogLaporan::where('upload_by', $userId)
                         ->where('id_jenis_laporan', $jenis_laporan->id)
                         ->first();
-    
+
                     // Membuat log jika belum ada
                     if ($log === null) {
                         LogLaporan::create([
                             'id_jenis_laporan' => $jenis_laporan->id,
                             'id_tipe_laporan' => $jenis_laporan->id_tipelaporan,
                             'upload_by' => $userId,
-                            'created_at' => now(), 
+                            'created_at' => now(),
                             'approve_at' => null,
                             'end_date' => $jenis_laporan->end_date,
                         ]);
@@ -228,17 +241,6 @@ class RoleController extends Controller
 
         if ($role->atasan_id !== $request->atasan_role) {
             AllServices::clearAccountableTo($request->id);
-
-            $arrayAccountableTo = AllServices::getAccountableTo($request->atasan_role);
-
-            if (count($arrayAccountableTo) > 0) {
-                foreach ($arrayAccountableTo as $e) {
-                    AccountableModel::create([
-                        'role' => $request->id,
-                        'accountable_to' => $e
-                    ]);
-                }
-            }
         }
 
         $role->update([

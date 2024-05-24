@@ -223,6 +223,23 @@
                                                         @endforeach
                                                     </select>
                                                 </div>
+
+                                                <div class="form-group mt-3">
+                                                    <label for="accountable-to{{ $e->id }}">Accountable To</label>
+                                                    <select id="accountable-to{{ $e->id }}"
+                                                            name="accountable_to[]" multiple="multiple"
+                                                            class="accountable-to-custom form-control" style="width: 100%">
+                                                        <option></option>
+                                                        @foreach ($roles as $role)
+                                                            @if ($role->role !== 'Admin' && $role->id !== $e->id && $role->status)
+                                                                <option value="{{ $role->id }}">
+                                                                    {{ $role->role }}</option>
+                                                            @endif
+                                                        @endforeach
+                                                        <option value="-1">None</option>
+                                                    </select>
+                                                </div>
+
                                                 <div class="form-group mt-3">
                                                     <label for="responsible-to{{ $e->id }}">Responsible To</label>
                                                     <select id="responsible-to{{ $e->id }}"
@@ -387,6 +404,9 @@
                 placeholder: "Pilih role",
             });
             $('.responsible-to-custom').select2({
+                placeholder: "Pilih role",
+            });
+            $('.accountable-to-custom').select2({
                 placeholder: "Pilih role",
             });
             $('.informable-to-custom').select2({

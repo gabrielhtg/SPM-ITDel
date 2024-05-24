@@ -61,6 +61,7 @@
                 <div class="card-body">
                     @php
                     $isResponsible = app(AllServices::class)->isAccountable(auth()->user()->role);
+//                    dd($isResponsible);
 
                 @endphp
 
