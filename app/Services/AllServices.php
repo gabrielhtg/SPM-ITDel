@@ -606,8 +606,8 @@ class AllServices
     public function isLaporanIdInCekLaporan($laporanId)
     {
         // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
-        $cekLaporan = Laporan::where('cek_revisi', $laporanId)
-            ->where('status', 'Disetujui')
+        $cekLaporan = Laporan::where('id', $laporanId)
+    
             ->first();
 
         // Jika ada, return false
