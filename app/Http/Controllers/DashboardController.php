@@ -19,7 +19,10 @@ class DashboardController extends Controller
     {
         $dashboard = Dashboard::all()->sortByDesc('id');
         $herodashboard = HeroDashboard::all()->sortByDesc('id');
-        $news = News::latest()->take(6)->get();
+        $news = News::where('keterangan_status', 1)
+            ->orderBy('id', 'desc')
+            ->take(6)
+            ->get();
 
         $data = [
             'dashboard' => $dashboard,
