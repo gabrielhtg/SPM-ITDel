@@ -96,3 +96,46 @@
 [2024-05-23 06:57:16] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan Semesteran Genap(2024)  - User: indra.tambunan@del.ac.id
 [2024-05-23 07:02:58] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan TriWulan September(2024)  - User: indra.tambunan@del.ac.id
 [2024-05-23 10:30:00] Menambahkan role dedi - User: spmadministrator@gmail.com
+[2024-05-23 15:54:14] Menambahkan Berita "alsjdfhsd fasudfh asdfouh asdfuioh asdfuh asdofh asdofha sdufh asdopfh aposd fhaposdfh aposd fhaosu dfhpoausdh faushd fipuadsh fpaushd fpiuadsh fiaus" - User: spmadministrator@gmail.com
+[2024-05-23 15:55:19] Menghapus Berita "alsjdfhsd fasudfh asdfouh asdfuioh asdfuh asdofh asdofha sdufh asdopfh aposd fhaposdfh aposd fhaosu dfhpoausdh faushd fipuadsh fpaushd fpiuadsh fiaus" - User: spmadministrator@gmail.com
+[2024-05-23 16:11:53] Menyunting Berita "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW) (edited)" menjadi "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW) (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:12:04] Menyunting Berita "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW) (edited) ;" menjadi "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW) (edited) ;" - User: spmadministrator@gmail.com
+[2024-05-23 16:14:33] Menghapus Berita "Sharing Session terkait Program Pembinaan Mahasiswa Wirausaha (P2MW) (edited) ;" - User: spmadministrator@gmail.com
+[2024-05-23 16:28:34] Menyunting Berita "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun 2024 (edited)" menjadi "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun 2024 (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:28:42] Menghapus Berita "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun 2024 (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:47:34] Menyunting Berita "Pembekalan Mahasiswa Kerja Praktik Prodi Teknik Bioproses (edited)" menjadi "Pembekalan Mahasiswa Kerja Praktik Prodi Teknik Bioproses (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:48:06] Menyunting Berita "Pembekalan Mahasiswa Kerja Praktik Prodi Teknik Bioproses (edited) ;" menjadi "Pembekalan Mahasiswa Kerja Praktik Prodi Teknik Bioproses (edited) ;" - User: spmadministrator@gmail.com
+[2024-05-23 16:48:12] Menghapus Berita "Pembekalan Mahasiswa Kerja Praktik Prodi Teknik Bioproses (edited) ;" - User: spmadministrator@gmail.com
+[2024-05-23 16:54:46] Menyunting Berita "Del Debate Championship (DDC) 2024 (edited)" menjadi "Del Debate Championship (DDC) 2024 (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:54:46] Menyunting Berita "Del Debate Championship DDC edited" menjadi "Del Debate Championship DDC edited" - User: spmadministrator@gmail.com
+[2024-05-23 16:54:51] Menghapus Berita "Institut Teknologi Del Jalin Kerjasama dengan Hidrokinetik Technologies Sdn Bhd" - User: spmadministrator@gmail.com
+[2024-05-23 16:54:55] Menghapus Berita "Mahasiswa Teknik Elektro IT Del Berhasil Meraih Medali Emas Pada" - User: spmadministrator@gmail.com
+[2024-05-23 16:55:06] Menyunting Berita "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies (edited)" menjadi "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies (edited)" - User: spmadministrator@gmail.com
+[2024-05-23 16:55:06] Menyunting Berita "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies" menjadi "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies" - User: spmadministrator@gmail.com
+[2024-05-23 16:56:12] Menambahkan Berita "asdofasd faosdif jasodifh asdfoih asdfio asdofi hasdofi asdofih asd fiasdoi fasodif hasoidfh aopsdifh asodhf as" - User: spmadministrator@gmail.com
+[2024-05-23 16:56:56] Menghapus Berita "asdofasd faosdif jasodifh asdfoih asdfio asdofi hasdofi asdofih asd fiasdoi" - User: spmadministrator@gmail.com
+[2024-05-23 16:58:31] Menyunting Berita "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies" menjadi "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies" - User: spmadministrator@gmail.com
+[2024-05-23 16:58:48] Menghapus Berita "Pelatihan Metagenomics Analysis from Environmental Samples using Oxford Nanopore Technologies" - User: spmadministrator@gmail.com
+[2024-05-23 16:59:00] Menyunting Berita "Del Debate Championship DDC edited df" menjadi "Del Debate Championship DDC edited df" - User: spmadministrator@gmail.com
+[2024-05-23 16:59:05] Menghapus Berita "Del Debate Championship DDC edited df" - User: spmadministrator@gmail.com
+[2024-05-23 17:01:22] Menyunting Berita "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun edited" menjadi "Sosialisasi Pedoman dan Panduan yang Berlaku di LPPM Tahun edited" - User: spmadministrator@gmail.com
+[2024-05-24 13:47:38] Menambahkan Dokumen dedi - User: spmadministrator@gmail.com
+[2024-05-24 13:52:30] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-24 16:25:11] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 16:25:41] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
+[2024-05-24 17:00:50] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:04:48] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:05:17] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
+[2024-05-24 17:46:40] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:50:45] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:53:05] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
+[2024-05-24 17:53:30] Parmonangan Rotua Togatorop, S.Kom., M.T.I Tidak Menyetujui Laporan Bulanan Desember(2024) dari Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech  - User: mona.togatorop@del.ac.id
+[2024-05-24 17:57:12] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-24 17:57:23] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si  - User: aldo@del.ac.id
+[2024-05-24 18:35:33] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan November(2024)  - User: aldo@del.ac.id
+[2024-05-24 20:42:51] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
+[2024-05-24 20:43:21] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Agustus(2024)  - User: aldo@del.ac.id
+[2024-05-24 20:43:54] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-24 20:44:04] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan September(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-24 20:44:19] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan September(2024) dari Dr. Merry Meryam Martgrita, S.Si., M.Si  - User: aldo@del.ac.id
+[2024-05-24 20:44:23] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Dr. Merry Meryam Martgrita, S.Si., M.Si  - User: aldo@del.ac.id

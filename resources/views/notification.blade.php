@@ -136,7 +136,7 @@
                                         </form>
                         
                                         <p>
-                                            Apakah Anda yakin ingin notifikasi {{ $e->message }}?
+                                            Apakah Anda yakin ingin menghapus notifikasi {{ $e->message }}?
                                         </p>
                                     </div>
                                     <div class="modal-footer justify-content-between">

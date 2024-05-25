@@ -53,19 +53,19 @@
 
                     <div class="form-group mt-3" style="display: none;">
                         <label for="menggantikan">Merevisi Laporan:</label>
-                        <select id="menggantikan" name="cek_revisi" 
-                                class="menggantikan-to-custom form-control" style="width: 100%">
+                        <select id="menggantikan" name="cek_revisi" class="menggantikan-to-custom form-control" style="width: 100%">
                             <option></option>
                             @php
-                            $allServices = new \App\Services\AllServices();
+                                $allServices = new \App\Services\AllServices();
                             @endphp
                             @foreach ($laporan as $item)
-                                @if(auth()->user()->id == $item->created_by && $item->status=="Direview" && $allServices->isLaporanIdInCekLaporan($item->id))
-                                    <option value="{{$item->id}}"> {{ \App\Services\AllServices::JenislaporanName($item->id)}}</option>
+                                @if(auth()->user()->id == $item->created_by && $item->status == "Direview")
+                                    <option value="{{ $item->id_tipelaporan }}"> {{ \App\Services\AllServices::JenislaporanName($item->id_tipelaporan) }}</option>
                                 @endif
                             @endforeach
                         </select>
                     </div>
+                    
 
                     <div class="form-group">
                         <label for="document-file">Laporan</label>

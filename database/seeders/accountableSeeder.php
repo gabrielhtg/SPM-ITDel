@@ -15,6 +15,7 @@ class accountableSeeder extends Seeder
     {
         DB::table('accountable')->insert([
             ['role' => 3, 'accountable_to' => 2],
+            ['role' => 2, 'accountable_to' => 13],
             ['role' => 4, 'accountable_to' => 2],
             ['role' => 5, 'accountable_to' => 2],
             ['role' => 6, 'accountable_to' => 2],

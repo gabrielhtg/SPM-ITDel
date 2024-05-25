@@ -1,5 +1,5 @@
 @php use App\Services\AllServices; @endphp
-        <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -53,120 +53,149 @@
                 @if(AllServices::isLoggedUserHasAdminAccess())
                     @include('components.add-news')
                 @endif
-                <div class="list-group">
-                    <table class="table">
+
+                <div class="table-responsive">
+                    <table id="example1" class="table table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-wrap">No. </th>
+                            <th class="text-wrap">Judul Berita</th>
+                            <th class="text-wrap">Tanggal Berlaku</th>
+                            <th class="text-wrap">Tindakan</th>
+                        </tr>
+                        </thead>
                         <tbody>
 
-                            @forelse ($news as $item)
-                                <div class="container-ann1">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div>
-                                            <a href="{{ route('news.detail', ['id' => $item->id]) }}" class="list-group-item-action">{{ $item->title }}</a>
+                        @php
+                            $i = 1;
+                        @endphp
+
+                        @foreach($news as $e)
+                            <tr>
+                                <td>{{ $i++ }}</td>
+                                <td class="text-wrap">
+                                    <div class="d-flex flex-column">
+                                        <div class="text-wrap">
+                                            {{ $e->title }}
                                         </div>
-                                        <div>
-                                            <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-update-news-{{$item->id}}">
-                                                Update
+                                    </div>
+                                </td>
+
+                                <td class="text-wrap">
+                                    <div class="d-flex flex-column">
+                                        <div class="text-wrap">
+                                            {{ \Carbon\Carbon::parse($e->start_date)->format('d/m/Y') }}
+                                            @if($e->end_date != null)
+                                            - {{ \Carbon\Carbon::parse($e->end_date)->format('d/m/Y') }}
+                                            @else
+                                            - Sekarang
+                                            @endif
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td class="text-wrap">
+                                    <div class="d-flex justify-content-center">
+                                        <div class="d-flex align-items-center">
+                                            <form action="{{ route('news.detail', ['id' => $e->id]) }}" method="GET" class="mr-2">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $e->id }}">
+                                                <button type="submit" class="btn btn-success"><i class="fas fa-external-link-alt"></i></button>
+                                            </form>
+                                            <button type="button" class="btn btn-warning mr-2" data-toggle="modal" data-target="#modal-update-news-{{$e->id}}"><i class="fas fa-pen"></i></button>
+                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $e->id }}"><i class="fas fa-trash-alt"></i></button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Modal Delete Confirmation -->
+                            <div class="modal fade" id="modal-delete-{{ $e->id }}">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Konfirmasi Penghapusan</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
-                                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modal-delete-{{ $item->id }}">
-                                                {{-- <a href="{{ route('deletenews', ['id' => $item->id]) }}" style="color: black">Delete</a> --}}Delete
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="form-delete-{{ $e->id }}" method="POST" action="{{ route('deletenews', ['id' => $e->id]) }}">
+                                                @csrf
+                                                @method('GET')
+                                                <input type="hidden" name="id" value="{{ $e->id }}">
+                                            </form>
+
+                                            <p>Apakah Anda yakin ingin menghapus berita {{ $e->title }}?</p>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <button type="submit" form="form-delete-{{ $e->id }}" class="btn btn-danger">Hapus</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Modal Update News -->
+                            <div class="modal fade" id="modal-update-news-{{$e->id}}">
+                                <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Sunting Berita</h4>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
                                             </button>
-                                            
-                                            {{-- Pesan Konfirmasi --}}
-                                            <div class="modal fade" id="modal-delete-{{ $item->id }}">
-                                                <div class="modal-dialog modal-dialog-centered">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title">Konfirmasi Penghapusan</h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <form id="form-delete-{{ $item->id }}" method="POST" action="{{ route('deletenews', ['id' => $item->id]) }}">
-                                                                @csrf
-                                                                @method('GET')
-                                                                <input type="hidden" name="id" value="{{ $item->id }}">
-                                                            </form>
-                                            
-                                                            <p>
-                                                                Apakah Anda yakin ingin menghapus data {{ $item->title }}?
-                                                            </p>
-                                                        </div>
-                                                        <div class="modal-footer justify-content-between">
-                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                            <button type="submit" form="form-delete-{{ $item->id }}" class="btn btn-danger">Hapus</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form id="form-editNews-{{ $e->id }}" method="POST" action="{{ route('updatenews', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                                @csrf
+
+                                                <!-- Input Title -->
+                                                <div class="form-group mt-1">
+                                                    <label for="judul">Judul Berita</label>
+                                                    <input type="text" name="title" id="title" class="form-control" value="{{ $e->title }}">
+                                                </div>
+
+                                                <!-- Input Description -->
+                                                <label for="summernote">Keterangan Berita</label>
+                                                <textarea class="summernote form-control" name="description">{!! $e->description !!}</textarea>
+
+                                                <!-- Input File -->
+                                                <div class="form-group">
+                                                    <label for="bgimage">Gambar Berita</label>
+                                                    <div class="input-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" class="custom-file-input" id="bgimage" name="bgimage">
+                                                            <label class="custom-file-label" for="bgimage">{{ $e->bgimage }}</label>
                                                         </div>
                                                     </div>
-                                                    <!-- /.modal-content -->
                                                 </div>
-                                                <!-- /.modal-dialog -->
-                                            </div>
 
+                                                <!-- Input Time -->
+                                                <div class="form-group">
+                                                    <label>Tanggal Mulai</label>
+                                                    <input type="datetime-local" name="start_date" class="form-control" value="{{ $e->start_date }}" required>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Tanggal Berakhir</label>
+                                                    <input type="datetime-local" name="end_date" class="form-control" value="{{ $e->end_date }}">
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer justify-content-between">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                            <button type="submit" form="form-editNews-{{ $e->id }}" class="btn btn-primary">Sunting</button>
                                         </div>
                                     </div>
-                            
-                                    <hr class="" style="border-top: 1px solid rgba(0, 0, 0, 0.1);">
-                            
-                                    <div class="modal fade" id="modal-update-news-{{$item->id}}">
-                                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Edit News</h4>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <form id="form-editNews-{{ $item->id }}" method="POST" action="{{ route('updatenews', ['id' => $item->id]) }}" enctype="multipart/form-data">
-                                                        @csrf
+                                </div>
+                            </div>
 
-                                                        {{-- input title --}}
-                                                        <div class="form-group mt-1">
-                                                            <label for="judul">Judul Berita</label>
-                                                            <input type="text" name="title" id="title" class="form-control" value="{{ $item->title }}">
-                                                        </div>
-
-                                                        {{-- input konten --}}
-                                                        <label for="summernote">Keterangan Berita</label>
-                                                        <textarea class="summernote form-control" name="description">{!! $item->description !!}</textarea>
-
-                                                        {{-- input file --}}
-                                                        <div class="form-group">
-                                                            <label for="bgimage">Gambar Berita</label>
-                                                            <div class="input-group">
-                                                                <div class="custom-file">
-                                                                    <input type="file" class="custom-file-input" id="bgimage" name="bgimage">
-                                                                    <label class="custom-file-label" for="bgimage">{{ $item->bgimage }}</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>                                                        
-
-                                                        {{-- input time --}}
-                                                        <div class="form-group">
-                                                            <label>Tanggal Mulai</label>
-                                                            <input type="datetime-local" name="start_date" class="form-control" value="{{ $item->start_date }}" required>
-                                                        </div>
-                                                        
-                                                        <div class="form-group">
-                                                            <label>Tanggal Berakhir</label>
-                                                            <input type="datetime-local" name="end_date" class="form-control" value="{{ $item->end_date }}">
-                                                        </div>
-                                                    </form>
-                                                </div>
-                                                <div class="modal-footer justify-content-between">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                    <button type="submit" form="form-editNews-{{ $item->id }}" class="btn btn-primary">Update News</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                                               
-                            @empty
-                                <a href="#" class="list-group-item list-group-item-action">Belum ada data pengumuman</a>
-                            @endforelse
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
+            </div>
         </div>
         <!-- /.card-body -->
     </div>
@@ -188,7 +217,7 @@
 <!-- Bootstrap 4 -->
 <script src="{{ asset("plugins/bootstrap/js/bootstrap.bundle.min.js") }}"></script>
 <!-- DataTables  & Plugins -->
-<script src="{{{ asset("plugins/datatables/jquery.dataTables.min.js") }}}"></script>
+<script src="{{ asset("plugins/datatables/jquery.dataTables.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-bs4/js/dataTables.bootstrap4.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-responsive/js/dataTables.responsive.min.js") }}"></script>
 <script src="{{ asset("plugins/datatables-responsive/js/responsive.bootstrap4.min.js") }}"></script>
@@ -206,13 +235,14 @@
 <script src="{{ asset("dist/js/adminlte.min.js") }}"></script>
 <!-- Page specific script -->
 
-{{-- <script>
-    document.getElementById('inputGambar').addEventListener('change', function (e) {
-        var fileName = document.getElementById('inputGambar').files[0].name;
-        var nextSibling = e.target.nextElementSibling;
-        nextSibling.innerText = fileName;
-    });
-</script> --}}
+<script>
+    let table = new DataTable('#example1', {
+        "responsive": true,
+        "lengthChange": false,
+        "autoWidth": false,
+        "pageLength": 10,
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+</script>
 
 <script>
     document.getElementById('bgimage').addEventListener('change', function(e) {
@@ -230,9 +260,7 @@
             icon: 'success',
             title: 'Success',
             text: '{!! session('toastData')['text'] !!}',
-            // toast: true,
             showConfirmButton: false,
-            // position: 'top-end',
             timer: 3000
         })
         @else
@@ -240,9 +268,7 @@
             icon: 'error',
             title: 'Failed',
             text: '{!! session('toastData')['text'] !!}',
-            // toast: true,
             showConfirmButton: false,
-            // position: 'top-end',
             timer: 5000
         })
         @endif
@@ -253,41 +279,18 @@
             icon: 'error',
             title: 'Failed',
             text: 'Failed to add news! {!! $errors->first('judul') !!}{!! $errors->first('isinews') !!}{!! $errors->first('gambar') !!}',
-            // toast: true,
             showConfirmButton: false,
-            // position: 'top-end',
             timer: 5000
         })
         @endif
     });
 </script>
-{{-- 
+
 <script>
     $(function () {
         // Summernote
         $('.summernote').summernote({
             minHeight: 230,
-            toolbar: [
-                ['style', ['style']],
-                ['font', ['bold', 'underline', 'clear']],
-                ['fontname', ['fontname']],
-                ['color', ['color']],
-                ['para', ['ul', 'ol', 'paragraph']],
-                ['table', ['table']],
-                ['insert', ['link']],
-                ['view', ['fullscreen', 'codeview', 'help']],
-            ],
-            disableDragAndDrop: true,
-        })
-    })
-</script> --}}
-<script>
-    $(function () {
-        // Summernote
-        $('.summernote').summernote({
-            // placeholder: 'desc...',
-            minHeight: 230,
-            // disableDragAndDrop: true,
         })
     })
 </script>

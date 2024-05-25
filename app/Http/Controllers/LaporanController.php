@@ -148,10 +148,13 @@ public function getLaporanManagementReject()
             'nama_laporan.max' => 'Nama laporan tidak boleh melebihi 255 karakter.',
         ]);
 
+        // dd($request->cek_revisi);
+        // dd($request->id_tipelaporan);
+
         if ($validator->fails()) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => $validator->errors()->first()]);
         }
-        if ($request->has('revisi') && $request->id_tipelaporan != $request->revisi) {
+        if ($request->has('revisi') && $request->id_tipelaporan != $request->cek_revisi) {
             return redirect()->route('LaporanManagementAdd')->with('toastData', ['success' => false, 'text' => 'Kategori Tipe Laporan harus sama dengan Kategori Laporan yang Direvisi']);
         }
         

@@ -61,6 +61,7 @@
                 <div class="card-body">
                     @php
                     $isResponsible = app(AllServices::class)->isAccountable(auth()->user()->role);
+//                    dd($isResponsible);
 
                 @endphp
 
@@ -135,8 +136,9 @@
                                             echo "<span style='display:block; word-wrap: break-word; white-space: normal;'>$name</span>";
 
                                             // Menampilkan peran (role) dengan badge di bawah nama
-                                            echo "<span class='badge badge-success mt-1' style='display:block;'>$role</span>";
+                                            echo "<span class='badge badge-success' style='display: inline-block; word-wrap: break-word; white-space: normal;'>$role</span>";
                                             ?>
+
                                     </div>
                                 </div>
                             </td>

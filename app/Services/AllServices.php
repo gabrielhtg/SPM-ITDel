@@ -289,10 +289,12 @@ class AllServices
         // Pisahkan string $roleIds menjadi array berdasarkan delimiter ":"
         $roleIdsArray = explode(';', $roleIds);
 
+//        dd($roleIdsArray);
         // Lakukan pencarian accountable model untuk setiap role
         foreach ($roleIdsArray as $roleId) {
             // Cari accountable model yang memiliki role yang sesuai
-            $accountable = AccountableModel::where('accountable_to', 'LIKE', "%$roleId%")->first();
+
+            $accountable = AccountableModel::where('accountable_to', $roleId)->first();
 
             // Jika accountable model ditemukan, maka role accountable
             if ($accountable !== null) {
@@ -316,7 +318,7 @@ class AllServices
         return $accountable !== null;
     }
 
-    
+
 
 
     public static function isInformable($roleIds): bool
@@ -604,8 +606,8 @@ class AllServices
     public function isLaporanIdInCekLaporan($laporanId)
     {
         // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
-        $cekLaporan = Laporan::where('cek_revisi', $laporanId)
-            ->where('status', 'Disetujui')
+        $cekLaporan = Laporan::where('id', $laporanId)
+    
             ->first();
 
         // Jika ada, return false
@@ -708,18 +710,18 @@ class AllServices
 
         // Pisahkan string menjadi array
         $requiredIds = explode(';', $idsubmit->required_to_submit_document);
-         
+
 
         // Mendapatkan jenis laporan yang belum diunggah oleh user saat ini dan sesuai dengan id_tipelaporan dari user saat ini
         $jenisLaporan = JenisLaporan::whereNotIn('id', $uploadedJenisLaporanIds)
             ->whereIn('id_tipelaporan', $requiredIds)
             ->orderBy('end_date', 'desc')
             ->get();
-        
+
 
         return $jenisLaporan;
     }
-    
+
     public function getDocumentNameAndTypeById($id)
     {
         // Cari dokumen berdasarkan ID
@@ -923,7 +925,7 @@ class AllServices
 
 public static function JenisLaporanName( $idJenis): string
 {
-    
+
     $jenisLaporan = JenisLaporan::find($idJenis);
     $tipeLaporan = TipeLaporan::find($jenisLaporan->id_tipelaporan);
 

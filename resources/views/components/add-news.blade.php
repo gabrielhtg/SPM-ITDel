@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-news">
+<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-news">
     <i class="fas fa-plus"></i><span style="margin-left: 5px">Add News</span>
 </button>
 
