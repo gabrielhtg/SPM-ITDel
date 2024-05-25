@@ -149,3 +149,10 @@
 [2024-05-25 13:27:31] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan TriWulan Desember(2024)  - User: indra.tambunan@del.ac.id
 [2024-05-25 13:28:08] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-25 13:28:18] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-25 14:33:41] Menghapus Berita "Ini adalah judul berita" - User: spmadministrator@gmail.com
+[2024-05-25 14:35:00] Menghapus Berita "judul berita" - User: spmadministrator@gmail.com
+[2024-05-25 14:35:10] Menyunting Berita "judul berita edited" menjadi "judul berita edited" - User: spmadministrator@gmail.com
+[2024-05-25 14:37:19] Menghapus Berita "judul berita edited" - User: spmadministrator@gmail.com
+[2024-05-25 14:43:41] Menghapus Berita "asdfasd" - User: spmadministrator@gmail.com
+[2024-05-25 14:43:51] Menyunting Berita "asdfasd" menjadi "asdfasd" - User: spmadministrator@gmail.com
+[2024-05-25 14:44:02] Menghapus Berita "asdfasd" - User: spmadministrator@gmail.com
