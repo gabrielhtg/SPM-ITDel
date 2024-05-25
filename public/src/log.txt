@@ -123,6 +123,9 @@
 [2024-05-24 13:52:30] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan Bulanan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-24 16:25:11] Mengedit role Rektor - User: spmadministrator@gmail.com
 [2024-05-24 16:25:41] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
+[2024-05-24 17:00:50] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:04:48] Mengedit role Rektor - User: spmadministrator@gmail.com
+[2024-05-24 17:05:17] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
 [2024-05-24 17:46:40] Mengedit role Rektor - User: spmadministrator@gmail.com
 [2024-05-24 17:50:45] Mengedit role Rektor - User: spmadministrator@gmail.com
 [2024-05-24 17:53:05] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menambahkan Laporan Bulanan Desember(2024)  - User: aldo@del.ac.id
