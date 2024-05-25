@@ -153,7 +153,7 @@
 
 
       {{-- Akreditasi----------------------------------------------------------------------------------------------}}
-      <section id ="akreditasi1" class="p-md-5" style="margin-top:-120px;">
+      <section id ="akreditasi1" class="p-md-5" style="margin-top:-80px;">
         <div class="container p-3">
             @forelse ($akreditasi as $item)
             <h1 id="keteranganContainer1" class="mb-3">{{ $item->judulakreditasi }}</h1>
