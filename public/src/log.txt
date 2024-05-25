@@ -139,3 +139,13 @@
 [2024-05-24 20:44:04] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan September(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-24 20:44:19] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan September(2024) dari Dr. Merry Meryam Martgrita, S.Si., M.Si  - User: aldo@del.ac.id
 [2024-05-24 20:44:23] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Dr. Merry Meryam Martgrita, S.Si., M.Si  - User: aldo@del.ac.id
+[2024-05-25 10:17:59] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Dr. Fitriani Tupa Ronauli Silalahi, S.Si, M.Si  - User: aldo@del.ac.id
+[2024-05-25 11:18:24] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan TriWulan Desember(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 12:32:18] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan Tahunan (2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 12:32:35] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan TriWulan September(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 12:42:30] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan TriWulan Desember(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 13:05:19] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan Tahunan (2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 13:18:25] Indra Hartarto Tambunan, ST., M.S.,Ph.D Menambahkan Laporan TriWulan September(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 13:27:31] Indra Hartarto Tambunan, ST., M.S.,Ph.D Memperbaharui Laporan TriWulan Desember(2024)  - User: indra.tambunan@del.ac.id
+[2024-05-25 13:28:08] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-25 13:28:18] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
