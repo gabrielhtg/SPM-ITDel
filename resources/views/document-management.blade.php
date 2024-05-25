@@ -307,7 +307,23 @@
                                     <p><strong>Nomor Dokumen:</strong> {{ $e->nomor_dokumen }}</p>
                                     <p><strong>Deskripsi Dokumen:</strong> {!! strip_tags($e->deskripsi) !!}</p>
                                     <p><strong>Tahun:</strong> {{ $e->year }}</p>
-                                    <p><strong>Diunggah Oleh:</strong> {{ $uploadedUsers->where('id', $e->created_by)->first()->name }}
+                                    <p><strong>Diunggah Oleh:</strong> 
+                                        <?php
+                                            $user = \App\Models\User::find($e->created_by);
+                                            $userName = '';
+                                    
+                                            if ($user !== null) {
+                                                $userName = $user->name;
+                                            } else {
+                                                $userInactive = \App\Models\UserInactiveModel::where('last_id', $e->created_by)->first();
+                                                if ($userInactive !== null) {
+                                                    $userName = $userInactive->name;
+                                                }
+                                            }
+                                        ?>
+                                        {{ $userName }}
+                                    </p>
+                                    
                                     </p>
                                     <p><strong>Tanggal Dibuat:</strong> {{ $e->created_at }}</p>
                                     <p><strong>Tanggal Ditetapkan:</strong> {{ \Carbon\Carbon::parse($e->set_date)->format('d/m/Y') }}

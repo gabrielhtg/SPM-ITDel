@@ -165,3 +165,6 @@
 [2024-05-25 16:18:02] Menonaktifkan employee Indra Hartarto Tambunan, ST., M.S.,Ph.D - User: spmadministrator@gmail.com
 [2024-05-25 16:45:05] Menonaktifkan user indra - User: spmadministrator@gmail.com
 [2024-05-25 16:45:05] Menonaktifkan employee Indra Hartarto Tambunan, ST., M.S.,Ph.D - User: spmadministrator@gmail.com
+[2024-05-25 20:44:40] Menambahkan Dokumen dasdasd - User: aldo@del.ac.id
+[2024-05-25 20:45:20] Menonaktifkan user aldo - User: spmadministrator@gmail.com
+[2024-05-25 20:45:20] Menonaktifkan employee Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech - User: spmadministrator@gmail.com
