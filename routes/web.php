@@ -41,9 +41,6 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified']);
 
-Route::get('/news/layoutdetail/{id}', [NewsController::class, 'getDetailnews'])->name('news-layout-user');
-Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
-Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 Route::middleware('auth')->group(function () {
 
     //    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

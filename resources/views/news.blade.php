@@ -147,8 +147,9 @@
                                             </button>
                                         </div>
                                         <div class="modal-body">
-                                            <form id="form-editNews-{{ $e->id }}" method="POST" action="{{ route('updatenews', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                            <form id="form-editNews-{{ $e->id }}" method="POST" action="{{ route('updatenews')}}" enctype="multipart/form-data">
                                                 @csrf
+                                                <input type="hidden" name="id" value="{{ $e->id }}">
 
                                                 <!-- Input Title -->
                                                 <div class="form-group mt-1">

@@ -61,16 +61,21 @@ Route::middleware('guest')->group(function () {
     Route::get('/view-document-detail/{id}', [DocumentController::class, 'getDocumentDetail'])->name('document-detail');
 
     //    Route::get('/document/{id}', [HeroDocumentController::class, 'getView'])->name('document.view');
+
+    // News route as guest
+    Route::get('/news/layoutdetail/{id}', [NewsController::class, 'getDetailnews'])->name('news-layout-user');
+    Route::get('/news/page', [NewsController::class, 'getNewsPage'])->name('newspage');
+    Route::get('/news/page/cari', [NewsController::class, 'carinews'])->name('carinews');
 });
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [RoleTreeController::class, 'indexlogindashboard'])->name('indexlogindashboard');
 
-    // News Route
+    // News route as admin
     Route::get('/news', [NewsController::class, 'getNews'])->name('news');
     Route::post('/addnews', [NewsController::class, 'store'])->name('newsadd');
     Route::get('/news/detail/{id}', [NewsController::class, 'getDetail'])->name('news.detail');
-    Route::post('updatenews/{id}', [NewsController::class, 'updatenews'])->name('updatenews');
+    Route::post('updatenews', [NewsController::class, 'updatenews'])->name('updatenews');
     Route::get('deletenews/{id}', [NewsController::class, 'deletenews'])->name('deletenews');
 
     Route::middleware('checkDocumentActive')->group(function () {

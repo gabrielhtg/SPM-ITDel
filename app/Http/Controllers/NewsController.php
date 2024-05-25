@@ -140,12 +140,12 @@ class NewsController extends Controller
         }
     }
 
-    public function updatenews(Request $request, $id)
+    public function updatenews(Request $request)
     {
 
         // dd($id);
 
-        $news = News::find($id);
+        $news = News::find($request->id);
 
         if ($request->hasFile('bgimage')) {
             $gambarnews = $request->file('bgimage')->getClientOriginalName();
