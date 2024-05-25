@@ -607,7 +607,7 @@ class AllServices
     {
         // Cek apakah ID laporan ada di kolom cek_revisi dan statusnya disetujui
         $cekLaporan = Laporan::where('id', $laporanId)
-    
+            ->where('status', 'Dire')
             ->first();
 
         // Jika ada, return false
