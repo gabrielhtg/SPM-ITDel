@@ -174,16 +174,33 @@
                                     <div class="user-panel d-flex">
                                         <div class="info">
                                             <div style="display: flex; flex-direction: column;">
-                                                <span style="word-wrap: break-word; white-space: normal; display: block;">{{ \App\Models\User::find($e->created_by)->name }}</span>
+                                                <?php
+                                                    $user = \App\Models\User::find($e->created_by);
+                                                    $userName = '';
+                                                    $userRole = '';
+                                
+                                                    if ($user !== null) {
+                                                        $userName = $user->name;
+                                                        $userRole = \App\Services\AllServices::convertRole($user->role);
+                                                    } else {
+                                                        $userInactive = \App\Models\UserInactiveModel::where('last_id', $e->created_by)->first();
+                                                        if ($userInactive !== null) {
+                                                            $userName = $userInactive->name;
+                                                            $userRole = \App\Services\AllServices::convertRole($userInactive->role);
+                                                        }
+                                                    }
+                                                ?>
+                                                <span style="word-wrap: break-word; white-space: normal; display: block;">{{ $userName }}</span>
                                                 <div style="display: inline-flex; flex-wrap: wrap;">
                                                     <span class="badge badge-success" style="display: inline-block; word-wrap: break-word; white-space: normal;">
-                                                        {{ \App\Services\AllServices::convertRole(\App\Models\User::find($e->created_by)->role) }}
+                                                        {{ $userRole }}
                                                     </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
+                                
 
 
 

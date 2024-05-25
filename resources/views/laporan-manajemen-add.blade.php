@@ -139,23 +139,37 @@
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="info">
-                                    <span style="word-wrap: break-word; white-space: normal; display: block;">{{ \App\Models\User::find($item->created_by)->name }}
+                                    @php
+                                        $user = \App\Models\User::find($item->created_by);
+                                        $userName = ($user !== null && $user->name !== null) ? $user->name : (\App\Models\UserInactiveModel::where('last_id', $item->created_by)->first()->name ?? '');
+                                    @endphp
+                                    <span style="word-wrap: break-word; white-space: normal; display: block;">{{ $userName }}</span>
                                 </div>
                             </div>
                         </td>
                         <td>
                             <div class="user-panel d-flex">
                                 <div class="info">
-                                        <?php
+                                    <?php
                                         $creator = \App\Models\User::find($item->created_by);
-                                        $creatorRole = \App\Services\AllServices::convertRole($creator->role);
-                                        ?>
+                                        $creatorRole = '';
+                                        if ($creator !== null) {
+                                            $creatorRole = \App\Services\AllServices::convertRole($creator->role);
+                                        } else {
+                                            $userInactive = \App\Models\UserInactiveModel::where('last_id', $item->created_by)->first();
+                                            if ($userInactive !== null) {
+                                                $creatorRole = \App\Services\AllServices::convertRole($userInactive->role);
+                                            }
+                                        }
+                                    ?>
                                     <span class="badge badge-success" style="display: inline-block; word-wrap: break-word; white-space: normal;">
                                         {{ $creatorRole }}
                                     </span>
                                 </div>
                             </div>
                         </td>
+                        
+                        
 
                         <td>
                             <div class="user-panel d-flex">

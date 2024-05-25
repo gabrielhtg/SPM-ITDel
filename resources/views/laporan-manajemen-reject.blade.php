@@ -81,6 +81,7 @@
                             <th>Jenis Laporan</th>
                             <th>Status</th>
                             <th>Dibuat Oleh</th>
+                            <th>Unit/Prodi/Fakultas</th>
                             <th>Diperiksa Oleh</th>
                             <th>Diperiksa Pada</th>
                              <th>Revisi</th>
@@ -123,22 +124,32 @@
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="info">
-                                            <?php
+                                        @php
                                             $user = \App\Models\User::find($item->created_by);
-                                            $name = $user->name;
-                                            $role = \App\Services\AllServices::convertRole($user->role);
-
-                                            // Memotong nama menjadi beberapa baris jika terlalu panjang
-                                            while(strlen($name) > 30) {
-                                                echo "<span style='display:block; word-wrap: break-word; white-space: normal;'>" . substr($name, 0, 30) . "</span>";
-                                                $name = substr($name, 30);
+                                            $userName = ($user !== null && $user->name !== null) ? $user->name : (\App\Models\UserInactiveModel::where('last_id', $item->created_by)->first()->name ?? '');
+                                        @endphp
+                                        <span style="word-wrap: break-word; white-space: normal; display: block;">{{ $userName }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="user-panel d-flex">
+                                    <div class="info">
+                                        <?php
+                                            $creator = \App\Models\User::find($item->created_by);
+                                            $creatorRole = '';
+                                            if ($creator !== null) {
+                                                $creatorRole = \App\Services\AllServices::convertRole($creator->role);
+                                            } else {
+                                                $userInactive = \App\Models\UserInactiveModel::where('last_id', $item->created_by)->first();
+                                                if ($userInactive !== null) {
+                                                    $creatorRole = \App\Services\AllServices::convertRole($userInactive->role);
+                                                }
                                             }
-                                            echo "<span style='display:block; word-wrap: break-word; white-space: normal;'>$name</span>";
-
-                                            // Menampilkan peran (role) dengan badge di bawah nama
-                                            echo "<span class='badge badge-success' style='display: inline-block; word-wrap: break-word; white-space: normal;'>$role</span>";
-                                            ?>
-
+                                        ?>
+                                        <span class="badge badge-success" style="display: inline-block; word-wrap: break-word; white-space: normal;">
+                                            {{ $creatorRole }}
+                                        </span>
                                     </div>
                                 </div>
                             </td>

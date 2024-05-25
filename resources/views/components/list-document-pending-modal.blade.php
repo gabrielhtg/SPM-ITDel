@@ -46,22 +46,34 @@
                                     <div class="info">
                                         <?php
                                             $user = \App\Models\User::find($lap->created_by);
-                                            $name = $user->name;
-                                            $role = \App\Services\AllServices::convertRole($user->role);
-                                            
+                                            $name = '';
+                                            $role = '';
+                            
+                                            if ($user !== null) {
+                                                $name = $user->name;
+                                                $role = \App\Services\AllServices::convertRole($user->role);
+                                            } else {
+                                                $userInactive = \App\Models\UserInactiveModel::where('last_id', $lap->created_by)->first();
+                                                if ($userInactive !== null) {
+                                                    $name = $userInactive->name;
+                                                    $role = \App\Services\AllServices::convertRole($userInactive->role);
+                                                }
+                                            }
+                            
                                             // Menggunakan substring untuk memotong nama menjadi bagian-bagian yang lebih pendek
                                             while(strlen($name) > 30) {
                                                 echo "<span>" . substr($name, 0, 30) . "</span><br>";
                                                 $name = substr($name, 30);
                                             }
                                             echo "<span>$name</span>";
-                                            
+                            
                                             // Menampilkan peran (role) dengan badge
                                             echo "<span class='badge badge-success' style='margin-left: 5px'>$role</span>";
                                         ?>
                                     </div>
                                 </div>
                             </td>
+                            
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">

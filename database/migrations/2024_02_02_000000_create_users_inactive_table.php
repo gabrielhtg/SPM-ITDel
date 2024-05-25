@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users_inactive', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('last_id');
             $table->string('name');
             $table->string('username', 20)->nullable(false);
             $table->string('phone', 15);

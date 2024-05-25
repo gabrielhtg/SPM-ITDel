@@ -12,6 +12,6 @@ class UserInactiveModel extends Model
     protected $table = 'users_inactive';
 
     protected $fillable = [
-        'name', 'username', 'phone', 'email', 'ends_on', 'status', 'role', 'profile_pict'
+        'name','last_id', 'username', 'phone', 'email', 'ends_on', 'status', 'role', 'profile_pict'
     ];
 }

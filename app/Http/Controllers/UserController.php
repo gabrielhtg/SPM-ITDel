@@ -71,6 +71,7 @@ class UserController extends Controller
 
                 UserInactiveModel::create([
                     'name' => $user->name,
+                    'last_id'=>$user->id,
                     'username' => $user->username,
                     'phone' => $user->phone,
                     'email' => $user->email,

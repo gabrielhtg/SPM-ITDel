@@ -17,6 +17,7 @@ use App\Models\ResponsibleModel;
 use App\Models\RoleModel;
 use App\Models\TipeLaporan;
 use App\Models\User;
+use App\Models\UserInactiveModel;
 use ErrorException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -678,18 +679,26 @@ class AllServices
     }
 
     public function getUserRoleById($userId)
-    {
-        // Cari user berdasarkan ID
-        $user = User::find($userId);
+{
+    // Cari user berdasarkan ID di model User
+    $user = User::find($userId);
 
-        // Jika user ditemukan, kembalikan rolenya
-        if ($user) {
-            return $user->role;
-        }
-
-        // Jika user tidak ditemukan, kembalikan null
-        return null;
+    // Jika user ditemukan, kembalikan rolenya
+    if ($user) {
+        return $user->role;
     }
+
+    // Jika tidak ditemukan di model User, coba cari di model UserInactiveModel
+    $userInactive = UserInactiveModel::where('last_id', $userId)->first();
+
+    // Jika user ditemukan di UserInactiveModel, kembalikan rolenya
+    if ($userInactive) {
+        return $userInactive->role;
+    }
+
+    // Jika user tidak ditemukan di kedua model, kembalikan null
+    return null;
+}
 
 
     // Metode untuk mengecek apakah sebuah dokumen adalah dokumen pengganti

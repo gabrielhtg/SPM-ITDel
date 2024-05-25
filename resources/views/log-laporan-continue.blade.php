@@ -79,18 +79,42 @@
                         @foreach($log as $item)
                         @if( app(AllServices::class)->isLoggedUserHasAdminAccess(auth()->user()->role) || (app(AllServices::class)->isAccountableToRoleLaporan(auth()->user()->role,app(AllServices::class)->getUserRoleById($item->upload_by))))
                         <tr>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    {{ \App\Services\AllServices::convertRole(\App\Models\User::find($item->upload_by)->role) }}
-                                </div>
-                            </td>
-                            <td>
-                                <div class="user-panel d-flex">
-                                    <div class="info">
-                                    <span> {{ \App\Models\User::find($item->upload_by)->name }}
-                                    </div>
-                                </div>
-                            </td>
+                            <!-- Untuk mengambil peran (role) -->
+<td>
+    <div class="user-panel d-flex">
+        <?php
+            $user = \App\Models\User::find($item->upload_by);
+            if ($user !== null) {
+                echo \App\Services\AllServices::convertRole($user->role);
+            } else {
+                $userInactive = \App\Models\UserInactiveModel::where('last_id', $item->upload_by)->first();
+                if ($userInactive !== null) {
+                    echo \App\Services\AllServices::convertRole($userInactive->role);
+                }
+            }
+        ?>
+    </div>
+</td>
+
+<!-- Untuk mengambil nama pengguna -->
+<td>
+    <div class="user-panel d-flex">
+        <div class="info">
+            <?php
+                $user = \App\Models\User::find($item->upload_by);
+                if ($user !== null) {
+                    echo "<span>" . $user->name . "</span>";
+                } else {
+                    $userInactive = \App\Models\UserInactiveModel::where('last_id', $item->upload_by)->first();
+                    if ($userInactive !== null) {
+                        echo "<span>" . $userInactive->name . "</span>";
+                    }
+                }
+            ?>
+        </div>
+    </div>
+</td>
+
                             <td>
                                 <div class="user-panel d-flex">
                                     <div class="d-flex align-items-center">

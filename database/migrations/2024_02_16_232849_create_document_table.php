@@ -21,7 +21,6 @@
                         $table->string('give_access_to');
                         $table->string('give_edit_access_to')->nullable();
                         $table->unsignedBigInteger('created_by')->nullable();
-                        $table->foreign('created_by')->references('id')->on('users');
                         $table->string('menggantikan_dokumen')->nullable();
                         $table->string('parent')->nullable();
                         $table->integer('year');
