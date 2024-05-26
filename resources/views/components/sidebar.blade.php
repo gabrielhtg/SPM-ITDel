@@ -30,7 +30,7 @@
                 <li class="nav-item">
                     <a href="{{ route('dashboard-laporan') }}" class="nav-link {{ $active_sidebar[0] == 9 ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-bar"></i>
-                        <p>Dashboard</p>
+                        <p>Beranda</p>
                     </a>
                 </li>
 
@@ -45,14 +45,14 @@
                     <li class="nav-item">
                         <a href="{{ route('news') }}" class="nav-link {{ $active_sidebar[0] == 2 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-newspaper"></i>
-                            <p>News</p>
+                            <p>Berita</p>
                         </a>
                     </li>
 
                     <li class="nav-item">
                         <a href="{{ route('dashboard-admin') }}" class="nav-link {{ $active_sidebar[0] == 3 ? 'active' : '' }}">
                             <i class="nav-icon fas fa-window-restore"></i>
-                            <p>Dashboard Management</p>
+                            <p>Menejemen Beranda</p>
                         </a>
                     </li>
                 @endif
