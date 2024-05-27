@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-
+use Illuminate\Support\Facades\Log;
 use App\Mail\DailyReminder;
 use App\Models\AccountableModel;
 use App\Models\BawahanModel;
@@ -885,34 +885,69 @@ class AllServices
     }
 
     public static function sendDailyReminder(): void
-    {
-        // Lakukan pengiriman email di sini
-        $nowDate = now();
-        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
-            ->whereNull('status')
-            ->get();
+{
+    // Ambil log laporan yang belum selesai
+    $nowDate = now();
+    $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+        ->whereNull('status')
+        ->get();
 
-        $userIds = $logLaporan->pluck('upload_by')->toArray();
+    // Debug logging untuk memastikan data log laporan diambil
+    Log::info('Log Laporan:', ['logLaporan' => $logLaporan]);
 
-        // Ambil semua user yang memiliki id yang sesuai dengan user ids dari log laporan
-        $userLaporan = User::whereIn('id', $userIds)->get();
-        $emails = $userLaporan->pluck('email')->toArray();
+    // Ambil user IDs dari log laporan
+    $userIds = $logLaporan->pluck('upload_by')->toArray();
 
-        foreach ($emails as $email) {
-            $idJenisLaporan = $logLaporan->pluck('id_jenis_laporan')->unique()->toArray(); // Get unique jenis laporan IDs
-            $jenisLaporan = JenisLaporan::whereIn('id', $idJenisLaporan)->get();
+    // Ambil user data berdasarkan userIds
+    $users = User::whereIn('id', $userIds)->get();
+    $userEmails = $users->pluck('email', 'id')->toArray();
 
-            $messageContent = 'Segera kumpulkan: ';
-            foreach ($jenisLaporan as $jenis) {
-                $messageContent .= $jenis->nama . ', ';
+    // Debug logging untuk memastikan user data diambil
+    Log::info('User Emails:', ['userEmails' => $userEmails]);
+
+    // Gabungkan user ID dengan email dan id_tipe_laporan menjadi satu array
+    $combinedArray = [];
+    foreach ($logLaporan as $log) {
+        $userId = $log->upload_by;
+        $email = $userEmails[$userId] ?? null;
+        if ($email) {
+            if (!isset($combinedArray[$email])) {
+                $combinedArray[$email] = [];
             }
-            $messageContent = rtrim($messageContent, ', '); // Remove the last comma and space
-
-            echo $email;
-
-            Mail::to($email)->send(new DailyReminder($messageContent));
+            $combinedArray[$email][] = $log->id_jenis_laporan;
         }
     }
+
+    // Debug logging untuk memastikan kombinasi email dan jenis laporan
+    Log::info('Combined Array:', ['combinedArray' => $combinedArray]);
+
+    // Kirim email untuk setiap user dengan semua jenis laporan yang belum dikumpulkan
+    foreach ($combinedArray as $email => $idJenisLaporanArray) {
+        // Ambil nama lengkap jenis laporan menggunakan \App\Services\AllServices::JenislaporanName()
+        $jenisLaporanNames = [];
+        foreach ($idJenisLaporanArray as $idJenis) {
+            // Perbaiki cara pemanggilan metode JenislaporanName()
+            $jenisLaporanName = \App\Services\AllServices::JenislaporanName($idJenis);
+            $jenisLaporanNames[] = $jenisLaporanName;
+        }
+
+        // Ubah nama jenis laporan menjadi string
+        $jenisLaporanString = implode(', ', $jenisLaporanNames);
+
+        // Buat konten pesan
+        $messageContent = 'Segera kumpulkan: ' . $jenisLaporanString;
+
+        // Debug logging sebelum mengirim email
+        Log::info('Sending Email:', ['email' => $email, 'messageContent' => $messageContent]);
+
+        // Kirim email
+        Mail::to($email)->send(new DailyReminder($messageContent));
+    }
+
+    // Logging setelah semua email dikirim
+    Log::info('All emails sent successfully');
+}
+
 
     public static function addLog ($log): void
     {

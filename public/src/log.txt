@@ -168,4 +168,12 @@
 [2024-05-25 20:44:40] Menambahkan Dokumen dasdasd - User: aldo@del.ac.id
 [2024-05-25 20:45:20] Menonaktifkan user aldo - User: spmadministrator@gmail.com
 [2024-05-25 20:45:20] Menonaktifkan employee Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech - User: spmadministrator@gmail.com
+<<<<<<< HEAD
 [2024-05-27 12:28:49] Menambahkan role Tes - User: spmadministrator@gmail.com
+=======
+[2024-05-27 10:12:20] Menambahkan Tipe Laporan test - User: spmadministrator@gmail.com
+[2024-05-27 10:12:37] Menambahkan Kategori Tipe Laporan test(2014) - User: spmadministrator@gmail.com
+[2024-05-27 10:13:00] Menambahkan role test - User: spmadministrator@gmail.com
+[2024-05-27 10:13:18] Menambahkan email dediandree22@gmail.com ke list allowed user - User: spmadministrator@gmail.com
+[2024-05-27 10:13:39] Menambahkan user Dedi Andre Martua Raja Panggabean - User: spmadministrator@gmail.com
+>>>>>>> a0ab4d0c691c4a71999076fb382100c6a60a5344

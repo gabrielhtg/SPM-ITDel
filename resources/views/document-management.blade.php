@@ -238,10 +238,14 @@
 
                                         {{-- // jika user sekarang == user yang upload di data Dokumen
                                         // if userSekarang -> id == document->created_by --}}
-                                        @if((app(AllServices::class)->isLoggedUserHasAdminAccess()) || (auth()->user()->id== $e->created_by)||app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
-                                            <a href="{{ route('document.edit', ['id' => $e->id]) }}"
-                                               class="btn btn-success"><i class="fas fa-edit"></i></a>
-                                        @endif
+                                        @if((app(AllServices::class)->isLoggedUserHasAdminAccess()) || (auth()->user()->id == $e->created_by) || app(AllServices::class)->isUserRole(auth()->user(), $e->give_edit_access_to))
+                                        <a href="{{ route('document.edit', ['id' => $e->id]) }}" class="btn btn-warning custom-btn">
+                                            <i class="fas fa-edit custom-icon"></i>
+                                        </a>
+                                    @endif
+                                    
+                                    
+                                    
 
 
                                         @if(app(AllServices::class)->isLoggedUserHasAdminAccess())
