@@ -176,4 +176,8 @@
 [2024-05-27 10:13:00] Menambahkan role test - User: spmadministrator@gmail.com
 [2024-05-27 10:13:18] Menambahkan email dediandree22@gmail.com ke list allowed user - User: spmadministrator@gmail.com
 [2024-05-27 10:13:39] Menambahkan user Dedi Andre Martua Raja Panggabean - User: spmadministrator@gmail.com
+<<<<<<< HEAD
 >>>>>>> a0ab4d0c691c4a71999076fb382100c6a60a5344
+=======
+[2024-05-27 12:51:31] Memperbaharui Hero Dokumen - User: spmadministrator@gmail.com
+>>>>>>> de3ca2e9f1fac461755d832492da8ae493bce8a0
