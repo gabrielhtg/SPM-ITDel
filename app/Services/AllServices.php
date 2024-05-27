@@ -923,16 +923,19 @@ class AllServices
 
     // Kirim email untuk setiap user dengan semua jenis laporan yang belum dikumpulkan
     foreach ($combinedArray as $email => $idJenisLaporanArray) {
-        // Ambil nama jenis laporan dari id_tipe_laporan
-        // Ambil nama jenis laporan dari model JenisLaporan
-        $jenisLaporanNames = JenisLaporan::whereIn('id', array_unique($idJenisLaporanArray))
-        ->get()
-        ->pluck('nama')
-        ->toArray();
+        // Ambil nama lengkap jenis laporan menggunakan \App\Services\AllServices::JenislaporanName()
+        $jenisLaporanNames = [];
+        foreach ($idJenisLaporanArray as $idJenis) {
+            // Perbaiki cara pemanggilan metode JenislaporanName()
+            $jenisLaporanName = \App\Services\AllServices::JenislaporanName($idJenis);
+            $jenisLaporanNames[] = $jenisLaporanName;
+        }
 
+        // Ubah nama jenis laporan menjadi string
+        $jenisLaporanString = implode(', ', $jenisLaporanNames);
 
         // Buat konten pesan
-        $messageContent = 'Segera kumpulkan: ' . implode(', ', $jenisLaporanNames);
+        $messageContent = 'Segera kumpulkan: ' . $jenisLaporanString;
 
         // Debug logging sebelum mengirim email
         Log::info('Sending Email:', ['email' => $email, 'messageContent' => $messageContent]);
@@ -944,6 +947,7 @@ class AllServices
     // Logging setelah semua email dikirim
     Log::info('All emails sent successfully');
 }
+
 
     public static function addLog ($log): void
     {
