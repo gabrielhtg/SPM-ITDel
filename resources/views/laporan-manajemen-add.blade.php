@@ -231,10 +231,12 @@
                                 <a href="{{ $item->directory ? asset($item->directory) : '#' }}" target="_blank" class="btn btn-success">
                                     <i class="fas fa-eye"></i>
                                 </a>
-                                @if($item->status=="Menunggu" && auth()->user()->id==$item->created_by)
-                                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
-                                <i class="fas fa-edit"></i> </button>
+                                @if($item->status == "Menunggu" && auth()->user()->id == $item->created_by)
+                                    <button type="button" class="btn btn-warning custom-btn" data-toggle="modal" data-target="#modal-edit-laporan{{$item->id}}">
+                                        <i class="fas fa-edit custom-icon"></i>
+                                    </button>
                                 @endif
+
                                 @if((auth()->user()->id === $item->created_by) && ($item->status =="Direview"))
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{$item->id}}">
                                     <i class="fas fa-comment"></i>
