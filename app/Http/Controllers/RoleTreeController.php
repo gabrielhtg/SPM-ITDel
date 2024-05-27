@@ -18,14 +18,6 @@ class RoleTreeController extends Controller
     {
         $tree = new RoleTree(null, null, null);
 
-        // Bagian ini untuk mendapatkan user puncak
-//        foreach (RoleModel::all() as $e) {
-//            if ($e->atasan_id == null && $e->role !== "Admin") {
-//                $rolePuncak = $e;
-//                break;
-//            }
-//        }
-
         $rolePuncak = RoleModel::where("role", "Rektor")->first();
 
         if (!empty($rolePuncak)) {

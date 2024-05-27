@@ -61,7 +61,7 @@
                     </li>
                     <li class="col">
                         <a href="#news-view" class="nav-link" onclick="redirectToNewsView()">
-                            News
+                            Berita
                         </a>
                     </li>
 

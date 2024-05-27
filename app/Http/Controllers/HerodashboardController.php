@@ -38,7 +38,7 @@ class HerodashboardController extends Controller
         $request->validate([
             'profilhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
             'judulhero' => 'required',
-            'tambahanhero' => 'required',
+            'tambahanhero' => 'required|max:50',
             'gambarhero' => 'nullable|file|mimes:jpeg,png,jpg,pdf,docx|max:10240',
         ]);
 
