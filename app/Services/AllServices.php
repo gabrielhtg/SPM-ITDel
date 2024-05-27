@@ -885,53 +885,46 @@ class AllServices
     }
 
     public static function sendDailyReminder(): void
-{
-    // Ambil log laporan yang belum selesai
-    $nowDate = now();
-    $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
-        ->whereNull('status')
-        ->get();
-
-    // Pluck user IDs dan tipe laporan IDs
-    $userIds = $logLaporan->pluck('upload_by')->toArray();
-    $idjenis = $logLaporan->pluck('id_tipe_laporan')->toArray();
-
-    // Ambil user data berdasarkan userIds
-    $users = User::whereIn('id', $userIds)->get();
-    $userEmails = $users->pluck('email', 'id')->toArray();
-
-    // Gabungkan user ID dengan email dan id_tipe_laporan menjadi satu array
-    $combinedArray = [];
-    foreach ($logLaporan as $log) {
-        $userId = $log->upload_by;
-        $email = $userEmails[$userId];
-        $idJenisLaporan = $log->id_tipe_laporan;
-
-        if (!isset($combinedArray[$email])) {
-            $combinedArray[$email] = [];
+    {
+        // Ambil log laporan yang belum selesai
+        $nowDate = now();
+        $logLaporan = LogLaporan::where('end_date', '<', $nowDate)
+            ->whereNull('status')
+            ->get();
+    
+        // Pluck user IDs dan tipe laporan IDs
+        $userIds = $logLaporan->pluck('upload_by')->toArray();
+        $idjenis = $logLaporan->pluck('id_tipe_laporan')->toArray();
+    
+        // Ambil email dari User berdasarkan userIds
+        $users = User::whereIn('id', $userIds)->get();
+        $emails = $users->pluck('email')->toArray();
+    
+        // Gabungkan email dan id_tipe_laporan menjadi satu array
+        $combinedArray = array_map(function($email, $idJenis) {
+            return [
+                'email' => $email,
+                'id_tipe_laporan' => $idJenis
+            ];
+        }, $emails, $idjenis);
+    
+        // Kirim email untuk setiap user dengan jenis laporan mereka
+        foreach ($combinedArray as $entry) {
+            $email = $entry['email'];
+            $idJenisLaporan = $entry['id_tipe_laporan'];
+    
+            // Ambil nama jenis laporan dari id_tipe_laporan
+            $jenisLaporan = JenisLaporan::find($idJenisLaporan);
+            $jenisLaporanName = \App\Services\AllServices::JenislaporanName($jenisLaporan->id);
+    
+            // Buat konten pesan
+            $messageContent = 'Segera kumpulkan: ' . $jenisLaporanName;
+    
+            // Kirim email
+            Mail::to($email)->send(new DailyReminder($messageContent));
         }
-
-        $combinedArray[$email][] = $idJenisLaporan;
     }
-
-    // Kirim email untuk setiap user dengan semua jenis laporan yang belum dikumpulkan
-    foreach ($combinedArray as $email => $idJenisLaporanArray) {
-        // Ambil nama jenis laporan dari id_tipe_laporan
-        $jenisLaporanNames = JenisLaporan::whereIn('id', $idJenisLaporanArray)
-            ->get()
-            ->pluck('id')
-            ->map(function ($id) {
-                return \App\Services\AllServices::JenislaporanName($id);
-            })
-            ->toArray();
-
-        // Buat konten pesan
-        $messageContent = 'Segera kumpulkan: ' . implode(', ', $jenisLaporanNames);
-
-        // Kirim email
-        Mail::to($email)->send(new DailyReminder($messageContent));
-    }
-}
+    
 
     
 
