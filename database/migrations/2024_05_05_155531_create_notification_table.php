@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string("ref_link")->nullable();
             $table->boolean("clicked")->nullable();
             $table->unsignedBigInteger("to")->nullable();
-            $table->foreign('to')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }
