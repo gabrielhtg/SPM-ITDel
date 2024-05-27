@@ -168,3 +168,4 @@
 [2024-05-25 20:44:40] Menambahkan Dokumen dasdasd - User: aldo@del.ac.id
 [2024-05-25 20:45:20] Menonaktifkan user aldo - User: spmadministrator@gmail.com
 [2024-05-25 20:45:20] Menonaktifkan employee Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech - User: spmadministrator@gmail.com
+[2024-05-27 12:28:49] Menambahkan role Tes - User: spmadministrator@gmail.com
