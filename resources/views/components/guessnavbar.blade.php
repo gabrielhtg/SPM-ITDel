@@ -8,6 +8,9 @@
     // Check if the current route is a document route
     $isDocumentRoute = request()->routeIs('getdocument') || request()->routeIs('getdocumentspm') || request()->routeIs('documentManagementAll');
 
+    // Check if the current route is a news route
+    $isNewsRoute = request()->routeIs('news') || request()->routeIs('newspage');
+
 @endphp
 
 <!DOCTYPE html>
@@ -67,7 +70,7 @@
                         </a>
                     </li>
                     <li class="col">
-                        <a id="news-link" href="#news-view" class="nav-link {{ request()->routeIs('news') ? 'active' : '' }}" onclick="redirectToNewsView()">
+                        <a id="news-link" href="#news-view" class="nav-link {{ $isNewsRoute ? 'active' : '' }}" onclick="redirectToNewsView()">
                             Berita
                         </a>
                     </li>
