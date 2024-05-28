@@ -14,14 +14,15 @@ class AkreditasiController extends Controller
 
     public function guestHero()
     {
-        $herosection = Akreditasi::all()->sortByDesc('id'); 
+        $herosection =  Akreditasi::whereNotNull('gambarakreditasi')->orderByDesc('id')->get();
+        
 
         return view('dashboard-admin', compact('herosection'));
     }
 
     public function indexherosection()
     {
-        $dashboardakreditasi = Akreditasi::all()->sortByDesc('id');
+        $dashboardakreditasi = Akreditasi::whereNotNull('gambarakreditasi')->orderByDesc('id')->get();
 
         $data = [
             'akreditasi' => $dashboardakreditasi
@@ -33,7 +34,6 @@ class AkreditasiController extends Controller
     public function storeherosection(Request $request)
     {
         $request->validate([
-            'judulakreditasi' => 'required',
             'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
         ]);
@@ -51,7 +51,7 @@ class AkreditasiController extends Controller
 
         // Simpan data pengumuman ke dalam database
         Akreditasi::create([
-            'judulakreditasi' => $request->judulakreditasi,
+            'judulakreditasi' => " ",
             'gambarakreditasi' => $gambarakreditasi,
             'keteranganakreditasi' => $request->keteranganakreditasi,
         ]);
@@ -102,7 +102,6 @@ class AkreditasiController extends Controller
     {
         // Validasi input
         $request->validate([
-            'judulakreditasi' => 'required',
             'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
         ]);
@@ -134,7 +133,7 @@ class AkreditasiController extends Controller
 
         // dd($request->keteranganakreditasi);
         // Update data pengumuman dengan informasi yang baru
-        $data->judulakreditasi = $request->judulakreditasi;
+        $data->judulakreditasi = " ";
         $data->keteranganakreditasi = $request->keteranganakreditasi;
         $data->save();
 

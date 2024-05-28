@@ -153,25 +153,53 @@
 
 
       {{-- Akreditasi----------------------------------------------------------------------------------------------}}
-      <section id ="akreditasi1" class="p-md-5" style="margin-top:-80px;">
+      <section id="akreditasi1" class="p-md-5" style="margin-top:-80px;">
         <div class="container p-3">
-            @forelse ($akreditasi as $item)
-            <h1 id="keteranganContainer1" class="mb-3">{{ $item->judulakreditasi }}</h1>
-              {{-- <hr class="mx-2" style="border-top: 3px solid black; width: 15%;"> --}}
-              <div class="p-3 rounded custom-font-size">
-                <div class="row mt-5 justify-content-center">
-                  <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="fade-in" style="width: 1020px; height: 705px; object-fit: cover;">
+            @if($akreditasi->isEmpty())
+                <p>No data available.</p>
+            @else
+                <h1 id="keteranganContainer1" class="mb-3">Akreditasi</h1>
+                <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        @foreach ($akreditasi as $index => $item)
+                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
+                        @endforeach
+                    </div>
+    
+                    <!-- Inner -->
+                    <div class="carousel-inner">
+                        @foreach ($akreditasi as $index => $item)
+                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
+                                @if($item->gambarakreditasi)
+                                    <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="d-block w-100" alt="Gambar Akreditasi" style="object-fit: cover; height: 650px">
+                                @else
+                                    <div class="d-block w-100" style="height: 550px; background-color: #ddd;">
+                                        <p class="text-center my-auto">No Image Available</p>
+                                    </div>
+                                @endif
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h2 style="font-weight: bold; color:black;">{!! $item->keteranganakreditasi !!}</h2>
+                                </div>
+                            </div>
+                        @endforeach
+                    </div>
+                    <!-- Inner -->
+    
+                    <!-- Controls -->
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
                 </div>
-              
-                <div class="text-justify textketeranganakreditasi" style="margin-top:35px;font-size:18px;">
-                  {!! $item->keteranganakreditasi !!}
-                </div>
-              </div>
-              @empty
-              <p>No data available.</p>
-            @endforelse
-          </div>
-        </section>
+            @endif
+        </div>
+    </section>
+    
     {{-- @endisset --}}
 
     <section id="news-view1" class="p-md-5">

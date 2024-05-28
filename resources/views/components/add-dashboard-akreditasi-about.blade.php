@@ -6,7 +6,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambahkan Akreditasi ITDel</h4>
+                <h4 class="modal-title">Tambahkan Akreditasi </h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -14,10 +14,8 @@
             <div class="modal-body">
                 <form id="form-addAkreditasisection" method="POST" action="{{ route('dashboard-akreditasi-add') }}" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group mt-1">
-                        <label for="title">Judul Besar</label>
-                        <input type="text" name="judulakreditasi" id="judulakreditasi" class="form-control" required>
-                    </div>
+                    <label for="summernote">Keterangan Akreditasi</label>
+                    <textarea class="summernote" name="keteranganakreditasi"></textarea>
 
                     <div class="form-group">
                         <label for="exampleInputFile">gambar akreditasi</label>
@@ -28,9 +26,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <label for="summernote">Keterangan Akreditasi</label>
-                    <textarea class="summernote" name="keteranganakreditasi"></textarea>
                 </form>
             </div>
             <div class="modal-footer justify-content-between">

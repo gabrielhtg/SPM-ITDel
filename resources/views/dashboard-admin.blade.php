@@ -235,12 +235,11 @@
                     <h4 class="card-header font-weight-bold fs-5">
                         Akreditasi 
                     </h4>
+                    <div style="width:250px;margin-left:20px;margin-top:30px;">
+                        @include('components.add-dashboard-akreditasi-about')
+                    </div>
                     <div class="card-body">
                         
-                        @if ($akreditasi->isEmpty())
-                            @include('components.add-dashboard-akreditasi-about')
-                        @endif
-
                         <div class="list-group">
                             <table class="table">
                                 <tbody>
@@ -251,7 +250,7 @@
                                     <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
                                         <tr>                                    
                                             <td class="align-items-center">
-                                                <a href="{{ route('akreditasi-detail', ['id' => 1]) }}  " class="list-group-item-action" style="flex: 1;">{!! $e->judulakreditasi !!}</a>
+                                                <a href="{{ route('akreditasi-detail', ['id' => 1]) }}  " class="list-group-item-action" style="flex: 1;">{!! $e->keteranganakreditasi !!}</a>
                                             </td>
                                             <td style="width: 190px;">
                                                 <div style="flex-shrink: 4;">

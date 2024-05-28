@@ -53,7 +53,6 @@ class dashboard extends Seeder
         ]);
 
         DB::table('table_akreditasi')->insert([
-            'judulakreditasi' => 'Akreditasi',
             'gambarakreditasi' => '../gambarakreditasi/sertifikat.jpeg',
             'keteranganakreditasi' => 'Melalui keputusan BAN-PT Nomor 1855/BAN-PT/PMT2/2023 yang ditujukan kepada Dr. Arnaldo Marulitua Sinaga, ST., M.InfoTech. (Rektor IT Del), IT Del dinyatakan LOLOS Pemantauan dan Evaluasi Peringkat Akreditasi (PEPA). Dengan demikian, peringkat akreditasi IT Del (B) diperpanjang selama 5 tahun ke depan ( 2023 s.d. 2028).',
         ]);
