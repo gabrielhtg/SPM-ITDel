@@ -92,8 +92,9 @@
                             Dokumen
                         </a>
                         <ul class="dropdown-menu dropdown-menu-sm" aria-labelledby="navbarDropdownDokumen">
-                            <li><a class="dropdown-item" href="{{ route('getdocument') }}">Dokumen</a></li>
                             <li><a class="dropdown-item" href="{{ route('getdocumentspm') }}">Dokumen SPM</a></li>
+                            <li><a class="dropdown-item" href="{{ route('getdocument') }}">Dokumen Lainnya</a></li>
+                            
                         </ul>
                     </li>
 

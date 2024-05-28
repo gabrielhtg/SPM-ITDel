@@ -95,10 +95,6 @@
                                             <td class="bold">{{ $document->year }}</td>
                                         </tr>
                                         <tr>
-                                            <td class="bold" style="font-size: 20px; font-weight: bold;">Diunggah Oleh</td>
-                                            <td class="bold">{{ $uploadedUser->name }}</td>
-                                        </tr>
-                                        <tr>
                                             <td class="bold" style="font-size: 20px; font-weight: bold;">Tanggal Ditetapkan</td>
                                             @php
                                                 use Carbon\Carbon;
@@ -186,6 +182,7 @@
                                                     // tetapi tidak termasuk dokumen yang sedang dilihat
                                                     $similarDocuments = \App\Models\DocumentModel::where('parent', $document->parent)
                                                                         ->where('id', '!=', $document->id)
+                                                                        ->orderBy('set_date', 'asc')
                                                                         ->get();
                                                     $documentCount = $similarDocuments->count();
 
@@ -206,7 +203,7 @@
 
                                                     @endif
                                                 @else
-                                                    <p>Tidak ada dokumen yang digantikan</p>
+                                                    <p>Tidak ada dokumen yang berkaitan</p>
                                                 @endif
                                             </div>
                                         </div>

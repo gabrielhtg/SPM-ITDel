@@ -100,14 +100,15 @@
                                     <form action="{{ route('laporan.approve', ['id' => $lap->id]) }}" method="POST" style="display: inline;">
                                         @csrf
                                         @method('PUT')
-                                        <button type="submit" class="btn btn-success" >
-                                            <i class="fas fa-check" style="font-size: 14px;"></i>
+                                        <button type="submit" class="btn btn-success">
+                                            Setuju
                                         </button>
                                     </form>
+                                    
 
                                     <!-- Button to trigger comment modal -->
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#commentModal{{ $lap->id }}">
-                                        <i class="fas fa-times" style="font-size: 14px;"></i>
+                                        Revisi
                                     </button>
 
                                     <!-- Comment Modal -->
@@ -115,7 +116,7 @@
                                         <div class="modal-dialog modal-dialog-centered">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h4 class="modal-title">Konfirmasi Penolakan</h4>
+                                                    <h4 class="modal-title">Konfirmasi Revisi</h4>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>

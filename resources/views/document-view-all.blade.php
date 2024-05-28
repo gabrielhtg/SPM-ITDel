@@ -112,7 +112,7 @@
                                         </thead>
                                         <tbody>
                                         @foreach($documents as $e)
-                                             @if($e->keterangan_status==1 && (strpos($e->give_access_to, '0') !== false))
+                                             @if((strpos($e->give_access_to, '0') !== false))
                                                 <tr>
                                                     <td>{{ $e->nomor_dokumen }}</td>
                                                     <td>

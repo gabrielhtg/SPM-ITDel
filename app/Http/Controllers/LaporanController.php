@@ -332,7 +332,7 @@ public function reject(Request $request, $id)
             $user = User::findOrFail($iduser);
             $createdby = User::findOrFail($laporan->created_by);
             AllServices::addLog(sprintf("%s Tidak Menyetujui %s %s(%d) dari %s ", $user->name,$tipe_laporan->nama_laporan,$tipeLaporan->nama,$tipeLaporan->year,$createdby->name));
-    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Ditolak!']);
+    return redirect()->back()->with('toastData', ['success' => true, 'text' => 'Laporan Direvisi!']);
 }
 
 

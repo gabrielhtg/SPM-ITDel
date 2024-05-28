@@ -209,3 +209,5 @@
 [2024-05-28 13:58:16] Menerima permintaan action dari Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
 [2024-05-28 13:58:29] Menonaktifkan user tesa - User: spmadministrator@gmail.com
 [2024-05-28 13:58:29] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 21:26:32] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-28 21:26:43] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
