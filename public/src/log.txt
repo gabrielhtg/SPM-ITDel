@@ -181,3 +181,33 @@
 =======
 [2024-05-27 12:51:31] Memperbaharui Hero Dokumen - User: spmadministrator@gmail.com
 >>>>>>> de3ca2e9f1fac461755d832492da8ae493bce8a0
+[2024-05-28 10:05:03] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 10:32:39] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 10:32:39] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 10:34:21] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 10:35:34] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 10:35:34] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 10:35:48] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:38:31] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:38:31] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:38:53] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:40:15] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:40:15] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:40:31] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:41:45] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:41:45] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:47:50] Menonaktifkan user ifs21005 - User: spmadministrator@gmail.com
+[2024-05-28 13:47:50] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:51:44] Menonaktifkan user ifs21005 - User: spmadministrator@gmail.com
+[2024-05-28 13:51:44] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:52:02] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:53:11] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:53:11] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:53:26] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:53:40] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:53:40] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:58:16] Menerima permintaan action dari Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:58:29] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:58:29] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 21:26:32] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-05-28 21:26:43] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id

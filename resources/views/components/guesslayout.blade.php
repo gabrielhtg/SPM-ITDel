@@ -132,7 +132,7 @@
 
     
     {{-- Tentang ITDel --}}
-    <section class="p-md-5">
+    <section id="tentang1" class="p-md-5">
       <div class="container p-3">
           @forelse ($guestIntroduction as $item)
           <h1 id="keteranganContainer" class="mb-3">{{ $item->juduldashboard }}</h1>
@@ -330,6 +330,23 @@
   $(document).ready(function() {
     var keteranganWidth = $('#keteranganContainer1')[0].scrollWidth; // Mengukur lebar konten secara keseluruhan
     $('#keteranganContainer1').append('<hr class="my-3" style="border-top: 2px solid black; width: ' + keteranganWidth + 'px;">'); // Menambahkan garis dengan lebar sesuai dengan lebar konten
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    function updateActiveLink() {
+      let index = sections.length;
+
+      while(--index && window.scrollY + 50 < sections[index].offsetTop) {}
+
+      navLinks.forEach((link) => link.classList.remove('active'));
+      navLinks[index].classList.add('active');
+    }
+
+    window.addEventListener('scroll', updateActiveLink);
   });
 </script>
 </body>

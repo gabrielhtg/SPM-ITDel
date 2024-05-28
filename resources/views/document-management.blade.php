@@ -307,7 +307,10 @@
                                 </div>
                                 <div class="modal-body">
                                 <p><strong>Nama Dokumen:</strong> {{ $e->name }}</p>
-                                    <p><strong>Tipe Dokumen:</strong> {{ $e->tipe_dokumen }}</p>
+                                    <p><strong>Tipe Dokumen:</strong>  @php
+                                        $document = $jenis_dokumen->where('id', $e->tipe_dokumen)->first();
+                                    @endphp
+                                    {{ $document ? $document->jenis_dokumen : '' }}</p>
                                     <p><strong>Nomor Dokumen:</strong> {{ $e->nomor_dokumen }}</p>
                                     <p><strong>Deskripsi Dokumen:</strong> {!! strip_tags($e->deskripsi) !!}</p>
                                     <p><strong>Tahun:</strong> {{ $e->year }}</p>

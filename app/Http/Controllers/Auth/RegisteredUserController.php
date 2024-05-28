@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AcceptRegisterMail;
-use App\Mail\RegisterInvitationMail;
 use App\Mail\RejectRegisterMail;
 use App\Mail\ResetPasswordMail;
 use App\Models\AllowedUserModel;
@@ -50,8 +49,19 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        if(auth()->check()) {
+            $allowedEmail = AllowedUserModel::where('email', $request->email)->first();
+
+            if ($allowedEmail == null) {
+                AllowedUserModel::create([
+                    'email' => $request->email,
+                    'created_by' => auth()->user()->username,
+                    'created_at' => now()
+                ]);
+            }
+        }
 
         $data = AllowedUserModel::where('email', $request->email)->first();
         $user = User::where('username', $request->username)->first();
@@ -60,6 +70,8 @@ class RegisteredUserController extends Controller
         if ($data !== null) {
             if (!$user) {
                 try {
+                    $temp = Uuid::uuid4()->toString();
+
                     $userId = User::create([
                         'name' => $request->name,
                         'username' => $request->username,
@@ -67,44 +79,48 @@ class RegisteredUserController extends Controller
                         'phone' => $request->phone,
                         'verified' => true,
                         'status' =>true,
-                        'password' => Hash::make($request->password),
-                        'role' => $request->role
+                        'password' => Hash::make($temp),
+                        'role' => implode(';', $request->roles)
                     ])->id;
 
                     Employee::create([
                         'user_id' => $userId,
                         'name' => $request->name,
-                        'role' => $request->role
+                        'role' => implode(';', $request->roles)
                     ]);
 
 
-                    $role_user = $request->role;
+                    $role_users = $request->roles;
 
                     // Ambil objek RoleModel berdasarkan ID
-                    $role = RoleModel::where('id', $role_user)->first();
+                    foreach ($role_users as $role_user) {
+                        $role = RoleModel::where('id', $role_user)->first();
 
-                    $Laporan = $role->required_to_submit_document;
-
-
-                    $tipeLaporan = explode(';', $Laporan);
+                        $Laporan = $role->required_to_submit_document;
 
 
-                    $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+                        $tipeLaporan = explode(';', $Laporan);
 
-                    foreach ($jenis_laporan as $jenis) {
-                        LogLaporan::create([
-                            'id_jenis_laporan' => $jenis->id,
-                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
-                            'upload_by' => $userId,
-                            'create_at'=>null,
-                            'approve_at'=>null,
-                            'end_date'=>$jenis->end_date,
 
-                        ]);
+                        $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+
+                        foreach ($jenis_laporan as $jenis) {
+                            LogLaporan::create([
+                                'id_jenis_laporan' => $jenis->id,
+                                'id_tipe_laporan'=>$jenis->id_tipelaporan,
+                                'upload_by' => $userId,
+                                'create_at'=>null,
+                                'approve_at'=>null,
+                                'end_date'=>$jenis->end_date,
+                            ]);
+                        }
                     }
 
+
                     AllServices::addLog(sprintf("Menambahkan user %s", $request->name));
-                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
+
+                    Mail::to($request->email)->send(new AcceptRegisterMail("Kamu sudah diregister sebagai " . AllServices::convertRole($request->role) . ". Anda sekarang sudah bisa login dengan password " . $temp));
+                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan']);
                 }
                 catch (QueryException $e) {
                     if ($e->errorInfo[1] == 1062) {
@@ -122,42 +138,42 @@ class RegisteredUserController extends Controller
         return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Menambahkan user ' . $request->name . ' tidak diizinkan']);
     }
 
-    public function sendRegisterInvitationLink(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        ]);
-
-        try {
-            $temp = RegisterInvitationModel::where('email', $request->email)->first();
-
-            if ($temp) {
-                $temp->update([
-                    'role' => $request->role
-                ]);
-                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
-                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Undangan telah dikirim ulang']);
-            }
-
-            else {
-                $reqToken = Uuid::uuid1()->toString();
-
-                RegisterInvitationModel::create([
-                    'email' => $request->email,
-                    'role' => $request->role,
-                    'token' => $reqToken
-                ]);
-
-                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
-
-            }
-
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Undangan terkirim!"]);
-        }
-        catch (QueryException $e) {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Terjadi kesalahan."]);
-        }
-    }
+//    public function sendRegisterInvitationLink(Request $request)
+//    {
+//        $request->validate([
+//            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+//        ]);
+//
+//        try {
+//            $temp = RegisterInvitationModel::where('email', $request->email)->first();
+//
+//            if ($temp) {
+//                $temp->update([
+//                    'role' => $request->role
+//                ]);
+//                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
+//                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Undangan telah dikirim ulang']);
+//            }
+//
+//            else {
+//                $reqToken = Uuid::uuid1()->toString();
+//
+//                RegisterInvitationModel::create([
+//                    'email' => $request->email,
+//                    'role' => $request->role,
+//                    'token' => $reqToken
+//                ]);
+//
+//                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
+//
+//            }
+//
+//            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Undangan terkirim!"]);
+//        }
+//        catch (QueryException $e) {
+//            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Terjadi kesalahan."]);
+//        }
+//    }
 
     /**
      * @param Request $request
@@ -185,27 +201,28 @@ class RegisteredUserController extends Controller
                     'verified' => false,
                     'status' => false,
                     'password' => Hash::make($request->password),
-                    'pending_roles' => $request->role
+                    'pending_roles' => implode(";", $request->roles)
                 ])->id;
 
-                $role_user = $request->role;
+                $role_users = $request->roles;
 
                 // Ambil objek RoleModel berdasarkan ID
-                $role = RoleModel::where('id', $role_user)->first();
-                $Laporan = $role->required_to_submit_document;
-                $tipeLaporan = explode(';', $Laporan);
-                $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+                foreach ($role_users as $role_user) {
+                    $role = RoleModel::where('id', $role_user)->first();
+                    $Laporan = $role->required_to_submit_document;
+                    $tipeLaporan = explode(';', $Laporan);
+                    $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
 
-                foreach ($jenis_laporan as $jenis) {
-                    LogLaporan::create([
-                        'id_jenis_laporan' => $jenis->id,
-                        'id_tipe_laporan'=>$jenis->id_tipelaporan,
-                        'upload_by' => $userId,
-                        'create_at'=>null,
-                        'approve_at'=>null,
-                        'end_date'=>$jenis->end_date,
-
-                    ]);
+                    foreach ($jenis_laporan as $jenis) {
+                        LogLaporan::create([
+                            'id_jenis_laporan' => $jenis->id,
+                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
+                            'upload_by' => $userId,
+                            'create_at'=>null,
+                            'approve_at'=>null,
+                            'end_date'=>$jenis->end_date,
+                        ]);
+                    }
                 }
 
                 $adminRoles = RoleModel::where('is_admin', true)->get();
