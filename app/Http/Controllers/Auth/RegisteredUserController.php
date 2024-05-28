@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Mail\AcceptRegisterMail;
-use App\Mail\RegisterInvitationMail;
 use App\Mail\RejectRegisterMail;
 use App\Mail\ResetPasswordMail;
 use App\Models\AllowedUserModel;
@@ -81,39 +80,42 @@ class RegisteredUserController extends Controller
                         'verified' => true,
                         'status' =>true,
                         'password' => Hash::make($temp),
-                        'role' => $request->role
+                        'role' => implode(';', $request->roles)
                     ])->id;
 
                     Employee::create([
                         'user_id' => $userId,
                         'name' => $request->name,
-                        'role' => $request->role
+                        'role' => implode(';', $request->roles)
                     ]);
 
 
-                    $role_user = $request->role;
+                    $role_users = $request->roles;
 
                     // Ambil objek RoleModel berdasarkan ID
-                    $role = RoleModel::where('id', $role_user)->first();
+                    foreach ($role_users as $role_user) {
+                        $role = RoleModel::where('id', $role_user)->first();
 
-                    $Laporan = $role->required_to_submit_document;
-
-
-                    $tipeLaporan = explode(';', $Laporan);
+                        $Laporan = $role->required_to_submit_document;
 
 
-                    $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+                        $tipeLaporan = explode(';', $Laporan);
 
-                    foreach ($jenis_laporan as $jenis) {
-                        LogLaporan::create([
-                            'id_jenis_laporan' => $jenis->id,
-                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
-                            'upload_by' => $userId,
-                            'create_at'=>null,
-                            'approve_at'=>null,
-                            'end_date'=>$jenis->end_date,
-                        ]);
+
+                        $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+
+                        foreach ($jenis_laporan as $jenis) {
+                            LogLaporan::create([
+                                'id_jenis_laporan' => $jenis->id,
+                                'id_tipe_laporan'=>$jenis->id_tipelaporan,
+                                'upload_by' => $userId,
+                                'create_at'=>null,
+                                'approve_at'=>null,
+                                'end_date'=>$jenis->end_date,
+                            ]);
+                        }
                     }
+
 
                     AllServices::addLog(sprintf("Menambahkan user %s", $request->name));
 
@@ -136,42 +138,42 @@ class RegisteredUserController extends Controller
         return redirect()->route('user-settings-active')->with('toastData', ['success' => false, 'text' => 'Menambahkan user ' . $request->name . ' tidak diizinkan']);
     }
 
-    public function sendRegisterInvitationLink(Request $request)
-    {
-        $request->validate([
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        ]);
-
-        try {
-            $temp = RegisterInvitationModel::where('email', $request->email)->first();
-
-            if ($temp) {
-                $temp->update([
-                    'role' => $request->role
-                ]);
-                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
-                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Undangan telah dikirim ulang']);
-            }
-
-            else {
-                $reqToken = Uuid::uuid1()->toString();
-
-                RegisterInvitationModel::create([
-                    'email' => $request->email,
-                    'role' => $request->role,
-                    'token' => $reqToken
-                ]);
-
-                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
-
-            }
-
-            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Undangan terkirim!"]);
-        }
-        catch (QueryException $e) {
-            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Terjadi kesalahan."]);
-        }
-    }
+//    public function sendRegisterInvitationLink(Request $request)
+//    {
+//        $request->validate([
+//            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+//        ]);
+//
+//        try {
+//            $temp = RegisterInvitationModel::where('email', $request->email)->first();
+//
+//            if ($temp) {
+//                $temp->update([
+//                    'role' => $request->role
+//                ]);
+//                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $temp->token));
+//                return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => 'Undangan telah dikirim ulang']);
+//            }
+//
+//            else {
+//                $reqToken = Uuid::uuid1()->toString();
+//
+//                RegisterInvitationModel::create([
+//                    'email' => $request->email,
+//                    'role' => $request->role,
+//                    'token' => $reqToken
+//                ]);
+//
+//                Mail::to($request->email)->send(new RegisterInvitationMail($request->pesan, $request->role, $reqToken));
+//
+//            }
+//
+//            return redirect()->route('user-settings')->with('toastData', ['success' => true, 'text' => "Undangan terkirim!"]);
+//        }
+//        catch (QueryException $e) {
+//            return redirect()->route('user-settings')->with('toastData', ['success' => false, 'text' => "Terjadi kesalahan."]);
+//        }
+//    }
 
     /**
      * @param Request $request
