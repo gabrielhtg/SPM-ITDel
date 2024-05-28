@@ -46,15 +46,43 @@ class dashboard extends Seeder
             ',
         ]);
         DB::table('hero_dashboard')->insert([
-            'profilhero' => '../profilhero/icon.png',
+            'profilhero' => '../profilhero/spmadministrator.png',
             'judulhero' => 'SPM IT DEL',
             'tambahanhero' => 'Sistem Penjaminan Mutu IT DeL',
             'gambarhero' => '../walpeper/header_admisifoto.jpg',
         ]);
 
         DB::table('table_akreditasi')->insert([
-            'gambarakreditasi' => '../gambarakreditasi/sertifikat.jpeg',
-            'keteranganakreditasi' => 'Melalui keputusan BAN-PT Nomor 1855/BAN-PT/PMT2/2023 yang ditujukan kepada Dr. Arnaldo Marulitua Sinaga, ST., M.InfoTech. (Rektor IT Del), IT Del dinyatakan LOLOS Pemantauan dan Evaluasi Peringkat Akreditasi (PEPA). Dengan demikian, peringkat akreditasi IT Del (B) diperpanjang selama 5 tahun ke depan ( 2023 s.d. 2028).',
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/sertifikat.jpeg',
+                'keteranganakreditasi' => 'Institut Teknologi Del',
+            ],
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/SI.jpg',
+                'keteranganakreditasi' => 'Akreditasi Sistem Informasi',
+            ],
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/TI.jpg',
+                'keteranganakreditasi' => 'Akreditasi Sistem Teknologi Informasi',
+            ],
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/TK.jpg',
+                'keteranganakreditasi' => 'Akreditasi Sistem Teknologi Komputer',
+            ],
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/mr.jpg',
+                'keteranganakreditasi' => 'Akreditasi Manajemen Rekayasa',
+            ],
+            [
+                'judulakreditasi' => ' ',
+                'gambarakreditasi' => '../gambarakreditasi/IF.jpg',
+                'keteranganakreditasi' => 'Akreditasi Informatika',
+            ]
         ]);
     }
 }

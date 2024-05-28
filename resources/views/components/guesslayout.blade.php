@@ -172,14 +172,14 @@
                         @foreach ($akreditasi as $index => $item)
                             <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
                                 @if($item->gambarakreditasi)
-                                    <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="d-block w-100" alt="Gambar Akreditasi" style="object-fit: cover; height: 650px">
+                                    <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="d-block w-100" alt="Gambar Akreditasi" style="object-fit: cover; min-height: 650px;">
                                 @else
                                     <div class="d-block w-100" style="height: 550px; background-color: #ddd;">
                                         <p class="text-center my-auto">No Image Available</p>
                                     </div>
                                 @endif
-                                <div class="carousel-caption d-none d-md-block">
-                                    <h2 style="font-weight: bold; color:black;">{!! $item->keteranganakreditasi !!}</h2>
+                                <div class="carousel-caption d-none d-md-block" >
+                                    <h2 style="font-weight: bold; font-size:42px; color:black;">{!! $item->keteranganakreditasi !!}</h2>
                                 </div>
                             </div>
                         @endforeach
