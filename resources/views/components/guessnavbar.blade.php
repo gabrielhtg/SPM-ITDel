@@ -4,6 +4,10 @@
             'status' => true,
         ]);
     }
+
+    // Check if the current route is a document route
+    $isDocumentRoute = request()->routeIs('getdocument') || request()->routeIs('getdocumentspm') || request()->routeIs('documentManagementAll');
+
 @endphp
 
 <!DOCTYPE html>
@@ -84,7 +88,9 @@
                     @endif
 
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle {{ request()->routeIs('getdocument') || request()->routeIs('getdocumentspm') ? 'active' : '' }}" href="#" id="navbarDropdownDokumen" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="nav-link dropdown-toggle {{ $isDocumentRoute ? 'active' : '' }}" 
+                        href="#" id="navbarDropdownDokumen" role="button" data-bs-toggle="dropdown" 
+                        aria-expanded="false">
                             Dokumen
                         </a>
                         <ul class="dropdown-menu dropdown-menu-sm" aria-labelledby="navbarDropdownDokumen">
