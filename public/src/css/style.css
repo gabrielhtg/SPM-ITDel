@@ -324,7 +324,7 @@ h6 {
     color: #fff;
     font-size: 28px;
     cursor: pointer;
-     display: none;
+    display: none;
     line-height: 0;
     transition: 0.5s;
 }
@@ -371,8 +371,8 @@ h6 {
     transition: 0.3s;
 }
 
-#navbar li a{
-    font-size: 22px !important; 
+#navbar li a {
+    font-size: 22px !important;
 }
 
 .navbar-mobile a,
@@ -528,8 +528,3 @@ h6 {
         line-height: 24px;
     }
 }
-
-
-
-
-

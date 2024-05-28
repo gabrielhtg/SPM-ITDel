@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="col-sm-6">
-                        <h1 class="ml-1 mt-5">Berita AMI IT Del</h1>
+                        <h1 class="ml-1 mt-5">Berita SPM IT Del</h1>
                     </div>
 
                     <div class="container mt-4">
