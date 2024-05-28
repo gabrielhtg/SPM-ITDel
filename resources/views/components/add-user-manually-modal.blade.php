@@ -69,34 +69,34 @@
                         </div>
                     </div>
 
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="input-group">
-                                <input type="password" name="password" class="form-control" placeholder="Kata Sandi" required>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                        </div>
-                    </div>
+{{--                    <div class="row mt-3">--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="input-group">--}}
+{{--                                <input type="password" name="password" class="form-control" placeholder="Kata Sandi" required>--}}
+{{--                                <div class="input-group-append">--}}
+{{--                                    <div class="input-group-text">--}}
+{{--                                        <span class="fas fa-lock"></span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <span class="text-danger">{{ $errors->first('password') }}</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
-                    <div class="row mt-3">
-                        <div class="col">
-                            <div class="input-group">
-                                <input type="password" name="password_confirmation" class="form-control"
-                                       placeholder="Ketik Ulang Kata Sandi" required>
-                                <div class="input-group-append">
-                                    <div class="input-group-text">
-                                        <span class="fas fa-lock"></span>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
-                        </div>
-                    </div>
+{{--                    <div class="row mt-3">--}}
+{{--                        <div class="col">--}}
+{{--                            <div class="input-group">--}}
+{{--                                <input type="password" name="password_confirmation" class="form-control"--}}
+{{--                                       placeholder="Ketik Ulang Kata Sandi" required>--}}
+{{--                                <div class="input-group-append">--}}
+{{--                                    <div class="input-group-text">--}}
+{{--                                        <span class="fas fa-lock"></span>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                     <div class="row mt-3 bg-white">
                         <div class="col">

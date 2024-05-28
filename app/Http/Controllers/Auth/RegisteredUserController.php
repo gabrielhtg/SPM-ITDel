@@ -50,8 +50,19 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:20'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        if(auth()->check()) {
+            $allowedEmail = AllowedUserModel::where('email', $request->email)->first();
+
+            if ($allowedEmail == null) {
+                AllowedUserModel::create([
+                    'email' => $request->email,
+                    'created_by' => auth()->user()->username,
+                    'created_at' => now()
+                ]);
+            }
+        }
 
         $data = AllowedUserModel::where('email', $request->email)->first();
         $user = User::where('username', $request->username)->first();
@@ -60,6 +71,8 @@ class RegisteredUserController extends Controller
         if ($data !== null) {
             if (!$user) {
                 try {
+                    $temp = Uuid::uuid4()->toString();
+
                     $userId = User::create([
                         'name' => $request->name,
                         'username' => $request->username,
@@ -67,7 +80,7 @@ class RegisteredUserController extends Controller
                         'phone' => $request->phone,
                         'verified' => true,
                         'status' =>true,
-                        'password' => Hash::make($request->password),
+                        'password' => Hash::make($temp),
                         'role' => $request->role
                     ])->id;
 
@@ -99,12 +112,13 @@ class RegisteredUserController extends Controller
                             'create_at'=>null,
                             'approve_at'=>null,
                             'end_date'=>$jenis->end_date,
-
                         ]);
                     }
 
                     AllServices::addLog(sprintf("Menambahkan user %s", $request->name));
-                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan user!']);
+
+                    Mail::to($request->email)->send(new AcceptRegisterMail("Kamu sudah diregister sebagai " . AllServices::convertRole($request->role) . ". Anda sekarang sudah bisa login dengan password " . $temp));
+                    return redirect()->route('user-settings-active')->with('toastData', ['success' => true, 'text' => 'Berhasil menambahkan']);
                 }
                 catch (QueryException $e) {
                     if ($e->errorInfo[1] == 1062) {
