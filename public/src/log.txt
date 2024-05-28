@@ -206,3 +206,6 @@
 [2024-05-28 13:53:26] Menambahkan user Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
 [2024-05-28 13:53:40] Menonaktifkan user tesa - User: spmadministrator@gmail.com
 [2024-05-28 13:53:40] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:58:16] Menerima permintaan action dari Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
+[2024-05-28 13:58:29] Menonaktifkan user tesa - User: spmadministrator@gmail.com
+[2024-05-28 13:58:29] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com

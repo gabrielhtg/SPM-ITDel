@@ -111,23 +111,33 @@
                     </div>
                 </div>
 
-                <div class="row mt-3">
-                    <div class="col">
-                        <div class="input-group">
-                            <select name="role" class="select2" style="width: 100%" required>
-                                <option></option>
-                                @foreach($roles as $e)
-                                    @if($e->role != "Admin")
-                                        @if($e->status)
-                                            <option value="{{ $e->id }}">{{ $e->role }}</option>
-                                        @endif
-                                    @endif
+{{--                <div class="row mt-3">--}}
+{{--                    <div class="col">--}}
+{{--                        <div class="input-group">--}}
+{{--                            <select name="role" class="select2" style="width: 100%" required>--}}
+{{--                                <option></option>--}}
+{{--                                @foreach($roles as $e)--}}
+{{--                                    @if($e->role != "Admin")--}}
+{{--                                        @if($e->status)--}}
+{{--                                            <option value="{{ $e->id }}">{{ $e->role }}</option>--}}
+{{--                                        @endif--}}
+{{--                                    @endif--}}
 
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
+{{--                                @endforeach--}}
+{{--                            </select>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+                <div class="input-group mt-3">
+                    <label for="edit-profile"></label>
+                    <select id="edit-profile" name="roles[]" class="form-control select2" multiple="multiple" style="width: 100%;" required>
+                        @foreach($roles as $e)
+                            <option value="{{ $e->id }}">{{ $e->role }}</option>
+                        @endforeach
+                    </select>
                 </div>
+
 
                 <div class="row mt-3">
                     <div class="col">

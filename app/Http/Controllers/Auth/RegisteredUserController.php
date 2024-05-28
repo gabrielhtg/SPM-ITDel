@@ -201,27 +201,28 @@ class RegisteredUserController extends Controller
                     'verified' => false,
                     'status' => false,
                     'password' => Hash::make($request->password),
-                    'pending_roles' => $request->role
+                    'pending_roles' => implode(";", $request->roles)
                 ])->id;
 
-                $role_user = $request->role;
+                $role_users = $request->roles;
 
                 // Ambil objek RoleModel berdasarkan ID
-                $role = RoleModel::where('id', $role_user)->first();
-                $Laporan = $role->required_to_submit_document;
-                $tipeLaporan = explode(';', $Laporan);
-                $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
+                foreach ($role_users as $role_user) {
+                    $role = RoleModel::where('id', $role_user)->first();
+                    $Laporan = $role->required_to_submit_document;
+                    $tipeLaporan = explode(';', $Laporan);
+                    $jenis_laporan = JenisLaporan::whereIn('id_tipelaporan', $tipeLaporan)->get();
 
-                foreach ($jenis_laporan as $jenis) {
-                    LogLaporan::create([
-                        'id_jenis_laporan' => $jenis->id,
-                        'id_tipe_laporan'=>$jenis->id_tipelaporan,
-                        'upload_by' => $userId,
-                        'create_at'=>null,
-                        'approve_at'=>null,
-                        'end_date'=>$jenis->end_date,
-
-                    ]);
+                    foreach ($jenis_laporan as $jenis) {
+                        LogLaporan::create([
+                            'id_jenis_laporan' => $jenis->id,
+                            'id_tipe_laporan'=>$jenis->id_tipelaporan,
+                            'upload_by' => $userId,
+                            'create_at'=>null,
+                            'approve_at'=>null,
+                            'end_date'=>$jenis->end_date,
+                        ]);
+                    }
                 }
 
                 $adminRoles = RoleModel::where('is_admin', true)->get();
