@@ -14,8 +14,7 @@ class AkreditasiController extends Controller
 
     public function guestHero()
     {
-        $herosection =  Akreditasi::whereNotNull('gambarakreditasi')->orderByDesc('id')->get();
-        
+        $herosection =  Akreditasi::whereNotNull('gambarakreditasi')->orderByDesc('id')->get();        
 
         return view('dashboard-admin', compact('herosection'));
     }
@@ -23,9 +22,10 @@ class AkreditasiController extends Controller
     public function indexherosection()
     {
         $dashboardakreditasi = Akreditasi::whereNotNull('gambarakreditasi')->orderByDesc('id')->get();
+        // $specialakre = Akreditasi::where('judul', 'ilike', '%it del%')->get();
 
         $data = [
-            'akreditasi' => $dashboardakreditasi
+            'akreditasi' => $dashboardakreditasi,
         ];
 
         return view('dashboard-admin', $data);
@@ -36,6 +36,7 @@ class AkreditasiController extends Controller
         $request->validate([
             'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
+            'judulakreditasi' => 'required',
         ]);
 
         // Inisialisasi nama file dengan string kosong
@@ -51,7 +52,7 @@ class AkreditasiController extends Controller
 
         // Simpan data pengumuman ke dalam database
         Akreditasi::create([
-            'judulakreditasi' => " ",
+            'judulakreditasi' => $request->judulakreditasi,
             'gambarakreditasi' => $gambarakreditasi,
             'keteranganakreditasi' => $request->keteranganakreditasi,
         ]);
@@ -104,6 +105,7 @@ class AkreditasiController extends Controller
         $request->validate([
             'gambarakreditasi' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
             'keteranganakreditasi' => 'required',
+            'judulakreditasi' => 'required'
         ]);
         // Cari data pengumuman yang akan diupdate
         $data = Akreditasi::find($id);
@@ -133,7 +135,7 @@ class AkreditasiController extends Controller
 
         // dd($request->keteranganakreditasi);
         // Update data pengumuman dengan informasi yang baru
-        $data->judulakreditasi = " ";
+        $data->judulakreditasi = $request->judulakreditasi;
         $data->keteranganakreditasi = $request->keteranganakreditasi;
         $data->save();
 

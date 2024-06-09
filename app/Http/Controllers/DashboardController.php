@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Dashboard;
 use App\Models\HeroDashboard;
 use App\Models\News;
+use App\Models\Akreditasi;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -23,11 +24,14 @@ class DashboardController extends Controller
             ->orderBy('id', 'desc')
             ->take(6)
             ->get();
+        
+        $specialakre = Akreditasi::find(1);
 
         $data = [
             'dashboard' => $dashboard,
             'herodashboard' => $herodashboard,
             'news' => $news,
+            'specialakre' => $specialakre
         ];
 
         return view('dashboard', $data);

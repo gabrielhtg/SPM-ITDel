@@ -28,6 +28,7 @@
     <link rel="stylesheet" href="{{ asset("splide/dist/css/splide.min.css") }}">
 
     <style>
+
       .desc-card {
         font-size: 15px;
       }
@@ -151,56 +152,63 @@
         </div>
       </section>
 
-
-      {{-- Akreditasi----------------------------------------------------------------------------------------------}}
-      <section id="akreditasi1" class="p-md-5" style="margin-top:-80px;">
-        <div class="container p-3">
-            @if($akreditasi->isEmpty())
-                <p>No data available.</p>
-            @else
-                <h1 id="keteranganContainer1" class="mb-3">Akreditasi</h1>
-                <div id="carouselExampleCaptions" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-                    <!-- Indicators -->
-                    <div class="carousel-indicators">
-                        @foreach ($akreditasi as $index => $item)
-                            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="{{ $index }}" class="{{ $index == 0 ? 'active' : '' }}" aria-current="{{ $index == 0 ? 'true' : 'false' }}" aria-label="Slide {{ $index + 1 }}"></button>
-                        @endforeach
-                    </div>
-    
-                    <!-- Inner -->
-                    <div class="carousel-inner">
-                        @foreach ($akreditasi as $index => $item)
-                            <div class="carousel-item {{ $index == 0 ? 'active' : '' }}">
-                                @if($item->gambarakreditasi)
-                                    <img src="{{ asset('src/gambarakreditasi/' . $item->gambarakreditasi) }}" class="d-block w-100" alt="Gambar Akreditasi" style="object-fit: cover; min-height: 650px;">
-                                @else
-                                    <div class="d-block w-100" style="height: 550px; background-color: #ddd;">
-                                        <p class="text-center my-auto">No Image Available</p>
-                                    </div>
-                                @endif
-                                <div class="carousel-caption d-none d-md-block" >
-                                    <h2 style="font-weight: bold; font-size:42px; color:black;">{!! $item->keteranganakreditasi !!}</h2>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                    <!-- Inner -->
-    
-                    <!-- Controls -->
-                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Previous</span>
-                    </button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="visually-hidden">Next</span>
-                    </button>
-                </div>
-            @endif
+      {{-- example  --}}
+      <div class="container">
+        <h1 class="mb-3">Akreditasi IT Del</h1>
+        <div class="d-grid place-items-center">
+          <div class="card p-1">
+            <img src="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title text-bold">{{ $specialakre->judulakreditasi }}</h5>
+              <p class="card-text">{{ $specialakre->keteranganakreditasi }}</p>
+              <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
     
-    {{-- @endisset --}}
+      <section class="pt-5 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <h3 class="mb-3">Akreditasi Program Studi</h3>
+                </div>
+                <div class="col-6 text-right">
+                    <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
+                        <i class="fa fa-arrow-left"></i>
+                    </a>
+                    <a class="btn btn-primary mb-3 " href="#carouselExampleIndicators2" role="button" data-slide="next">
+                        <i class="fa fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="col-12">
+                    <div id="carouselExampleIndicators2" class="carousel slide" data-ride="carousel" data-ride="1000">
+                        <div class="carousel-inner">
+                            @foreach($akreditasi->chunk(3) as $chunk)
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <div class="row">
+                                        @foreach($chunk as $akre)
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card p-1">
+                                                    <img class="img-fluid" alt="100%x280" src="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">
+                                                    <div class="card-body">
+                                                        <h4 class="card-title text-bold">{{ $akre->judulakreditasi }}</h4>
+                                                        <p class="card-text">{{ $akre->keteranganakreditasi }}</p>
+                                                        <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">Unduh</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>  
+      {{-- end of example --}}
 
     <section id="news-view1" class="p-md-5">
       <div class="container p-4">
@@ -299,6 +307,40 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{ asset("dist/js/pages/dashboard.js") }}"></script>
 <script src="{{ asset('splide/dist/js/splide.min.js') }}"></script>
+
+{{-- handle download akreditasi image --}}
+<script>
+  const downloadButtons = document.querySelectorAll('.dwnld-specialakr');
+
+  downloadButtons.forEach(button => {
+      button.addEventListener('click', downloadImage);
+  });
+
+  function downloadImage(event) {
+    const button = event.target;
+    const imageUrl = button.dataset.imageUrl;
+
+    // Create a blob URL from the image URL
+    fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            // Create a temporary link to the blob
+            const blobUrl = URL.createObjectURL(blob);
+
+            // Create a virtual download link
+            const downloadLink = document.createElement('a');
+            downloadLink.href = blobUrl;
+            downloadLink.download = button.textContent; // Set filename from button text
+
+            // Trigger the download
+            downloadLink.click();
+
+            // Revoke the temporary link after download
+            URL.revokeObjectURL(blobUrl);
+        });
+  }
+</script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var splideElement = document.querySelector('.splide');

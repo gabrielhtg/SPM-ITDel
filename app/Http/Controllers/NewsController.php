@@ -135,7 +135,7 @@ class NewsController extends Controller
 
             $news->save();
 
-            AllServices::addLog(sprintf("Menghapus Berita \"%s\"", implode(' ', array_slice(str_word_count($request->title, 1), 0, 10))));
+            AllServices::addLog(sprintf("Menambah Berita \"%s\"", implode(' ', array_slice(str_word_count($request->title, 1), 0, 10))));
             return redirect('news')->with('toastData', ['success' => true, 'text' => 'Berhasil Menambahkan Berita']);
         }
     }

@@ -54,34 +54,34 @@ class dashboard extends Seeder
 
         DB::table('table_akreditasi')->insert([
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Institut Teknologi Del',
                 'gambarakreditasi' => '../gambarakreditasi/sertifikat.jpeg',
-                'keteranganakreditasi' => 'Institut Teknologi Del',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Institut Teknologi Del',
             ],
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Sistem Informasi',
                 'gambarakreditasi' => '../gambarakreditasi/SI.jpg',
-                'keteranganakreditasi' => 'Akreditasi Sistem Informasi',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Program Studi Sistem Informasi',
             ],
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Teknologi Informasi',
                 'gambarakreditasi' => '../gambarakreditasi/TI.jpg',
-                'keteranganakreditasi' => 'Akreditasi Sistem Teknologi Informasi',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Program Studi Teknologi Informasi',
             ],
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Teknologi Komputer',
                 'gambarakreditasi' => '../gambarakreditasi/TK.jpg',
-                'keteranganakreditasi' => 'Akreditasi Sistem Teknologi Komputer',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Program Studi Teknologi Komputer',
             ],
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Manajemen Rekayasa',
                 'gambarakreditasi' => '../gambarakreditasi/mr.jpg',
-                'keteranganakreditasi' => 'Akreditasi Manajemen Rekayasa',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Program Studi Manajemen Rekayasa',
             ],
             [
-                'judulakreditasi' => ' ',
+                'judulakreditasi' => 'Informatika',
                 'gambarakreditasi' => '../gambarakreditasi/IF.jpg',
-                'keteranganakreditasi' => 'Akreditasi Informatika',
+                'keteranganakreditasi' => 'Berikut merupakan akreditasi Program Studi Informatikas',
             ]
         ]);
     }
