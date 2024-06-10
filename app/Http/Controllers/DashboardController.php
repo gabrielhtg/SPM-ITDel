@@ -51,10 +51,12 @@ class DashboardController extends Controller
     {
 
         $dashboard = Dashboard::all()->sortByDesc('id');
+        $akreditasi = Akreditasi::all();
 
         $data = [
             'dashboard' => $dashboard,
-            'active_sidebar' => [3, 0]
+            'akreditasi' => $akreditasi,
+            'active_sidebar' => [3, 0],
         ];
 
         return view('dashboard-admin', $data);
