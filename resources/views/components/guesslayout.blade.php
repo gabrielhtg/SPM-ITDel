@@ -161,7 +161,9 @@
             <div class="card-body">
               <h5 class="card-title text-bold">{{ $specialakre->judulakreditasi }}</h5>
               <p class="card-text">{{ $specialakre->keteranganakreditasi }}</p>
-              <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
+              <div class="d-flex justify-content-end">
+                <a class="btn btn-primary dwnld-specialakr " data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
+              </div>
             </div>
           </div>
         </div>
@@ -194,7 +196,9 @@
                                                     <div class="card-body">
                                                         <h4 class="card-title text-bold">{{ $akre->judulakreditasi }}</h4>
                                                         <p class="card-text">{{ $akre->keteranganakreditasi }}</p>
-                                                        <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">Unduh</a>
+                                                        <div class="d-flex justify-content-end">
+                                                          <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">Unduh</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
