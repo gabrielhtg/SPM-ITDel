@@ -195,7 +195,7 @@
                                                     <img class="img-fluid" alt="100%x280" src="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">
                                                     <div class="card-body">
                                                         <h4 class="card-title text-bold">{{ $akre->judulakreditasi }}</h4>
-                                                        <p class="card-text">{{ $akre->keteranganakreditasi }}</p>
+                                                        <div class="card-text mb-4">{!! $akre->keteranganakreditasi !!}</div>
                                                         <div class="d-flex justify-content-end">
                                                           <a class="btn btn-primary dwnld-specialakr" data-image-url="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">Unduh</a>
                                                         </div>

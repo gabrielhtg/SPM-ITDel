@@ -1,5 +1,5 @@
 <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#modal-akreditasi">
-    <i class="fas fa-plus"></i><span style="margin-left: 5px">Tambahkan Akreditasi ITDel</span>
+    <i class="fas fa-plus"></i><span style="margin-left: 5px">Tambahkan Akreditasi</span>
 </button>
 
 <div class="modal fade" id="modal-akreditasi">
@@ -14,6 +14,11 @@
             <div class="modal-body">
                 <form id="form-addAkreditasisection" method="POST" action="{{ route('dashboard-akreditasi-add') }}" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group mt-1">
+                        <label for="title">Judul Akreditasi</label>
+                        <input type="text" name="judulakreditasi" id="judulakreditasi" class="form-control" required>
+                    </div>
+
                     <label for="summernote">Keterangan Akreditasi</label>
                     <textarea class="summernote" name="keteranganakreditasi"></textarea>
 

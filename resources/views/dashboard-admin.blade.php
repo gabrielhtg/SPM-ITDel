@@ -230,10 +230,98 @@
 
                 {{--AKREDITASI------------------------------------------------------------------------------------------------ --}}
 
-
+                {{-- it del akreditasi  --}}
                 <div class="card" style="border: 2px solid rgb(62, 152, 208);margin:40px; padding:40px;">
                     <h4 class="card-header font-weight-bold fs-5">
-                        Akreditasi 
+                        Akreditasi IT Del
+                    </h4>
+                    
+                    <div class="card-body">    
+                        <div class="list-group">
+                            <table class="table">
+                                <tbody>
+                                    
+                                @forelse ($akreditasi as $e)
+                                    @if ($e->id == 1)  <!-- Tambahkan pengecekan untuk id 1 -->
+                                    <div class="container-ann1">
+                                        <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
+                                            <tr>                                    
+                                                <td class="align-items-center">
+                                                    <a href="{{ route('akreditasi-detail', ['id' => $e->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $e->judulakreditasi }}</a>
+                                                </td>
+                                                <td style="width: 190px;">
+                                                    <div class='d-flex justify-content-center' style="flex-shrink: 4;">
+                                                        <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-akreditasi-{{$e->id}}">
+                                                            Update
+                                                        </button>
+
+                                                        <div class="modal fade" id="modal-update-akreditasi-{{$e->id}}">
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Edit Akreditasi</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form id="form-editakreditasi-{{ $e->id }}" method="POST" action="{{ route('dashboard-akreditasi-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <div class="form-group mt-1">
+                                                                                <label for="title">Judul Akreditasi</label>
+                                                                                <input type="text" name="judulakreditasi" value="{!! $e->judulakreditasi !!}" id="judulakreditasi" class="form-control" required>
+                                                                            </div>
+                                                        
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputFile">Gambar Akreditasi</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="custom-file">
+                                                                                        <input type="file" class="custom-file-input" id="gambarakreditasi" name="gambarakreditasi">
+                                                                                        @if ($e->gambarakreditasi)
+                                                                                            <label id="inputLabel" class="custom-file-label" for="file">{{ $e->gambarakreditasi }}</label>
+                                                                                        @else
+                                                                                            <label id="inputLabel" class="custom-file-label" for="file">Pilih Gambar</label>
+                                                                                        @endif
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                        
+                                                                            <label for="summernote">Keterangan Akreditasi</label>
+                                                                            <textarea class="summernote" name="keteranganakreditasi">{!! $e->keteranganakreditasi !!}</textarea>
+
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                        <button type="submit" form="form-editakreditasi-{{ $e->id }}" class="btn btn-primary">Ubah Akreditasi</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </div>
+                                    @endif
+                                @empty
+                                <a href="#" class="list-group-item list-group-item-action">Belum ada data Akreditasi</a>
+                                @endforelse
+
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                    
+                </div>
+                {{-- end of it del akreditasi --}}
+
+
+                {{-- akreditasi --}}
+                <div class="card" style="border: 2px solid rgb(62, 152, 208);margin:40px; padding:40px;">
+                    <h4 class="card-header font-weight-bold fs-5">
+                        Akreditasi Program Studi
                     </h4>
                     <div style="width:250px;margin-left:20px;margin-top:30px;">
                         @include('components.add-dashboard-akreditasi-about')
@@ -245,86 +333,83 @@
                                 <tbody>
                                     
                                 @forelse ($akreditasi as $e)
+                                    @if ($e->id != 1)  <!-- Tambahkan pengecekan untuk mengecualikan id 1 -->
+                                    <div class="container-ann1">
+                                        <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
+                                            <tr>                                    
+                                                <td class="align-items-center">
+                                                    <a href="{{ route('akreditasi-detail', ['id' => $e->id]) }}" class="list-group-item-action" style="flex: 1;">{{ $e->judulakreditasi }}</a>
+                                                </td>
+                                                <td style="width: 190px;">
+                                                    <div style="flex-shrink: 4;">
+                                                        <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-akreditasi-{{$e->id}}">
+                                                            Update
+                                                        </button>
 
-                                <div class="container-ann1">
-                                    <div class="flex-wrap" style="display: flex; justify-content: space-between; align-items: center;">
-                                        <tr>                                    
-                                            <td class="align-items-center">
-                                                <a href="{{ route('akreditasi-detail', ['id' => 1]) }}  " class="list-group-item-action" style="flex: 1;">{!! $e->keteranganakreditasi !!}</a>
-                                            </td>
-                                            <td style="width: 190px;">
-                                                <div style="flex-shrink: 4;">
-                                                    <button type="button" class="btn btn-warning" style="padding: 5px 15px" data-toggle="modal" data-target="#modal-update-akreditasi-{{$e->id}}" >
-                                                        Update
-                                                    </button>
-
-                                                    <div class="modal fade" id="modal-update-akreditasi-{{$e->id}}">
-                                                        <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h4 class="modal-title">Edit Akreditasi</h4>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <form id="form-editakreditasi" method="POST" action="{{ route('dashboard-akreditasi-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
-                                                                        @csrf
-                                                                        <div class="form-group mt-1">
-                                                                            <label for="title">Judul Besar</label>
-                                                                            <input type="text" name="judulakreditasi" value="{!! $e->judulakreditasi !!} " id="judulakreditasi" class="form-control" required>
-                                                                        </div>
-                                                    
-                                                                        <div class="form-group">
-                                                                            <label for="exampleInputFile">gambar akreditasi</label>
-                                                                            <div class="input-group">
-                                                                                <div class="custom-file">
-                                                                                    <input type="file" class="custom-file-input" id="gambarakreditasi" name="gambarakreditasi">
-                                                                                    @if (!$e->gambarakreditasi == "")
-                                                                                        <label id="inputLabel" class="custom-file-label" for="file">{{ $e->gambarakreditasi }}</label>
-                                                                                    @else
-                                                                                        <label id="inputLabel" class="custom-file-label" for="file">Pilih Gambar</label>
-                                                                                    @endif
+                                                        <div class="modal fade" id="modal-update-akreditasi-{{$e->id}}">
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h4 class="modal-title">Edit Akreditasi</h4>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <form id="form-editakreditasi-{{ $e->id }}" method="POST" action="{{ route('dashboard-akreditasi-update', ['id' => $e->id]) }}" enctype="multipart/form-data">
+                                                                            @csrf
+                                                                            <div class="form-group mt-1">
+                                                                                <label for="title">Judul Akreditasi</label>
+                                                                                <input type="text" name="judulakreditasi" value="{!! $e->judulakreditasi !!}" id="judulakreditasi" class="form-control" required>
+                                                                            </div>
+                                                        
+                                                                            <div class="form-group">
+                                                                                <label for="exampleInputFile">Gambar Akreditasi</label>
+                                                                                <div class="input-group">
+                                                                                    <div class="custom-file">
+                                                                                        <input type="file" class="custom-file-input" id="gambarakreditasi" name="gambarakreditasi">
+                                                                                        @if ($e->gambarakreditasi)
+                                                                                            <label id="inputLabel" class="custom-file-label" for="file">{{ $e->gambarakreditasi }}</label>
+                                                                                        @else
+                                                                                            <label id="inputLabel" class="custom-file-label" for="file">Pilih Gambar</label>
+                                                                                        @endif
+                                                                                    </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </div>
-                                                    
-                                                                        <label for="summernote">Keterangan Akreditasi</label>
-                                                                        <textarea class="summernote" name="keteranganakreditasi">{!! $e->keteranganakreditasi !!}</textarea>
+                                                        
+                                                                            <label for="summernote">Keterangan Akreditasi</label>
+                                                                            <textarea class="summernote" name="keteranganakreditasi">{!! $e->keteranganakreditasi !!}</textarea>
 
-                                                                    </form>
-                                                                </div>
-                                                                <div class="modal-footer justify-content-between">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                                                    <button type="submit" form="form-editakreditasi" class="btn btn-primary">Ubah Akreditasi</button>
+                                                                        </form>
+                                                                    </div>
+                                                                    <div class="modal-footer justify-content-between">
+                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                                                                        <button type="submit" form="form-editakreditasi-{{ $e->id }}" class="btn btn-primary">Ubah Akreditasi</button>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                
+                                                        <button type="button" class="btn btn-danger" style="padding: 5px 15px" data-toggle="modal">
+                                                            <a href="{{ route('dashboard-akreditasi-delete', ['id' => $e->id]) }}" style="color: black">Delete</a>
+                                                        </button>
                                                     </div>
-                                            
-                                                    <button type="button" class="btn btn-danger" style="padding: 5px 15px" data-toggle="modal">
-                                                        <a href="{{ route('dashboard-akreditasi-delete', ['id' => $e->id]) }}" style="color: black">Delete</a>
-                                                    </button>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        </div>
                                     </div>
-                                </div>
+                                    @endif
                                 @empty
                                 <a href="#" class="list-group-item list-group-item-action">Belum ada data Akreditasi</a>
                                 @endforelse
-            
+
                                 </tbody>
                             </table>
-            
+
                         </div>
                     </div>
-                    
                 </div>
-
-
-                
-                
+                {{-- end of akreditasi --}}
             </div>
 
             

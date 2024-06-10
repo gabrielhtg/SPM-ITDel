@@ -26,12 +26,14 @@ class DashboardController extends Controller
             ->get();
         
         $specialakre = Akreditasi::find(1);
+        $akreditasi = Akreditasi::where('id', '!=', 1)->get();
 
         $data = [
             'dashboard' => $dashboard,
             'herodashboard' => $herodashboard,
             'news' => $news,
-            'specialakre' => $specialakre
+            'specialakre' => $specialakre,
+            'akreditasi' => $akreditasi,
         ];
 
         return view('dashboard', $data);
