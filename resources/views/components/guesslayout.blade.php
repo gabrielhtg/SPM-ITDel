@@ -153,23 +153,24 @@
       </section>
 
       {{-- example  --}}
-      <div class="container">
-        <h1 class="mb-3">Akreditasi IT Del</h1>
-        <div class="d-grid place-items-center">
-          <div class="card p-1">
-            <img src="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title text-bold">{{ $specialakre->judulakreditasi }}</h5>
-              <p class="card-text">{{ $specialakre->keteranganakreditasi }}</p>
-              <div class="d-flex justify-content-end">
-                <a class="btn btn-primary dwnld-specialakr " data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
+      <section id="akreditasi1" class="pt-5 pb-5">
+        <div class="container">
+          <h1 class="mb-3">Akreditasi IT Del</h1>
+          <div class="d-grid place-items-center">
+            <div class="card p-1">
+              <img src="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title text-bold">{{ $specialakre->judulakreditasi }}</h5>
+                <p class="card-text">{{ $specialakre->keteranganakreditasi }}</p>
+                <div class="d-flex justify-content-end">
+                  <a class="btn btn-primary dwnld-specialakr " data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     
-      <section class="pt-5 pb-5">
+      
         <div class="container">
             <div class="row">
                 <div class="col-6">
