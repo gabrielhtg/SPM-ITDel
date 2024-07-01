@@ -51,7 +51,7 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1 class="m-0">Struktur Organisasi SPM Institut Teknologi Del</h1>
+                            <h1 class="m-0">Struktur Organisasi Institut Teknologi Del</h1>
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -163,7 +163,7 @@
                 $('#modal-responsible').text(`Responsible to: ${responsible}`);
                 $('#modal-informable').text(`Inform to: ${informable}`);
                 $('#modal-accountable').text(`Accountable to: ${accountable}`);
-                $('#modal-employee').text(`Employees: ${employee}`);
+                $('#modal-employee').text(`Members consist of: ${employee}`);
             });
         });
 

@@ -156,12 +156,12 @@
       <section id="akreditasi1" class="pt-5 pb-5">
         <div class="container">
           <h1 class="mb-3">Akreditasi IT Del</h1>
-          <div class="d-grid place-items-center">
-            <div class="card p-1">
+          <div class="d-flex justify-content-center place-items-center">
+            <div class="card p-1 shadow-none">
               <img src="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title text-bold">{{ $specialakre->judulakreditasi }}</h5>
-                <p class="card-text">{{ $specialakre->keteranganakreditasi }}</p>
+                <p class="card-text">{!! $specialakre->keteranganakreditasi !!}</p>
                 <div class="d-flex justify-content-end">
                   <a class="btn btn-primary dwnld-specialakr " data-image-url="{{ asset('src/gambarakreditasi/' . $specialakre->gambarakreditasi) }}">Unduh</a>
                 </div>
@@ -171,10 +171,10 @@
         </div>
     
       
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-6">
-                    <h3 class="mb-3">Akreditasi Program Studi</h3>
+                    <h3>Akreditasi Program Studi</h3>
                 </div>
                 <div class="col-6 text-right">
                     <a class="btn btn-primary mb-3 mr-1" href="#carouselExampleIndicators2" role="button" data-slide="prev">
@@ -192,7 +192,7 @@
                                     <div class="row">
                                         @foreach($chunk as $akre)
                                             <div class="col-md-4 mb-3">
-                                                <div class="card p-1">
+                                                <div class="card p-1 shadow-none">
                                                     <img class="img-fluid" alt="100%x280" src="{{ asset('src/gambarakreditasi/' . $akre->gambarakreditasi) }}">
                                                     <div class="card-body">
                                                         <h4 class="card-title text-bold">{{ $akre->judulakreditasi }}</h4>

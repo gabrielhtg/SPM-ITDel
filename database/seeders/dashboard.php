@@ -48,7 +48,7 @@ class dashboard extends Seeder
         DB::table('hero_dashboard')->insert([
             'profilhero' => '../profilhero/spmadministrator.png',
             'judulhero' => 'SPM IT DEL',
-            'tambahanhero' => 'Sistem Penjaminan Mutu IT DeL',
+            'tambahanhero' => 'Sistem Penjaminan Mutu IT Del',
             'gambarhero' => '../walpeper/header_admisifoto.jpg',
         ]);
 
