@@ -211,3 +211,8 @@
 [2024-05-28 13:58:29] Menonaktifkan employee Tesalonika Aprisda Sitopu - User: spmadministrator@gmail.com
 [2024-05-28 21:26:32] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Menyetujui Laporan TriWulan Maret(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
 [2024-05-28 21:26:43] Dr. Arnaldo Marulitua Sinaga, S.T, M.InfoTech Tidak Menyetujui Laporan TriWulan Juni(2024) dari Indra Hartarto Tambunan, ST., M.S.,Ph.D  - User: aldo@del.ac.id
+[2024-07-02 14:38:49] Mengedit role Ketua Program Studi D4 Teknologi Rekayasa Perangkat Lunak - User: spmadministrator@gmail.com
+[2024-07-02 14:39:41] Mengedit role Ketua Program Studi D4 Teknologi Rekayasa Perangkat Lunak - User: spmadministrator@gmail.com
+[2024-07-02 14:49:52] Menambahkan Dokumen Makan Goreng - User: spmadministrator@gmail.com
+[2024-07-02 14:57:26] Memperbaharui Dokumen Makan Goreng - User: spmadministrator@gmail.com
+[2024-07-02 15:00:12] Memperbaharui Dokumen Makan Goreng - User: spmadministrator@gmail.com
