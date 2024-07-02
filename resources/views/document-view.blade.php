@@ -127,7 +127,7 @@
                                                                 @else
                                                                     <a href="{{ route('document-detail', ['id' => $e->id]) }}">{{ $e->name }}</a>
                                                                 @endif
-                                                            </div>
+                                                  </div>
                                                         </div>
                                                     </td>
 
